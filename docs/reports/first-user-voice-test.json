@@ -1,0 +1,177 @@
+{
+  "scenario": "Primera prueba con voz del usuario tras calibración local",
+  "wakeword_detections": 3,
+  "scores": [
+    0.6152437329292297,
+    0.634182870388031,
+    0.6230959892272949
+  ],
+  "sessions_ended_by_timeout": 3,
+  "last_state": "DORMANT",
+  "limitations": "Sin anotación independiente de intentos, latencia acústica, ruido ni falsos positivos por hora; señal sonora no confirmada por el usuario.",
+  "events": [
+    {
+      "time": "2026-11-09T23:36:57.142412+00:00",
+      "level": "INFO",
+      "event": "application_start version=0.1.0 phase=1"
+    },
+    {
+      "time": "2026-11-09T23:36:57.455944+00:00",
+      "level": "INFO",
+      "event": "audio_ready",
+      "generation": 0,
+      "session": 0,
+      "device": {
+        "index": 9,
+        "name": "Varios micrófonos (Realtek(R) Audio)",
+        "rate": 48000.0,
+        "host": "Windows WASAPI"
+      },
+      "rate": 48000,
+      "target": "16000 Hz mono s16le",
+      "frame_bytes": 960
+    },
+    {
+      "time": "2026-11-09T23:36:57.457075+00:00",
+      "level": "INFO",
+      "event": "state_changed",
+      "generation": 0,
+      "session": 0,
+      "previous": "STARTING",
+      "state": "DORMANT",
+      "reason": "resources_ready"
+    },
+    {
+      "time": "2026-11-09T23:37:18.207211+00:00",
+      "level": "INFO",
+      "event": "state_changed",
+      "generation": 0,
+      "session": 1,
+      "previous": "DORMANT",
+      "state": "AWAKE",
+      "reason": "wakeword"
+    },
+    {
+      "time": "2026-11-09T23:37:18.208547+00:00",
+      "level": "INFO",
+      "event": "wakeword_detected",
+      "generation": 0,
+      "session": 1,
+      "score": 0.6152437329292297,
+      "manual": false
+    },
+    {
+      "time": "2026-11-09T23:37:18.208547+00:00",
+      "level": "INFO",
+      "event": "session_started",
+      "generation": 0,
+      "session": 1
+    },
+    {
+      "time": "2026-11-09T23:37:28.207480+00:00",
+      "level": "INFO",
+      "event": "session_ended",
+      "generation": 0,
+      "session": 1,
+      "reason": "session_timeout"
+    },
+    {
+      "time": "2026-11-09T23:37:28.209075+00:00",
+      "level": "INFO",
+      "event": "state_changed",
+      "generation": 0,
+      "session": 1,
+      "previous": "AWAKE",
+      "state": "DORMANT",
+      "reason": "session_timeout"
+    },
+    {
+      "time": "2026-11-09T23:37:41.778046+00:00",
+      "level": "INFO",
+      "event": "state_changed",
+      "generation": 0,
+      "session": 2,
+      "previous": "DORMANT",
+      "state": "AWAKE",
+      "reason": "wakeword"
+    },
+    {
+      "time": "2026-11-09T23:37:41.779187+00:00",
+      "level": "INFO",
+      "event": "wakeword_detected",
+      "generation": 0,
+      "session": 2,
+      "score": 0.634182870388031,
+      "manual": false
+    },
+    {
+      "time": "2026-11-09T23:37:41.779187+00:00",
+      "level": "INFO",
+      "event": "session_started",
+      "generation": 0,
+      "session": 2
+    },
+    {
+      "time": "2026-11-09T23:37:51.779023+00:00",
+      "level": "INFO",
+      "event": "session_ended",
+      "generation": 0,
+      "session": 2,
+      "reason": "session_timeout"
+    },
+    {
+      "time": "2026-11-09T23:37:51.779023+00:00",
+      "level": "INFO",
+      "event": "state_changed",
+      "generation": 0,
+      "session": 2,
+      "previous": "AWAKE",
+      "state": "DORMANT",
+      "reason": "session_timeout"
+    },
+    {
+      "time": "2026-11-09T23:37:59.629521+00:00",
+      "level": "INFO",
+      "event": "state_changed",
+      "generation": 0,
+      "session": 3,
+      "previous": "DORMANT",
+      "state": "AWAKE",
+      "reason": "wakeword"
+    },
+    {
+      "time": "2026-11-09T23:37:59.630551+00:00",
+      "level": "INFO",
+      "event": "wakeword_detected",
+      "generation": 0,
+      "session": 3,
+      "score": 0.6230959892272949,
+      "manual": false
+    },
+    {
+      "time": "2026-11-09T23:37:59.631593+00:00",
+      "level": "INFO",
+      "event": "session_started",
+      "generation": 0,
+      "session": 3
+    },
+    {
+      "time": "2026-11-09T23:38:09.628494+00:00",
+      "level": "INFO",
+      "event": "session_ended",
+      "generation": 0,
+      "session": 3,
+      "reason": "session_timeout"
+    },
+    {
+      "time": "2026-11-09T23:38:09.628494+00:00",
+      "level": "INFO",
+      "event": "state_changed",
+      "generation": 0,
+      "session": 3,
+      "previous": "AWAKE",
+      "state": "DORMANT",
+      "reason": "session_timeout"
+    }
+  ]
+}

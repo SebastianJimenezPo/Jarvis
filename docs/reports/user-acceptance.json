@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-09",
+  "user_report": {
+    "startup_after_reboot": "funciona",
+    "suspend_resume": "funciona",
+    "tray_exit": "funciona",
+    "headset_microphone": "usuario cree que funcionó; endpoint no confirmado",
+    "resource_usage": "bajo según observación del usuario en Administrador de tareas; sin nuevas cifras"
+  },
+  "log_evidence": {
+    "suspend_resume_and_subsequent_detection": true,
+    "shutdown_complete": true,
+    "selected_devices": [
+      "Varios micrófonos (Realtek(R) Audio)"
+    ]
+  },
+  "status": "Validación funcional básica completada; validación prolongada y acústica cuantitativa pendiente"
+}

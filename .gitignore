@@ -1,0 +1,10 @@
+.venv/
+.tools/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+rust/target/
+build/
+dist/
+*.wav
+*.rpw

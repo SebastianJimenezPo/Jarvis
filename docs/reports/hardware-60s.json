@@ -1,0 +1,43 @@
+{
+  "time_utc": "2026-11-09T23:24:59.553611+00:00",
+  "version": "0.1.0",
+  "python": "3.11.14",
+  "windows": "Windows-10-10.0.26200-SP0",
+  "logical_cpus": 16,
+  "ram_total_bytes": 16556584960,
+  "gpu_usage": null,
+  "gpu_note": "No medido; el núcleo no carga modelos GPU",
+  "state": "STOPPING",
+  "session": 0,
+  "generation": 1,
+  "state_seconds": {
+    "STARTING": 0.375,
+    "DORMANT": 59.843000000000075,
+    "AWAKE": 0.0,
+    "PAUSED": 0.0,
+    "DEGRADED": 0.0,
+    "STOPPING": 0.03199999999992542
+  },
+  "activations": 0,
+  "restarts": 0,
+  "capture_failures": 0,
+  "dropped_blocks": 0,
+  "queue_peak": 1,
+  "capture_overflows": 0,
+  "initialization_seconds": 0.375,
+  "last_error": null,
+  "consecutive_failures": 0,
+  "retry_at_monotonic": null,
+  "capture_device": null,
+  "detector_pid": null,
+  "resources": {
+    "samples": 12,
+    "cpu_mean_machine_percent": 0.38198605657020274,
+    "cpu_max_machine_percent": 0.60546875,
+    "rss_tree_bytes": 71524352,
+    "rss_peak_sampled_bytes": 84811776,
+    "method": "CPU delta(user+kernel), parent+children / wall seconds / logical CPUs; 5s sampling, last hour; RSS summed"
+  },
+  "scenario": "Real microphone, synthetic chirp reference (not Jarvis), actual Qt tray + Rustpotter. No microphone audio saved.",
+  "requested_seconds": 60
+}
