@@ -1,6 +1,6 @@
 # JARVIS — Core y Voice Engine
 
-**Fase 2 implementada para validación física.** Ya incluye STT local español (Moonshine/Whisper), segmentación con Silero, respuestas de prueba con Piper, varios turnos, cancelación y protección semidúplex contra eco. No ejecuta órdenes ni usa LLM. Guías: [Fase 2](docs/phase_2.md), [arquitectura de voz](docs/voice_architecture.md), [comparación STT](docs/stt_benchmark.md) e [informe de validación](docs/voice_validation.md).
+**Fase 2 cerrada funcionalmente con observaciones documentadas.** Incluye STT local español (Moonshine/Whisper), segmentación con Silero, respuestas de prueba con Piper, varios turnos, cancelación y protección semidúplex contra eco. No ejecuta órdenes ni usa LLM. El cierre no acredita pruebas acústicas exhaustivas; los límites y verificaciones pendientes están en el [informe de validación](docs/voice_validation.md). Guías: [Fase 2](docs/phase_2.md), [arquitectura de voz](docs/voice_architecture.md) y [comparación STT](docs/stt_benchmark.md).
 
 La base validada de Fase 1 se conserva en Git, commit `695c068`. El desarrollo actual está en `phase-2-voice`. Para volver al comportamiento de activación de Fase 1 sin cambiar código: `python -m jarvis --disable-voice` y reiniciar el residente.
 
