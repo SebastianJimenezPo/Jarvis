@@ -1,6 +1,12 @@
-# JARVIS CORE — Fase 1
+# JARVIS — Core y Voice Engine
 
-Motor residente local para Windows: micrófono único, Rustpotter, ciclo de activación de 10 segundos, pausa, bandeja y recuperación. **No interpreta órdenes ni conversa.**
+**Fase 2 implementada para validación física.** Ya incluye STT local español (Moonshine/Whisper), segmentación con Silero, respuestas de prueba con Piper, varios turnos, cancelación y protección semidúplex contra eco. No ejecuta órdenes ni usa LLM. Guías: [Fase 2](docs/phase_2.md), [arquitectura de voz](docs/voice_architecture.md), [comparación STT](docs/stt_benchmark.md) e [informe de validación](docs/voice_validation.md).
+
+La base validada de Fase 1 se conserva en Git, commit `695c068`. El desarrollo actual está en `phase-2-voice`. Para volver al comportamiento de activación de Fase 1 sin cambiar código: `python -m jarvis --disable-voice` y reiniciar el residente.
+
+La documentación siguiente describe la base y sus procedimientos de calibración/inicio.
+
+La base residente utiliza micrófono único, Rustpotter, pausa, bandeja y recuperación. Con voz deshabilitada conserva el ciclo de activación de 10 segundos; con voz habilitada gestiona turnos y respuestas deterministas. **Todavía no interpreta órdenes generales ni ejecuta acciones.**
 
 La implementación es ejecutable, el auxiliar Rust está compilado y la referencia personal está calibrada en este equipo. Se comprobó activación con voz, pausa/reanudación, reinicio, suspensión y salida. La validación funcional básica está completada; quedan pruebas prolongadas y mediciones de precisión acústica. Sin referencia válida, la bandeja muestra `DEGRADED`.
 
@@ -22,7 +28,7 @@ Start-Process -FilePath '.\.venv\Scripts\pythonw.exe' -ArgumentList '"scripts\ru
 
 En la bandeja: estado, pausar, reanudar/reintentar, activación manual, diagnósticos, registros y salir. La activación manual solo funciona cuando los recursos están preparados en `DORMANT`. Pausar cierra el micrófono y el auxiliar.
 
-En este equipo el inicio automático **ya está registrado** tras la calibración y prueba del usuario. Falta comprobarlo al cerrar y volver a iniciar sesión. Para instalarlo en otra ubicación o equipo:
+En este equipo el inicio automático **ya está registrado** y el usuario comprobó que funciona después de reiniciar en Fase 1. La validación después de reinicio con el motor de Fase 2 queda pendiente. Para instalarlo en otra ubicación o equipo:
 
 ```powershell
 .\scripts\install_startup.ps1 -ValidateOnly

@@ -4,6 +4,7 @@ from typing import Callable
 
 
 class Kind(str, Enum):
+    VOICE_STATE = "voice_state"
     STATE_CHANGED = "state_changed"
     WAKEWORD_DETECTED = "wakeword_detected"
     SESSION_STARTED = "session_started"

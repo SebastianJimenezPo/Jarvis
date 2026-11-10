@@ -9,6 +9,7 @@ from jarvis.core.events import Kind
 
 class StateBridge(QObject):
     changed = Signal(str)
+    voice_changed = Signal(str)
 
 
 def run(manager, root, exit_after=None):
@@ -39,6 +40,15 @@ def run(manager, root, exit_after=None):
     menu.addAction("Abrir diagnósticos", diagnostics)
     menu.addAction("Abrir ubicación de registros", lambda: os.startfile(root / "logs"))
     menu.addSeparator()
+    for label,command in [('Probar voz Piper','test_tts'),('Activar / desactivar respuestas habladas','toggle_tts'),
+                          ('Cancelar respuesta','cancel_response'),('Probar transcripción (habla al activar)','wake')]:
+        action=menu.addAction(label)
+        action.triggered.connect(lambda checked=False,c=command:manager.command(c))
+    engines=menu.addMenu('Motor de reconocimiento')
+    for engine in ('moonshine-small','moonshine-tiny','whisper-base','whisper-small'):
+        action=engines.addAction(engine)
+        action.triggered.connect(lambda checked=False,e=engine:manager.command('stt:'+e))
+    menu.addSeparator()
     menu.addAction("Salir completamente", app.quit)
     tray.setContextMenu(menu)
     events = WindowsEvents(app, manager.command, manager.config.device == "auto")
@@ -52,8 +62,11 @@ def run(manager, root, exit_after=None):
             app.quit()
     bridge = StateBridge()
     bridge.changed.connect(update)
+    bridge.voice_changed.connect(lambda value: status.setText('AWAKE · '+value))
     manager.bus.subscribe(lambda event: bridge.changed.emit(event.detail["state"])
                           if event.kind == Kind.STATE_CHANGED else None)
+    manager.bus.subscribe(lambda event: bridge.voice_changed.emit(event.detail['voice_state'])
+                          if event.kind == Kind.VOICE_STATE else None)
     resources = QTimer()
     resources.timeout.connect(sampler.sample)
     resources.start(5000)

@@ -1,0 +1,3222 @@
+{
+  "origin": "Synthetic Piper audio, no physical microphone, no playback",
+  "sessions": 20,
+  "supervisor": {
+    "enabled": true,
+    "engine": "moonshine-small",
+    "model": "moonshine-small",
+    "voice": "es_MX-ald-medium",
+    "tts_enabled": false,
+    "state": "IDLE",
+    "session_id": "19",
+    "last_error": null,
+    "last_transcript": "me escuchas bien",
+    "worker_pid": 7888,
+    "metrics": {
+      "sessions_opened": 20,
+      "sessions_closed": 20,
+      "empty_transcripts": 0,
+      "errors": 0,
+      "cancelled": 0,
+      "audio_dropped": 0,
+      "turns": 20
+    },
+    "timings": {
+      "stt_ready": {
+        "load_seconds": 0.0
+      },
+      "transcription_timing": {
+        "finalize_seconds": 0.0,
+        "voice_end_to_final_seconds": 0.6720000000000255
+      },
+      "dialogue_timing": {
+        "seconds": 0.0
+      },
+      "turn_completed": {
+        "seconds": 0.4370000000001255
+      }
+    }
+  },
+  "events": [
+    {
+      "kind": "stt_ready",
+      "session_id": "0",
+      "turn_id": "",
+      "monotonic": 1493.296,
+      "load_seconds": 0.8900000000001,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "0",
+      "turn_id": "",
+      "monotonic": 1493.296,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.296,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.296,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.421,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.421,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.531,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.531,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.625,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.625,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.734,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.734,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1493.062
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.734,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.734,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.734,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.734,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.734,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.734,
+      "seconds": 0.4379999999998745
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1493.734,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "0",
+      "turn_id": "0:1",
+      "monotonic": 1495.171,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "1",
+      "turn_id": "",
+      "monotonic": 1495.187,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "1",
+      "turn_id": "",
+      "monotonic": 1495.187,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.203,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.203,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.281,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.281,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.39,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.39,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.5,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.5,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.578,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.578,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1494.906
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.578,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.593,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.593,
+      "finalize_seconds": 0.015000000000100044,
+      "voice_end_to_final_seconds": 0.6870000000001255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.593,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.593,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.593,
+      "seconds": 0.39000000000010004
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1495.593,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "1",
+      "turn_id": "1:1",
+      "monotonic": 1497.031,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "2",
+      "turn_id": "",
+      "monotonic": 1497.046,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "2",
+      "turn_id": "",
+      "monotonic": 1497.046,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.046,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.046,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.156,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.156,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.281,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.281,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.421,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.421,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.515,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.515,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1496.843
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.515,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.515,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.515,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.515,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.515,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.515,
+      "seconds": 0.46900000000005093
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1497.515,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "2",
+      "turn_id": "2:1",
+      "monotonic": 1498.921,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "3",
+      "turn_id": "",
+      "monotonic": 1498.937,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "3",
+      "turn_id": "",
+      "monotonic": 1498.937,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1498.937,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1498.937,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.015,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.015,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.125,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.125,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.25,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.25,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.328,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.328,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1498.656
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.328,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.328,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.328,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.328,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.328,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.328,
+      "seconds": 0.3910000000000764
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1499.328,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "3",
+      "turn_id": "3:1",
+      "monotonic": 1500.765,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "4",
+      "turn_id": "",
+      "monotonic": 1500.796,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "4",
+      "turn_id": "",
+      "monotonic": 1500.796,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1500.796,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1500.796,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1500.875,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1500.875,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1500.984,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1500.984,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.093,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.093,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.171,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.171,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1500.499
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.171,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.171,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.171,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.171,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.171,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.171,
+      "seconds": 0.375
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1501.171,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "4",
+      "turn_id": "4:1",
+      "monotonic": 1502.609,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "5",
+      "turn_id": "",
+      "monotonic": 1502.625,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "5",
+      "turn_id": "",
+      "monotonic": 1502.625,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1502.625,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1502.625,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1502.718,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1502.718,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1502.843,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1502.843,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1502.984,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1502.984,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1503.078,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1503.078,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1502.406
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1503.078,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1503.078,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1503.078,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1503.078,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1503.078,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1503.078,
+      "seconds": 0.45299999999997453
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1503.078,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "5",
+      "turn_id": "5:1",
+      "monotonic": 1504.531,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "6",
+      "turn_id": "",
+      "monotonic": 1504.546,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "6",
+      "turn_id": "",
+      "monotonic": 1504.546,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.546,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.546,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.625,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.625,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.734,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.734,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.859,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.859,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.921,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.921,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1504.249
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.921,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.937,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.937,
+      "finalize_seconds": 0.015999999999849024,
+      "voice_end_to_final_seconds": 0.6879999999998745
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.937,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.937,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.937,
+      "seconds": 0.390999999999849
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1504.937,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "6",
+      "turn_id": "6:1",
+      "monotonic": 1506.359,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "7",
+      "turn_id": "",
+      "monotonic": 1506.39,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "7",
+      "turn_id": "",
+      "monotonic": 1506.39,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.39,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.39,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.468,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.468,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.562,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.562,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.687,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.687,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.781,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.781,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1506.109
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.781,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.781,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.781,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.781,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.781,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.781,
+      "seconds": 0.390999999999849
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1506.781,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "7",
+      "turn_id": "7:1",
+      "monotonic": 1508.234,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "8",
+      "turn_id": "",
+      "monotonic": 1508.25,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "8",
+      "turn_id": "",
+      "monotonic": 1508.25,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.25,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.25,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.328,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.328,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.453,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.453,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.562,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.562,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.656,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.656,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1507.984
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.656,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.656,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.656,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.656,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.656,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.656,
+      "seconds": 0.40599999999994907
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1508.656,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "8",
+      "turn_id": "8:1",
+      "monotonic": 1510.093,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "9",
+      "turn_id": "",
+      "monotonic": 1510.109,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "9",
+      "turn_id": "",
+      "monotonic": 1510.109,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.109,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.109,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.203,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.203,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.312,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.312,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.437,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.437,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.5,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.5,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1509.828
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.515,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.515,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.515,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6870000000001255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.515,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.515,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.515,
+      "seconds": 0.40600000000017644
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1510.515,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "9",
+      "turn_id": "9:1",
+      "monotonic": 1511.937,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "10",
+      "turn_id": "",
+      "monotonic": 1511.953,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "10",
+      "turn_id": "",
+      "monotonic": 1511.953,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1511.953,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1511.953,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.046,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.046,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.156,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.156,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.281,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.281,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.375,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.375,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1511.703
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.375,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.375,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.375,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.375,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.375,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.375,
+      "seconds": 0.42200000000002547
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1512.375,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "10",
+      "turn_id": "10:1",
+      "monotonic": 1513.796,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "11",
+      "turn_id": "",
+      "monotonic": 1513.828,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "11",
+      "turn_id": "",
+      "monotonic": 1513.828,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1513.828,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1513.828,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1513.921,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1513.921,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.046,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.046,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.156,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.156,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.234,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.234,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1513.562
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.234,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.25,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.25,
+      "finalize_seconds": 0.016000000000076398,
+      "voice_end_to_final_seconds": 0.6880000000001019
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.25,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.25,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.25,
+      "seconds": 0.42200000000002547
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1514.25,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "11",
+      "turn_id": "11:1",
+      "monotonic": 1515.703,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "12",
+      "turn_id": "",
+      "monotonic": 1515.718,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "12",
+      "turn_id": "",
+      "monotonic": 1515.718,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1515.734,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1515.734,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1515.828,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1515.828,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1515.953,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1515.953,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.093,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.093,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.187,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.187,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1515.5149999999999
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.187,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.203,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.203,
+      "finalize_seconds": 0.016000000000076398,
+      "voice_end_to_final_seconds": 0.6880000000001019
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.203,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.203,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.203,
+      "seconds": 0.46900000000005093
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1516.203,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "12",
+      "turn_id": "12:1",
+      "monotonic": 1517.64,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "13",
+      "turn_id": "",
+      "monotonic": 1517.656,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "13",
+      "turn_id": "",
+      "monotonic": 1517.656,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1517.656,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1517.656,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1517.75,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1517.75,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1517.875,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1517.875,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.015,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.015,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.109,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.109,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1517.437
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.109,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.109,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.109,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.109,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.109,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.109,
+      "seconds": 0.45299999999997453
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1518.109,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "13",
+      "turn_id": "13:1",
+      "monotonic": 1519.546,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "14",
+      "turn_id": "",
+      "monotonic": 1519.562,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "14",
+      "turn_id": "",
+      "monotonic": 1519.562,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.562,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.562,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.656,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.656,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.765,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.765,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.875,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.875,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.968,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.968,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1519.296
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.968,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.984,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.984,
+      "finalize_seconds": 0.015999999999849024,
+      "voice_end_to_final_seconds": 0.6879999999998745
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.984,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.984,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.984,
+      "seconds": 0.42200000000002547
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1519.984,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "14",
+      "turn_id": "14:1",
+      "monotonic": 1521.39,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "15",
+      "turn_id": "",
+      "monotonic": 1521.406,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "15",
+      "turn_id": "",
+      "monotonic": 1521.406,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.421,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.421,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.5,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.5,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.609,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.609,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.734,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.734,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.812,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.812,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1521.1399999999999
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.812,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.812,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.812,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.812,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.812,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.812,
+      "seconds": 0.390999999999849
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1521.812,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "15",
+      "turn_id": "15:1",
+      "monotonic": 1523.218,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "16",
+      "turn_id": "",
+      "monotonic": 1523.234,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "16",
+      "turn_id": "",
+      "monotonic": 1523.234,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.25,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.25,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.328,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.328,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.437,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.437,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.562,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.562,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.64,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.64,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1522.968
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.64,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.656,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.656,
+      "finalize_seconds": 0.015999999999849024,
+      "voice_end_to_final_seconds": 0.6879999999998745
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.656,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.656,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.656,
+      "seconds": 0.40599999999994907
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1523.656,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "16",
+      "turn_id": "16:1",
+      "monotonic": 1525.093,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "17",
+      "turn_id": "",
+      "monotonic": 1525.109,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "17",
+      "turn_id": "",
+      "monotonic": 1525.109,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.109,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.109,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.203,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.203,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.312,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.312,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.421,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.421,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.5,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.5,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1524.828
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.5,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.5,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.5,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.5,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.5,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.5,
+      "seconds": 0.3910000000000764
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1525.5,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "17",
+      "turn_id": "17:1",
+      "monotonic": 1526.937,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "18",
+      "turn_id": "",
+      "monotonic": 1526.953,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "18",
+      "turn_id": "",
+      "monotonic": 1526.953,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1526.968,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1526.968,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.046,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.046,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.171,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.171,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.281,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.281,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.375,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.375,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1526.703
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.375,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.375,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.375,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.375,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.375,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.375,
+      "seconds": 0.4069999999999254
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1527.375,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "18",
+      "turn_id": "18:1",
+      "monotonic": 1528.812,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "19",
+      "turn_id": "",
+      "monotonic": 1528.828,
+      "load_seconds": 0.0,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "19",
+      "turn_id": "",
+      "monotonic": 1528.828,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "speech_started",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1528.828,
+      "vad_probability": 0.9994590282440186
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1528.828,
+      "state": "LISTENING"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1528.937,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1528.937,
+      "text": "no es lo mismo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.062,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.062,
+      "text": "me escapo",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.187,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.187,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.265,
+      "text": "me escuchas bien",
+      "final": false,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "speech_ended",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.265,
+      "reason": "silence",
+      "estimated_voice_end_monotonic": 1528.593
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.265,
+      "state": "FINALIZING_TRANSCRIPT"
+    },
+    {
+      "kind": "transcript",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.265,
+      "text": "me escuchas bien",
+      "final": true,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "transcription_timing",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.265,
+      "finalize_seconds": 0.0,
+      "voice_end_to_final_seconds": 0.6720000000000255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.265,
+      "state": "PROCESSING_RESPONSE"
+    },
+    {
+      "kind": "dialogue_timing",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.265,
+      "seconds": 0.0
+    },
+    {
+      "kind": "turn_completed",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.265,
+      "seconds": 0.4370000000001255
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1529.265,
+      "state": "WAITING_FOR_FOLLOWUP"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "19",
+      "turn_id": "19:1",
+      "monotonic": 1530.671,
+      "reason": "inactivity"
+    }
+  ]
+}

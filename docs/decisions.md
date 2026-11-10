@@ -28,4 +28,6 @@ Fuentes primarias consultadas:
 
 ## Cambios iniciales
 
+0.2.0: Fase 2 en rama `phase-2-voice`; base guardada como `695c068`. Se conservó el núcleo y sus 62 pruebas. Proceso de voz bajo demanda con cola PCM limitada, modelos CPU locales, Silero común a ambos STT, respuestas deterministas, Piper y salida cancelable, semidúplex por timestamps y retención compartida de 90 s. Modelos y descargas explícitos fuera del residente, configuración de voz separada y privacidad de transcripciones desactivada por defecto. Comparación sintética reproducible y corpus voluntario de 60 frases. Aceptación física pendiente; ver `voice_validation.md`. Se corrigió la reutilización de la cola EOF del adaptador Rustpotter al reiniciar solo el detector después de una sesión.
+
 0.1.0: estado y eventos, configuración, captura y remuestreo, integración binaria Rustpotter, calibración consentida, bandeja, notificaciones Windows, recuperación limitada, mutex, Job Object, scripts del Programador, mediciones, pruebas y documentación. Sin funcionalidades de Fase 2.

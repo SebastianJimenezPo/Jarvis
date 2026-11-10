@@ -1,0 +1,72 @@
+{
+  "time_utc": "2026-11-10T00:10:11.963862+00:00",
+  "version": "0.2.0",
+  "python": "3.11.14",
+  "windows": "Windows-10-10.0.26200-SP0",
+  "logical_cpus": 16,
+  "ram_total_bytes": 16556584960,
+  "gpu_usage": null,
+  "gpu_note": "No medido; el núcleo no carga modelos GPU",
+  "state": "STOPPING",
+  "session": 0,
+  "generation": 1,
+  "state_seconds": {
+    "STARTING": 0.3910000000000764,
+    "DORMANT": 59.827999999999975,
+    "AWAKE": 0.0,
+    "PAUSED": 0.0,
+    "DEGRADED": 0.0,
+    "STOPPING": 0.015000000000100044
+  },
+  "activations": 0,
+  "restarts": 0,
+  "capture_failures": 0,
+  "dropped_blocks": 0,
+  "queue_peak": 1,
+  "capture_overflows": 0,
+  "initialization_seconds": 0.3910000000000764,
+  "last_error": null,
+  "consecutive_failures": 0,
+  "retry_at_monotonic": null,
+  "capture_device": null,
+  "last_capture_device": {
+    "index": 14,
+    "name": "Varios micrófonos (Realtek(R) Audio)",
+    "rate": 48000.0,
+    "host": "Windows WASAPI"
+  },
+  "last_capture_rate": 48000,
+  "detector_pid": null,
+  "voice": {
+    "enabled": false,
+    "engine": "moonshine-small",
+    "model": "moonshine-small",
+    "voice": "es_MX-ald-medium",
+    "tts_enabled": true,
+    "state": "IDLE",
+    "session_id": null,
+    "last_error": null,
+    "last_transcript": null,
+    "worker_pid": null,
+    "metrics": {
+      "sessions_opened": 0,
+      "sessions_closed": 0,
+      "empty_transcripts": 0,
+      "errors": 0,
+      "cancelled": 0,
+      "audio_dropped": 0,
+      "turns": 0
+    },
+    "timings": {}
+  },
+  "resources": {
+    "samples": 12,
+    "cpu_mean_machine_percent": 0.37734037665765446,
+    "cpu_max_machine_percent": 0.46875,
+    "rss_tree_bytes": 74932224,
+    "rss_peak_sampled_bytes": 88342528,
+    "method": "CPU delta(user+kernel), parent+children / wall seconds / logical CPUs; 5s sampling, last hour; RSS summed"
+  },
+  "scenario": "Real microphone, synthetic chirp reference (not Jarvis), actual Qt tray + Rustpotter. No microphone audio saved.",
+  "requested_seconds": 60
+}

@@ -1,0 +1,12 @@
+{
+  "scenario": "Real default output playback, Piper es_MX-ald-medium, no microphone capture",
+  "load_seconds": 4.108999999999924,
+  "synthesis_and_playback_seconds": 4.6720000000000255,
+  "events": [
+    {
+      "kind": "playback_started",
+      "monotonic": 1656.875
+    }
+  ],
+  "audibility": "User confirmation pending"
+}

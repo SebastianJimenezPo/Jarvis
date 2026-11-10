@@ -50,6 +50,9 @@ def test_real_rust_transport_silence_noise_and_reference(reference):
             if result["detected"]:
                 hits.append(result)
         assert hits, "Synthetic exact-reference match should be detected"
+        detector.close()
+        detector.start()
+        assert not detector.process(bytes(detector.frame_bytes))["detected"]
         process = detector.process_handle
         process.kill()
         process.wait()

@@ -39,6 +39,23 @@ class LifecycleManager:
         self.stable_since = None
         self.latest = {**self.machine.snapshot(), **self.metrics}
         self.log = logging.getLogger("jarvis")
+        from .voice_session import VoiceSessionManager
+        self.voice = VoiceSessionManager(root, self._voice_event)
+        self.ignore_audio_before = 0.0
+
+    def _voice_event(self, event):
+        self.log.info(event['kind'], extra={'fields':event})
+        if event['kind'] == 'voice_state':
+            self.machine.emit(Kind.VOICE_STATE,voice_state=event['state'])
+        if event['kind'] in ('session_end','voice_error') and self.machine.state == State.AWAKE:
+            self.machine.transition(State.DORMANT, event.get('reason',event['kind']))
+            self.ring.clear()
+            self.pending.clear()
+            self.ignore_audio_before = time.monotonic() + self.voice.config.echo_guard_seconds
+            # Reset the acoustic detector without reopening the microphone.
+            if self.detector:
+                self.detector.close()
+                self.detector.start()
 
     def _log_event(self, event):
         self.log.info(event.kind.value, extra={"fields": {"generation": event.generation,
@@ -73,9 +90,11 @@ class LifecycleManager:
                        "capture_device": self.capture.device if self.capture else None,
                        "last_capture_device": self.last_device, "last_capture_rate": self.last_rate,
                        "detector_pid": (self.detector.process_handle.pid if self.detector and
-                                         getattr(self.detector, "process_handle", None) else None)}
+                                         getattr(self.detector, "process_handle", None) else None),
+                       "voice": self.voice.snapshot()}
 
     def _close_resources(self):
+        self.voice.close()
         self.machine.invalidate()
         capture, detector = self.capture, self.detector
         self.capture = self.detector = None
@@ -122,6 +141,26 @@ class LifecycleManager:
                          if self.failures < self.config.retry_limit else None)
 
     def _handle(self, command):
+        if command == 'cancel_response':
+            self.voice.cancel()
+            return
+        if command.startswith('stt:') or command == 'toggle_tts':
+            from dataclasses import replace
+            from jarvis.speech.settings import save_voice
+            self.voice.close()
+            if self.machine.state == State.AWAKE:
+                self._voice_event({'kind':'session_end','reason':'configuration_changed'})
+            self.voice.config = replace(self.voice.config, **({'engine':command.split(':',1)[1]} if command.startswith('stt:') else {'tts_enabled':not self.voice.config.tts_enabled})).validate()
+            save_voice(self.root,self.voice.config)
+            return
+        if command == 'test_tts':
+            if self.machine.state == State.DORMANT and self.machine.wake(self.machine.generation,manual=True):
+                try:
+                    self.voice.start(f'{self.machine.generation}:{self.machine.session}',test_tts=True)
+                    self.machine.deadline = None
+                except Exception as exc:
+                    self._voice_event({'kind':'voice_error','error':str(exc)})
+            return
         if command == "stop":
             self.machine.transition(State.STOPPING, "exit")
             return
@@ -152,6 +191,15 @@ class LifecycleManager:
     def _wake(self, score=None, manual=False):
         if self.machine.wake(self.machine.generation, score, manual):
             self.metrics["activations"] += 1
+            if self.voice.available():
+                try:
+                    self.voice.start(f'{self.machine.generation}:{self.machine.session}',self.ring.snapshot())
+                    self.machine.deadline = None
+                except Exception as exc:
+                    self.voice.close()
+                    self.log.exception('voice_start_failed_fallback_phase1')
+            elif self.voice.config.enabled:
+                self.log.warning('voice_unavailable_fallback_phase1',extra={'fields':{'error':self.voice.error}})
             if self.config.confirmation:
                 import winsound
                 winsound.PlaySound("SystemAsterisk", winsound.SND_ALIAS | winsound.SND_ASYNC | winsound.SND_NODEFAULT)
@@ -167,7 +215,12 @@ class LifecycleManager:
         if time.monotonic() - timestamp > 0.5:
             self.metrics["dropped_blocks"] += 1
             return
+        if timestamp < self.ignore_audio_before:
+            return
         pcm = self.converter.convert(samples)
+        if self.voice.active:
+            self.voice.feed(pcm,timestamp)
+            return
         self.ring.append(pcm)
         self.pending.extend(pcm)
         size = self.detector.frame_bytes
@@ -176,6 +229,9 @@ class LifecycleManager:
             del self.pending[:size]
             if result.get("detected"):
                 self._wake(result.get("score"))
+                if self.voice.active:
+                    self.pending.clear()
+                    return
 
     def _run(self):
         try:
@@ -193,6 +249,7 @@ class LifecycleManager:
                 if self.machine.state == State.STOPPING:
                     break
                 try:
+                    self.voice.poll()
                     if self.retry_at is not None and time.monotonic() >= self.retry_at:
                         self._open_resources()
                     if self.capture:

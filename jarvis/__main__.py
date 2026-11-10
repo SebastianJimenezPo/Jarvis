@@ -9,7 +9,7 @@ from .core.config import Config, data_dir, load, save
 
 
 def main():
-    parser = argparse.ArgumentParser(description="JARVIS CORE — Fase 1")
+    parser = argparse.ArgumentParser(description="JARVIS — Voice Engine")
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--data-dir", type=Path, default=data_dir())
     commands = parser.add_mutually_exclusive_group()
@@ -18,6 +18,10 @@ def main():
     commands.add_argument("--select-device", metavar="NAME_OR_AUTO")
     commands.add_argument("--calibrate-wakeword", action="store_true")
     commands.add_argument("--reset-config", action="store_true")
+    commands.add_argument("--enable-voice", action="store_true")
+    commands.add_argument("--disable-voice", action="store_true")
+    commands.add_argument("--set-stt", choices=['moonshine-small','moonshine-tiny','whisper-base','whisper-small'])
+    commands.add_argument("--set-voice", choices=['es_MX-ald-medium','es_ES-davefx-medium'])
     parser.add_argument("--samples", type=int, choices=range(5, 9), default=6)
     parser.add_argument("--exit-after", type=float, help="Cierre automático para pruebas, en segundos")
     args = parser.parse_args()
@@ -35,6 +39,14 @@ def main():
             return 0
         config = load(root)
         logger.setLevel("DEBUG" if args.debug else config.log_level)
+        if args.enable_voice or args.disable_voice or args.set_stt or args.set_voice:
+            from .speech.settings import load_voice,save_voice
+            voice=load_voice(root)
+            changes=({'enabled':True} if args.enable_voice else {'enabled':False} if args.disable_voice
+                     else {'engine':args.set_stt} if args.set_stt else {'voice':args.set_voice})
+            save_voice(root,replace(voice,**changes))
+            print('Configuración de voz guardada. Reinicia Jarvis para aplicarla.')
+            return 0
         if args.select_device:
             save(root, replace(config, device=args.select_device))
             print("Preferencia guardada; reinicia Jarvis para aplicarla.")
@@ -42,9 +54,13 @@ def main():
         if args.diagnostics:
             from .interface.diagnostics import environment
             from .wakeword.rustpotter_adapter import engine_path
+            from .speech.settings import load_voice
+            from .speech.models import registry
+            from dataclasses import asdict
             print(json.dumps({**environment(), "engine_exists": engine_path().exists(),
                               "reference_exists": config.reference_path(root).exists(),
-                              "config": str(root / "config.json")}, indent=2))
+                              "config": str(root / "config.json"), "voice":asdict(load_voice(root)),
+                              "installed_models":list(registry(root))}, indent=2))
             return 0
         from .core.single_instance import SingleInstance
         with SingleInstance():
@@ -58,7 +74,7 @@ def main():
                 return 0
             from .core.lifecycle import LifecycleManager
             from .interface.tray import run
-            logger.info("application_start version=0.1.0 phase=1")
+            logger.info("application_start version=0.2.0 phase=2")
             return run(LifecycleManager(config, root), root, args.exit_after)
     except Exception as exc:
         logger.exception("application_failed")

@@ -18,6 +18,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seconds", type=int, default=60)
     parser.add_argument("--output", type=Path, default=Path("build/performance.json"))
+    parser.add_argument("--voice-enabled", action="store_true")
     args = parser.parse_args()
     with tempfile.TemporaryDirectory(prefix="jarvis benchmark ") as folder:
         root = Path(folder)
@@ -36,6 +37,17 @@ def main():
         subprocess.run([str(engine_path()), "calibrate", str(reference), *samples], check=True,
                        capture_output=True, timeout=60, creationflags=subprocess.CREATE_NO_WINDOW)
         save(root, replace(Config(), reference=str(reference), confirmation=False))
+        if args.voice_enabled:
+            from jarvis.core.config import data_dir
+            from jarvis.speech.settings import VoiceConfig,save_voice
+            from jarvis.speech.models import registry
+            entries=registry(data_dir())
+            for entry in entries.values():
+                entry['path']=str(data_dir()/'models'/entry['path'])
+                entry['sha256']={str(data_dir()/'models'/name):value for name,value in entry['sha256'].items()}
+            (root/'models').mkdir()
+            (root/'models'/'registry.json').write_text(json.dumps(entries),encoding='utf-8')
+            save_voice(root,replace(VoiceConfig(),enabled=True))
         completed = subprocess.run([sys.executable, "-m", "jarvis", "--data-dir", str(root),
                                     "--exit-after", str(args.seconds)], timeout=args.seconds + 40,
                                    creationflags=subprocess.CREATE_NO_WINDOW)

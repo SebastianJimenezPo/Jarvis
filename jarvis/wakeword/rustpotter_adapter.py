@@ -48,6 +48,8 @@ class RustpotterDetector:
         return value
 
     def start(self):
+        # A previous reader reports EOF on orderly close. Never reuse that response.
+        self.responses = queue.Queue(maxsize=4)
         self.process_handle = subprocess.Popen(self.command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                               stderr=subprocess.DEVNULL, bufsize=0,
                                               creationflags=subprocess.CREATE_NO_WINDOW)

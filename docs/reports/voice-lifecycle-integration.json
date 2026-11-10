@@ -1,0 +1,118 @@
+{
+  "scenario": "Manual diagnostic activation, synthetic microphone audio, real Rustpotter/VAD/STT/Piper and default output. Physical echo not tested.",
+  "snapshot": {
+    "state": "STOPPING",
+    "session": 1,
+    "generation": 1,
+    "state_seconds": {
+      "STARTING": 0.06200000000012551,
+      "DORMANT": 0.25,
+      "AWAKE": 11.452999999999975,
+      "PAUSED": 0.0,
+      "DEGRADED": 0.0,
+      "STOPPING": 0.015999999999849024
+    },
+    "activations": 1,
+    "restarts": 0,
+    "capture_failures": 0,
+    "dropped_blocks": 0,
+    "queue_peak": 3,
+    "capture_overflows": 0,
+    "initialization_seconds": 0.06200000000012551,
+    "last_error": null,
+    "consecutive_failures": 0,
+    "retry_at_monotonic": null,
+    "capture_device": null,
+    "last_capture_device": {
+      "name": "SYNTHETIC INPUT"
+    },
+    "last_capture_rate": 16000,
+    "detector_pid": null,
+    "voice": {
+      "enabled": true,
+      "engine": "moonshine-small",
+      "model": "moonshine-small",
+      "voice": "es_MX-ald-medium",
+      "tts_enabled": true,
+      "state": "IDLE",
+      "session_id": "0:1",
+      "last_error": null,
+      "last_transcript": null,
+      "worker_pid": null,
+      "metrics": {
+        "sessions_opened": 1,
+        "sessions_closed": 1,
+        "empty_transcripts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "audio_dropped": 0,
+        "turns": 1
+      },
+      "timings": {
+        "stt_ready": {
+          "load_seconds": 0.75
+        },
+        "transcription_timing": {
+          "finalize_seconds": 0.015999999999849024,
+          "voice_end_to_final_seconds": 0.6879999999998745
+        },
+        "dialogue_timing": {
+          "seconds": 0.0
+        },
+        "synthesis_first_chunk": {
+          "seconds": 4.031000000000176
+        },
+        "turn_completed": {
+          "seconds": 8.891000000000076
+        }
+      }
+    }
+  },
+  "global_events": [
+    {
+      "kind": "audio_ready",
+      "device": {
+        "name": "SYNTHETIC INPUT"
+      },
+      "rate": 16000,
+      "target": "16000 Hz mono s16le",
+      "frame_bytes": 960
+    },
+    {
+      "kind": "state_changed",
+      "previous": "STARTING",
+      "state": "DORMANT",
+      "reason": "resources_ready"
+    },
+    {
+      "kind": "state_changed",
+      "previous": "DORMANT",
+      "state": "AWAKE",
+      "reason": "manual"
+    },
+    {
+      "kind": "wakeword_detected",
+      "score": null,
+      "manual": true
+    },
+    {
+      "kind": "session_started"
+    },
+    {
+      "kind": "session_ended",
+      "reason": "inactivity"
+    },
+    {
+      "kind": "state_changed",
+      "previous": "AWAKE",
+      "state": "DORMANT",
+      "reason": "inactivity"
+    },
+    {
+      "kind": "state_changed",
+      "previous": "DORMANT",
+      "state": "STOPPING",
+      "reason": "exit"
+    }
+  ]
+}

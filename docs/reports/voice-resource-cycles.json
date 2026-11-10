@@ -1,0 +1,152 @@
+{
+  "scenario": "5 real model worker load/unload cycles, silence only, no hardware audio",
+  "cycles": [
+    {
+      "cycle": 0,
+      "before_rss_tree": 26034176,
+      "loaded_peak_rss_tree": 313655296,
+      "after_release_rss_tree": 27889664,
+      "seconds": 2.1569999999999254
+    },
+    {
+      "cycle": 1,
+      "before_rss_tree": 27889664,
+      "loaded_peak_rss_tree": 315027456,
+      "after_release_rss_tree": 27906048,
+      "seconds": 2.171999999999798
+    },
+    {
+      "cycle": 2,
+      "before_rss_tree": 27906048,
+      "loaded_peak_rss_tree": 315469824,
+      "after_release_rss_tree": 27914240,
+      "seconds": 2.203000000000202
+    },
+    {
+      "cycle": 3,
+      "before_rss_tree": 27914240,
+      "loaded_peak_rss_tree": 312561664,
+      "after_release_rss_tree": 27922432,
+      "seconds": 2.125
+    },
+    {
+      "cycle": 4,
+      "before_rss_tree": 27922432,
+      "loaded_peak_rss_tree": 313982976,
+      "after_release_rss_tree": 27938816,
+      "seconds": 2.125
+    }
+  ],
+  "events": [
+    {
+      "kind": "stt_ready",
+      "session_id": "0",
+      "turn_id": "",
+      "monotonic": 1702.0,
+      "load_seconds": 0.7190000000000509,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "0",
+      "turn_id": "",
+      "monotonic": 1702.0,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "0",
+      "turn_id": "",
+      "monotonic": 1703.015,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "1",
+      "turn_id": "",
+      "monotonic": 1704.171,
+      "load_seconds": 0.7180000000000746,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "1",
+      "turn_id": "",
+      "monotonic": 1704.171,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "1",
+      "turn_id": "",
+      "monotonic": 1705.187,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "2",
+      "turn_id": "",
+      "monotonic": 1706.39,
+      "load_seconds": 0.75,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "2",
+      "turn_id": "",
+      "monotonic": 1706.39,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "2",
+      "turn_id": "",
+      "monotonic": 1707.406,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "3",
+      "turn_id": "",
+      "monotonic": 1708.546,
+      "load_seconds": 0.7029999999999745,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "3",
+      "turn_id": "",
+      "monotonic": 1708.546,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "3",
+      "turn_id": "",
+      "monotonic": 1709.546,
+      "reason": "inactivity"
+    },
+    {
+      "kind": "stt_ready",
+      "session_id": "4",
+      "turn_id": "",
+      "monotonic": 1710.671,
+      "load_seconds": 0.6870000000001255,
+      "engine": "moonshine-small"
+    },
+    {
+      "kind": "voice_state",
+      "session_id": "4",
+      "turn_id": "",
+      "monotonic": 1710.671,
+      "state": "WAITING_FOR_SPEECH"
+    },
+    {
+      "kind": "session_end",
+      "session_id": "4",
+      "turn_id": "",
+      "monotonic": 1711.687,
+      "reason": "inactivity"
+    }
+  ]
+}
