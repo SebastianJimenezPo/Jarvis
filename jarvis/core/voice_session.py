@@ -56,7 +56,7 @@ class VoiceSessionManager:
         from types import SimpleNamespace
         self.job=ProcessJob(SimpleNamespace(_handle=self.process.sentinel))
 
-    def start(self,session_id,preroll=b'',test_tts=False):
+    def start(self,session_id,preroll=b'',test_tts=False,acoustic_activation=False):
         self._ensure_worker()
         self.active=True
         self.session_id=str(session_id)
@@ -64,7 +64,7 @@ class VoiceSessionManager:
         self.last_progress=time.monotonic()
         self.error=None
         self.cancel_event.clear()
-        self.inbox.put_nowait(('test_tts' if test_tts else 'session',self.session_id,preroll))
+        self.inbox.put_nowait(('test_tts' if test_tts else 'session',self.session_id,preroll,acoustic_activation))
         self.metrics['sessions_opened']+=1
 
     def feed(self,pcm,timestamp):

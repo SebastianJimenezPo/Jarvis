@@ -3,10 +3,12 @@ import threading
 import time
 from dataclasses import replace
 import numpy as np
+import pytest
 from jarvis.speech.settings import VoiceConfig
 
 
-def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path):
+@pytest.mark.parametrize('activation,continues,expected_plays',[(False,False,1),(True,False,0),(True,True,1)])
+def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path,activation,continues,expected_plays):
     from jarvis.speech.worker import voice_worker
     from jarvis.speech import recognition,piper_adapter
     from jarvis.audio import vad,playback
@@ -45,7 +47,9 @@ def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path):
     config=replace(VoiceConfig(),first_wait_seconds=1,followup_seconds=1,echo_guard_seconds=0.1)
     thread=threading.Thread(target=voice_worker,args=(inbox,outbox,cancel,str(tmp_path),config))
     thread.start()
-    inbox.put(('session','s',speech))
+    inbox.put(('session','s',speech if not continues else speech[:512*12*2],activation))
+    if continues:
+        inbox.put(('audio','s',time.monotonic(),speech))
     events=[]
     deadline=time.monotonic()+5
     try:
@@ -55,8 +59,8 @@ def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path):
             if event['kind']=='session_end': break
         assert not any(e['kind']=='voice_error' for e in events),events
         assert len([c for c in calls if c[0]=='turn'])==1
-        assert len([c for c in calls if c[0]=='play'])==1
-        assert any(e['kind']=='playback_ended' and e['cancelled'] for e in events)
+        assert len([c for c in calls if c[0]=='play'])==expected_plays
+        assert any(e['kind']=='playback_ended' and e['cancelled'] for e in events)==bool(expected_plays)
     finally:
         inbox.put(('stop',));thread.join(timeout=3)
     assert not thread.is_alive()

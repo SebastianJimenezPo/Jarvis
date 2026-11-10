@@ -58,6 +58,7 @@ El archivo de Fase 1 no cambia. `voice.json` es un archivo separado, validado y 
 | preparation_timeout_seconds / processing_timeout_seconds | 60 / 60 | 5–180 |
 | retain_seconds | 90 | 0–600; retención común del proceso de modelos |
 | speech_start_ms / end_silence_ms | 200 / 650 | 32–1000 / 200–2000 |
+| activation_tail_ms | 250 | 0–500; margen de voz restante tras detección, solo para primer turno de activación acústica |
 | vad_threshold | 0.5 | 0.01–0.99 |
 | echo_guard_seconds | 0.4 | 0.1–2 |
 | pending_audio_seconds | 40 | 5–90; capacidad aproximada para bloques de 20 ms |

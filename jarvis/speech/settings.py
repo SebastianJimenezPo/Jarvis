@@ -19,6 +19,7 @@ class VoiceConfig:
     processing_timeout_seconds: float = 60.0
     retain_seconds: float = 90.0
     speech_start_ms: int = 200
+    activation_tail_ms: int = 250
     end_silence_ms: int = 650
     vad_threshold: float = 0.5
     echo_guard_seconds: float = 0.4
@@ -39,6 +40,7 @@ class VoiceConfig:
             ("max_turn_seconds",1,60),("preparation_timeout_seconds",5,180),
             ("processing_timeout_seconds",5,180),("retain_seconds",0,600),
             ("speech_start_ms",32,1000),("end_silence_ms",200,2000),
+            ("activation_tail_ms",0,500),
             ("vad_threshold",0.01,0.99),("echo_guard_seconds",0.1,2),
             ("volume",0,1),("cpu_threads",1,8),("pending_audio_seconds",5,90),
             ("max_session_seconds",30,1800)]:

@@ -29,6 +29,7 @@ def voice_worker(inbox,outbox,cancel,root,config):
             if command[0] not in ('session','test_tts'):
                 continue
             session_id,preroll=command[1],command[2]
+            acoustic_activation=bool(command[3]) if len(command)>3 else False
             turn_id=''
             try:
                 load_start=time.monotonic()
@@ -55,6 +56,10 @@ def voice_worker(inbox,outbox,cancel,root,config):
                 session_deadline=time.monotonic()+config.max_session_seconds
                 accept_after=0
                 pending=np.frombuffer(preroll,dtype='<i2').astype(np.float32)/32768
+                activation_sample=len(pending)
+                processed_samples=0
+                last_voiced_sample=0
+                turn_start_sample=0
                 turn=0
                 end=False
                 turn_started=None
@@ -88,9 +93,13 @@ def voice_worker(inbox,outbox,cancel,root,config):
                     if len(pending)<512:
                         continue
                     frame,pending=pending[:512],pending[512:]
+                    processed_samples+=len(frame)
                     probability=vad.probability(frame)
+                    if probability>=config.vad_threshold:
+                        last_voiced_sample=processed_samples
                     audio,reason,started=segmenter.feed(frame,probability)
                     if started:
+                        turn_start_sample=processed_samples-len(audio)
                         turn+=1
                         turn_id=f'{session_id}:{turn}'
                         turn_started=time.monotonic()
@@ -108,8 +117,14 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         transcripts.publish(turn_id,text,True)
                         emit('transcription_timing',finalize_seconds=time.monotonic()-t0,
                              voice_end_to_final_seconds=time.monotonic()-voice_end)
-                        if not config.diagnostic_echo and activation_only_candidate(text,first_turn=turn==1):
-                            emit('activation_only_or_ambiguous',reason='first_turn_isolated_token')
+                        wake_audio_only=(acoustic_activation and turn==1 and
+                            turn_start_sample<activation_sample and
+                            last_voiced_sample<=activation_sample+config.activation_tail_ms*16)
+                        emit('turn_audio_boundary',acoustic_activation=acoustic_activation,
+                             activation_sample=activation_sample,turn_start_sample=turn_start_sample,
+                             last_voiced_sample=last_voiced_sample,wake_audio_only=wake_audio_only)
+                        if not config.diagnostic_echo and (wake_audio_only or activation_only_candidate(text,first_turn=turn==1)):
+                            emit('activation_only_or_ambiguous',reason='wake_audio_boundary' if wake_audio_only else 'first_turn_isolated_token')
                             text=''
                         if text:
                             state('PROCESSING_RESPONSE')

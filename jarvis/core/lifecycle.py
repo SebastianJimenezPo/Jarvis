@@ -196,7 +196,7 @@ class LifecycleManager:
             self.metrics["activations"] += 1
             if self.voice.available():
                 try:
-                    self.voice.start(f'{self.machine.generation}:{self.machine.session}',self.ring.snapshot())
+                    self.voice.start(f'{self.machine.generation}:{self.machine.session}',self.ring.snapshot(),acoustic_activation=not manual)
                     self.machine.deadline = None
                 except Exception as exc:
                     self.voice.close()
