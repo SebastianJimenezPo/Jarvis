@@ -23,6 +23,10 @@ def main():
     commands.add_argument("--set-stt", choices=['moonshine-small','moonshine-tiny','whisper-base','whisper-small'])
     commands.add_argument("--set-voice", choices=['es_MX-ald-medium','es_ES-davefx-medium'])
     commands.add_argument("--set-wake-threshold",type=float,metavar='0..1')
+    commands.add_argument('--enable-intelligence',action='store_true')
+    commands.add_argument('--disable-intelligence',action='store_true')
+    commands.add_argument('--set-llm',choices=['qwen3.5:2b','qwen3:1.7b'])
+    commands.add_argument('--set-semantic',choices=['minilm','e5-small'])
     parser.add_argument("--samples", type=int, choices=range(5, 9), default=6)
     parser.add_argument("--exit-after", type=float, help="Cierre automático para pruebas, en segundos")
     args = parser.parse_args()
@@ -40,6 +44,14 @@ def main():
             return 0
         config = load(root)
         logger.setLevel("DEBUG" if args.debug else config.log_level)
+        if args.enable_intelligence or args.disable_intelligence or args.set_llm or args.set_semantic:
+            from .intelligence.settings import load_intelligence,save_intelligence
+            intelligence=load_intelligence(root)
+            changes=({'enabled':True} if args.enable_intelligence else {'enabled':False} if args.disable_intelligence else
+                     {'model':args.set_llm} if args.set_llm else {'semantic_model':args.set_semantic})
+            save_intelligence(root,replace(intelligence,**changes))
+            print('Configuración de inteligencia guardada. Reinicia Jarvis para aplicarla.')
+            return 0
         if args.set_wake_threshold is not None:
             save(root,replace(config,threshold=args.set_wake_threshold))
             print('Umbral guardado. Reinicia Jarvis para aplicarlo; un valor mayor reduce sensibilidad.')
@@ -62,10 +74,12 @@ def main():
             from .speech.settings import load_voice
             from .speech.models import registry
             from dataclasses import asdict
+            from .intelligence.settings import load_intelligence
             print(json.dumps({**environment(), "engine_exists": engine_path().exists(),
                               "reference_exists": config.reference_path(root).exists(),
                               "config": str(root / "config.json"), "voice":asdict(load_voice(root)),
-                              "installed_models":list(registry(root))}, indent=2))
+                              "installed_models":list(registry(root)),
+                              "intelligence":asdict(load_intelligence(root))}, indent=2))
             return 0
         from .core.single_instance import SingleInstance
         with SingleInstance():
@@ -79,7 +93,14 @@ def main():
                 return 0
             from .core.lifecycle import LifecycleManager
             from .interface.tray import run
-            logger.info("application_start version=0.2.0 phase=2")
+            try:
+                from .intelligence.settings import load_intelligence
+                if load_intelligence(root).enabled:
+                    from .intelligence.service import ensure_service
+                    logger.info('ollama_service_'+ensure_service())
+            except Exception:
+                logger.exception('intelligence_service_unavailable_voice_core_preserved')
+            logger.info("application_start version=0.3.0 phase=3")
             return run(LifecycleManager(config, root), root, args.exit_after)
     except Exception as exc:
         logger.exception("application_failed")

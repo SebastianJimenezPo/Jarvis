@@ -36,16 +36,20 @@ def test_tray_menu_actions_dispatch_and_close(tmp_path):
         menus = [w for w in QApplication.topLevelWidgets() if isinstance(w, QMenu)]
         action = next(a for menu in menus for a in menu.actions() if a.text() == label)
         action.trigger()
-    def record():
-        recorded.append(manager.snapshot()["state"])
-    QTimer.singleShot(200, lambda: trigger("Pausar escucha"))
-    QTimer.singleShot(450, record)
-    QTimer.singleShot(500, lambda: trigger("Reanudar / reintentar"))
-    QTimer.singleShot(800, record)
-    QTimer.singleShot(850, lambda: trigger("Probar activación manual"))
-    QTimer.singleShot(1100, record)
-    QTimer.singleShot(1200, lambda: trigger("Salir completamente"))
-    run(manager, tmp_path, exit_after=3)
+    stage=[0]
+    def advance():
+        state=manager.snapshot()['state']
+        if stage[0]==0 and state=='DORMANT':
+            stage[0]=1;trigger('Pausar escucha')
+        elif stage[0]==1 and state=='PAUSED':
+            recorded.append(state);stage[0]=2;trigger('Reanudar / reintentar')
+        elif stage[0]==2 and state=='DORMANT':
+            recorded.append(state);stage[0]=3;trigger('Probar activación manual')
+        elif stage[0]==3 and state=='AWAKE':
+            recorded.append(state);stage[0]=4;trigger('Salir completamente')
+    timer=QTimer();timer.timeout.connect(advance);timer.start(25)
+    try:run(manager,tmp_path,exit_after=8)
+    finally:timer.stop()
     assert recorded == ["PAUSED", "DORMANT", "AWAKE"]
     assert manager.snapshot()["state"] == "STOPPING"
     assert FakeCapture.live == FakeDetector.live == 0

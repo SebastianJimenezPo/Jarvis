@@ -1,0 +1,74 @@
+[
+  {
+    "context_tokens": 1024,
+    "text": "¿Qué es una variable?",
+    "response": "Una variable es un nombre que se usa para almacenar un valor en un programa. Este valor puede cambiar durante la ejecución del programa, por ejemplo, si estás calculando la suma de dos números.",
+    "route": "llm",
+    "seconds": 4.635497099996428,
+    "metrics": {
+      "load_duration": 1578860500,
+      "prompt_eval_duration": 1207103000,
+      "eval_duration": 1756032000,
+      "prompt_eval_count": 139,
+      "eval_count": 43,
+      "model": "qwen3:1.7b",
+      "wall_seconds": 4.546999999998661,
+      "thinking_disabled": true
+    },
+    "error": null
+  },
+  {
+    "context_tokens": 1024,
+    "text": "Ponme un ejemplo más sencillo",
+    "response": "Claro, imagina que tienes una variable llamada \"edad\" y le asignas el valor 10. Esta variable se usa para guardar la edad de una persona. Si luego le das el valor 11, la variable ahora contiene la edad actual.",
+    "route": "llm",
+    "seconds": 2.967524300001969,
+    "metrics": {
+      "load_duration": 5481300,
+      "prompt_eval_duration": 622233000,
+      "eval_duration": 2287899000,
+      "prompt_eval_count": 200,
+      "eval_count": 55,
+      "model": "qwen3:1.7b",
+      "wall_seconds": 2.922000000005937,
+      "thinking_disabled": true
+    },
+    "error": null
+  },
+  {
+    "context_tokens": 2048,
+    "text": "¿Qué es una variable?",
+    "response": "Una variable es un nombre que se usa para almacenar un valor en un programa. Este valor puede cambiar durante la ejecución del programa, por ejemplo, si estás calculando la suma de dos números.",
+    "route": "llm",
+    "seconds": 4.596181900000374,
+    "metrics": {
+      "load_duration": 1637189700,
+      "prompt_eval_duration": 1197715000,
+      "eval_duration": 1711509000,
+      "prompt_eval_count": 139,
+      "eval_count": 43,
+      "model": "qwen3:1.7b",
+      "wall_seconds": 4.546999999998661,
+      "thinking_disabled": true
+    },
+    "error": null
+  },
+  {
+    "context_tokens": 2048,
+    "text": "Ponme un ejemplo más sencillo",
+    "response": "Claro, imagina que tienes una variable llamada \"edad\" y le asignas el valor 10. Esta variable se usa para guardar la edad de una persona. Si luego le das el valor 11, la variable ahora contiene la edad actual.",
+    "route": "llm",
+    "seconds": 2.9813551000042935,
+    "metrics": {
+      "load_duration": 5720500,
+      "prompt_eval_duration": 644729000,
+      "eval_duration": 2289788000,
+      "prompt_eval_count": 200,
+      "eval_count": 55,
+      "model": "qwen3:1.7b",
+      "wall_seconds": 2.9539999999979045,
+      "thinking_disabled": true
+    },
+    "error": null
+  }
+]

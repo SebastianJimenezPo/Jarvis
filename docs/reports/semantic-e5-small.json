@@ -1,0 +1,565 @@
+[
+  {
+    "model": "e5-small",
+    "load_seconds": 2.390900200000033,
+    "rss_process_bytes": 816447488,
+    "heldout_correct_top": 11,
+    "heldout_positive_count": 12,
+    "heldout_accepted": 10,
+    "heldout_wrong_acceptances": 2,
+    "calibration": {
+      "model": "e5-small",
+      "source": "development only; no heldout or negation tuning",
+      "intents": {
+        "decrease_volume": {
+          "score": 0.8800000000000004,
+          "margin": 0,
+          "development_hits": 2
+        },
+        "increase_volume": {
+          "score": 0.4,
+          "margin": 0.02,
+          "development_hits": 1
+        },
+        "set_light_brightness": {
+          "score": 0.4,
+          "margin": 0,
+          "development_hits": 2
+        },
+        "pause_music": {
+          "score": 0.8800000000000004,
+          "margin": 0,
+          "development_hits": 3
+        },
+        "turn_off_light": {
+          "score": 0.4,
+          "margin": 0.02,
+          "development_hits": 3
+        },
+        "turn_on_light": {
+          "score": 0.8600000000000004,
+          "margin": 0,
+          "development_hits": 2
+        }
+      }
+    },
+    "rows": [
+      {
+        "text": "Ese volumen está muy alto",
+        "expected": "decrease_volume",
+        "split": "development",
+        "top": "increase_volume",
+        "score": 0.8803149295997135,
+        "margin": 0.005887956991075249,
+        "seconds": 0.008696299999428447,
+        "accepted": false
+      },
+      {
+        "text": "La música está re fuerte",
+        "expected": "decrease_volume",
+        "split": "development",
+        "top": "decrease_volume",
+        "score": 0.8932352568047325,
+        "margin": 0.00333347531753303,
+        "seconds": 0.009086199999728706,
+        "accepted": true
+      },
+      {
+        "text": "Bájale que está durísimo",
+        "expected": "decrease_volume",
+        "split": "development",
+        "top": "decrease_volume",
+        "score": 0.8901152868817326,
+        "margin": 0.01222457928668641,
+        "seconds": 0.00945880000017496,
+        "accepted": true
+      },
+      {
+        "text": "El sonido me está dejando sordo",
+        "expected": "decrease_volume",
+        "split": "development",
+        "top": "decrease_volume",
+        "score": 0.8747116660628017,
+        "margin": 0.0070934160629942955,
+        "seconds": 0.009319800000412215,
+        "accepted": false
+      },
+      {
+        "text": "Me estás dejando sordo con ese volumen",
+        "expected": "decrease_volume",
+        "split": "heldout",
+        "top": "decrease_volume",
+        "score": 0.8776049446022414,
+        "margin": 0.008950970068643538,
+        "seconds": 0.011728099999345432,
+        "accepted": false
+      },
+      {
+        "text": "El audio está muy duro para mí",
+        "expected": "decrease_volume",
+        "split": "heldout",
+        "top": "decrease_volume",
+        "score": 0.8972816576927347,
+        "margin": 0.03339049551135942,
+        "seconds": 0.006159800000204996,
+        "accepted": true
+      },
+      {
+        "text": "Se escucha demasiado bajito",
+        "expected": "increase_volume",
+        "split": "development",
+        "top": "decrease_volume",
+        "score": 0.8782207918379499,
+        "margin": 0.005007597087293814,
+        "seconds": 0.009548099999847182,
+        "accepted": false
+      },
+      {
+        "text": "Súbele algo al sonido",
+        "expected": "increase_volume",
+        "split": "development",
+        "top": "decrease_volume",
+        "score": 0.8786013245127386,
+        "margin": 0.007219667399944063,
+        "seconds": 0.006247399999665504,
+        "accepted": false
+      },
+      {
+        "text": "La música casi no se escucha",
+        "expected": "increase_volume",
+        "split": "development",
+        "top": "pause_music",
+        "score": 0.8751562724527867,
+        "margin": 0.009787245531123756,
+        "seconds": 0.009325400000307127,
+        "accepted": false
+      },
+      {
+        "text": "Necesito más volumen",
+        "expected": "increase_volume",
+        "split": "development",
+        "top": "increase_volume",
+        "score": 0.9012539144683902,
+        "margin": 0.02454116568160314,
+        "seconds": 0.0073139999994964455,
+        "accepted": true
+      },
+      {
+        "text": "No se oye casi nada de música",
+        "expected": "increase_volume",
+        "split": "heldout",
+        "top": "increase_volume",
+        "score": 0.8959001303860049,
+        "margin": 0.01745524234962459,
+        "seconds": 0.010961100000713486,
+        "accepted": false
+      },
+      {
+        "text": "Ese audio está demasiado bajo",
+        "expected": "increase_volume",
+        "split": "heldout",
+        "top": "decrease_volume",
+        "score": 0.9006561304392513,
+        "margin": 0.015221274878924218,
+        "seconds": 0.007247100000313367,
+        "accepted": true
+      },
+      {
+        "text": "La iluminación me molesta en los ojos",
+        "expected": "set_light_brightness",
+        "split": "development",
+        "top": "turn_off_light",
+        "score": 0.8890042444456923,
+        "margin": 0.01828462608038517,
+        "seconds": 0.010757299999568204,
+        "accepted": false
+      },
+      {
+        "text": "Pon más tenue la luz",
+        "expected": "set_light_brightness",
+        "split": "development",
+        "top": "set_light_brightness",
+        "score": 0.8971852388131356,
+        "margin": 0.0016403839206886595,
+        "seconds": 0.009069300000192015,
+        "accepted": true
+      },
+      {
+        "text": "Que no alumbre tan fuerte",
+        "expected": "set_light_brightness",
+        "split": "development",
+        "top": "increase_volume",
+        "score": 0.8539425598171477,
+        "margin": 0.0006019923770937963,
+        "seconds": 0.00905990000046586,
+        "accepted": false
+      },
+      {
+        "text": "Esa luz está demasiado brillante",
+        "expected": "set_light_brightness",
+        "split": "development",
+        "top": "set_light_brightness",
+        "score": 0.9251202483016923,
+        "margin": 0.04317274427568596,
+        "seconds": 0.0077693000002909685,
+        "accepted": true
+      },
+      {
+        "text": "Me encandila la luz del escritorio",
+        "expected": "set_light_brightness",
+        "split": "heldout",
+        "top": "set_light_brightness",
+        "score": 0.8849128658036123,
+        "margin": 0.007034744021288009,
+        "seconds": 0.008966899999904854,
+        "accepted": true
+      },
+      {
+        "text": "Quiero el brillo de la luz más suave",
+        "expected": "set_light_brightness",
+        "split": "heldout",
+        "top": "set_light_brightness",
+        "score": 0.90671003019499,
+        "margin": 0.01802971048305224,
+        "seconds": 0.010272700000314217,
+        "accepted": true
+      },
+      {
+        "text": "Para un momento la canción",
+        "expected": "pause_music",
+        "split": "development",
+        "top": "pause_music",
+        "score": 0.9187222575414762,
+        "margin": 0.06525696319230145,
+        "seconds": 0.007694300000366638,
+        "accepted": true
+      },
+      {
+        "text": "Interrumpe la música un ratito",
+        "expected": "pause_music",
+        "split": "development",
+        "top": "pause_music",
+        "score": 0.8696769018671034,
+        "margin": 0.013754589182542909,
+        "seconds": 0.011547799999789277,
+        "accepted": false
+      },
+      {
+        "text": "Detén lo que está sonando",
+        "expected": "pause_music",
+        "split": "development",
+        "top": "pause_music",
+        "score": 0.884266122077678,
+        "margin": 0.01956264218488668,
+        "seconds": 0.005926699999690754,
+        "accepted": true
+      },
+      {
+        "text": "Pausa esa canción",
+        "expected": "pause_music",
+        "split": "development",
+        "top": "pause_music",
+        "score": 0.8828047218044819,
+        "margin": 0.01646311968194103,
+        "seconds": 0.009467400000175985,
+        "accepted": true
+      },
+      {
+        "text": "Dale pausa a la canción",
+        "expected": "pause_music",
+        "split": "heldout",
+        "top": "pause_music",
+        "score": 0.9155856391487445,
+        "margin": 0.04837809155621031,
+        "seconds": 0.007655099999283266,
+        "accepted": true
+      },
+      {
+        "text": "Que no siga sonando la música un momento",
+        "expected": "pause_music",
+        "split": "heldout",
+        "top": "pause_music",
+        "score": 0.8928772038434019,
+        "margin": 0.04332401804074959,
+        "seconds": 0.009524999999484862,
+        "accepted": true
+      },
+      {
+        "text": "Quiero que quede oscuro",
+        "expected": "turn_off_light",
+        "split": "development",
+        "top": "turn_off_light",
+        "score": 0.8979898445545206,
+        "margin": 0.034505590141014175,
+        "seconds": 0.006282700000156183,
+        "accepted": true
+      },
+      {
+        "text": "Deja de iluminar el cuarto",
+        "expected": "turn_off_light",
+        "split": "development",
+        "top": "turn_off_light",
+        "score": 0.8941518442675016,
+        "margin": 0.015685329742304077,
+        "seconds": 0.006416899999749148,
+        "accepted": false
+      },
+      {
+        "text": "Quita la iluminación",
+        "expected": "turn_off_light",
+        "split": "development",
+        "top": "turn_off_light",
+        "score": 0.9337629260788487,
+        "margin": 0.030784007824231185,
+        "seconds": 0.012851899999986927,
+        "accepted": true
+      },
+      {
+        "text": "Apaga todas las luces",
+        "expected": "turn_off_light",
+        "split": "development",
+        "top": "turn_off_light",
+        "score": 0.9017079092549735,
+        "margin": 0.032730420944179994,
+        "seconds": 0.024408299999777228,
+        "accepted": true
+      },
+      {
+        "text": "Deja el cuarto a oscuras",
+        "expected": "turn_off_light",
+        "split": "heldout",
+        "top": "turn_off_light",
+        "score": 0.9184875842011884,
+        "margin": 0.051409963813649595,
+        "seconds": 0.007911200000307872,
+        "accepted": true
+      },
+      {
+        "text": "Quiero la habitación sin iluminación",
+        "expected": "turn_off_light",
+        "split": "heldout",
+        "top": "turn_off_light",
+        "score": 0.8953790211783474,
+        "margin": 0.012816001932375198,
+        "seconds": 0.010039900000265334,
+        "accepted": false
+      },
+      {
+        "text": "Quiero que se ilumine el cuarto",
+        "expected": "turn_on_light",
+        "split": "development",
+        "top": "turn_off_light",
+        "score": 0.9398429031870602,
+        "margin": 0.017139371094189948,
+        "seconds": 0.00990899999942485,
+        "accepted": false
+      },
+      {
+        "text": "Enciende las luces del cuarto",
+        "expected": "turn_on_light",
+        "split": "development",
+        "top": "turn_on_light",
+        "score": 0.894365652530851,
+        "margin": 0.00011387414258279271,
+        "seconds": 0.013709099999687169,
+        "accepted": true
+      },
+      {
+        "text": "Dale luz a esta habitación",
+        "expected": "turn_on_light",
+        "split": "development",
+        "top": "turn_off_light",
+        "score": 0.9054327529405435,
+        "margin": 0.0014923982773290545,
+        "seconds": 0.012467300000025716,
+        "accepted": false
+      },
+      {
+        "text": "Prende todas las luces",
+        "expected": "turn_on_light",
+        "split": "development",
+        "top": "turn_on_light",
+        "score": 0.9113253454831481,
+        "margin": 0.03563162947255438,
+        "seconds": 0.009753199999977369,
+        "accepted": true
+      },
+      {
+        "text": "Alumbra este cuarto",
+        "expected": "turn_on_light",
+        "split": "heldout",
+        "top": "turn_on_light",
+        "score": 0.9020031937698858,
+        "margin": 0.01840032613846665,
+        "seconds": 0.006949499999791442,
+        "accepted": true
+      },
+      {
+        "text": "Necesito luz para ver en la habitación",
+        "expected": "turn_on_light",
+        "split": "heldout",
+        "top": "turn_on_light",
+        "score": 0.9224247727311295,
+        "margin": 0.03019845736885929,
+        "seconds": 0.009873699999843666,
+        "accepted": true
+      },
+      {
+        "text": "Quiero tomar café",
+        "expected": null,
+        "split": "development",
+        "top": "turn_off_light",
+        "score": 0.8769383831253259,
+        "margin": 0.015828681050567117,
+        "seconds": null,
+        "accepted": false
+      },
+      {
+        "text": "Mi hermano estudia medicina",
+        "expected": null,
+        "split": "heldout",
+        "top": "turn_off_light",
+        "score": 0.824297459104364,
+        "margin": 0.012080879699965075,
+        "seconds": null,
+        "accepted": false
+      },
+      {
+        "text": "Abre Steam",
+        "expected": null,
+        "split": "development",
+        "top": "turn_on_light",
+        "score": 0.852768064086732,
+        "margin": 0.01176721441778883,
+        "seconds": null,
+        "accepted": false
+      },
+      {
+        "text": "Gracias por ayudarme",
+        "expected": null,
+        "split": "heldout",
+        "top": "set_light_brightness",
+        "score": 0.8503414019376169,
+        "margin": 0.0008098332646256923,
+        "seconds": null,
+        "accepted": true
+      },
+      {
+        "text": "¿Qué es una variable?",
+        "expected": null,
+        "split": "development",
+        "top": "pause_music",
+        "score": 0.7839843579590408,
+        "margin": 0.0038299658182916474,
+        "seconds": null,
+        "accepted": false
+      },
+      {
+        "text": "Cierra Chrome",
+        "expected": null,
+        "split": "heldout",
+        "top": "turn_off_light",
+        "score": 0.8749500916539217,
+        "margin": 0.012346874857494194,
+        "seconds": null,
+        "accepted": false
+      },
+      {
+        "text": "Estoy hablando con mi amigo",
+        "expected": null,
+        "split": "development",
+        "top": "increase_volume",
+        "score": 0.8434770067612875,
+        "margin": 0.00046279380599545394,
+        "seconds": null,
+        "accepted": false
+      },
+      {
+        "text": "Busca una canción de Queen",
+        "expected": null,
+        "split": "heldout",
+        "top": "pause_music",
+        "score": 0.8744541788654526,
+        "margin": 0.01867232733922397,
+        "seconds": null,
+        "accepted": false
+      },
+      {
+        "text": "Mañana voy a estudiar",
+        "expected": null,
+        "split": "development",
+        "top": "turn_off_light",
+        "score": 0.8425165382939213,
+        "margin": 0.0156693822513031,
+        "seconds": null,
+        "accepted": false
+      },
+      {
+        "text": "Prefiero el color verde",
+        "expected": null,
+        "split": "heldout",
+        "top": "turn_off_light",
+        "score": 0.8623216088881764,
+        "margin": 0.010630482997303847,
+        "seconds": null,
+        "accepted": false
+      }
+    ],
+    "polarity_stress": [
+      {
+        "text": "No bajes el volumen",
+        "raw_top": [
+          "increase_volume",
+          0.8720227048677454
+        ],
+        "guard": "negated",
+        "authorized": false
+      },
+      {
+        "text": "No apagues las luces",
+        "raw_top": [
+          "turn_off_light",
+          0.9057075467154151
+        ],
+        "guard": "negated",
+        "authorized": false
+      },
+      {
+        "text": "Cuando termine de jugar apaga las luces",
+        "raw_top": [
+          "turn_off_light",
+          0.8699491022979079
+        ],
+        "guard": "deferred_request",
+        "authorized": false
+      },
+      {
+        "text": "¿Qué pasaría si subiera el volumen?",
+        "raw_top": [
+          "decrease_volume",
+          0.8025473276098581
+        ],
+        "guard": "hypothetical",
+        "authorized": false
+      },
+      {
+        "text": "Ayer bajé el volumen",
+        "raw_top": [
+          "decrease_volume",
+          0.8477871360145859
+        ],
+        "guard": "conversation",
+        "authorized": false
+      },
+      {
+        "text": "No quiero que cierres Chrome",
+        "raw_top": [
+          "turn_off_light",
+          0.8555748423098464
+        ],
+        "guard": "negated",
+        "authorized": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,160 @@
+{
+  "scenario": "Synthetic mic, real Rustpotter loaded, diagnostic activation, Moonshine+VAD+phase3 context+Piper/default output. No physical light actions, no real-user audio, no physical echo test.",
+  "decisions": [
+    {
+      "interpretation": {
+        "kind": "action_proposal",
+        "actions": [
+          {
+            "intent": "set_light_color",
+            "target": "main_light",
+            "parameters": {
+              "color": "red"
+            }
+          }
+        ],
+        "immediate": true,
+        "negated": false,
+        "reason_code": "explicit_immediate_request"
+      },
+      "route": "fast",
+      "seconds": 0.004028299998026341,
+      "session_id": "0:1",
+      "turn_id": "0:1:1",
+      "request_id": "5637f516f45a458c9a1e1f5fea3dc042",
+      "simulated": true,
+      "executed": false,
+      "end_session": false,
+      "llm_metrics": {},
+      "routes": {
+        "fast": 1,
+        "semantic": 0,
+        "llm": 0,
+        "fallback": 0
+      },
+      "last_error": null,
+      "synthetic_recognized_text": "pon las luces rojas"
+    },
+    {
+      "interpretation": {
+        "kind": "clarification",
+        "actions": [],
+        "immediate": false,
+        "negated": false,
+        "reason_code": "local_model_unavailable_or_invalid"
+      },
+      "route": "fallback",
+      "seconds": 0.0011971000058110803,
+      "session_id": "0:1",
+      "turn_id": "0:1:2",
+      "request_id": "13254d8850ea404a9f7ee45dac7663e5",
+      "simulated": true,
+      "executed": false,
+      "end_session": false,
+      "llm_metrics": {},
+      "routes": {
+        "fast": 1,
+        "semantic": 0,
+        "llm": 0,
+        "fallback": 1
+      },
+      "last_error": "RuntimeError (details omitted for privacy)",
+      "synthetic_recognized_text": "Fora Sodes."
+    }
+  ],
+  "snapshot": {
+    "state": "STOPPING",
+    "session": 1,
+    "generation": 1,
+    "state_seconds": {
+      "STARTING": 0.046999999998661224,
+      "DORMANT": 0.25,
+      "AWAKE": 27.125,
+      "PAUSED": 0.0,
+      "DEGRADED": 0.0,
+      "STOPPING": 0.0
+    },
+    "activations": 1,
+    "restarts": 0,
+    "capture_failures": 0,
+    "dropped_blocks": 0,
+    "queue_peak": 4,
+    "capture_overflows": 0,
+    "initialization_seconds": 0.046999999998661224,
+    "last_error": null,
+    "consecutive_failures": 0,
+    "retry_at_monotonic": null,
+    "capture_device": null,
+    "last_capture_device": {
+      "name": "SYNTHETIC PHASE3 INPUT"
+    },
+    "last_capture_rate": 16000,
+    "detector_pid": null,
+    "voice": {
+      "enabled": true,
+      "engine": "moonshine-small",
+      "model": "moonshine-small",
+      "voice": "es_MX-ald-medium",
+      "tts_enabled": true,
+      "state": "IDLE",
+      "session_id": "0:1",
+      "last_error": null,
+      "last_transcript": "Fora Sodes.",
+      "worker_pid": null,
+      "metrics": {
+        "sessions_opened": 1,
+        "sessions_closed": 1,
+        "empty_transcripts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "audio_dropped": 0,
+        "turns": 2
+      },
+      "timings": {
+        "stt_ready": {
+          "load_seconds": 0.7189999999973224
+        },
+        "transcription_timing": {
+          "finalize_seconds": 0.0,
+          "voice_end_to_final_seconds": 1.2160000000003492
+        },
+        "dialogue_timing": {
+          "seconds": 0.0
+        },
+        "synthesis_first_chunk": {
+          "seconds": 0.09399999999732245
+        },
+        "turn_completed": {
+          "seconds": 9.06300000000192
+        }
+      },
+      "intelligence": {
+        "interpretation": {
+          "kind": "clarification",
+          "actions": [],
+          "immediate": false,
+          "negated": false,
+          "reason_code": "local_model_unavailable_or_invalid"
+        },
+        "route": "fallback",
+        "seconds": 0.0011971000058110803,
+        "session_id": "0:1",
+        "turn_id": "0:1:2",
+        "request_id": "13254d8850ea404a9f7ee45dac7663e5",
+        "simulated": true,
+        "executed": false,
+        "end_session": false,
+        "llm_metrics": {},
+        "routes": {
+          "fast": 1,
+          "semantic": 0,
+          "llm": 0,
+          "fallback": 1
+        },
+        "last_error": "RuntimeError (details omitted for privacy)"
+      }
+    }
+  },
+  "passed": false,
+  "failure": "Synthetic speech was not correctly interpreted as red -> blue"
+}

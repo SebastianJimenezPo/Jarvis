@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jarvis-always-on-core"
-version = "0.2.0"
+version = "0.3.0"
 description = "Local Windows wake-word resident, phase 1"
 requires-python = ">=3.11,<3.12"
 dependencies = [
@@ -15,6 +15,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest==8.3.5"]
 voice = ["moonshine-voice==0.1.6", "faster-whisper==1.2.1", "piper-tts==1.8.0", "onnxruntime==1.31.1"]
+intelligence = ["pydantic==2.12.5", "onnxruntime==1.31.1", "tokenizers==0.23.3", "huggingface-hub==2.4.0"]
 
 [tool.setuptools.packages.find]
 include = ["jarvis*"]

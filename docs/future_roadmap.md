@@ -1,9 +1,11 @@
-# Fases posteriores — no implementadas
+# Estado y siguientes fases — 2026-11-10
 
-2. Reconocimiento local en español, final de turno y TTS cancelable. Evaluar Moonshine/faster-whisper; conservar el único propietario del micrófono.
-3. Router híbrido de intenciones y modelo local bajo demanda. Probar negaciones, condiciones y referencias antes de ejecutar acciones.
-4. Catálogo de herramientas autorizadas: ventanas, aplicaciones, volumen, multimedia, luces e integraciones disponibles. Validar entradas y resultados.
-5. SQLite para preferencias, alias, dispositivos y rutinas explícitas.
+Fases 1 y 2: base residente y voz local implementadas, con comprobaciones físicas del usuario y observaciones documentadas. Fase 3: motor híbrido, conversación local y planes simulados implementados; aceptación física pendiente. Ver `phase_3.md` e `intelligence_validation.md`.
+
+Las fases siguientes no se han implementado ni autorizado en esta entrega:
+
+4. Conectar herramientas reales de aplicaciones, multimedia, volumen, luces e integraciones. Validar entradas, permisos, confirmaciones aplicables y resultados. El catálogo de simulación es una base, no una autorización para ejecutarlo.
+5. Memoria permanente de preferencias, alias, dispositivos y rutinas explícitas.
 6. Interfaz flotante, perfiles de rendimiento, instalador y pruebas prolongadas.
 
-No se instalaron estas dependencias ni se añadieron funciones ficticias. Antes de avanzar, terminar la aceptación física de Fase 1.
+Pendiente de evaluación: falsas activaciones, pausas naturales y STT con frases cortas, elección de micrófono de auriculares, voz alternativa, consumo durante juego y conversaciones espontáneas. Conservar la configuración aceptada mientras se recopilan resultados físicos. El usuario decide cuándo cerrar Fase 3 y avanzar.

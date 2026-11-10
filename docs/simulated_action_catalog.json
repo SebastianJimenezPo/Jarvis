@@ -1,0 +1,378 @@
+{
+  "open_application": {
+    "description": "Abrir aplicación simulada",
+    "entity_type": "application",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Abre Chrome"
+    ],
+    "negative_examples": [
+      "No abre chrome",
+      "Mañana abre chrome"
+    ]
+  },
+  "close_application": {
+    "description": "Cerrar aplicación simulada",
+    "entity_type": "application",
+    "parameters": {},
+    "future_confirmation_policy": "confirm_if_unsaved",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Cierra Chrome"
+    ],
+    "negative_examples": [
+      "No cierra chrome",
+      "Mañana cierra chrome"
+    ]
+  },
+  "focus_application": {
+    "description": "Enfocar aplicación simulada",
+    "entity_type": "application",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Enfoca Chrome"
+    ],
+    "negative_examples": [
+      "No enfoca chrome",
+      "Mañana enfoca chrome"
+    ]
+  },
+  "set_volume": {
+    "description": "Volumen absoluto",
+    "entity_type": "audio",
+    "parameters": {
+      "value": "int:0..100"
+    },
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Pon el volumen al 50"
+    ],
+    "negative_examples": [
+      "No pon el volumen al 50",
+      "Mañana pon el volumen al 50"
+    ]
+  },
+  "increase_volume": {
+    "description": "Aumentar volumen",
+    "entity_type": "audio",
+    "parameters": {
+      "amount": "int:-100..100"
+    },
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Sube el volumen"
+    ],
+    "negative_examples": [
+      "No sube el volumen",
+      "Mañana sube el volumen"
+    ]
+  },
+  "decrease_volume": {
+    "description": "Disminuir volumen",
+    "entity_type": "audio",
+    "parameters": {
+      "amount": "int:-100..100"
+    },
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Baja el volumen"
+    ],
+    "negative_examples": [
+      "No baja el volumen",
+      "Mañana baja el volumen"
+    ]
+  },
+  "mute_audio": {
+    "description": "Silenciar",
+    "entity_type": "audio",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Silencia el audio"
+    ],
+    "negative_examples": [
+      "No silencia el audio",
+      "Mañana silencia el audio"
+    ]
+  },
+  "unmute_audio": {
+    "description": "Quitar silencio",
+    "entity_type": "audio",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Quita el silencio"
+    ],
+    "negative_examples": [
+      "No quita el silencio",
+      "Mañana quita el silencio"
+    ]
+  },
+  "play_music": {
+    "description": "Solicitar música",
+    "entity_type": "music",
+    "parameters": {
+      "query": "optional_text"
+    },
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Reproduce música"
+    ],
+    "negative_examples": [
+      "No reproduce música",
+      "Mañana reproduce música"
+    ]
+  },
+  "pause_music": {
+    "description": "Pausar música",
+    "entity_type": "music",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Pausa la música"
+    ],
+    "negative_examples": [
+      "No pausa la música",
+      "Mañana pausa la música"
+    ]
+  },
+  "next_track": {
+    "description": "Siguiente pista",
+    "entity_type": "music",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Pasa a la siguiente canción"
+    ],
+    "negative_examples": [
+      "No pasa a la siguiente canción",
+      "Mañana pasa a la siguiente canción"
+    ]
+  },
+  "previous_track": {
+    "description": "Pista anterior",
+    "entity_type": "music",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Vuelve a la canción anterior"
+    ],
+    "negative_examples": [
+      "No vuelve a la canción anterior",
+      "Mañana vuelve a la canción anterior"
+    ]
+  },
+  "search_music": {
+    "description": "Buscar música",
+    "entity_type": "music",
+    "parameters": {
+      "query": "text"
+    },
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Busca Hotel California"
+    ],
+    "negative_examples": [
+      "No busca hotel california",
+      "Mañana busca hotel california"
+    ]
+  },
+  "turn_on_light": {
+    "description": "Encender luz simulada",
+    "entity_type": "light",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Enciende la luz principal"
+    ],
+    "negative_examples": [
+      "No enciende la luz principal",
+      "Mañana enciende la luz principal"
+    ]
+  },
+  "turn_off_light": {
+    "description": "Apagar luz simulada",
+    "entity_type": "light",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Apaga la luz principal"
+    ],
+    "negative_examples": [
+      "No apaga la luz principal",
+      "Mañana apaga la luz principal"
+    ]
+  },
+  "set_light_color": {
+    "description": "Color de luz simulada",
+    "entity_type": "light",
+    "parameters": {
+      "color": "color"
+    },
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Pon las luces azules"
+    ],
+    "negative_examples": [
+      "No pon las luces azules",
+      "Mañana pon las luces azules"
+    ]
+  },
+  "set_light_brightness": {
+    "description": "Brillo simulado",
+    "entity_type": "light",
+    "parameters": {
+      "value": "optional_int:0..100",
+      "delta": "optional_int:-100..100"
+    },
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Pon el brillo al 50"
+    ],
+    "negative_examples": [
+      "No pon el brillo al 50",
+      "Mañana pon el brillo al 50"
+    ]
+  },
+  "activate_scene": {
+    "description": "Modo simulado",
+    "entity_type": "scene",
+    "parameters": {},
+    "future_confirmation_policy": "confirm_multi_action",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Activa el modo jugar"
+    ],
+    "negative_examples": [
+      "No activa el modo jugar",
+      "Mañana activa el modo jugar"
+    ]
+  },
+  "get_system_status": {
+    "description": "Estado simulado",
+    "entity_type": "system",
+    "parameters": {},
+    "future_confirmation_policy": "none",
+    "context_required": "Un objetivo explícito o un referente único del tipo compatible",
+    "restrictions": [
+      "Simulación obligatoria",
+      "Sin ejecución real",
+      "Validar polaridad, temporalidad y parámetros"
+    ],
+    "positive_examples": [
+      "Dame el estado del sistema"
+    ],
+    "negative_examples": [
+      "No dame el estado del sistema",
+      "Mañana dame el estado del sistema"
+    ]
+  }
+}

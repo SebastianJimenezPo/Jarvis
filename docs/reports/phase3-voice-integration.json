@@ -1,0 +1,180 @@
+{
+  "scenario": "Synthetic mic, real Rustpotter loaded, diagnostic activation, Moonshine+VAD+phase3 context+Piper/default output. No physical light actions, no real-user audio, no physical echo test.",
+  "utterances": [
+    "Por favor pon la luz principal de color rojo",
+    "No, mejor cambia las luces a color azul"
+  ],
+  "decisions": [
+    {
+      "interpretation": {
+        "kind": "action_proposal",
+        "actions": [
+          {
+            "intent": "set_light_color",
+            "target": "main_light",
+            "parameters": {
+              "color": "red"
+            }
+          }
+        ],
+        "immediate": true,
+        "negated": false,
+        "reason_code": "explicit_immediate_request"
+      },
+      "route": "fast",
+      "seconds": 0.004029099996841978,
+      "session_id": "0:1",
+      "turn_id": "0:1:1",
+      "request_id": "6f382839baa646ea99fc7f202bc54c42",
+      "simulated": true,
+      "executed": false,
+      "end_session": false,
+      "llm_metrics": {},
+      "routes": {
+        "fast": 1,
+        "semantic": 0,
+        "llm": 0,
+        "fallback": 0
+      },
+      "last_error": null,
+      "synthetic_recognized_text": "por favor pon la luz principal de color rojo"
+    },
+    {
+      "interpretation": {
+        "kind": "action_proposal",
+        "actions": [
+          {
+            "intent": "set_light_color",
+            "target": "main_light",
+            "parameters": {
+              "color": "blue"
+            }
+          }
+        ],
+        "immediate": true,
+        "negated": false,
+        "reason_code": "context_correction"
+      },
+      "route": "fast",
+      "seconds": 0.00039739999920129776,
+      "session_id": "0:1",
+      "turn_id": "0:1:2",
+      "request_id": "669f52bda21a4aa5a65db8ae8d36cb97",
+      "simulated": true,
+      "executed": false,
+      "end_session": false,
+      "llm_metrics": {},
+      "routes": {
+        "fast": 2,
+        "semantic": 0,
+        "llm": 0,
+        "fallback": 0
+      },
+      "last_error": null,
+      "synthetic_recognized_text": "No mejor cambia las luces a color azul."
+    }
+  ],
+  "snapshot": {
+    "state": "STOPPING",
+    "session": 1,
+    "generation": 1,
+    "state_seconds": {
+      "STARTING": 0.046000000002095476,
+      "DORMANT": 0.20300000000133878,
+      "AWAKE": 33.09399999999732,
+      "PAUSED": 0.0,
+      "DEGRADED": 0.0,
+      "STOPPING": 0.0
+    },
+    "activations": 1,
+    "restarts": 0,
+    "capture_failures": 0,
+    "dropped_blocks": 0,
+    "queue_peak": 4,
+    "capture_overflows": 0,
+    "initialization_seconds": 0.046000000002095476,
+    "last_error": null,
+    "consecutive_failures": 0,
+    "retry_at_monotonic": null,
+    "capture_device": null,
+    "last_capture_device": {
+      "name": "SYNTHETIC PHASE3 INPUT"
+    },
+    "last_capture_rate": 16000,
+    "detector_pid": null,
+    "voice": {
+      "enabled": true,
+      "engine": "moonshine-small",
+      "model": "moonshine-small",
+      "voice": "es_MX-ald-medium",
+      "tts_enabled": true,
+      "state": "IDLE",
+      "session_id": "0:1",
+      "last_error": null,
+      "last_transcript": "No mejor cambia las luces a color azul.",
+      "worker_pid": null,
+      "metrics": {
+        "sessions_opened": 1,
+        "sessions_closed": 1,
+        "empty_transcripts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "audio_dropped": 0,
+        "turns": 2
+      },
+      "timings": {
+        "stt_ready": {
+          "load_seconds": 0.7030000000013388
+        },
+        "transcription_timing": {
+          "finalize_seconds": 0.0,
+          "voice_end_to_final_seconds": 1.2309999999997672
+        },
+        "dialogue_timing": {
+          "seconds": 0.0
+        },
+        "synthesis_first_chunk": {
+          "seconds": 0.14100000000325963
+        },
+        "turn_completed": {
+          "seconds": 12.264999999999418
+        }
+      },
+      "intelligence": {
+        "interpretation": {
+          "kind": "action_proposal",
+          "actions": [
+            {
+              "intent": "set_light_color",
+              "target": "main_light",
+              "parameters": {
+                "color": "blue"
+              }
+            }
+          ],
+          "immediate": true,
+          "negated": false,
+          "reason_code": "context_correction"
+        },
+        "route": "fast",
+        "seconds": 0.00039739999920129776,
+        "session_id": "0:1",
+        "turn_id": "0:1:2",
+        "request_id": "669f52bda21a4aa5a65db8ae8d36cb97",
+        "simulated": true,
+        "executed": false,
+        "end_session": false,
+        "llm_metrics": {},
+        "routes": {
+          "fast": 2,
+          "semantic": 0,
+          "llm": 0,
+          "fallback": 0
+        },
+        "last_error": null
+      }
+    }
+  },
+  "passed": true,
+  "failure": null
+}

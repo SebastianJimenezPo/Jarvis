@@ -1,12 +1,12 @@
-# JARVIS — Core y Voice Engine
+# JARVIS — Core, voz e inteligencia local
 
-**Fase 2 cerrada funcionalmente con observaciones documentadas.** Incluye STT local español (Moonshine/Whisper), segmentación con Silero, respuestas de prueba con Piper, varios turnos, cancelación y protección semidúplex contra eco. No ejecuta órdenes ni usa LLM. El cierre no acredita pruebas acústicas exhaustivas; los límites y verificaciones pendientes están en el [informe de validación](docs/voice_validation.md). Guías: [Fase 2](docs/phase_2.md), [arquitectura de voz](docs/voice_architecture.md) y [comparación STT](docs/stt_benchmark.md).
+**Fase 3 implementada, pendiente de aceptación física del usuario.** Versión 0.3.0: comprensión híbrida, conversación mediante Ollama local, referencias temporales, aclaraciones y propuestas estructuradas. **Todas las acciones son simuladas.** Guías: [Fase 3 y pruebas físicas](docs/phase_3.md), [arquitectura](docs/intelligence_architecture.md), [comparación de modelos](docs/model_comparison.md) y [validación y límites](docs/intelligence_validation.md).
 
-La base validada de Fase 1 se conserva en Git, commit `695c068`. El desarrollo actual está en `phase-2-voice`. Para volver al comportamiento de activación de Fase 1 sin cambiar código: `python -m jarvis --disable-voice` y reiniciar el residente.
+Las bases se conservan en Git: Fase 1 `695c068`; Fase 2 `f6ac68a`, rama `phase-2-baseline`. El desarrollo actual está en `phase-3-intelligence`. Para usar las respuestas de prueba de Fase 2: `python -m jarvis --disable-intelligence` y reiniciar. Para volver al comportamiento de activación de Fase 1: `python -m jarvis --disable-voice` y reiniciar.
 
 La documentación siguiente describe la base y sus procedimientos de calibración/inicio.
 
-La base residente utiliza micrófono único, Rustpotter, pausa, bandeja y recuperación. Con voz deshabilitada conserva el ciclo de activación de 10 segundos; con voz habilitada gestiona turnos y respuestas deterministas. **Todavía no interpreta órdenes generales ni ejecuta acciones.**
+La base residente utiliza micrófono único, Rustpotter, pausa, bandeja y recuperación. Conserva STT local español, Silero, Piper, varios turnos, cancelación y protección semidúplex contra eco. La interpretación de Fase 3 añade planes simulados y conversación; la ejecución real pertenece a una fase posterior.
 
 La implementación es ejecutable, el auxiliar Rust está compilado y la referencia personal está calibrada en este equipo. Se comprobó activación con voz, pausa/reanudación, reinicio, suspensión y salida. La validación funcional básica está completada; quedan pruebas prolongadas y mediciones de precisión acústica. Sin referencia válida, la bandeja muestra `DEGRADED`.
 
@@ -46,7 +46,7 @@ En este equipo el inicio automático **ya está registrado** y el usuario compro
 .\.venv\Scripts\python.exe scripts\benchmark.py --seconds 60
 ```
 
-Se ejecutaron 62 pruebas automáticas al preparar la entrega, además de mediciones reales de 60 y 30 segundos. Consulta [validación y límites](docs/validation.md) y los informes JSON en `docs/reports/`. Las pruebas sintéticas no demuestran precisión con voces reales.
+La entrega de Fase 3 pasa 189 pruebas automáticas y contiene corpus escritos de 328 casos / 363 turnos, comparaciones locales y una integración de voz sintética. Consulta [validación de inteligencia](docs/intelligence_validation.md) y los informes JSON en `docs/reports/`. Los conjuntos revisados y las pruebas sintéticas no demuestran precisión con lenguaje o voces nuevos.
 
 ## Documentación
 
@@ -59,4 +59,4 @@ Se ejecutaron 62 pruebas automáticas al preparar la entrega, además de medicio
 - [Visión](docs/vision.md) y [fases posteriores](docs/future_roadmap.md)
 - [Documento original del usuario](docs/project_spec.md)
 
-Datos modificables: `%LOCALAPPDATA%\JarvisCore`. Solo se guarda la referencia acústica, configuración, registros y diagnósticos. El audio del residente permanece en memoria. No hay conexiones de red en el funcionamiento normal.
+Datos modificables: `%LOCALAPPDATA%\JarvisCore`. Modelos, referencia acústica, configuración, registros y diagnósticos se guardan localmente. El audio y contexto conversacional permanecen en RAM; los registros de texto están deshabilitados por defecto. La inteligencia usa HTTP exclusivamente loopback con Ollama; las descargas requieren ejecutar el instalador explícitamente.

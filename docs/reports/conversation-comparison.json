@@ -1,0 +1,158 @@
+[
+  {
+    "model": "qwen3:1.7b",
+    "rows": [
+      {
+        "text": "¿Qué es una variable?",
+        "response": "Una variable es un nombre que se usa para almacenar un valor en un programa. Este valor puede cambiar durante la ejecución del programa, por ejemplo, si estás calculando la suma de dos números.",
+        "route": "llm",
+        "seconds": 7.391485599997395,
+        "metrics": {
+          "load_duration": 4299409300,
+          "prompt_eval_duration": 1248719000,
+          "eval_duration": 1633127000,
+          "prompt_eval_count": 139,
+          "eval_count": 43,
+          "model": "qwen3:1.7b",
+          "wall_seconds": 7.202999999994063,
+          "thinking_disabled": true
+        },
+        "error": null
+      },
+      {
+        "text": "Explícamelo más fácil",
+        "response": "Una variable es un nombre que se usa para guardar un valor en un programa. Este valor puede cambiar, por ejemplo, si estás sumando dos números.",
+        "route": "llm",
+        "seconds": 2.1368072999975993,
+        "metrics": {
+          "load_duration": 7876500,
+          "prompt_eval_duration": 677449000,
+          "eval_duration": 1391695000,
+          "prompt_eval_count": 197,
+          "eval_count": 33,
+          "model": "qwen3:1.7b",
+          "wall_seconds": 2.0939999999973224,
+          "thinking_disabled": true
+        },
+        "error": null
+      },
+      {
+        "text": "Ponme un ejemplo",
+        "response": "¡Claro! Por ejemplo, si tienes una variable llamada `edad` y le asignas el valor `10`, entonces `edad` guarda el número 10 en el programa. Si luego cambias el valor a `12`, la variable ahora contiene 12.",
+        "route": "llm",
+        "seconds": 3.0934553000042797,
+        "metrics": {
+          "load_duration": 6510600,
+          "prompt_eval_duration": 622772000,
+          "eval_duration": 2411861000,
+          "prompt_eval_count": 244,
+          "eval_count": 60,
+          "model": "qwen3:1.7b",
+          "wall_seconds": 3.0469999999986612,
+          "thinking_disabled": true
+        },
+        "error": null
+      }
+    ],
+    "running": [
+      {
+        "name": "qwen3:1.7b",
+        "model": "qwen3:1.7b",
+        "size": 1649651219,
+        "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen3",
+          "families": [
+            "qwen3"
+          ],
+          "parameter_size": "2.0B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-11-10T09:25:36.3677447-05:00",
+        "size_vram": 0,
+        "context_length": 2048,
+        "runner": "llamacpp"
+      }
+    ]
+  },
+  {
+    "model": "qwen3.5:2b",
+    "rows": [
+      {
+        "text": "¿Qué es una variable?",
+        "response": "Una variable es un espacio en la memoria de tu dispositivo donde se almacenan valores o datos específicos, como números, letras o símbolos.\nPermite guardar información temporalmente para que puedas usarla más adelante en tus cálculos o programas.\nEs similar a un contenedor virtual que recuerda qué valor tiene cuando vuelves a consultarlo después de haberlo modificado.",
+        "route": "llm",
+        "seconds": 11.53097830000479,
+        "metrics": {
+          "load_duration": 4642025000,
+          "prompt_eval_duration": 1717284000,
+          "eval_duration": 5075297000,
+          "prompt_eval_count": 117,
+          "eval_count": 75,
+          "model": "qwen3.5:2b",
+          "wall_seconds": 11.43800000000192,
+          "thinking_disabled": true
+        },
+        "error": null
+      },
+      {
+        "text": "Explícamelo más fácil",
+        "response": "Imagina una variable como un cajón vacío donde puedes poner cualquier cosa, como una nota o un número.\nUna vez que lo llenas, ese contenido se guarda en el cajón y no desaparece aunque cierres la ventana.\nCuando vuelvas a abrirla más tarde, recuperas exactamente lo que pusiste antes.",
+        "route": "llm",
+        "seconds": 6.063526899997669,
+        "metrics": {
+          "load_duration": 6519300,
+          "prompt_eval_duration": 1415494000,
+          "eval_duration": 4591889000,
+          "prompt_eval_count": 207,
+          "eval_count": 69,
+          "model": "qwen3.5:2b",
+          "wall_seconds": 6.031999999999243,
+          "thinking_disabled": true
+        },
+        "error": null
+      },
+      {
+        "text": "Ponme un ejemplo",
+        "response": "Piensa en una variable como un cuaderno de notas personal.\nEscribe tu nombre o número de teléfono ahí y luego cierra el cuaderno; no pierdes esa información cuando cierres la aplicación.\nCuando vuelvas a abrirla, recuperas exactamente lo que escribiste antes.",
+        "route": "llm",
+        "seconds": 5.6442786999978125,
+        "metrics": {
+          "load_duration": 6900600,
+          "prompt_eval_duration": 1304578000,
+          "eval_duration": 4280279000,
+          "prompt_eval_count": 290,
+          "eval_count": 61,
+          "model": "qwen3.5:2b",
+          "wall_seconds": 5.609000000004016,
+          "thinking_disabled": true
+        },
+        "error": null
+      }
+    ],
+    "running": [
+      {
+        "name": "qwen3.5:2b",
+        "model": "qwen3.5:2b",
+        "size": 2342403438,
+        "digest": "0689d44085e06d165161a8a9a1731344278cfb5aade63a3c3dbdb48ab54b130a",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "1.9B",
+          "quantization_level": "Q8_0"
+        },
+        "expires_at": "2026-11-10T09:25:59.6186486-05:00",
+        "size_vram": 0,
+        "context_length": 2048,
+        "runner": "llamacpp"
+      }
+    ]
+  }
+]

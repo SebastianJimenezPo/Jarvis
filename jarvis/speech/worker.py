@@ -17,7 +17,10 @@ def voice_worker(inbox,outbox,cancel,root,config):
     stt=vad=tts=None
     session_id=None
     turn_id=''
+    provider=None
     def emit(kind,**fields):
+        if kind=='session_end' and provider is not None and hasattr(provider,'snapshot'):
+            outbox.put({'kind':'context_snapshot','session_id':session_id,'snapshot':provider.snapshot()},timeout=2)
         outbox.put({'kind':kind,'session_id':session_id,'turn_id':turn_id,'monotonic':time.monotonic(),**fields},timeout=2)
     def state(value):
         emit('voice_state',state=value)
@@ -32,6 +35,11 @@ def voice_worker(inbox,outbox,cancel,root,config):
             acoustic_activation=bool(command[3]) if len(command)>3 else False
             turn_id=''
             try:
+                if provider is None:
+                    from jarvis.intelligence.provider import make_provider
+                    provider=make_provider(root,cancel)
+                if hasattr(provider,'begin_session'):
+                    provider.begin_session(session_id,command[4] if len(command)>4 else None)
                 load_start=time.monotonic()
                 if command[0]=='test_tts':
                     if tts is None:
@@ -129,7 +137,10 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         if text:
                             state('PROCESSING_RESPONSE')
                             t0=time.monotonic()
-                            reply=DialogueBridge().respond(UserUtterance(session_id,turn_id,text,'es',time.monotonic()),config.diagnostic_echo)
+                            reply=DialogueBridge(provider).respond(UserUtterance(session_id,turn_id,text,'es',time.monotonic()),config.diagnostic_echo)
+                            if hasattr(provider,'diagnostic'):
+                                details=provider.diagnostic()
+                                if details:emit('intelligence_decision',decision=details)
                             emit('dialogue_timing',seconds=time.monotonic()-t0)
                             if config.tts_enabled and reply.text:
                                 # Gate the mic before synthesis, including cold TTS load.
@@ -178,3 +189,5 @@ def voice_worker(inbox,outbox,cancel,root,config):
             stt.unload()
         if tts:
             tts.unload()
+        if provider is not None and hasattr(provider,'close'):
+            provider.close()

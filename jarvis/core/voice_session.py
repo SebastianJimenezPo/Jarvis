@@ -27,6 +27,8 @@ class VoiceSessionManager:
         self.metrics={'sessions_opened':0,'sessions_closed':0,'empty_transcripts':0,'errors':0,'cancelled':0,'audio_dropped':0,'turns':0}
         self.last_transcript=None
         self.timings={}
+        self.dialogue_context=None
+        self.last_intelligence=None
 
     def available(self):
         if not self.config.enabled:
@@ -64,7 +66,7 @@ class VoiceSessionManager:
         self.last_progress=time.monotonic()
         self.error=None
         self.cancel_event.clear()
-        self.inbox.put_nowait(('test_tts' if test_tts else 'session',self.session_id,preroll,acoustic_activation))
+        self.inbox.put_nowait(('test_tts' if test_tts else 'session',self.session_id,preroll,acoustic_activation,self.dialogue_context))
         self.metrics['sessions_opened']+=1
 
     def feed(self,pcm,timestamp):
@@ -97,6 +99,11 @@ class VoiceSessionManager:
                     continue
                 self.last_progress=time.monotonic()
                 kind=event['kind']
+                if kind=='context_snapshot':
+                    self.dialogue_context=event['snapshot']
+                    continue  # conversational content remains RAM-only, never logged
+                if kind=='intelligence_decision':
+                    self.last_intelligence=event['decision']
                 if kind=='voice_state':
                     self.state=event['state']
                 elif kind=='transcript':
@@ -157,4 +164,5 @@ class VoiceSessionManager:
         return {'enabled':self.config.enabled,'engine':self.config.engine,'model':self.config.engine,
                 'voice':self.config.voice,'tts_enabled':self.config.tts_enabled,'state':self.state,
                 'session_id':self.session_id,'last_error':self.error,'last_transcript':self.last_transcript,
-                'worker_pid':self.process.pid if self.process else None,'metrics':self.metrics.copy(),'timings':self.timings.copy()}
+                'worker_pid':self.process.pid if self.process else None,'metrics':self.metrics.copy(),'timings':self.timings.copy(),
+                'intelligence':self.last_intelligence}

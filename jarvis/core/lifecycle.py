@@ -141,6 +141,15 @@ class LifecycleManager:
                          if self.failures < self.config.retry_limit else None)
 
     def _handle(self, command):
+        if command.startswith('llm:'):
+            from dataclasses import replace
+            from jarvis.intelligence.settings import load_intelligence,save_intelligence
+            selected=command.split(':',1)[1]
+            if selected not in ('qwen3.5:2b','qwen3:1.7b'):return
+            self.voice.close()
+            if self.machine.state==State.AWAKE:self._voice_event({'kind':'session_end','reason':'model_changed'})
+            save_intelligence(self.root,replace(load_intelligence(self.root),model=selected))
+            return
         if command == 'cancel_response':
             self.voice.cancel()
             return
