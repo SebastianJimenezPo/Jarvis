@@ -30,6 +30,8 @@ Solo existen respuestas deterministas; una petición de abrir aplicaciones expli
 
 El menú mantiene los controles de Fase 1 y añade prueba Piper, cancelación de respuesta, respuestas habladas y selección STT. El control «Probar transcripción» activa una sesión de diagnóstico manual para que hables; no crea otro micrófono. Si seleccionas un modelo no instalado, los diagnósticos lo indican y se conserva el ciclo de activación de Fase 1.
 
+«Repetir reconocimiento (diagnóstico)» activa/desactiva la repetición hablada del texto reconocido, sin habilitar registros de texto. En modo normal, un primer turno con un único token desconocido se trata como ambiguo y conserva la escucha, porque el nombre dentro del pre-roll puede transcribirse mal. Esto también puede silenciar otra palabra desconocida aislada al inicio; las frases completas y saludos conocidos se mantienen. En diagnóstico ese filtro no se aplica para poder escuchar el resultado real de STT.
+
 Para cambiar ajustes persistentes y reiniciar:
 
 ```powershell

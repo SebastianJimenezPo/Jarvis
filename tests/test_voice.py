@@ -81,6 +81,34 @@ def test_no_arbitrary_wake_word_removal_or_actions():
     assert 'todavía no está habilitado' in result.text
 
 
+@pytest.mark.parametrize('text',['Jarvis','Jarvis.','Harvish','Jervis','Carvis'])
+def test_isolated_ambiguous_activation_does_not_trigger_response(text):
+    from jarvis.dialogue.bridge import activation_only_candidate
+    assert activation_only_candidate(text,True)
+
+
+@pytest.mark.parametrize('text',['Hola','Gracias','Adiós','Perfecto','Jarvis, abre Chrome','Jarvis, hola','me escuchas bien'])
+def test_activation_gate_preserves_real_test_phrases(text):
+    from jarvis.dialogue.bridge import activation_only_candidate
+    assert not activation_only_candidate(text,True)
+
+
+def test_ambiguous_gate_only_affects_first_turn():
+    from jarvis.dialogue.bridge import activation_only_candidate
+    assert not activation_only_candidate('Jervis',False)
+
+
+@pytest.mark.parametrize('text',['Jarvis, ¿sí me escuchas bien?','Hola Jarvis, ¿me escuchas bien?','¿Me escuchas bien, Jarvis?'])
+def test_listening_check_variants(text):
+    reply=DialogueBridge().respond(UserUtterance('s','t',text,'es',0))
+    assert reply.text=='Sí, te escucho'
+
+
+def test_unknown_phrase_does_not_claim_it_was_an_application_request():
+    reply=DialogueBridge().respond(UserUtterance('s','t','estoy probando la voz','es',0))
+    assert 'aplicaciones' not in reply.text
+
+
 def test_error_metrics():
     assert error_counts('Hola mundo','hola, mundo!')['word_errors']==0
     assert error_counts('abre Chrome','abre')['word_errors']==1

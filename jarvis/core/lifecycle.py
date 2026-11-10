@@ -144,13 +144,16 @@ class LifecycleManager:
         if command == 'cancel_response':
             self.voice.cancel()
             return
-        if command.startswith('stt:') or command == 'toggle_tts':
+        if command.startswith('stt:') or command in ('toggle_tts','toggle_echo'):
             from dataclasses import replace
             from jarvis.speech.settings import save_voice
             self.voice.close()
             if self.machine.state == State.AWAKE:
                 self._voice_event({'kind':'session_end','reason':'configuration_changed'})
-            self.voice.config = replace(self.voice.config, **({'engine':command.split(':',1)[1]} if command.startswith('stt:') else {'tts_enabled':not self.voice.config.tts_enabled})).validate()
+            changes=({'engine':command.split(':',1)[1]} if command.startswith('stt:') else
+                     {'diagnostic_echo':not self.voice.config.diagnostic_echo} if command=='toggle_echo' else
+                     {'tts_enabled':not self.voice.config.tts_enabled})
+            self.voice.config = replace(self.voice.config, **changes).validate()
             save_voice(self.root,self.voice.config)
             return
         if command == 'test_tts':

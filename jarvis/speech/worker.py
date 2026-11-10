@@ -12,7 +12,7 @@ def voice_worker(inbox,outbox,cancel,root,config):
     from jarvis.audio.vad import SpeechActivityDetector
     from jarvis.audio.turn_segmenter import SpeechTurnSegmenter
     from jarvis.audio.playback import SpeechPlaybackManager
-    from jarvis.dialogue.bridge import DialogueBridge,UserUtterance,strip_wake_prefix
+    from jarvis.dialogue.bridge import DialogueBridge,UserUtterance,strip_wake_prefix,activation_only_candidate
     root=Path(root)
     stt=vad=tts=None
     session_id=None
@@ -108,6 +108,9 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         transcripts.publish(turn_id,text,True)
                         emit('transcription_timing',finalize_seconds=time.monotonic()-t0,
                              voice_end_to_final_seconds=time.monotonic()-voice_end)
+                        if not config.diagnostic_echo and activation_only_candidate(text,first_turn=turn==1):
+                            emit('activation_only_or_ambiguous',reason='first_turn_isolated_token')
+                            text=''
                         if text:
                             state('PROCESSING_RESPONSE')
                             t0=time.monotonic()

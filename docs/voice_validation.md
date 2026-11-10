@@ -2,6 +2,8 @@
 
 ## Estado
 
+Primera prueba física: el usuario confirmó voz y seguimiento, pero encontró respuestas genéricas incorrectas, incluso al decir solo Jarvis. Se aplicó una corrección conservadora al primer turno ambiguo y a las respuestas deterministas; pendiente de repetir la prueba. Evidencia y limitación: `reports/phase2-first-user-feedback.md`. Suite posterior: **103 pruebas superadas en 14,65 s**.
+
 Implementación integrada, ejecutada con dependencias y modelos reales. **Pendiente de aceptación física por el usuario.** No se declara completada la Fase 2 ni se inicia Fase 3. La Fase 1 queda recuperable en commit `695c068`; el trabajo nuevo está en `phase-2-voice`.
 
 ## Evidencia disponible

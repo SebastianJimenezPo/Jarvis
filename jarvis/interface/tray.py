@@ -41,6 +41,7 @@ def run(manager, root, exit_after=None):
     menu.addAction("Abrir ubicación de registros", lambda: os.startfile(root / "logs"))
     menu.addSeparator()
     for label,command in [('Probar voz Piper','test_tts'),('Activar / desactivar respuestas habladas','toggle_tts'),
+                          ('Repetir reconocimiento (diagnóstico)','toggle_echo'),
                           ('Cancelar respuesta','cancel_response'),('Probar transcripción (habla al activar)','wake')]:
         action=menu.addAction(label)
         action.triggered.connect(lambda checked=False,c=command:manager.command(c))
