@@ -1,5 +1,7 @@
 # JARVIS — Core, voz e inteligencia local
 
+Repositorio privado: [SebastianJimenezPo/Jarvis](https://github.com/SebastianJimenezPo/Jarvis). Los cambios terminados se guardan en commits y se publican en GitHub. La rama actual de desarrollo es `phase-3-intelligence`.
+
 **Fase 3 implementada, pendiente de aceptación física del usuario.** Versión 0.3.0: comprensión híbrida, conversación mediante Ollama local, referencias temporales, aclaraciones y propuestas estructuradas. **Todas las acciones son simuladas.** Guías: [Fase 3 y pruebas físicas](docs/phase_3.md), [arquitectura](docs/intelligence_architecture.md), [comparación de modelos](docs/model_comparison.md) y [validación y límites](docs/intelligence_validation.md).
 
 Las bases se conservan en Git: Fase 1 `695c068`; Fase 2 `f6ac68a`, rama `phase-2-baseline`. El desarrollo actual está en `phase-3-intelligence`. Para usar las respuestas de prueba de Fase 2: `python -m jarvis --disable-intelligence` y reiniciar. Para volver al comportamiento de activación de Fase 1: `python -m jarvis --disable-voice` y reiniciar.
