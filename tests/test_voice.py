@@ -34,7 +34,7 @@ def test_voice_config_invalid(field,value):
 
 
 def test_segmenter_onset_pause_and_trailing_silence():
-    seg=SpeechTurnSegmenter(VoiceConfig())
+    seg=SpeechTurnSegmenter(replace(VoiceConfig(),end_silence_ms=650))
     frame=np.zeros(512,dtype=np.float32)
     for _ in range(6):
         audio,reason,started=seg.feed(frame,1)
@@ -47,6 +47,23 @@ def test_segmenter_onset_pause_and_trailing_silence():
     for _ in range(20):
         assert seg.feed(frame,0)[1] is None
     assert seg.feed(frame,0)[1]=='silence'
+
+
+@pytest.mark.parametrize('pause_frames',[5,20,30])
+def test_default_tolerates_internal_pauses_up_to_960ms(pause_frames):
+    seg=SpeechTurnSegmenter(VoiceConfig())
+    frame=np.zeros(512,dtype=np.float32)
+    for _ in range(12):
+        seg.feed(frame,1)
+    assert seg.active
+    for _ in range(pause_frames):
+        assert seg.feed(frame,0)[1] is None
+    for _ in range(12):
+        _,reason,started=seg.feed(frame,1)
+        assert reason is None and not started  # continuation of the same intervention
+    for _ in range(37):
+        assert seg.feed(frame,0)[1] is None
+    assert seg.feed(frame,0)[1]=='silence'  # 1216 ms at the 32-ms frame granularity
 
 
 def test_maximum_turn_even_continuous_noise():

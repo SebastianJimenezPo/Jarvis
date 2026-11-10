@@ -44,7 +44,7 @@ def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path,activ
     monkeypatch.setattr(piper_adapter,'PiperAdapter',TTS)
     monkeypatch.setattr(playback,'SpeechPlaybackManager',Playback)
     speech=(np.ones(512*12)*10000).astype('<i2').tobytes()+bytes(512*25*2)
-    config=replace(VoiceConfig(),first_wait_seconds=1,followup_seconds=1,echo_guard_seconds=0.1)
+    config=replace(VoiceConfig(),first_wait_seconds=1,followup_seconds=1,echo_guard_seconds=0.1,end_silence_ms=650)
     thread=threading.Thread(target=voice_worker,args=(inbox,outbox,cancel,str(tmp_path),config))
     thread.start()
     inbox.put(('session','s',speech if not continues else speech[:512*12*2],activation))

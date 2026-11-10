@@ -18,7 +18,7 @@ def main():
     with wave.open(str(path),'rb') as source:
         rate=source.getframerate()
         raw=np.frombuffer(source.readframes(source.getnframes()),dtype='<i2').astype(np.float32)/32768
-    pcm=Converter(rate).convert(np.concatenate([raw,np.zeros(rate,dtype=np.float32)]))
+    pcm=Converter(rate).convert(np.concatenate([raw,np.zeros(rate*2,dtype=np.float32)]))
     results=[]
     manager=VoiceSessionManager(data_dir(),results.append,replace(VoiceConfig(),enabled=True,
                     engine='moonshine-small',tts_enabled=False,log_transcripts=True,first_wait_seconds=1,followup_seconds=1))

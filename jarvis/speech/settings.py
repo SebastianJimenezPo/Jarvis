@@ -20,7 +20,7 @@ class VoiceConfig:
     retain_seconds: float = 90.0
     speech_start_ms: int = 200
     activation_tail_ms: int = 250
-    end_silence_ms: int = 650
+    end_silence_ms: int = 1200
     vad_threshold: float = 0.5
     echo_guard_seconds: float = 0.4
     volume: float = 0.75
