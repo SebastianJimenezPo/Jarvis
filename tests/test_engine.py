@@ -50,6 +50,9 @@ def test_real_rust_transport_silence_noise_and_reference(reference):
             if result["detected"]:
                 hits.append(result)
         assert hits, "Synthetic exact-reference match should be detected"
+        assert isinstance(hits[0]['avg_score'],(int,float))
+        assert hits[0]['partial_matches']>=1
+        assert isinstance(hits[0]['reference_scores'],dict)
         detector.close()
         detector.start()
         assert not detector.process(bytes(detector.frame_bytes))["detected"]

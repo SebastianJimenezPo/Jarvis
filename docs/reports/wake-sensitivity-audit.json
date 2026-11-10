@@ -1,0 +1,56 @@
+{
+  "old_threshold": 0.5,
+  "new_threshold": 0.55,
+  "events_not_independently_labeled": true,
+  "last_five_detections": [
+    {
+      "time": "2026-11-10T00:58:24.833109+00:00",
+      "level": "INFO",
+      "event": "wakeword_detected",
+      "generation": 0,
+      "session": 1,
+      "score": 0.5855396389961243,
+      "manual": false
+    },
+    {
+      "time": "2026-11-10T01:03:51.143991+00:00",
+      "level": "INFO",
+      "event": "wakeword_detected",
+      "generation": 0,
+      "session": 2,
+      "score": 0.5209797620773315,
+      "manual": false
+    },
+    {
+      "time": "2026-11-10T01:04:11.903071+00:00",
+      "level": "INFO",
+      "event": "wakeword_detected",
+      "generation": 0,
+      "session": 3,
+      "score": 0.5060229897499084,
+      "manual": false
+    },
+    {
+      "time": "2026-11-10T01:04:49.341427+00:00",
+      "level": "INFO",
+      "event": "wakeword_detected",
+      "generation": 0,
+      "session": 4,
+      "score": 0.5433523654937744,
+      "manual": false
+    },
+    {
+      "time": "2026-11-10T01:05:28.001376+00:00",
+      "level": "INFO",
+      "event": "wakeword_detected",
+      "generation": 0,
+      "session": 5,
+      "score": 0.5329610705375671,
+      "manual": false
+    }
+  ],
+  "last_five_scores_below_new_threshold": 4,
+  "all_logged_acoustic_detections": 54,
+  "all_scores_below_new_threshold": 9,
+  "warning": "No audio/text kept. These are similarity scores, not probabilities. Not proof that low scores are false positives. Raising threshold can reject genuine wake words."
+}

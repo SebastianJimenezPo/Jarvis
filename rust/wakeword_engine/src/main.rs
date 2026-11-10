@@ -51,7 +51,9 @@ fn run(args: &[String]) -> Result<(), String> {
         input.read_exact(&mut audio).map_err(|e| e.to_string())?;
         let result = detector.process_bytes(&audio);
         let event = match result {
-            Some(hit) => json!({"type":"result", "detected":true, "score":hit.score}),
+            Some(hit) => json!({"type":"result", "detected":true, "score":hit.score,
+                               "avg_score":hit.avg_score, "partial_matches":hit.counter,
+                               "reference_scores":hit.scores}),
             None => json!({"type":"result", "detected":false}),
         };
         emit(event)?;

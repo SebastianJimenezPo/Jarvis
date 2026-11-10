@@ -191,7 +191,21 @@ class LifecycleManager:
             self.failures = 0
             self.retry_at = time.monotonic() + (0.5 if command == "devices_changed" else 0)
 
-    def _wake(self, score=None, manual=False):
+    def _wake(self, score=None, manual=False, evidence=None):
+        if not manual:
+            import math
+            valid_score=type(score) in (int,float) and math.isfinite(score) and 0 <= score <= 1
+            if not valid_score or score < self.config.threshold:
+                self.log.info('wake_candidate_rejected',extra={'fields':{
+                    'score':score if valid_score else None,'threshold':self.config.threshold,
+                    'reason':'below_threshold' if valid_score else 'invalid_score',
+                    'state':self.machine.state.value}})
+                return
+            self.log.info('wake_candidate',extra={'fields':{
+                'score':score,'threshold':self.config.threshold,'state':self.machine.state.value,
+                'avg_score':(evidence or {}).get('avg_score'),
+                'partial_matches':(evidence or {}).get('partial_matches'),
+                'reference_scores':(evidence or {}).get('reference_scores')}})
         if self.machine.wake(self.machine.generation, score, manual):
             self.metrics["activations"] += 1
             if self.voice.available():
@@ -231,7 +245,7 @@ class LifecycleManager:
             result = self.detector.process(bytes(self.pending[:size]))
             del self.pending[:size]
             if result.get("detected"):
-                self._wake(result.get("score"))
+                self._wake(result.get("score"),evidence=result)
                 if self.voice.active:
                     self.pending.clear()
                     return

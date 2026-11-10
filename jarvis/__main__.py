@@ -22,6 +22,7 @@ def main():
     commands.add_argument("--disable-voice", action="store_true")
     commands.add_argument("--set-stt", choices=['moonshine-small','moonshine-tiny','whisper-base','whisper-small'])
     commands.add_argument("--set-voice", choices=['es_MX-ald-medium','es_ES-davefx-medium'])
+    commands.add_argument("--set-wake-threshold",type=float,metavar='0..1')
     parser.add_argument("--samples", type=int, choices=range(5, 9), default=6)
     parser.add_argument("--exit-after", type=float, help="Cierre automático para pruebas, en segundos")
     args = parser.parse_args()
@@ -39,6 +40,10 @@ def main():
             return 0
         config = load(root)
         logger.setLevel("DEBUG" if args.debug else config.log_level)
+        if args.set_wake_threshold is not None:
+            save(root,replace(config,threshold=args.set_wake_threshold))
+            print('Umbral guardado. Reinicia Jarvis para aplicarlo; un valor mayor reduce sensibilidad.')
+            return 0
         if args.enable_voice or args.disable_voice or args.set_stt or args.set_voice:
             from .speech.settings import load_voice,save_voice
             voice=load_voice(root)
