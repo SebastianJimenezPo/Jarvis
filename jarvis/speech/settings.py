@@ -28,6 +28,8 @@ class VoiceConfig:
     cpu_threads: int = 2
     pending_audio_seconds: float = 40.0
     max_session_seconds: float = 600.0
+    stt_recovery_enabled: bool = False
+    stt_recovery_timeout_seconds: float = 8.0
 
     def validate(self):
         for name, value in asdict(self).items():
@@ -43,7 +45,7 @@ class VoiceConfig:
             ("activation_tail_ms",0,500),
             ("vad_threshold",0.01,0.99),("echo_guard_seconds",0.1,2),
             ("volume",0,1),("cpu_threads",1,8),("pending_audio_seconds",5,90),
-            ("max_session_seconds",30,1800)]:
+            ("max_session_seconds",30,1800),("stt_recovery_timeout_seconds",1,20)]:
             if not low <= getattr(self,field) <= high:
                 raise ValueError(f"voice.{field}: fuera de rango {low}..{high}")
         if not self.voice or not self.output_device:

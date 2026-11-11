@@ -76,6 +76,8 @@ def voice_worker(inbox,outbox,cancel,root,config):
                 end=False
                 turn_started=None
                 voice_end=None
+                turn_audio=[]
+                turn_voiced_ms=0
                 while not end:
                     if time.monotonic()>=session_deadline:
                         emit('session_end',reason='session_cap')
@@ -111,6 +113,8 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         last_voiced_sample=processed_samples
                     audio,reason,started=segmenter.feed(frame,probability)
                     if started:
+                        turn_audio=[]
+                        turn_voiced_ms=config.speech_start_ms
                         turn_start_sample=processed_samples-len(audio)
                         turn+=1
                         turn_id=f'{session_id}:{turn}'
@@ -120,6 +124,8 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         stt.start_turn(turn_id)
                     if audio is not None:
                         stt.feed_audio(audio)
+                        turn_audio.append(audio.copy())
+                        if probability>=config.vad_threshold:turn_voiced_ms+=32
                     if reason:
                         voice_end=time.monotonic()-segmenter.silent_ms/1000
                         emit('speech_ended',reason=reason,estimated_voice_end_monotonic=voice_end)
@@ -141,10 +147,24 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         if text:
                             state('PROCESSING_RESPONSE')
                             t0=time.monotonic()
-                            reply=DialogueBridge(provider).respond(UserUtterance(session_id,turn_id,text,'es',time.monotonic()),config.diagnostic_echo)
+                            utterance=UserUtterance(session_id,turn_id,text,'es',time.monotonic())
+                            try:
+                                if hasattr(provider,'respond_audio') and not config.diagnostic_echo:
+                                    alternative=None
+                                    if config.stt_recovery_enabled and turn_voiced_ms>=320:
+                                        from .recovery import transcribe_alternative
+                                        alternative=lambda:transcribe_alternative(root,np.concatenate(turn_audio),config,cancel)
+                                    reply=provider.respond_audio(utterance,alternative)
+                                else:reply=DialogueBridge(provider).respond(utterance,config.diagnostic_echo)
+                            except Exception as exc:
+                                from jarvis.intelligence.ollama_client import RequestCancelled
+                                if not isinstance(exc,RequestCancelled):raise
+                                emit('cancelled');cancel.clear();emit('session_end',reason='cancelled_or_stale');end=True
+                                break
+                            finally:turn_audio=[]
                             if hasattr(provider,'diagnostic'):
                                 details=provider.diagnostic()
-                                if details:emit('intelligence_decision',decision=details)
+                                if details:emit('intelligence_decision',decision=details,stt_engine=config.engine)
                             emit('dialogue_timing',seconds=time.monotonic()-t0)
                             if config.tts_enabled and reply.text:
                                 # Gate the mic before synthesis, including cold TTS load.

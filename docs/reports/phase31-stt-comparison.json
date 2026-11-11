@@ -1,0 +1,702 @@
+{
+  "method": "Same synthetic PCM once, three isolated STT profiles. No microphone or playback.",
+  "source": "Piper es_MX-ald-medium generated once in RAM; fixed identical arrays across profiles. Moonshine receives 32-ms paced blocks; Whisper uses completed audio. Not physical speech or WER generalization.",
+  "clips": [
+    {
+      "text": "Azul",
+      "sha256_pcm_float32": "75bacc96f6e40441608394070af238470670278901fd78caebd612d000904518",
+      "seconds": 2.2943125
+    },
+    {
+      "text": "Rojo",
+      "sha256_pcm_float32": "b132f3d93b9df20bda31dafa17e31fdac59544c6f6e965cb6408737565f21e14",
+      "seconds": 2.024375
+    },
+    {
+      "text": "No",
+      "sha256_pcm_float32": "483c5114aada9751e0b00c18f9eab72210219d115e0ac46a04b0127e5f7cef01",
+      "seconds": 1.45075
+    },
+    {
+      "text": "Sí",
+      "sha256_pcm_float32": "49d78523f0b1b7b6af2a06d8454946e35827bee80d4ecbbb8e2ab48aae4cd4d2",
+      "seconds": 1.8894375
+    },
+    {
+      "text": "Cancela",
+      "sha256_pcm_float32": "dbf17397995f1d6803a83a2990aeb9b8cfaf0e93e2a173a4d07254b02869b26f",
+      "seconds": 1.9231875
+    },
+    {
+      "text": "Mejor azules",
+      "sha256_pcm_float32": "65fa845db9afff9e7658a6a28fce784169db7aaed699d2b3d7d8ea0e832a063d",
+      "seconds": 2.7666875
+    },
+    {
+      "text": "La otra",
+      "sha256_pcm_float32": "2584f0e7ced43b03f5b6964f8747bee916fd78fb152561e9bd8c02a7aafab47b",
+      "seconds": 2.598
+    },
+    {
+      "text": "Al treinta",
+      "sha256_pcm_float32": "9fe1f819644fef5c06ff1a6b2200a953b611ebbdf80a3b60f02a251fa8f1003a",
+      "seconds": 2.5305
+    },
+    {
+      "text": "Más bajo",
+      "sha256_pcm_float32": "f09e33070ebb290f85a1ee856595b75be889adfa98ad5666158aaf4916332c3b",
+      "seconds": 2.49675
+    },
+    {
+      "text": "Déjalo así",
+      "sha256_pcm_float32": "5c0f4f155eaccd79fb01319ea1329c0cda482dff3514afa05c39d553d56209a5",
+      "seconds": 2.2943125
+    },
+    {
+      "text": "Pon las luces rojas",
+      "sha256_pcm_float32": "c79241cfe9308c04431723e99ba226111ba21500e35e3eea20d74dde640cf3cd",
+      "seconds": 2.6655
+    },
+    {
+      "text": "No, mejor azules",
+      "sha256_pcm_float32": "81b51594692df6dad554c8f72359b8f33f01947bd3363890d4941656f62333a4",
+      "seconds": 2.7329375
+    },
+    {
+      "text": "Y bájales el brillo",
+      "sha256_pcm_float32": "9b62048a06cf580c432ba7a6b9258d95c9c070610d79f79b4ddf7e1ba5a239b2",
+      "seconds": 2.5305
+    },
+    {
+      "text": "Mejor al treinta por ciento",
+      "sha256_pcm_float32": "0ad4a176f48c6a4a293889f810ab620709d937b7d39774ecee1bdb278c1406ae",
+      "seconds": 3.47525
+    },
+    {
+      "text": "Por favor pon la luz principal de color rojo",
+      "sha256_pcm_float32": "206b3478895468e5736bd09e91fabf075d6243b83d807be48befb5b1108a9eec",
+      "seconds": 4.1838125
+    },
+    {
+      "text": "No, mejor cambia las luces a color azul",
+      "sha256_pcm_float32": "294b0c303d6d13b102a9854d38ebe4693a7e08f0a0b630ddb6a75fcef807043d",
+      "seconds": 3.8464375
+    }
+  ],
+  "profiles": [
+    {
+      "engine": "moonshine-small",
+      "cpu_threads": 2,
+      "load_seconds": 0.7536816999927396,
+      "rows": [
+        {
+          "expected": "Azul",
+          "actual": "Pasó...",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 4,
+            "reference_characters": 4
+          },
+          "elapsed_seconds": 2.7449352000112412,
+          "finalize_seconds": 0.006321699998807162
+        },
+        {
+          "expected": "Rojo",
+          "actual": "Roth",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 2,
+            "reference_characters": 4
+          },
+          "elapsed_seconds": 2.4157222999929218,
+          "finalize_seconds": 0.0067931000085081905
+        },
+        {
+          "expected": "No",
+          "actual": "",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 2,
+            "reference_characters": 2
+          },
+          "elapsed_seconds": 1.5129821999871638,
+          "finalize_seconds": 0.004800199996680021
+        },
+        {
+          "expected": "Sí",
+          "actual": "Sony.",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 3,
+            "reference_characters": 2
+          },
+          "elapsed_seconds": 2.1237414999923203,
+          "finalize_seconds": 0.006205300000146963
+        },
+        {
+          "expected": "Cancela",
+          "actual": "Franz Zelad.",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 1,
+            "character_errors": 6,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 2.3982505000021774,
+          "finalize_seconds": 0.006518499998492189
+        },
+        {
+          "expected": "Mejor azules",
+          "actual": "Ver Forra Azules",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 2,
+            "character_errors": 6,
+            "reference_characters": 12
+          },
+          "elapsed_seconds": 3.424544599998626,
+          "finalize_seconds": 0.005711100006010383
+        },
+        {
+          "expected": "La otra",
+          "actual": "La otra",
+          "errors": {
+            "word_errors": 0,
+            "reference_words": 2,
+            "character_errors": 0,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 3.1459356999985175,
+          "finalize_seconds": 0.0033878999965963885
+        },
+        {
+          "expected": "Al treinta",
+          "actual": "Alta Einstein",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 2,
+            "character_errors": 7,
+            "reference_characters": 10
+          },
+          "elapsed_seconds": 3.2900139999983367,
+          "finalize_seconds": 0.007449199998518452
+        },
+        {
+          "expected": "Más bajo",
+          "actual": "Más barco.",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 2,
+            "character_errors": 2,
+            "reference_characters": 8
+          },
+          "elapsed_seconds": 3.1296242000098573,
+          "finalize_seconds": 0.007722400012426078
+        },
+        {
+          "expected": "Déjalo así",
+          "actual": "The Handle of St.",
+          "errors": {
+            "word_errors": 4,
+            "reference_words": 2,
+            "character_errors": 12,
+            "reference_characters": 10
+          },
+          "elapsed_seconds": 2.9792075000004843,
+          "finalize_seconds": 0.005157399995368905
+        },
+        {
+          "expected": "Pon las luces rojas",
+          "actual": "Pornash los Sesokas",
+          "errors": {
+            "word_errors": 4,
+            "reference_words": 4,
+            "character_errors": 10,
+            "reference_characters": 19
+          },
+          "elapsed_seconds": 3.32842890000029,
+          "finalize_seconds": 0.004979100005584769
+        },
+        {
+          "expected": "No, mejor azules",
+          "actual": "No me forasones.",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 3,
+            "character_errors": 6,
+            "reference_characters": 15
+          },
+          "elapsed_seconds": 3.4005200000101468,
+          "finalize_seconds": 0.0061978999874554574
+        },
+        {
+          "expected": "Y bájales el brillo",
+          "actual": "¡que bájale el brillo!",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 4,
+            "character_errors": 4,
+            "reference_characters": 19
+          },
+          "elapsed_seconds": 3.436569800003781,
+          "finalize_seconds": 0.007987799996044487
+        },
+        {
+          "expected": "Mejor al treinta por ciento",
+          "actual": "Meforal treinta por ciento.",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 5,
+            "character_errors": 2,
+            "reference_characters": 27
+          },
+          "elapsed_seconds": 4.694808300002478,
+          "finalize_seconds": 0.0073675000021466985
+        },
+        {
+          "expected": "Por favor pon la luz principal de color rojo",
+          "actual": "Por favor pon la luz principal de color rojo.",
+          "errors": {
+            "word_errors": 0,
+            "reference_words": 9,
+            "character_errors": 0,
+            "reference_characters": 44
+          },
+          "elapsed_seconds": 5.641395700004068,
+          "finalize_seconds": 0.006211799991433509
+        },
+        {
+          "expected": "No, mejor cambia las luces a color azul",
+          "actual": "Nopmefort cambia las luces a color azul.",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 8,
+            "character_errors": 3,
+            "reference_characters": 38
+          },
+          "elapsed_seconds": 5.6047650999971665,
+          "finalize_seconds": 0.007562400001916103
+        }
+      ],
+      "rss_bytes": 284565504,
+      "affinity": [
+        0,
+        1
+      ]
+    },
+    {
+      "engine": "moonshine-small",
+      "cpu_threads": 4,
+      "load_seconds": 0.5996623999963049,
+      "rows": [
+        {
+          "expected": "Azul",
+          "actual": "Pasó...",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 4,
+            "reference_characters": 4
+          },
+          "elapsed_seconds": 2.6083037999924272,
+          "finalize_seconds": 0.006199499999638647
+        },
+        {
+          "expected": "Rojo",
+          "actual": "Roth",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 2,
+            "reference_characters": 4
+          },
+          "elapsed_seconds": 2.3087987000035355,
+          "finalize_seconds": 0.005999399989377707
+        },
+        {
+          "expected": "No",
+          "actual": "",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 2,
+            "reference_characters": 2
+          },
+          "elapsed_seconds": 1.5118743000057293,
+          "finalize_seconds": 0.004827200013096444
+        },
+        {
+          "expected": "Sí",
+          "actual": "Sony.",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 3,
+            "reference_characters": 2
+          },
+          "elapsed_seconds": 2.064890199995716,
+          "finalize_seconds": 0.004629500006558374
+        },
+        {
+          "expected": "Cancela",
+          "actual": "Franz Zelad.",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 1,
+            "character_errors": 6,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 2.2526721000031102,
+          "finalize_seconds": 0.005555600000661798
+        },
+        {
+          "expected": "Mejor azules",
+          "actual": "Ver Forra Azules",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 2,
+            "character_errors": 6,
+            "reference_characters": 12
+          },
+          "elapsed_seconds": 3.2194603999960236,
+          "finalize_seconds": 0.0053450999985216185
+        },
+        {
+          "expected": "La otra",
+          "actual": "La otra",
+          "errors": {
+            "word_errors": 0,
+            "reference_words": 2,
+            "character_errors": 0,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 2.963239100005012,
+          "finalize_seconds": 0.0033282000076724216
+        },
+        {
+          "expected": "Al treinta",
+          "actual": "Alta Einstein",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 2,
+            "character_errors": 7,
+            "reference_characters": 10
+          },
+          "elapsed_seconds": 3.0263870999915525,
+          "finalize_seconds": 0.00558640000235755
+        },
+        {
+          "expected": "Más bajo",
+          "actual": "Más barco.",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 2,
+            "character_errors": 2,
+            "reference_characters": 8
+          },
+          "elapsed_seconds": 2.917092000003322,
+          "finalize_seconds": 0.006249500002013519
+        },
+        {
+          "expected": "Déjalo así",
+          "actual": "The Handle of St.",
+          "errors": {
+            "word_errors": 4,
+            "reference_words": 2,
+            "character_errors": 12,
+            "reference_characters": 10
+          },
+          "elapsed_seconds": 2.763763499999186,
+          "finalize_seconds": 0.005065499994088896
+        },
+        {
+          "expected": "Pon las luces rojas",
+          "actual": "Pornash los Sesokas",
+          "errors": {
+            "word_errors": 4,
+            "reference_words": 4,
+            "character_errors": 10,
+            "reference_characters": 19
+          },
+          "elapsed_seconds": 3.118809500010684,
+          "finalize_seconds": 0.004683700011810288
+        },
+        {
+          "expected": "No, mejor azules",
+          "actual": "No me forasones.",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 3,
+            "character_errors": 6,
+            "reference_characters": 15
+          },
+          "elapsed_seconds": 3.178895000004559,
+          "finalize_seconds": 0.004530600010184571
+        },
+        {
+          "expected": "Y bájales el brillo",
+          "actual": "¡que bájale el brillo!",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 4,
+            "character_errors": 4,
+            "reference_characters": 19
+          },
+          "elapsed_seconds": 3.1723935999907553,
+          "finalize_seconds": 0.008454700000584126
+        },
+        {
+          "expected": "Mejor al treinta por ciento",
+          "actual": "Meforal treinta por ciento.",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 5,
+            "character_errors": 2,
+            "reference_characters": 27
+          },
+          "elapsed_seconds": 4.277977799996734,
+          "finalize_seconds": 0.007639300005394034
+        },
+        {
+          "expected": "Por favor pon la luz principal de color rojo",
+          "actual": "Por favor pon la luz principal de color rojo.",
+          "errors": {
+            "word_errors": 0,
+            "reference_words": 9,
+            "character_errors": 0,
+            "reference_characters": 44
+          },
+          "elapsed_seconds": 5.137428300004103,
+          "finalize_seconds": 0.006335800004308112
+        },
+        {
+          "expected": "No, mejor cambia las luces a color azul",
+          "actual": "Nopmefort cambia las luces a color azul.",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 8,
+            "character_errors": 3,
+            "reference_characters": 38
+          },
+          "elapsed_seconds": 5.083853499992983,
+          "finalize_seconds": 0.00664350000442937
+        }
+      ],
+      "rss_bytes": 284454912,
+      "affinity": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "engine": "whisper-base",
+      "cpu_threads": 2,
+      "load_seconds": 2.849886800002423,
+      "rows": [
+        {
+          "expected": "Azul",
+          "actual": "Eso es todo.",
+          "errors": {
+            "word_errors": 3,
+            "reference_words": 1,
+            "character_errors": 11,
+            "reference_characters": 4
+          },
+          "elapsed_seconds": 3.1532883000036236,
+          "finalize_seconds": 3.1531550000072457
+        },
+        {
+          "expected": "Rojo",
+          "actual": "¡Gol!",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 3,
+            "reference_characters": 4
+          },
+          "elapsed_seconds": 5.084296100001666,
+          "finalize_seconds": 5.084142899999279
+        },
+        {
+          "expected": "No",
+          "actual": "No es...",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 3,
+            "reference_characters": 2
+          },
+          "elapsed_seconds": 2.9149505000095814,
+          "finalize_seconds": 2.914867100000265
+        },
+        {
+          "expected": "Sí",
+          "actual": "¡Suscríbete!",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 8,
+            "reference_characters": 2
+          },
+          "elapsed_seconds": 3.3854501000023447,
+          "finalize_seconds": 3.385346799987019
+        },
+        {
+          "expected": "Cancela",
+          "actual": "y un ser atrugado",
+          "errors": {
+            "word_errors": 4,
+            "reference_words": 1,
+            "character_errors": 14,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 3.2790233000123408,
+          "finalize_seconds": 3.278888199987705
+        },
+        {
+          "expected": "Mejor azules",
+          "actual": "ver, fuera su vez",
+          "errors": {
+            "word_errors": 4,
+            "reference_words": 2,
+            "character_errors": 12,
+            "reference_characters": 12
+          },
+          "elapsed_seconds": 1.30954919999931,
+          "finalize_seconds": 1.3093883999972604
+        },
+        {
+          "expected": "La otra",
+          "actual": "la otra",
+          "errors": {
+            "word_errors": 0,
+            "reference_words": 2,
+            "character_errors": 0,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 1.2798628000018653,
+          "finalize_seconds": 1.2797112999978708
+        },
+        {
+          "expected": "Al treinta",
+          "actual": "El TNT",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 2,
+            "character_errors": 5,
+            "reference_characters": 10
+          },
+          "elapsed_seconds": 2.9452637000067625,
+          "finalize_seconds": 2.945089300003019
+        },
+        {
+          "expected": "Más bajo",
+          "actual": "más barco",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 2,
+            "character_errors": 2,
+            "reference_characters": 8
+          },
+          "elapsed_seconds": 1.3619106999976793,
+          "finalize_seconds": 1.3617748000106076
+        },
+        {
+          "expected": "Déjalo así",
+          "actual": "Deja lo va a ser",
+          "errors": {
+            "word_errors": 5,
+            "reference_words": 2,
+            "character_errors": 8,
+            "reference_characters": 10
+          },
+          "elapsed_seconds": 1.3329158999986248,
+          "finalize_seconds": 1.3327889000065625
+        },
+        {
+          "expected": "Pon las luces rojas",
+          "actual": "Pon unas luces focas",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 4,
+            "character_errors": 4,
+            "reference_characters": 19
+          },
+          "elapsed_seconds": 1.3178543999965768,
+          "finalize_seconds": 1.3176799999928335
+        },
+        {
+          "expected": "No, mejor azules",
+          "actual": "no, mi fuera sueleste",
+          "errors": {
+            "word_errors": 3,
+            "reference_words": 3,
+            "character_errors": 11,
+            "reference_characters": 15
+          },
+          "elapsed_seconds": 1.364035699996748,
+          "finalize_seconds": 1.363835399999516
+        },
+        {
+          "expected": "Y bájales el brillo",
+          "actual": "y bajale salvrio.",
+          "errors": {
+            "word_errors": 3,
+            "reference_words": 4,
+            "character_errors": 8,
+            "reference_characters": 19
+          },
+          "elapsed_seconds": 1.3205966000095941,
+          "finalize_seconds": 1.3204603999911342
+        },
+        {
+          "expected": "Mejor al treinta por ciento",
+          "actual": "vefor al 30%",
+          "errors": {
+            "word_errors": 4,
+            "reference_words": 5,
+            "character_errors": 20,
+            "reference_characters": 27
+          },
+          "elapsed_seconds": 1.331781000000774,
+          "finalize_seconds": 1.331588200002443
+        },
+        {
+          "expected": "Por favor pon la luz principal de color rojo",
+          "actual": "Por favor ponle a los principales de color rofo",
+          "errors": {
+            "word_errors": 5,
+            "reference_words": 9,
+            "character_errors": 8,
+            "reference_characters": 44
+          },
+          "elapsed_seconds": 1.3749354000028688,
+          "finalize_seconds": 1.3747064000053797
+        },
+        {
+          "expected": "No, mejor cambia las luces a color azul",
+          "actual": "No me for cambiar las noces a color azul.",
+          "errors": {
+            "word_errors": 4,
+            "reference_words": 8,
+            "character_errors": 5,
+            "reference_characters": 38
+          },
+          "elapsed_seconds": 1.352114299996174,
+          "finalize_seconds": 1.3519221000024118
+        }
+      ],
+      "rss_bytes": 168288256,
+      "affinity": [
+        0,
+        1
+      ]
+    }
+  ]
+}

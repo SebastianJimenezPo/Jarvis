@@ -15,6 +15,13 @@ def proposal(actions,reason='explicit_immediate_request'):
 class FastPath:
     def __init__(self,context):self.context=context
 
+    def recover_fragment(self,text):
+        text=normalize(text)
+        if not clause_kind(text) and color(text) and re.search(r'\b(?:ponla|ponlo|ponlas|cambiala|cambialo)\b',text) and not mentions(text,LIGHTS):
+            result=self.clarify('set_light_color',{'color':color(text)},'light')
+            return result.model_copy(update={'reason_code':'transcript_target_uncertain'})
+        return None
+
     def clarify(self,intent,params,group,candidates=None,missing='target'):
         candidates=candidates or []
         self.context.ask(intent,params,missing,candidates)

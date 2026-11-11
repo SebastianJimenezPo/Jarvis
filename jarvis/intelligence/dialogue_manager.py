@@ -48,16 +48,21 @@ class DialogueManager:
             self.context.begin_session(session_id)
             self.fast=FastPath(self.context)
 
-    def interpret(self,text,session_id='diagnostic',turn_id='1'):
+    def ticket(self):
+        with self._lock:return (self.context.session_id,self.context.revision,self._serial,self._epoch)
+
+    def interpret(self,text,session_id='diagnostic',turn_id='1',uncertain=False,expected_ticket=None):
         start=time.perf_counter();request_id=uuid.uuid4().hex;text=text[:1600]
         with self._lock:
+            if expected_ticket is not None and expected_ticket!=self.ticket():raise RequestCancelled('Stale speech recovery')
+            if self.cancel is not None and self.cancel.is_set():raise RequestCancelled('Turn already cancelled')
             if session_id in self._retired:raise RequestCancelled('Retired session')
             if session_id!=self.context.session_id:self.begin_session(session_id)
             self.context.expire()
             base=self.context.fork();working=base.fork()
             self._serial+=1;serial=self._serial;epoch=self._epoch
         # Parsing, preferences, pending questions and cancellations touch only a copy.
-        result,route,error,metrics=self._candidate(text,working)
+        result,route,error,metrics=self._candidate(text,working,uncertain)
         with self._lock:
             self._assert_current(session_id,serial,epoch,base)
             accepted=True;self.validator.last_evidence=[]
@@ -102,10 +107,12 @@ class DialogueManager:
                 or self.context.revision!=base.revision):raise RequestCancelled('Stale turn or session')
         if self.clock()-base.updated>self.config.context_ttl_seconds:raise RequestCancelled('Context expired during interpretation')
 
-    def _candidate(self,text,context):
+    def _candidate(self,text,context,uncertain=False):
         error=None;self.client.last_metrics={}
         route='fast'
-        result=FastPath(context).interpret(text)
+        if uncertain:return Interpretation(kind=Kind.CLARIFICATION,clarification_question='No entendí bien esa frase. ¿Puedes repetirla?',reason_code='transcript_uncertain'),'fast',None,{}
+        fast=FastPath(context);result=fast.interpret(text)
+        if result is None:result=fast.recover_fragment(text)
         if result is None and self.config.semantic_enabled and self.semantic.applicable(text) and not clause_kind(normalize(text)):
             try:
                 candidate,ranked=self.semantic.candidate(text)
