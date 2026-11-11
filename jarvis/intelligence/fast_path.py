@@ -71,11 +71,18 @@ class FastPath:
         # keeping the actual action clause available to independent validation.
         text=re.sub(r'^por favor(?:\s*[,;]\s*|\s+)','',text)
         text=re.sub(r'\s*[,;]?\s+por favor$','',text).strip()
+        from .speech_act import replacement_request,correction_text
+        replacement=replacement_request(text)
+        if replacement:
+            self.context.cancel();text=replacement
+        if re.fullmatch(r'(?:bueno[, ]+)?(?:olvida|cancela|descarta) (?:lo de )?(?:las luces|la luz|la iluminacion)',text):
+            self.context.cancel('light')
+            return Interpretation(kind=Kind.CANCEL,reason_code='selective_cancel',response='Descarté las propuestas de luces. No he ejecutado ninguna acción.')
         if not text:return Interpretation(kind=Kind.CONVERSATION,response='',reason_code='empty')
         cancel_text=' '.join(re.sub(r'\b(?:jarvis|por favor)\b','',text).strip(' ,').split())
         if (cancel_text.replace(',','') in ('no','no olvidalo','olvida eso','olvida todo','olvida lo anterior','mejor ninguna','no ninguna','ninguna','espera no','no gracias','no hagas nada','mejor no cambies nada')
                 or re.fullmatch(r'(?:cancela|cancelar|cancelalo|cancelala|cancelame|cancele)(?:\s+(?:eso|esto|todo|la solicitud|la orden|la propuesta|lo anterior))?',cancel_text)):
-            self.context.clear()
+            self.context.cancel()
             return Interpretation(kind=Kind.CANCEL,reason_code='user_cancel')
         if self.context.pending:
             if re.fullmatch(r'no (?:canceles(?: nada)?|quiero cancelar|canceles la (?:solicitud|propuesta))',text):
@@ -100,7 +107,7 @@ class FastPath:
         if analyze(text).reason=='whole_turn_veto':
             return Interpretation(kind=Kind.NEGATED,negated=True,reason_code='whole_turn_veto')
         if global_guard=='cancel':
-            self.context.clear();return Interpretation(kind=Kind.CANCEL,reason_code='user_cancel')
+            self.context.cancel();return Interpretation(kind=Kind.CANCEL,reason_code='user_cancel')
         if global_guard in ('unsupported','hypothetical','deferred_request','preference','conversation'):
             if global_guard=='preference':self.context.preferences['last_preference']=raw[:300]
             return Interpretation(kind=Kind(global_guard),condition=raw[:500] if global_guard=='deferred_request' else None,
@@ -110,7 +117,7 @@ class FastPath:
             if explicit_request(text) or global_guard=='negated':self.context.pending=None
             else:return self.pending(text)
         # Corrections require one compatible earlier proposal; preserve other proposals in a multi-action plan.
-        if re.match(r'^(?:no[, ]+(?:mejor\b|steam\b|spotify\b|chrome\b|discord\b)|mejor |no era |en realidad |que esten )',text):
+        if correction_text(text) or re.match(r'^no[, ]+(?:steam|spotify|chrome|discord)\b',text):
             corrected=self.correction(text)
             if corrected:return corrected
         clauses=split_clauses(text)
@@ -143,6 +150,9 @@ class FastPath:
         previous=self.context.proposals
         group='light' if c or 'suaves' in text or 'brillo' in text else 'application' if apps else None
         matches=[a for a in previous if group is None or entity_type(a.intent)==group]
+        if value is not None and group is None:
+            focus=self.context.focus
+            matches=[a for a in matches if focus and a.intent==focus['intent'] and a.target==focus['target'] and a.intent in ('set_volume','set_light_brightness')]
         if c:
             colored=[a for a in matches if a.intent=='set_light_color']
             if colored:matches=colored
@@ -178,6 +188,8 @@ class FastPath:
         elif re.search(r'\b(?:enfoca|enfocar|trae al frente)\b',text):intent='focus_application';group='application'
         elif apps and carry in ('open_application','close_application','focus_application'):
             intent=carry;group='application'
+        elif lights and carry in ('turn_on_light','turn_off_light'):
+            intent=carry;group='light'
         elif scene and explicit_request(text):intent='activate_scene';group='scene'
         elif ('brillo' in text or ('suaves' in text and self.context.targets('light'))):
             intent='set_light_brightness';group='light'

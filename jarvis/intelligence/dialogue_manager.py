@@ -67,9 +67,21 @@ class DialogueManager:
                 result=Interpretation(kind=Kind.CLARIFICATION,clarification_question='No puedo validar esa interpretación. ¿Puedes concretar la solicitud?',reason_code='safety_rejection')
             self._assert_current(session_id,serial,epoch,base)
             response=self.composer.compose(result)
+            operation='none'
             if accepted:
-                if result.kind==Kind.ACTION_PROPOSAL:
-                    working.remember(result.actions,result.reason_code=='context_correction')
+                try:
+                    if result.kind==Kind.ACTION_PROPOSAL:
+                        operation=('modify' if result.reason_code=='context_correction' else
+                                   'append' if re.match(r'^y\b',normalize(text)) else 'replace')
+                        working.remember(result.actions,operation=operation,source=turn_id,evidence=self.validator.last_evidence)
+                    elif result.kind==Kind.CANCEL:operation='cancel'
+                    elif result.kind==Kind.CLARIFICATION and working.pending:
+                        operation='hold';working.plan.hold(working.pending,turn_id)
+                except ValueError as exc:
+                    accepted=False;error=str(exc);operation='none'
+                    result=Interpretation(kind=Kind.CLARIFICATION,clarification_question='El plan es demasiado grande o ambiguo. ¿Podemos simplificarlo?',reason_code='plan_rejected')
+                    response=self.composer.compose(result)
+            if accepted:
                 working.exchange(text,response)
                 working.revision=base.revision+1
                 if result.kind==Kind.ACTION_PROPOSAL:self.executor.propose(result.actions)
@@ -79,7 +91,8 @@ class DialogueManager:
                 session_id=session_id,turn_id=turn_id,request_id=request_id,
                 end_session=result.reason_code in ('farewell','user_cancel'),
                 context_revision=self.context.revision,validation='validated' if accepted else 'rejected',
-                evidence=self.validator.last_evidence if accepted else [])
+                evidence=self.validator.last_evidence if accepted else [],plan_id=self.context.plan.plan_id,
+                plan_revision=self.context.plan.revision,plan_operation=operation)
             self.counts[route]+=1;self.last_decision=decision
             return decision,response
 

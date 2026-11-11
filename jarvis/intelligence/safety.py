@@ -4,13 +4,13 @@ import copy
 from .contracts import Kind,Interpretation,ActionProposal
 from .catalog import validate_action,entity_type,APPLICATIONS,LIGHTS,SCENES
 from .language import normalize,clause_kind,split_clauses,mentions,color,number,explicit_request
-from .speech_act import analyze,correction_text
+from .speech_act import analyze,correction_text,replacement_request
 
 
 class SafetyValidator:
     def validate(self,result,text,context,trusted_fast=False):
         if result.kind!=Kind.ACTION_PROPOSAL:return result
-        normalized=normalize(text);speech=analyze(normalized)
+        normalized=normalize(text);normalized=replacement_request(normalized) or normalized;speech=analyze(normalized)
         if speech.kind in ('unsupported','hypothetical','deferred_request','preference','conversation','cancel') or speech.reason=='whole_turn_veto':
             raise ValueError('Speech act does not authorize immediate proposals')
         clauses=split_clauses(normalized)
@@ -109,6 +109,9 @@ class SafetyValidator:
         # Conjoined app names inherit the explicitly stated app operation only.
         carry=(entity_type(a.intent)=='application' and a.target in mentions(clause,APPLICATIONS) and
                any(clause_kind(c) is None and explicit_request(c) and re.search({'open_application':r'\b(?:abre|abrir)\b','close_application':r'\b(?:cierra|cerrar)\b','focus_application':r'\b(?:enfoca|frente)\b'}[a.intent],c) for c in split_clauses(whole)))
+        if a.intent in ('turn_on_light','turn_off_light') and mentions(clause,LIGHTS):
+            trigger=r'enciende|prende|alumbra' if a.intent=='turn_on_light' else r'apaga'
+            carry=any(clause_kind(c) is None and explicit_request(c) and re.search(trigger,c) for c in split_clauses(whole))
         desired_state=bool(re.search(r'\babierto\b',clause) and re.search(r'\b(?:quiero|necesito)\b',whole))
         if not request and not complaint and not carry and not desired_state:raise ValueError('No actionable request evidence')
         if a.intent in ('decrease_volume','increase_volume'):
@@ -121,7 +124,9 @@ class SafetyValidator:
             if not re.search(trigger,clause) and not carry:raise ValueError('Wrong application action')
         elif a.intent in ('turn_on_light','turn_off_light'):
             trigger=r'enciende|prende|alumbra|necesito luz' if a.intent=='turn_on_light' else r'apaga|oscur'
-            if not re.search(trigger,clause):raise ValueError('Wrong light action')
+            if not re.search(trigger,clause):
+                if not any(clause_kind(c) is None and explicit_request(c) and re.search(trigger,c) for c in split_clauses(whole)):
+                    raise ValueError('Wrong light action')
         elif a.intent=='pause_music':
             if not re.search(r'musica|cancion|pista|sonando',clause) and clause not in ('pausa','pausar'):raise ValueError('Missing music domain')
             if not re.search(r'pausa|deten|interrumpe|para |no siga',clause):raise ValueError('Missing pause evidence')

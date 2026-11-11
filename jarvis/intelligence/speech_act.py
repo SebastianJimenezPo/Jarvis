@@ -20,9 +20,18 @@ def correction_text(text):
     return bool(re.match(r'^(?:no[, ]+)?(?:mejor\b|al\s+(?:\d|treinta|veinte|cincuenta)|(?:azul|rojo|verde|blanc|morad|amarill)\w*\b)|^(?:no era |en realidad |que esten )',text))
 
 
+def replacement_request(text):
+    from .language import explicit_request
+    match=re.match(r'^(?:bueno[, ]+)?(?:olvida eso|olvida lo anterior|cancela lo anterior)[,; ]+(?:mejor\s+)?(.+)$',text)
+    if match and explicit_request(match[1]):return match[1]
+    return None
+
+
 def analyze(text):
     from .language import normalize,explicit_request
     text=normalize(text)
+    replacement=replacement_request(text)
+    if replacement:return analyze(replacement)
     if re.search(r'\b(?:ignora (?:las |tus )?(?:restricciones|reglas)|powershell|ejecuta (?:un )?(?:comando|codigo)|cmd exe|borra archivos|formatea)\b',text):
         return SpeechAct('unsupported',reason='unsupported_operation')
     # Explicit abandonment differs from negating the verb "cancelar".

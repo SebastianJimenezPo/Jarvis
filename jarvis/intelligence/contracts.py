@@ -62,6 +62,9 @@ class Decision(BaseModel):
     context_revision:int=0
     validation:Literal['validated','rejected']='validated'
     evidence:list[dict]=Field(default_factory=list)
+    plan_id:str=''
+    plan_revision:int=0
+    plan_operation:Literal['replace','append','modify','cancel','hold','none']='none'
 
 
 class ModelInterpretation(BaseModel):

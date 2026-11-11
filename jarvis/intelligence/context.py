@@ -3,6 +3,7 @@ import time
 import copy
 from .contracts import ActionProposal
 from .catalog import entity_type
+from .plan import ActionPlan
 
 
 @dataclass
@@ -33,6 +34,7 @@ class ContextManager:
         self.session_id='';self.updated=clock();self.referents=[];self.proposals=[]
         self.pending=None;self.history=[];self.topic=None;self.preferences={}
         self.revision=0
+        self.plan=ActionPlan();self.focus=None
 
     def fork(self):
         return copy.deepcopy(self)
@@ -51,19 +53,24 @@ class ContextManager:
         self.referents=[];self.proposals=[];self.pending=None;self.history=[];self.topic=None;self.preferences={}
         self.updated=self.clock()
         self.revision+=1
+        self.plan=ActionPlan();self.focus=None
 
-    def remember(self,actions,replace_previous=False):
+    def cancel(self,group=None):
+        self.plan.cancel(group)
+        self.proposals=[a for a in self.proposals if group is not None and entity_type(a.intent)!=group]
+        self.referents=[r for r in self.referents if group is not None and r.entity_type!=group]
+        if self.pending and (group is None or entity_type(self.pending.intent)==group):self.pending=None
+        if self.focus and (group is None or entity_type(self.focus['intent'])==group):self.focus=None
+        self.revision+=1;self.updated=self.clock()
+
+    def remember(self,actions,replace_previous=False,operation=None,source='',evidence=None):
         self.expire();self.updated=self.clock()
         self.revision+=1
-        if replace_previous:
-            previous=list(self.proposals)
-            for action in actions:
-                matches=[a for a in previous if a.intent==action.intent and
-                         (a.target==action.target or entity_type(a.intent)=='application')]
-                if len(matches)==1:previous.remove(matches[0])
-                previous.append(action)
-            self.proposals=previous[-8:]
-        else:self.proposals=list(actions)
+        operation=operation or ('modify' if replace_previous else 'replace')
+        self.plan.apply(actions,operation,source,evidence or [])
+        self.proposals=[item.proposal() for item in self.plan.active()]
+        if actions:self.focus={'intent':actions[-1].intent,'target':actions[-1].target}
+        self.referents=[r for r in self.referents if any(a.target==r.entity_id for a in self.proposals)]
         # Preserve multiple compatible referents; do not pick the last application arbitrarily.
         for action in actions:
             self.referents=[r for r in self.referents if r.entity_id!=action.target]
@@ -87,7 +94,7 @@ class ContextManager:
 
     def snapshot(self):
         self.expire()
-        return {'session_id':self.session_id,'updated':self.updated,'revision':self.revision,'referents':[asdict(r) for r in self.referents],
+        return {'session_id':self.session_id,'updated':self.updated,'revision':self.revision,'plan':self.plan.snapshot(),'focus':self.focus,'referents':[asdict(r) for r in self.referents],
                 'proposals':[a.model_dump() for a in self.proposals],'pending':asdict(self.pending) if self.pending else None,
                 'history':[dict(item) for item in self.history],'topic':self.topic,'preferences':dict(self.preferences)}
 
@@ -97,6 +104,9 @@ class ContextManager:
         self.revision=int(data.get('revision',0))
         self.referents=[Referent(**r) for r in data.get('referents',[])[:12]]
         self.proposals=[ActionProposal.model_validate(a) for a in data.get('proposals',[])[:8]]
+        self.plan=ActionPlan.restore(data['plan']) if data.get('plan') else ActionPlan()
+        if not data.get('plan') and self.proposals:self.plan.apply(self.proposals,'replace','legacy_snapshot',[])
+        self.focus=data.get('focus')
         self.pending=PendingClarification(**data['pending']) if data.get('pending') else None
         self.history=data.get('history',[])[-self.config.max_recent_turns:]
         self.topic=data.get('topic');self.preferences=data.get('preferences',{})

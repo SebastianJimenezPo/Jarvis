@@ -26,7 +26,7 @@ class ResponseComposer:
                 parts.append(phrase)
             return 'En simulación: '+', y '.join(parts)+'. No he ejecutado ninguna acción.'
         if result.kind==Kind.CLARIFICATION:return result.clarification_question or '¿Puedes aclarar qué quieres?'
-        if result.kind==Kind.CANCEL:return 'Descarté la propuesta pendiente. No había ejecutado ninguna acción.'
+        if result.kind==Kind.CANCEL:return self.clean(result.response) if result.response else 'Descarté la propuesta pendiente. No había ejecutado ninguna acción.'
         if result.kind==Kind.NEGATED:return 'Entendido, no propondré esa acción.'
         if result.kind==Kind.DEFERRED_REQUEST:return 'Es una solicitud para después o bajo una condición. Todavía no puedo programarla.'
         if result.kind==Kind.PREFERENCE:return 'Lo tendré presente en esta conversación; todavía no lo guardaré como preferencia permanente.'

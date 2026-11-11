@@ -10,8 +10,9 @@ def normalize(text):
 
 def mentions(text,table):
     found=[]
-    # Specific light names take precedence over the generic phrase 'la luz'.
-    if table is LIGHTS and any(alias in text for alias in LIGHTS['desk_light']):return ['desk_light']
+    # Specific desk wording contains generic "la luz"; explicit principal + desk is plural evidence.
+    if table is LIGHTS and any(alias in text for alias in LIGHTS['desk_light']):
+        return ['main_light','desk_light'] if 'luz principal' in text else ['desk_light']
     for entity,aliases in table.items():
         if any(re.search(r'(?<!\w)'+re.escape(alias)+r'(?!\w)',text) for alias in aliases):found.append(entity)
     return found
