@@ -9,6 +9,8 @@ def main():
     import argparse
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--short-correction',action='store_true')
+    parser.add_argument('--cancel-last',action='store_true')
+    parser.add_argument('--output',type=Path,default=Path('docs/reports/phase3-voice-integration.json'))
     args=parser.parse_args()
     import numpy as np
     from jarvis.core.config import Config,data_dir,load
@@ -23,6 +25,7 @@ def main():
     signals=[]
     utterances=['Pon las luces rojas' if args.short_correction else 'Por favor pon la luz principal de color rojo',
                 'Mejor azules' if args.short_correction else 'No, mejor cambia las luces a color azul']
+    if args.cancel_last:utterances.append('Cancela la solicitud por favor')
     for text in utterances:
         chunks=list(voice.synthesize(text));rate=chunks[0].sample_rate
         samples=np.concatenate([c.audio_float_array for c in chunks]+[np.zeros(rate*2,dtype=np.float32)])
@@ -63,20 +66,22 @@ def main():
                 snapshot=manager.snapshot();v=snapshot.get('voice',{});decision=v.get('intelligence')
                 if decision and decision['turn_id']!=last_turn:
                     decisions.append({**decision,'synthetic_recognized_text':v.get('last_transcript')});last_turn=decision['turn_id']
-                if next_index==1 and v.get('state')=='WAITING_FOR_FOLLOWUP' and v['metrics']['turns']==1:
+                if next_index<len(signals) and v.get('state')=='WAITING_FOR_FOLLOWUP' and v['metrics']['turns']==next_index:
                     # Honor echo guard; the production user must wait until response ends too.
-                    time.sleep(.5);source.put(signals[1]);next_index=2
-                if next_index==2 and snapshot['state']=='DORMANT':break
+                    time.sleep(.5);source.put(signals[next_index]);next_index+=1
+                if next_index==len(signals) and snapshot['state']=='DORMANT':break
                 time.sleep(.03)
             before_stop=manager.snapshot()
             failure=None
-            if len(decisions)!=2 or before_stop['state']!='DORMANT':failure='Voice cycle did not complete'
+            if len(decisions)!=len(signals) or before_stop['state']!='DORMANT':failure='Voice cycle did not complete'
             colors=[d['interpretation']['actions'][0]['parameters'].get('color') if d['interpretation']['actions'] else None for d in decisions]
-            if colors!=['red','blue']:failure='Synthetic speech was not correctly interpreted as red -> blue'
+            if colors[:2]!=['red','blue']:failure='Synthetic speech was not correctly interpreted as red -> blue'
+            if args.cancel_last and (len(decisions)!=3 or decisions[-1]['interpretation']['kind']!='cancel' or not decisions[-1]['end_session']):
+                failure='Synthetic cancellation was not understood or did not end session'
         finally:manager.stop()
         report={'scenario':'Synthetic mic, real Rustpotter loaded, diagnostic activation, Moonshine+VAD+phase3 context+Piper/default output. No physical light actions, no real-user audio, no physical echo test.',
                 'utterances':utterances,'decisions':decisions,'snapshot':manager.snapshot(),'passed':failure is None,'failure':failure}
-        Path('docs/reports/phase3-voice-integration.json').write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding='utf-8')
+        args.output.write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding='utf-8')
         print(json.dumps(report,indent=2,ensure_ascii=False))
 
 

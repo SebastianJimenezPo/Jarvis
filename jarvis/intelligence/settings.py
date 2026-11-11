@@ -14,14 +14,14 @@ class IntelligenceConfig:
     model:str='qwen3:1.7b'
     fallback_model:str='qwen3.5:2b'
     timeout_seconds:float=12.0
-    keep_alive_seconds:int=90
+    keep_alive_seconds:int=30
     context_tokens:int=2048
     max_output_tokens:int=320
-    cpu_threads:int=4
+    cpu_threads:int=2
     gpu_layers:int=0
     temperature:float=0.1
     conversation_temperature:float=0.1
-    conversation_max_output_tokens:int=320
+    conversation_max_output_tokens:int=160
     max_recent_turns:int=6
     context_ttl_seconds:float=120.0
     clarification_ttl_seconds:float=60.0

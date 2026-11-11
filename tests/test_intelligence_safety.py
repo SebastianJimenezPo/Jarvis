@@ -89,7 +89,7 @@ def test_missing_semantic_dependency_degrades_without_crashing(tmp_path):
     m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False))
     def unavailable(text):raise ImportError('controlled missing backend')
     m.semantic.candidate=unavailable
-    d,_=m.interpret('Una expresión desconocida')
+    d,_=m.interpret('La música está demasiado fuerte')
     assert d.route=='fallback' and not d.interpretation.actions
 
 

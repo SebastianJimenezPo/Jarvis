@@ -50,16 +50,18 @@ Modelos en `%LOCALAPPDATA%\JarvisCore\intelligence_models`, binario portable en 
 | semantic_model | e5-small | e5-small, minilm |
 | model / fallback_model | qwen3:1.7b / qwen3.5:2b | esos dos modelos |
 | ollama_url | http://127.0.0.1:11434 | HTTP loopback |
-| timeout_seconds / keep_alive_seconds | 12 / 90 | 0.1–120 / 0–300 |
+| timeout_seconds / keep_alive_seconds | 12 / 30 | 0.1–120 / 0–300 |
 | context_tokens / max_output_tokens | 2048 / 320 | 512–4096 / 64–1024 |
-| cpu_threads / gpu_layers | 4 / 0 | 1–8 / 0–99 |
+| cpu_threads / gpu_layers | 2 / 0 | 1–8 / 0–99 |
 | temperature / conversation_temperature | 0.1 / 0.1 | 0–1 |
-| conversation_max_output_tokens | 320 | 32–1024 |
+| conversation_max_output_tokens | 160 | 32–1024 |
 | max_recent_turns / context_ttl_seconds | 6 / 120 | 1–12 / 1–600 |
 | clarification_ttl_seconds / max_clarification_attempts | 60 / 3 | 1–180 / 1–5 |
 | log_text / version | false / 1 | booleano / versión 1 |
 
 El perfil medido usa CPU y cero capas GPU. No existe todavía un perfil gaming automático. Texto, referencias y preferencias son temporales; `log_text=false` conserva diagnósticos sin transcripciones ni consultas. Mantener también `voice.log_transcripts=false`.
+
+Después de las primeras pruebas del usuario se ajustó el perfil: dos hilos LLM, proceso de voz con afinidad de dos CPU lógicas y prioridad inferior a normal, retención de voz 20 s tras terminar sesión y Ollama 30 s después de su última petición. La captura permanece en el padre y no se limita. Esto favorece consumo bajo a cambio de más recargas y posible latencia. Ver `phase_3_feedback.md` para mediciones y limitaciones.
 
 ## Aceptación física pendiente
 

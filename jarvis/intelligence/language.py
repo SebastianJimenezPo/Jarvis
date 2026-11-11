@@ -35,11 +35,32 @@ def split_clauses(text):
 
 
 def number(text):
-    match=re.search(r'(?<!\w)(-?\d{1,4})(?:\s*%|\b)',text)
-    if match:return int(match[1])
+    negative=re.search(r'\bmenos\s+',text)
+    if negative:
+        value=number(text[negative.end():])
+        return -value if value is not None else None
+    if re.search(r'\bmil\b',text):return 1000
     values={'cero':0,'diez':10,'veinte':20,'veinticinco':25,'treinta':30,'cuarenta':40,'cincuenta':50,
             'sesenta':60,'setenta':70,'ochenta':80,'noventa':90,'cien':100,'mitad':50}
-    return next((v for k,v in values.items() if re.search(r'\b'+k+r'\b',text)),None)
+    values.update({'uno':1,'una':1,'dos':2,'tres':3,'cuatro':4,'cinco':5,'seis':6,'siete':7,'ocho':8,'nueve':9,
+                   'once':11,'doce':12,'trece':13,'catorce':14,'quince':15,'dieciseis':16,'diecisiete':17,
+                   'dieciocho':18,'diecinueve':19,'veintiuno':21,'veintidos':22,'veintitres':23,'veinticuatro':24,
+                   'veintiseis':26,'veintisiete':27,'veintiocho':28,'veintinueve':29})
+    # Do not interpret "ciento veinte" as a permitted value of twenty.
+    hundred=re.search(r'\b(ciento|doscientos|trescientos|cuatrocientos|quinientos|seiscientos|setecientos|ochocientos|novecientos)\b',text)
+    if hundred:
+        base={'ciento':100,'doscientos':200,'trescientos':300,'cuatrocientos':400,'quinientos':500,
+              'seiscientos':600,'setecientos':700,'ochocientos':800,'novecientos':900}[hundred[1]]
+        return base+(number(text[hundred.end():]) or 0)
+    match=re.search(r'(?<!\w)(-?\d{1,4})(?:\s*%|\b)',text)
+    if match:return int(match[1])
+    word=re.search(r'\b(?:'+'|'.join(values)+r')\b',text)
+    if not word:return None
+    value=values[word[0]]
+    if 30<=value<=90 and value%10==0:
+        units=re.match(r'\s+y\s+(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve)\b',text[word.end():])
+        if units:value+=values[units[1]]
+    return value
 
 
 def color(text):

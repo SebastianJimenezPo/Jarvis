@@ -1,0 +1,37 @@
+{
+  "method": "Isolated real voice-model memory: old eager embedding load versus current chat gate.\n\nNo microphone, playback, user audio or live LLM. The controlled comparison uses\nthe same current libraries/CPU policy in both children; it isolates the former\nunnecessary embedding load rather than reproducing every old runtime setting.\n",
+  "results": [
+    {
+      "scenario": "former_eager_embedding",
+      "voice_rss_bytes": 401768448,
+      "after_question_rss_bytes": 1151328256,
+      "embedding_loaded": true,
+      "route": "llm",
+      "affinity": [
+        0,
+        1
+      ],
+      "cpu_threads": 2,
+      "note": "Real Moonshine, Silero, Piper and optional E5; mocked LLM reply; no mic/playback; two fresh processes.",
+      "sampled_peak_rss_bytes": 1328869376,
+      "sampled_cpu_machine_peak_percent": 11.782892440390734,
+      "interpretation_plus_sampling_hold_seconds": 0.30655429999751505
+    },
+    {
+      "scenario": "gated_chat",
+      "voice_rss_bytes": 400494592,
+      "after_question_rss_bytes": 400650240,
+      "embedding_loaded": false,
+      "route": "llm",
+      "affinity": [
+        0,
+        1
+      ],
+      "cpu_threads": 2,
+      "note": "Real Moonshine, Silero, Piper and optional E5; mocked LLM reply; no mic/playback; two fresh processes.",
+      "sampled_peak_rss_bytes": 405102592,
+      "sampled_cpu_machine_peak_percent": 12.697907408092151,
+      "interpretation_plus_sampling_hold_seconds": 0.31342259999655653
+    }
+  ]
+}

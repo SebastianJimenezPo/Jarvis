@@ -23,7 +23,9 @@ El padre conserva una instantánea en RAM para recuperar referencias cuando vuel
 
 ## Recursos, fallos y cancelación
 
-Los modelos de voz/semántica se cargan bajo demanda en el proceso de voz, retenido por 90 s de inactividad. Ollama es un proceso externo, medido por separado; admite un modelo cargado y una petición a la vez en el servicio portable configurado. Cada petición solicita cuatro hilos, cero capas GPU, contexto 2048 y retención 90 s. No se carga un LLM por permanecer en `DORMANT`.
+Los modelos de voz/semántica se cargan bajo demanda en el proceso de voz, retenido por 20 s de inactividad después del fin de sesión. El proceso de voz usa dos CPU lógicas permitidas y prioridad inferior a normal en Windows, antes de cargar modelos nativos. El proceso padre de captura conserva sus recursos. Las sesiones ONNX de VAD, Piper y embeddings desactivan espera activa de sus pools. Ollama es un proceso externo, medido por separado; admite un modelo cargado y una petición a la vez en el servicio portable configurado. Cada petición solicita dos hilos, cero capas GPU, contexto 2048 y retención 30 s. No se carga un LLM por permanecer en `DORMANT`.
+
+La ruta semántica solo se consulta cuando hay evidencia de uno de sus seis dominios/operaciones de audio o luces. Preguntas generales, aplicaciones desconocidas y aclaraciones no necesitan cargar E5. Si se usa realmente semántica, su memoria vuelve a sumarse al proceso hasta liberarlo; no se promete un techo fijo de RAM activa.
 
 HTTP tiene límite de respuesta, plazo y cancelación. Se comprueba la identidad de sesión/turno antes de publicar resultados y modificar el plan. Cambiar modelo cancela la voz en curso. Al cerrar, el cliente solicita liberar solo los modelos que utilizó. La retención de Ollama cubre además la terminación forzada del proceso. La liberación no supone que todo el proceso servidor deje de consumir RAM.
 

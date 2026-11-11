@@ -68,5 +68,6 @@ def activation_only_candidate(text,first_turn):
     """
     clean=strip_wake_prefix(text)
     tokens=re.findall(r'\w+',clean.casefold())
-    known={'hola','gracias','adiós','adios','chao','perfecto','listo'}
+    known={'hola','gracias','adiós','adios','chao','perfecto','listo',
+           'cancela','cancelar','cancélalo','cancelalo','cancélala','cancelala','cancéleme','cancelame'}
     return first_turn and (not tokens or (len(tokens)==1 and tokens[0] not in known))

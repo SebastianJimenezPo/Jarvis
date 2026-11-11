@@ -17,7 +17,7 @@ class VoiceConfig:
     max_turn_seconds: float = 20.0
     preparation_timeout_seconds: float = 60.0
     processing_timeout_seconds: float = 60.0
-    retain_seconds: float = 90.0
+    retain_seconds: float = 20.0
     speech_start_ms: int = 200
     activation_tail_ms: int = 250
     end_silence_ms: int = 1200
@@ -25,7 +25,7 @@ class VoiceConfig:
     echo_guard_seconds: float = 0.4
     volume: float = 0.75
     output_device: str = "auto"
-    cpu_threads: int = 4
+    cpu_threads: int = 2
     pending_audio_seconds: float = 40.0
     max_session_seconds: float = 600.0
 

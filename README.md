@@ -4,6 +4,8 @@ Repositorio privado: [SebastianJimenezPo/Jarvis](https://github.com/SebastianJim
 
 **Fase 3 implementada, pendiente de aceptación física del usuario.** Versión 0.3.0: comprensión híbrida, conversación mediante Ollama local, referencias temporales, aclaraciones y propuestas estructuradas. **Todas las acciones son simuladas.** Guías: [Fase 3 y pruebas físicas](docs/phase_3.md), [arquitectura](docs/intelligence_architecture.md), [comparación de modelos](docs/model_comparison.md) y [validación y límites](docs/intelligence_validation.md).
 
+Tras las primeras pruebas físicas se corrigieron aclaraciones y cancelación y se redujeron cargas innecesarias de modelos. Perfil de consumo con dos hilos y liberación más temprana; [resultados y límites de los ajustes](docs/phase_3_feedback.md). La batería actual pasa 218 pruebas.
+
 Las bases se conservan en Git: Fase 1 `695c068`; Fase 2 `f6ac68a`, rama `phase-2-baseline`. El desarrollo actual está en `phase-3-intelligence`. Para usar las respuestas de prueba de Fase 2: `python -m jarvis --disable-intelligence` y reiniciar. Para volver al comportamiento de activación de Fase 1: `python -m jarvis --disable-voice` y reiniciar.
 
 La documentación siguiente describe la base y sus procedimientos de calibración/inicio.

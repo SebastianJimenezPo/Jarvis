@@ -20,6 +20,8 @@ class FastPath:
         self.context.ask(intent,params,missing,candidates)
         labels={'application':'aplicación','light':'luz','scene':'modo','audio':'valor de volumen'}
         question=(f"¿Cuál: {', '.join(candidates)}?" if candidates else f"¿Qué {labels.get(group,'dato')} quieres usar?")
+        if missing=='color':question='¿Qué color quieres para las luces?'
+        elif missing=='value':question='¿Qué valor entre cero y cien quieres?'
         return Interpretation(kind=Kind.CLARIFICATION,clarification_question=question,reason_code='missing_or_ambiguous_reference')
 
     def pending(self,text):
@@ -36,11 +38,20 @@ class FastPath:
                 matches=[a.target for a in self.context.proposals if a.parameters.get('color')==selected_color and a.target in p.candidates]
                 if len(set(matches))==1:chosen=matches[0]
         params=dict(p.parameters)
+        if p.missing_parameter=='color':
+            selected_color=color(text)
+            if selected_color:
+                params['color']=selected_color
+                chosen=chosen or (p.candidates[0] if len(p.candidates)==1 else None)
         if p.missing_parameter=='value':
             value=number(text)
             if value is not None:
                 params['value']=value;chosen=p.candidates[0] if len(p.candidates)==1 else None
         if chosen and (not p.candidates or chosen in p.candidates):
+            if p.intent=='set_light_color' and 'color' not in params:
+                result=self.clarify(p.intent,params,'light',[chosen],missing='color')
+                self.context.pending.prior_actions=p.prior_actions
+                return result
             try:a=validate_action(action(p.intent,chosen,params,text))
             except ValueError:return Interpretation(kind=Kind.CLARIFICATION,clarification_question='¿Qué valor entre cero y cien quieres?',reason_code='invalid_parameter')
             self.context.pending=None
@@ -56,8 +67,14 @@ class FastPath:
         text=normalize(raw);self.context.expire()
         text=re.sub(r'^jarvis[ ,]*','',text)
         text=re.sub(r'^y\s+','',text)
+        # STT may insert a comma after a polite prefix. Remove the filler,
+        # keeping the actual action clause available to independent validation.
+        text=re.sub(r'^por favor(?:\s*[,;]\s*|\s+)','',text)
+        text=re.sub(r'\s*[,;]?\s+por favor$','',text).strip()
         if not text:return Interpretation(kind=Kind.CONVERSATION,response='',reason_code='empty')
-        if text.replace(',','') in ('cancela','cancelar','no','no olvidalo','olvida eso','olvida lo anterior','mejor ninguna','espera no','no gracias'):
+        cancel_text=' '.join(re.sub(r'\b(?:jarvis|por favor)\b','',text).strip(' ,').split())
+        if (cancel_text.replace(',','') in ('no','no olvidalo','olvida eso','olvida lo anterior','mejor ninguna','espera no','no gracias')
+                or re.fullmatch(r'(?:cancela|cancelar|cancelalo|cancelala|cancelame|cancele)(?:\s+(?:eso|esto|todo|la solicitud|la orden|la propuesta|lo anterior))?',cancel_text)):
             self.context.clear()
             return Interpretation(kind=Kind.CANCEL,reason_code='user_cancel')
         if text in ('hola','buenos dias','buenas tardes','buenas noches','gracias','gracias jarvis','perfecto','listo','como estas','tu como estas','perfecto como estas','perfecto tu como estas','que mas todo bien','me escuchas','me escuchas bien','hola me escuchas bien'):
@@ -76,7 +93,9 @@ class FastPath:
             return Interpretation(kind=Kind(global_guard),condition=raw[:500] if global_guard=='deferred_request' else None,
                                   reason_code='language_guard')
         if self.context.pending:
-            return self.pending(text)
+            # A fresh request replaces a pending question rather than answering it.
+            if explicit_request(text) or global_guard=='negated':self.context.pending=None
+            else:return self.pending(text)
         # Corrections require one compatible earlier proposal; preserve other proposals in a multi-action plan.
         if re.match(r'^(?:no[, ]+(?:mejor\b|steam\b|spotify\b|chrome\b|discord\b)|mejor |no era |en realidad |que esten )',text):
             corrected=self.correction(text)
@@ -152,6 +171,8 @@ class FastPath:
             params={'value':value} if value is not None else {'delta':-10 if re.search(r'baja|reduce|suave|disminu',text) else 10}
         elif c and (lights or explicit_request(text)):
             intent='set_light_color';group='light';params={'color':c}
+        elif lights and re.search(r'\bcolor\b',text) and explicit_request(text):
+            intent='set_light_color';group='light'
         elif re.search(r'\b(?:apaga|apagar|apagalo|apagala)\b',text):intent='turn_off_light';group='light'
         elif re.search(r'\b(?:enciende|prende|encender)\b',text):intent='turn_on_light';group='light'
         elif 'volumen' in text or re.match(r'^(?:bajale|subele)\b',text):
@@ -164,6 +185,7 @@ class FastPath:
             elif value is not None:intent='set_volume';params={'value':value}
             elif re.search(r'baja|reduce|disminu|bajita',text):intent='decrease_volume';params={'amount':10}
             elif re.search(r'sube|aumenta|alto',text):intent='increase_volume';params={'amount':10}
+            else:intent='set_volume'
         elif re.search(r'\b(?:silencia|quita el sonido)\b',text):intent='mute_audio';group='audio'
         elif re.search(r'\b(?:quita el silencio|activa el sonido)\b',text):intent='unmute_audio';group='audio'
         elif re.search(r'\b(?:pausa|pausar)\b',text):intent='pause_music';group='music'
@@ -186,8 +208,14 @@ class FastPath:
         else:targets=[{'audio':'system_audio','music':'music_player','system':'system'}[group]]
         if len(targets)!=1:
             return self.clarify(intent,params,group,targets)
+        if intent=='set_light_color' and 'color' not in params:
+            return self.clarify(intent,params,group,targets,missing='color')
+        if intent=='set_volume' and 'value' not in params:
+            return self.clarify(intent,params,group,targets,missing='value')
         candidate=action(intent,targets[0],params,original)
         try:validate_action(candidate)
         except ValueError:
+            if intent in ('set_volume','set_light_brightness') and 'value' in params:
+                return self.clarify(intent,{},group,targets,missing='value')
             return Interpretation(kind=Kind.CLARIFICATION,clarification_question='¿Qué valor válido entre cero y cien quieres?',reason_code='invalid_parameter')
         return [candidate]

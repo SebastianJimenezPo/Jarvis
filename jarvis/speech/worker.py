@@ -6,6 +6,10 @@ from pathlib import Path
 
 
 def voice_worker(inbox,outbox,cancel,root,config):
+    import multiprocessing as mp
+    if mp.parent_process() is not None:
+        from jarvis.system.voice_resources import configure_voice_process
+        configure_voice_process(config.cpu_threads)
     import numpy as np
     from .recognition import make_engine,TranscriptManager
     from .piper_adapter import PiperAdapter

@@ -2,6 +2,8 @@
 
 Estado: implementación terminada para revisión física, sin cierre de fase. Ninguna acción solicitada por el usuario se ejecuta en el sistema. Documento maestro conservado en `phase_3_spec.md`.
 
+Actualización tras las primeras pruebas del usuario: 218 pruebas automáticas aprobadas (`reports/pytest-phase3-feedback.txt`). Aclaraciones, cancelación y perfil de consumo ajustados. Las mediciones iniciales siguientes se conservan como evidencia histórica; ver `phase_3_feedback.md` para el comportamiento actual y los pendientes físicos.
+
 ## Automatización
 
 La base de Fase 2 tenía 122 pruebas y se ejecutó correctamente antes de los cambios. Una primera ejecución con el residente abierto fue rechazada por el mutex; se cerró ordenadamente el residente y se repitió la base. Resultado final: **189 pruebas aprobadas**; salida en `reports/pytest-phase3.txt`.

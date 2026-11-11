@@ -1,0 +1,43 @@
+{
+  "scenario": "Isolated Ollama CPU conversation, no voice or mic processing",
+  "model": "qwen3:1.7b",
+  "answer": "Una variable es un elemento que puede tomar diferentes valores en un contexto dado.",
+  "elapsed_seconds": 3.5517755999899236,
+  "cpu_threads": 4,
+  "cpu_machine_percent": 13.830010474236985,
+  "ollama_rss_peak_sampled_bytes": 1687179264,
+  "running_model_snapshot": [
+    {
+      "name": "qwen3:1.7b",
+      "model": "qwen3:1.7b",
+      "size": 1649651219,
+      "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "2.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "expires_at": "2026-11-10T19:19:48.6920184-05:00",
+      "size_vram": 0,
+      "context_length": 2048,
+      "runner": "llamacpp"
+    }
+  ],
+  "models_after_release": [],
+  "metrics": {
+    "load_duration": 2224074600,
+    "prompt_eval_duration": 538190000,
+    "eval_duration": 686400000,
+    "prompt_eval_count": 35,
+    "eval_count": 16,
+    "model": "qwen3:1.7b",
+    "wall_seconds": 3.4689999999973224,
+    "thinking_disabled": true
+  },
+  "method": "100-ms process samples, Ollama server AND all descendants (including differently named inference runners). CPU user+kernel delta for surviving/new PIDs / wall / logical CPUs; shared pages may be double counted. No sustained GPU utilization measurement."
+}

@@ -15,6 +15,8 @@ class PiperAdapter:
         options=ort.SessionOptions()
         options.intra_op_num_threads=self.threads
         options.inter_op_num_threads=1
+        options.add_session_config_entry('session.intra_op.allow_spinning','0')
+        options.add_session_config_entry('session.inter_op.allow_spinning','0')
         self.voice=PiperVoice(session=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider']),
                               config=PiperConfig.from_dict(json.loads(path.with_suffix('.onnx.json').read_text(encoding='utf-8'))))
 

@@ -1,6 +1,7 @@
 import hashlib
 import json
 import time
+import re
 from pathlib import Path
 import numpy as np
 
@@ -30,6 +31,8 @@ class EmbeddingProvider:
         self.tokenizer.enable_padding(pad_id=pad,pad_token='<pad>' if self.name=='e5-small' else '[PAD]')
         self.tokenizer.enable_truncation(max_length=128 if self.name=='minilm' else 512)
         options=ort.SessionOptions();options.intra_op_num_threads=self.threads;options.inter_op_num_threads=1
+        options.add_session_config_entry('session.intra_op.allow_spinning','0')
+        options.add_session_config_entry('session.inter_op.allow_spinning','0')
         self.session=ort.InferenceSession(str(folder/entry['onnx']),sess_options=options,providers=['CPUExecutionProvider'])
 
     def encode(self,texts,query=False):
@@ -51,6 +54,14 @@ class SemanticRouter:
     def __init__(self,root,config):
         self.root,self.config=root,config;self.provider=None;self.load_seconds=None;self.error=None
         self.thresholds=None
+    def applicable(self,text):
+        """General chat does not need any of the six semantic action intents."""
+        from .language import normalize
+        text=normalize(text)
+        audio=re.search(r'\b(?:volumen|musica|sonido|audio|sonando|suene|cancion|pista)\b',text)
+        light=re.search(r'\b(?:luz|luces|iluminacion|iluminado|habitacion|cuarto)\b',text)
+        evidence=re.search(r'baja|sube|reduce|aumenta|fuerte|duro|sordo|suave|oye|alto|pausa|deten|deje de sonar|encandila|oscur|alumbra|necesito luz|apaga|prende|enciende|intensidad',text)
+        return bool(evidence and (audio or light))
     def load(self):
         start=time.monotonic()
         self.provider=EmbeddingProvider(self.root,self.config.semantic_model,self.config.cpu_threads);self.provider.load()
