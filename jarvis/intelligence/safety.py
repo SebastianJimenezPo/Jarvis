@@ -28,7 +28,7 @@ class SafetyValidator:
                 continue
             source=normalize(a.source_clause or normalized)
             matches=[c for c in clauses if source in c]
-            if proof and source in normalized:matches=[normalized]
+            if proof and not matches and source in normalized:matches=[normalized]
             # Contextual answers can be short, but all current-turn guards still apply.
             if not matches or any(clause_kind(c) is not None for c in matches):
                 raise ValueError('Ungrounded or guarded source clause')

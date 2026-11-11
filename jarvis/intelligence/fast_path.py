@@ -73,10 +73,20 @@ class FastPath:
         text=re.sub(r'\s*[,;]?\s+por favor$','',text).strip()
         if not text:return Interpretation(kind=Kind.CONVERSATION,response='',reason_code='empty')
         cancel_text=' '.join(re.sub(r'\b(?:jarvis|por favor)\b','',text).strip(' ,').split())
-        if (cancel_text.replace(',','') in ('no','no olvidalo','olvida eso','olvida lo anterior','mejor ninguna','espera no','no gracias')
+        if (cancel_text.replace(',','') in ('no','no olvidalo','olvida eso','olvida todo','olvida lo anterior','mejor ninguna','no ninguna','ninguna','espera no','no gracias','no hagas nada','mejor no cambies nada')
                 or re.fullmatch(r'(?:cancela|cancelar|cancelalo|cancelala|cancelame|cancele)(?:\s+(?:eso|esto|todo|la solicitud|la orden|la propuesta|lo anterior))?',cancel_text)):
             self.context.clear()
             return Interpretation(kind=Kind.CANCEL,reason_code='user_cancel')
+        if self.context.pending:
+            if re.fullmatch(r'no (?:canceles(?: nada)?|quiero cancelar|canceles la (?:solicitud|propuesta))',text):
+                return Interpretation(kind=Kind.CLARIFICATION,clarification_question='Mantengo la solicitud pendiente. ¿Qué opción prefieres?',reason_code='keep_pending')
+            if re.match(r'^no[, ]+(?:esa no|ese no|era\b)',text):
+                p=self.context.pending
+                table={'application':APPLICATIONS,'light':LIGHTS,'scene':SCENES}.get(entity_type(p.intent),{})
+                rejected=mentions(text,table)
+                p.candidates=[target for target in p.candidates if target not in rejected]
+                return Interpretation(kind=Kind.CLARIFICATION,clarification_question='Entendido. ¿Qué otra opción prefieres?',reason_code='alternative_rejected')
+            text=re.sub(r'^no quiero cancelar[,;]\s*','',text)
         if text in ('hola','buenos dias','buenas tardes','buenas noches','gracias','gracias jarvis','perfecto','listo','como estas','tu como estas','perfecto como estas','perfecto tu como estas','que mas todo bien','me escuchas','me escuchas bien','hola me escuchas bien'):
             reply=('Con gusto' if text.startswith('gracias') else 'Sí, te escucho' if 'me escuchas' in text else
                    'Todo funcionando bien' if 'como estas' in text or 'todo bien' in text else 'Listo' if text in ('perfecto','listo') else 'Hola')

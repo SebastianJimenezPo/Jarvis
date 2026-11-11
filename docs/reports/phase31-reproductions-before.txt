@@ -208,7 +208,7 @@ tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_past_relative_refe
         d,_=manager(tmp_path).interpret('Abre la aplicación que usé ayer')
 >       assert d.interpretation.kind==Kind.CLARIFICATION
 E       AssertionError: assert <Kind.CONVERS...conversation'> == <Kind.CLARIFI...larification'>
-E         
+E
 E         - clarification
 E         + conversation
 
@@ -223,7 +223,7 @@ tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_cancelled_interpre
         with pytest.raises(RequestCancelled):m.interpret('Abre una aplicación','s')
 >       assert m.context.snapshot()==before
 E       AssertionError: assert {'history': [...als': [], ...} == {'history': [...als': [], ...}
-E         
+E
 E         Omitting 7 identical items, use -vv to show
 E         Differing items:
 E         {'pending': {'attempts': 0, 'candidates': [], 'created': 90865.984, 'expires': 90925.984, ...}} != {'pending': None}
@@ -289,7 +289,7 @@ tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_append_preserves_p
         m.interpret('Y baja el volumen')
 >       assert {a.intent for a in m.context.proposals}=={'open_application','set_light_color','decrease_volume'}
 E       AssertionError: assert {'decrease_volume'} == {'decrease_vo..._light_color'}
-E         
+E
 E         Extra items in the right set:
 E         'open_application'
 E         'set_light_color'
@@ -369,7 +369,7 @@ tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_selective_cancella
         assert not d.interpretation.actions
 >       assert [a.target for a in m.context.proposals]==['steam']
 E       AssertionError: assert ['main_light', 'steam'] == ['steam']
-E         
+E
 E         At index 0 diff: 'main_light' != 'steam'
 E         Left contains one more item: 'steam'
 E         Use -v to get more diff

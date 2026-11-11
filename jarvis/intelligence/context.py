@@ -1,5 +1,6 @@
 from dataclasses import dataclass,field,asdict
 import time
+import copy
 from .contracts import ActionProposal
 from .catalog import entity_type
 
@@ -31,22 +32,29 @@ class ContextManager:
         self.config,self.clock=config,clock
         self.session_id='';self.updated=clock();self.referents=[];self.proposals=[]
         self.pending=None;self.history=[];self.topic=None;self.preferences={}
+        self.revision=0
+
+    def fork(self):
+        return copy.deepcopy(self)
 
     def expire(self):
         if self.clock()-self.updated>self.config.context_ttl_seconds:self.clear()
-        if self.pending and self.clock()>=self.pending.expires:self.pending=None
+        if self.pending and self.clock()>=self.pending.expires:self.pending=None;self.revision+=1
         self.referents=[r for r in self.referents if self.clock()-r.last_mention<=self.config.context_ttl_seconds]
 
     def begin_session(self,session_id):
         self.expire();self.session_id=session_id
         if self.pending and self.pending.session_id!=session_id:self.pending=None
+        self.revision+=1
 
     def clear(self):
         self.referents=[];self.proposals=[];self.pending=None;self.history=[];self.topic=None;self.preferences={}
         self.updated=self.clock()
+        self.revision+=1
 
     def remember(self,actions,replace_previous=False):
         self.expire();self.updated=self.clock()
+        self.revision+=1
         if replace_previous:
             previous=list(self.proposals)
             for action in actions:
@@ -68,22 +76,25 @@ class ContextManager:
 
     def ask(self,intent,params,missing,candidates):
         now=self.clock();self.updated=now
+        self.revision+=1
         self.pending=PendingClarification(intent,params,missing,candidates,self.session_id,now,now+self.config.clarification_ttl_seconds)
 
     def exchange(self,user,assistant):
         self.updated=self.clock()
+        self.revision+=1
         self.history.append({'user':user[:800],'assistant':assistant[:1000]})
         self.history=self.history[-self.config.max_recent_turns:]
 
     def snapshot(self):
         self.expire()
-        return {'session_id':self.session_id,'updated':self.updated,'referents':[asdict(r) for r in self.referents],
+        return {'session_id':self.session_id,'updated':self.updated,'revision':self.revision,'referents':[asdict(r) for r in self.referents],
                 'proposals':[a.model_dump() for a in self.proposals],'pending':asdict(self.pending) if self.pending else None,
                 'history':[dict(item) for item in self.history],'topic':self.topic,'preferences':dict(self.preferences)}
 
     def restore(self,data):
         if not isinstance(data,dict) or self.clock()-data.get('updated',0)>self.config.context_ttl_seconds:return
         self.updated=data['updated'];self.session_id=str(data.get('session_id',''))
+        self.revision=int(data.get('revision',0))
         self.referents=[Referent(**r) for r in data.get('referents',[])[:12]]
         self.proposals=[ActionProposal.model_validate(a) for a in data.get('proposals',[])[:8]]
         self.pending=PendingClarification(**data['pending']) if data.get('pending') else None

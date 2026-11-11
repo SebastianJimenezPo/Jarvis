@@ -59,6 +59,9 @@ class Decision(BaseModel):
     simulated: Literal[True]=True
     executed: Literal[False]=False
     end_session: bool=False
+    context_revision:int=0
+    validation:Literal['validated','rejected']='validated'
+    evidence:list[dict]=Field(default_factory=list)
 
 
 class ModelInterpretation(BaseModel):
