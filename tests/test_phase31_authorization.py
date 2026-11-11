@@ -71,3 +71,13 @@ def test_non_imperative_or_subordinate_text_does_not_authorize_forged_action(tmp
     target='main_light' if intent=='turn_off_light' else 'chrome' if 'Chrome' in text else 'steam'
     forged=Interpretation(kind=Kind.ACTION_PROPOSAL,immediate=True,actions=[ActionProposal(intent=intent,target=target,source_clause=text)])
     with pytest.raises(ValueError):m.validator.validate(forged,text,m.context,trusted_fast=True)
+
+
+@pytest.mark.parametrize('text,intent,parameters',[
+ ('Baja el volumen al diez','decrease_volume',{'amount':10}),
+ ('Baja el volumen en diez','set_volume',{'value':10})])
+def test_absolute_and_relative_parameters_are_not_interchangeable(tmp_path,text,intent,parameters):
+    m=manager(tmp_path)
+    forged=Interpretation(kind=Kind.ACTION_PROPOSAL,immediate=True,actions=[ActionProposal(
+        intent=intent,target='system_audio',parameters=parameters,source_clause=text)])
+    with pytest.raises(ValueError):m.validator.validate(forged,text,m.context)

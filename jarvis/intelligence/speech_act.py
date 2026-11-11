@@ -17,7 +17,7 @@ class SpeechAct:
 
 
 def correction_text(text):
-    return bool(re.match(r'^(?:no[, ]+)?(?:mejor\b|al\s+(?:\d|treinta|veinte|cincuenta)|(?:azul|rojo|verde|blanc|morad|amarill)\w*\b)|^(?:no era |en realidad |que esten )',text))
+    return bool(re.match(r'^(?:no[, ]+)?(?:mejor\b|al\s+\w+|(?:azul|rojo|verde|blanc|morad|amarill)\w*\b)|^(?:no era |en realidad |que esten )',text))
 
 
 def replacement_request(text):

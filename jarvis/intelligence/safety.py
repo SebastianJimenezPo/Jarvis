@@ -34,7 +34,7 @@ class SafetyValidator:
                 raise ValueError('Ungrounded or guarded source clause')
             clause=matches[0];group=entity_type(a.intent)
             table={'application':APPLICATIONS,'light':LIGHTS,'scene':SCENES}.get(group)
-            target_source='explicit_current_turn'
+            target_source='explicit_current_turn' if table else 'default_configured'
             if table:
                 entities=mentions(clause,table)
                 if not entities:
@@ -79,7 +79,7 @@ class SafetyValidator:
             if a.intent!=p.intent:return None
             group=entity_type(a.intent);table={'application':APPLICATIONS,'light':LIGHTS,'scene':SCENES}.get(group,{})
             explicit=mentions(text,table) if table else []
-            ordinal=(text in ('si','esa','ese') and len(p.candidates)==1 and a.target==p.candidates[0]) or (
+            ordinal=(text in ('si','esa','ese','la otra','el otro') and len(p.candidates)==1 and a.target==p.candidates[0]) or (
                 text in ('la primera','el primero') and p.candidates and a.target==p.candidates[0]) or (
                 text in ('la segunda','el segundo') and len(p.candidates)>1 and a.target==p.candidates[1])
             target_ok=a.target in explicit or ordinal or (p.missing_parameter in ('color','value') and p.candidates==[a.target])
@@ -105,7 +105,7 @@ class SafetyValidator:
     def check_intent(self,a,clause,whole,context):
         clause=re.sub(r'^(?:y|pero)\s+','',clause)
         request=explicit_request(clause) or bool(re.search(r'\b(?:quiero|necesito)\b',clause))
-        complaint=bool(re.search(r'fuerte|duro|sordo|suave|encandila|no se oye',clause))
+        complaint=bool(re.search(r'fuerte|duro|sordo|suave|encandila|no se oye|no alumbre',clause))
         # Conjoined app names inherit the explicitly stated app operation only.
         carry=(entity_type(a.intent)=='application' and a.target in mentions(clause,APPLICATIONS) and
                any(clause_kind(c) is None and explicit_request(c) and re.search({'open_application':r'\b(?:abre|abrir)\b','close_application':r'\b(?:cierra|cerrar)\b','focus_application':r'\b(?:enfoca|frente)\b'}[a.intent],c) for c in split_clauses(whole)))
@@ -115,7 +115,9 @@ class SafetyValidator:
         desired_state=bool(re.search(r'\babierto\b',clause) and re.search(r'\b(?:quiero|necesito)\b',whole))
         if not request and not complaint and not carry and not desired_state:raise ValueError('No actionable request evidence')
         if a.intent in ('decrease_volume','increase_volume'):
-            if not (re.search(r'volumen|musica|sonido|audio|sonando|suene',clause) or context.targets('audio')):raise ValueError('No audio-domain reference')
+            if re.search(r'\b(?:al|a)\s+',clause):raise ValueError('Absolute target is not a relative amount')
+            if not (re.search(r'volumen|musica|sonido|audio|sonando|suene',clause) or context.targets('audio') or
+                    (re.match(r'^(?:sube|baja)\b',clause) and re.search(r'%|por ciento',clause))):raise ValueError('No audio-domain reference')
             lower=bool(re.search(r'baja|reduce|disminu|fuerte|duro|sordo|suave|bajita',clause))
             higher=bool(re.search(r'sube|aumenta|alto|no se oye',clause))
             if (a.intent=='decrease_volume' and not lower) or (a.intent=='increase_volume' and not higher):raise ValueError('Unsubstantiated volume direction')
@@ -131,10 +133,12 @@ class SafetyValidator:
             if not re.search(r'musica|cancion|pista|sonando',clause) and clause not in ('pausa','pausar'):raise ValueError('Missing music domain')
             if not re.search(r'pausa|deten|interrumpe|para |no siga',clause):raise ValueError('Missing pause evidence')
         elif a.intent=='set_light_brightness':
-            if not re.search(r'brillo|suave|tenue|encandila|ilumin|alumbr',clause):raise ValueError('Missing brightness evidence')
+            if not re.search(r'brillo|suave|tenue|encandila|ilumin|alumbr|menos fuertes',clause):raise ValueError('Missing brightness evidence')
         elif a.intent=='set_light_color' and color(clause) is None:raise ValueError('Missing color evidence')
         elif a.intent=='set_volume':
             if not ('volumen' in clause or context.targets('audio')):raise ValueError('Missing volume domain')
+            if re.search(r'\b(?:baja|reduce|disminuye|sube|aumenta)\b',clause) and not re.search(r'\b(?:al|a)\s+',clause):
+                raise ValueError('Relative change is not an absolute target')
         elif a.intent=='get_system_status':
             if not re.search(r'estado (?:del )?sistema',clause):raise ValueError('Missing system status request')
         elif a.intent=='mute_audio':

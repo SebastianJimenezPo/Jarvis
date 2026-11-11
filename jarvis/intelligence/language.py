@@ -5,7 +5,10 @@ from .catalog import APPLICATIONS,LIGHTS,SCENES,COLORS
 
 def normalize(text):
     text=''.join(c for c in unicodedata.normalize('NFD',text.casefold()) if not unicodedata.combining(c))
-    return ' '.join(re.sub(r'[^\w%\s,;+-]',' ',text).split())
+    text=re.sub(r'(?<=\d)[.,](?=\d)','__decimal__',text)
+    text=re.sub(r'(?<=\d)/(?=\d)','__fraction__',text)
+    text=' '.join(re.sub(r'[^\w%\s,;+-]',' ',text).split())
+    return text.replace('__decimal__','.').replace('__fraction__','/')
 
 
 def mentions(text,table):
@@ -24,10 +27,13 @@ def clause_kind(text):
 
 
 def split_clauses(text):
-    return re.split(r'\s*(?:[,;]|\bpero\s+|\s+y\s+)\s*',text)
+    text=re.sub(r'\b(treinta|cuarenta|cincuenta|sesenta|setenta|ochenta|noventa)\s+y\s+(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve)\b',r'\1 __number_and__ \2',text)
+    return [c.replace('__number_and__','y') for c in re.split(r'\s*(?:[,;]|\bpero\s+|\s+y\s+)\s*',text)]
 
 
 def number(text):
+    text=re.sub(r'\bpor ciento\b','%',text)
+    if re.search(r'\d[.,/]\d',text):return None
     negative=re.search(r'\bmenos\s+',text)
     if negative:
         value=number(text[negative.end():])
@@ -61,4 +67,5 @@ def color(text):
 
 
 def explicit_request(text):
+    if re.match(r'^(?:el )?(?:volumen|brillo)\s+(?:al?|en)\s+\S',text):return True
     return bool(re.match(r'^(?:(?:por favor|puedes|podrias|quiero que|necesito que|mejor) )?(?:abre|abrir|abrelo|cierra|cerrar|cierralo|cierrala|enfoca|enfocar|pon|poner|sube|subir|baja|bajale|bajales|bajar|reduce|disminuye|aumenta|silencia|quita|pausa|reproduce|busca|enciende|prende|apaga|apagalo|apagala|activa|cambia|muestra|dame|ajusta|dejalo|haz|pasa|vuelve|trae)\b',text))

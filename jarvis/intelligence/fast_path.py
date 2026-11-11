@@ -27,7 +27,7 @@ class FastPath:
     def pending(self,text):
         p=self.context.pending
         if not p:return None
-        if text in ('si','esa','ese') and len(p.candidates)==1:chosen=p.candidates[0]
+        if text in ('si','esa','ese','la otra','el otro') and len(p.candidates)==1:chosen=p.candidates[0]
         elif text in ('la primera','el primero') and p.candidates:chosen=p.candidates[0]
         elif text in ('la segunda','el segundo') and len(p.candidates)>1:chosen=p.candidates[1]
         else:
@@ -80,12 +80,15 @@ class FastPath:
             return Interpretation(kind=Kind.CANCEL,reason_code='selective_cancel',response='Descarté las propuestas de luces. No he ejecutado ninguna acción.')
         if not text:return Interpretation(kind=Kind.CONVERSATION,response='',reason_code='empty')
         cancel_text=' '.join(re.sub(r'\b(?:jarvis|por favor)\b','',text).strip(' ,').split())
+        if text=='no' and self.context.pending:
+            self.context.pending.candidates=[]
+            return Interpretation(kind=Kind.CLARIFICATION,clarification_question='¿Qué otra opción prefieres?',reason_code='alternative_rejected')
         if (cancel_text.replace(',','') in ('no','no olvidalo','olvida eso','olvida todo','olvida lo anterior','mejor ninguna','no ninguna','ninguna','espera no','no gracias','no hagas nada','mejor no cambies nada')
                 or re.fullmatch(r'(?:cancela|cancelar|cancelalo|cancelala|cancelame|cancele)(?:\s+(?:eso|esto|todo|la solicitud|la orden|la propuesta|lo anterior))?',cancel_text)):
             self.context.cancel()
             return Interpretation(kind=Kind.CANCEL,reason_code='user_cancel')
         if self.context.pending:
-            if re.fullmatch(r'no (?:canceles(?: nada)?|quiero cancelar|canceles la (?:solicitud|propuesta))',text):
+            if text=='espera' or re.fullmatch(r'no (?:canceles(?: nada)?|quiero cancelar|canceles la (?:solicitud|propuesta))',text):
                 return Interpretation(kind=Kind.CLARIFICATION,clarification_question='Mantengo la solicitud pendiente. ¿Qué opción prefieres?',reason_code='keep_pending')
             if re.match(r'^no[, ]+(?:esa no|ese no|era\b)',text):
                 p=self.context.pending
@@ -94,6 +97,8 @@ class FastPath:
                 p.candidates=[target for target in p.candidates if target not in rejected]
                 return Interpretation(kind=Kind.CLARIFICATION,clarification_question='Entendido. ¿Qué otra opción prefieres?',reason_code='alternative_rejected')
             text=re.sub(r'^no quiero cancelar[,;]\s*','',text)
+        if text in ('dejalo asi','dejala asi','asi esta bien','esta bien asi'):
+            return Interpretation(kind=Kind.CONVERSATION,response='Entendido, mantengo la propuesta en simulación.',reason_code='proposal_unchanged')
         if text in ('hola','buenos dias','buenas tardes','buenas noches','gracias','gracias jarvis','perfecto','listo','como estas','tu como estas','perfecto como estas','perfecto tu como estas','que mas todo bien','me escuchas','me escuchas bien','hola me escuchas bien'):
             reply=('Con gusto' if text.startswith('gracias') else 'Sí, te escucho' if 'me escuchas' in text else
                    'Todo funcionando bien' if 'como estas' in text or 'todo bien' in text else 'Listo' if text in ('perfecto','listo') else 'Hola')
@@ -191,20 +196,20 @@ class FastPath:
         elif lights and carry in ('turn_on_light','turn_off_light'):
             intent=carry;group='light'
         elif scene and explicit_request(text):intent='activate_scene';group='scene'
-        elif ('brillo' in text or ('suaves' in text and self.context.targets('light'))):
+        elif ('brillo' in text or re.search(r'encandila|no alumbre|menos fuertes',text) or ('suaves' in text and self.context.targets('light'))):
             intent='set_light_brightness';group='light'
-            params={'value':value} if value is not None else {'delta':-10 if re.search(r'baja|reduce|suave|disminu',text) else 10}
+            params={'value':value} if value is not None else {'delta':-10 if re.search(r'baja|reduce|suave|disminu|encandila|menos|no alumbre',text) else 10}
         elif c and (lights or explicit_request(text)):
             intent='set_light_color';group='light';params={'color':c}
         elif lights and re.search(r'\bcolor\b',text) and explicit_request(text):
             intent='set_light_color';group='light'
         elif re.search(r'\b(?:apaga|apagar|apagalo|apagala)\b',text):intent='turn_off_light';group='light'
         elif re.search(r'\b(?:enciende|prende|encender)\b',text):intent='turn_on_light';group='light'
-        elif 'volumen' in text or re.match(r'^(?:bajale|subele)\b',text):
+        elif 'volumen' in text or re.match(r'^(?:bajale|subele)\b',text) or (re.match(r'^(?:sube|baja)\b',text) and re.search(r'%|por ciento',text)):
             group='audio'
             if re.search(r'\b(?:quita el silencio|desilencia)\b',text):intent='unmute_audio'
             elif 'silencia' in text or 'mudo' in text:intent='mute_audio'
-            elif value is not None and re.search(r'\b(?:baja|reduce|disminuye|sube|aumenta)\b.*\b(?:en|un|unos)\s+-?\d+',text):
+            elif value is not None and re.search(r'\b(?:baja|reduce|disminuye|sube|aumenta)\b',text) and not re.search(r'\b(?:al|a)\s+',text):
                 intent='decrease_volume' if re.search(r'baja|reduce|disminu',text) else 'increase_volume'
                 params={'amount':value}
             elif value is not None:intent='set_volume';params={'value':value}
@@ -224,7 +229,7 @@ class FastPath:
             intent='get_system_status';group='system'
         if not intent:return None
         # A mention alone is not an imperative; allow only documented direct request forms.
-        if not explicit_request(text) and not re.match(r'^quiero (?:escuchar|(?:las? |el |los? )?(?:luz|luces))\b',text) and not carry and not re.search(r'\babierto\b',text):return None
+        if not explicit_request(text) and not re.match(r'^quiero (?:escuchar|(?:las? |el |los? )?(?:luz|luces))\b',text) and not carry and not re.search(r'\babierto\b|encandila|no alumbre',text):return None
         if group=='application':
             pronoun=bool(re.search(r'\b(?:cierralo|cierrala|abrelo|esa|ese|la aplicacion|el programa)\b',text))
             targets=apps or (self.context.targets(group) if pronoun else [])
