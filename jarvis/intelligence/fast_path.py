@@ -86,6 +86,9 @@ class FastPath:
         if re.search(r'\b(?:noticias de hoy|precio actual|clima de hoy|cotizacion actual|resultados en vivo)\b',text):
             return Interpretation(kind=Kind.CONVERSATION,response='No tengo acceso a información en vivo ni he consultado internet.',reason_code='no_live_data')
         global_guard=clause_kind(text)
+        from .speech_act import analyze
+        if analyze(text).reason=='whole_turn_veto':
+            return Interpretation(kind=Kind.NEGATED,negated=True,reason_code='whole_turn_veto')
         if global_guard=='cancel':
             self.context.clear();return Interpretation(kind=Kind.CANCEL,reason_code='user_cancel')
         if global_guard in ('unsupported','hypothetical','deferred_request','preference','conversation'):

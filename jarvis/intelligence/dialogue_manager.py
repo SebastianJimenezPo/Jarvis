@@ -2,6 +2,7 @@ import json
 import re
 import time
 import uuid
+import copy
 from .contracts import Interpretation,Kind,Decision,ModelInterpretation
 from .catalog import CATALOG,DryRunExecutor
 from .settings import load_intelligence
@@ -43,6 +44,7 @@ class DialogueManager:
         start=time.perf_counter();request_id=uuid.uuid4().hex
         if session_id!=self.context.session_id:self.context.begin_session(session_id)
         self.context.expire();self.last_error=None
+        validation_context=copy.deepcopy(self.context)
         self.client.last_metrics={}
         text=text[:1600];route='fast'
         result=self.fast.interpret(text)
@@ -81,7 +83,7 @@ class DialogueManager:
                         Interpretation(kind=Kind.CLARIFICATION,clarification_question='No pude consultar el modelo local. ¿Puedes decirlo de forma más directa?',reason_code='local_model_unavailable_or_invalid'))
         if self.cancel is not None and self.cancel.is_set():raise RequestCancelled('Stale interpretation cancelled')
         if session_id!=self.context.session_id:raise RequestCancelled('Session changed')
-        try:self.validator.validate(result,text,self.context,trusted_fast=route=='fast')
+        try:self.validator.validate(result,text,validation_context,trusted_fast=route=='fast')
         except ValueError as exc:
             self.last_error=str(exc)
             result=Interpretation(kind=Kind.CLARIFICATION,clarification_question='No puedo validar esa interpretación. ¿Puedes concretar la solicitud?',reason_code='safety_rejection')

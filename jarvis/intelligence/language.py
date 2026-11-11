@@ -18,16 +18,8 @@ def mentions(text,table):
 
 
 def clause_kind(text):
-    if re.search(r'\b(?:no lo hagas|olvidalo|olvida eso|cancela todo|espera[, ]+no)\b',text):return 'cancel'
-    if re.match(r'^no (?:se (?:oye|escucha)|quiero que (?:suene|se escuche) (?:tan|muy) fuerte)',text):return None
-    if re.search(r'\b(ignora (?:las |tus )?(?:restricciones|reglas)|powershell|ejecuta (?:un )?(?:comando|codigo)|cmd exe|borra archivos|formatea)\b',text):return 'unsupported'
-    if re.search(r'\b(que pasaria|como si|si (?:pusiera|apagara|bajara|abriera)|hipoteticamente|suponiendo)\b',text):return 'hypothetical'
-    if re.search(r'\b(cuando|manana|despues|al terminar|mas tarde|esta noche|dentro de|si\s+\w+|en (?:\d+|cinco|diez|veinte|treinta|una|dos) (?:minutos|horas|segundos))\b',text):return 'deferred_request'
-    if re.search(r'^(?:yo )?(?:prefiero|me gusta|recuerda|mi preferencia|quisiera recordar)\b',text):return 'preference'
-    if re.search(r'\b(ayer|el otro dia|mi (?:amigo|hermano) (?:dijo|siempre)|estaba pensando|dijeron que)\b',text):return 'conversation'
-    if re.search(r'^(?:como (?:puedo|se)|que (?:es|significa)|por que|puedes (?:abrir programas|cerrar aplicaciones automaticamente)|sabes |es posible|podrias explicarme)\b',text):return 'conversation'
-    if re.search(r'^(?:no (?:quiero que |debes |vayas a )?|nunca |jamas |evita )',text):return 'negated'
-    return None
+    from .speech_act import analyze
+    return analyze(text).kind
 
 
 def split_clauses(text):

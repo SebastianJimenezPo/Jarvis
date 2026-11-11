@@ -1,0 +1,414 @@
+F.....FFFF.FF.FFF..FFFFF.....FF.FFFFFF                                   [100%]
+================================== FAILURES ===================================
+_ test_future_never_authorizes_immediate_proposals[Apaga las luces al acabar la partida] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_future_never_authorizes_i0')
+text = 'Apaga las luces al acabar la partida'
+
+    @pytest.mark.parametrize('text',[
+     'Apaga las luces al acabar la partida','Una vez termine el juego, apaga las luces',
+     'Al finalizar la canción, baja el volumen','En cuanto termine la película, apaga la iluminación',
+     'Solo cuando te lo diga, abre Chrome','No hagas nada hasta que termine',
+     'Abre Steam al salir de clase','Abre Chrome una vez haya guardado',
+     'Apaga la luz luego de cenar','Baja el volumen en cuanto acabe',
+     'Pon las luces azules, pero todavía no','Abre Steam siempre que termine la partida'])
+    def test_future_never_authorizes_immediate_proposals(tmp_path,text):
+        m=manager(tmp_path);d,_=m.interpret(text)
+>       assert not d.interpretation.actions
+E       AssertionError: assert not [ActionProposal(intent='turn_off_light', target='main_light', parameters={}, source_clause='apaga las luces al acabar la partida')]
+E        +  where [ActionProposal(intent='turn_off_light', target='main_light', parameters={}, source_clause='apaga las luces al acabar la partida')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='turn_off_light', target...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='turn_off_light', target...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='a63b9ba950c041ab8d8f45e1559a14ae', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:24: AssertionError
+_ test_future_never_authorizes_immediate_proposals[Abre Steam al salir de clase] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_future_never_authorizes_i6')
+text = 'Abre Steam al salir de clase'
+
+    @pytest.mark.parametrize('text',[
+     'Apaga las luces al acabar la partida','Una vez termine el juego, apaga las luces',
+     'Al finalizar la canción, baja el volumen','En cuanto termine la película, apaga la iluminación',
+     'Solo cuando te lo diga, abre Chrome','No hagas nada hasta que termine',
+     'Abre Steam al salir de clase','Abre Chrome una vez haya guardado',
+     'Apaga la luz luego de cenar','Baja el volumen en cuanto acabe',
+     'Pon las luces azules, pero todavía no','Abre Steam siempre que termine la partida'])
+    def test_future_never_authorizes_immediate_proposals(tmp_path,text):
+        m=manager(tmp_path);d,_=m.interpret(text)
+>       assert not d.interpretation.actions
+E       AssertionError: assert not [ActionProposal(intent='open_application', target='steam', parameters={}, source_clause='abre steam al salir de clase')]
+E        +  where [ActionProposal(intent='open_application', target='steam', parameters={}, source_clause='abre steam al salir de clase')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='open_application', targ...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='open_application', targ...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='b49911c5bb234ae5a29f70ebdbb2c99e', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:24: AssertionError
+_ test_future_never_authorizes_immediate_proposals[Abre Chrome una vez haya guardado] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_future_never_authorizes_i7')
+text = 'Abre Chrome una vez haya guardado'
+
+    @pytest.mark.parametrize('text',[
+     'Apaga las luces al acabar la partida','Una vez termine el juego, apaga las luces',
+     'Al finalizar la canción, baja el volumen','En cuanto termine la película, apaga la iluminación',
+     'Solo cuando te lo diga, abre Chrome','No hagas nada hasta que termine',
+     'Abre Steam al salir de clase','Abre Chrome una vez haya guardado',
+     'Apaga la luz luego de cenar','Baja el volumen en cuanto acabe',
+     'Pon las luces azules, pero todavía no','Abre Steam siempre que termine la partida'])
+    def test_future_never_authorizes_immediate_proposals(tmp_path,text):
+        m=manager(tmp_path);d,_=m.interpret(text)
+>       assert not d.interpretation.actions
+E       AssertionError: assert not [ActionProposal(intent='open_application', target='chrome', parameters={}, source_clause='abre chrome una vez haya guardado')]
+E        +  where [ActionProposal(intent='open_application', target='chrome', parameters={}, source_clause='abre chrome una vez haya guardado')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='open_application', targ...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='open_application', targ...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='df10ec61b5524e358ce28bb4cecd249f', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:24: AssertionError
+_ test_future_never_authorizes_immediate_proposals[Apaga la luz luego de cenar] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_future_never_authorizes_i8')
+text = 'Apaga la luz luego de cenar'
+
+    @pytest.mark.parametrize('text',[
+     'Apaga las luces al acabar la partida','Una vez termine el juego, apaga las luces',
+     'Al finalizar la canción, baja el volumen','En cuanto termine la película, apaga la iluminación',
+     'Solo cuando te lo diga, abre Chrome','No hagas nada hasta que termine',
+     'Abre Steam al salir de clase','Abre Chrome una vez haya guardado',
+     'Apaga la luz luego de cenar','Baja el volumen en cuanto acabe',
+     'Pon las luces azules, pero todavía no','Abre Steam siempre que termine la partida'])
+    def test_future_never_authorizes_immediate_proposals(tmp_path,text):
+        m=manager(tmp_path);d,_=m.interpret(text)
+>       assert not d.interpretation.actions
+E       AssertionError: assert not [ActionProposal(intent='turn_off_light', target='main_light', parameters={}, source_clause='apaga la luz luego de cenar')]
+E        +  where [ActionProposal(intent='turn_off_light', target='main_light', parameters={}, source_clause='apaga la luz luego de cenar')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='turn_off_light', target...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='turn_off_light', target...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='8c7bfc338a9e4f91a0417002b9ba07d9', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:24: AssertionError
+_ test_future_never_authorizes_immediate_proposals[Baja el volumen en cuanto acabe] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_future_never_authorizes_i9')
+text = 'Baja el volumen en cuanto acabe'
+
+    @pytest.mark.parametrize('text',[
+     'Apaga las luces al acabar la partida','Una vez termine el juego, apaga las luces',
+     'Al finalizar la canción, baja el volumen','En cuanto termine la película, apaga la iluminación',
+     'Solo cuando te lo diga, abre Chrome','No hagas nada hasta que termine',
+     'Abre Steam al salir de clase','Abre Chrome una vez haya guardado',
+     'Apaga la luz luego de cenar','Baja el volumen en cuanto acabe',
+     'Pon las luces azules, pero todavía no','Abre Steam siempre que termine la partida'])
+    def test_future_never_authorizes_immediate_proposals(tmp_path,text):
+        m=manager(tmp_path);d,_=m.interpret(text)
+>       assert not d.interpretation.actions
+E       AssertionError: assert not [ActionProposal(intent='decrease_volume', target='system_audio', parameters={'amount': 10}, source_clause='baja el volumen en cuanto acabe')]
+E        +  where [ActionProposal(intent='decrease_volume', target='system_audio', parameters={'amount': 10}, source_clause='baja el volumen en cuanto acabe')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='decrease_volume', targe...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='decrease_volume', targe...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='af3abf7212684508805f895a5e7aaa6d', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:24: AssertionError
+_ test_future_never_authorizes_immediate_proposals[Abre Steam siempre que termine la partida] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_future_never_authorizes_i11')
+text = 'Abre Steam siempre que termine la partida'
+
+    @pytest.mark.parametrize('text',[
+     'Apaga las luces al acabar la partida','Una vez termine el juego, apaga las luces',
+     'Al finalizar la canción, baja el volumen','En cuanto termine la película, apaga la iluminación',
+     'Solo cuando te lo diga, abre Chrome','No hagas nada hasta que termine',
+     'Abre Steam al salir de clase','Abre Chrome una vez haya guardado',
+     'Apaga la luz luego de cenar','Baja el volumen en cuanto acabe',
+     'Pon las luces azules, pero todavía no','Abre Steam siempre que termine la partida'])
+    def test_future_never_authorizes_immediate_proposals(tmp_path,text):
+        m=manager(tmp_path);d,_=m.interpret(text)
+>       assert not d.interpretation.actions
+E       AssertionError: assert not [ActionProposal(intent='open_application', target='steam', parameters={}, source_clause='abre steam siempre que termine la partida')]
+E        +  where [ActionProposal(intent='open_application', target='steam', parameters={}, source_clause='abre steam siempre que termine la partida')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='open_application', targ...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='open_application', targ...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='83a6529695f44b47a61b37719ea0c077', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:24: AssertionError
+_ test_correction_cannot_bypass_prohibition_or_future[No, mejor azules, pero no hagas nada] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_correction_cannot_bypass_0')
+text = 'No, mejor azules, pero no hagas nada'
+
+    @pytest.mark.parametrize('text',[
+     'No, mejor azules, pero no hagas nada','Mejor azul cuando termine',
+     'Mejor azul, pero no ahora','No, mejor azul, aunque todavía no lo cambies',
+     'Déjalo en rojo, no lo cambies','Si es posible después, mejor azul',
+     'No era una orden, solo estaba preguntando'])
+    def test_correction_cannot_bypass_prohibition_or_future(tmp_path,text):
+        m=manager(tmp_path);m.interpret('Pon las luces rojas')
+        old=[a.model_dump() for a in m.context.proposals];count=len(m.executor.records)
+        d,_=m.interpret(text)
+>       assert not d.interpretation.actions and len(m.executor.records)==count
+E       AssertionError: assert (not [ActionProposal(intent='set_light_color', target='main_light', parameters={'color': 'blue'}, source_clause='no, mejor azules, pero no hagas nada')])
+E        +  where [ActionProposal(intent='set_light_color', target='main_light', parameters={'color': 'blue'}, source_clause='no, mejor azules, pero no hagas nada')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='set_light_color', targe...ediate=True, negated=False, condition=None, clarification_question=None, reason_code='context_correction', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='set_light_color', targe...ediate=True, negated=False, condition=None, clarification_question=None, reason_code='context_correction', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='b40fc0218564490fb1a92361ed6bfc5a', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:37: AssertionError
+_ test_correction_cannot_bypass_prohibition_or_future[Mejor azul, pero no ahora] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_correction_cannot_bypass_2')
+text = 'Mejor azul, pero no ahora'
+
+    @pytest.mark.parametrize('text',[
+     'No, mejor azules, pero no hagas nada','Mejor azul cuando termine',
+     'Mejor azul, pero no ahora','No, mejor azul, aunque todavía no lo cambies',
+     'Déjalo en rojo, no lo cambies','Si es posible después, mejor azul',
+     'No era una orden, solo estaba preguntando'])
+    def test_correction_cannot_bypass_prohibition_or_future(tmp_path,text):
+        m=manager(tmp_path);m.interpret('Pon las luces rojas')
+        old=[a.model_dump() for a in m.context.proposals];count=len(m.executor.records)
+        d,_=m.interpret(text)
+>       assert not d.interpretation.actions and len(m.executor.records)==count
+E       AssertionError: assert (not [ActionProposal(intent='set_light_color', target='main_light', parameters={'color': 'blue'}, source_clause='mejor azul, pero no ahora')])
+E        +  where [ActionProposal(intent='set_light_color', target='main_light', parameters={'color': 'blue'}, source_clause='mejor azul, pero no ahora')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='set_light_color', targe...ediate=True, negated=False, condition=None, clarification_question=None, reason_code='context_correction', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='set_light_color', targe...ediate=True, negated=False, condition=None, clarification_question=None, reason_code='context_correction', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='90f3614a28054cc7ae76c5f2dcf76d18', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:37: AssertionError
+_ test_correction_cannot_bypass_prohibition_or_future[No, mejor azul, aunque todav\xeda no lo cambies] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_correction_cannot_bypass_3')
+text = 'No, mejor azul, aunque todavía no lo cambies'
+
+    @pytest.mark.parametrize('text',[
+     'No, mejor azules, pero no hagas nada','Mejor azul cuando termine',
+     'Mejor azul, pero no ahora','No, mejor azul, aunque todavía no lo cambies',
+     'Déjalo en rojo, no lo cambies','Si es posible después, mejor azul',
+     'No era una orden, solo estaba preguntando'])
+    def test_correction_cannot_bypass_prohibition_or_future(tmp_path,text):
+        m=manager(tmp_path);m.interpret('Pon las luces rojas')
+        old=[a.model_dump() for a in m.context.proposals];count=len(m.executor.records)
+        d,_=m.interpret(text)
+>       assert not d.interpretation.actions and len(m.executor.records)==count
+E       AssertionError: assert (not [ActionProposal(intent='set_light_color', target='main_light', parameters={'color': 'blue'}, source_clause='no, mejor azul, aunque todavia no lo cambies')])
+E        +  where [ActionProposal(intent='set_light_color', target='main_light', parameters={'color': 'blue'}, source_clause='no, mejor azul, aunque todavia no lo cambies')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='set_light_color', targe...ediate=True, negated=False, condition=None, clarification_question=None, reason_code='context_correction', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='set_light_color', targe...ediate=True, negated=False, condition=None, clarification_question=None, reason_code='context_correction', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='38cfe22f061d445f8a78ee7e7159b2d3', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:37: AssertionError
+_ test_correction_cannot_bypass_prohibition_or_future[D\xe9jalo en rojo, no lo cambies] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_correction_cannot_bypass_4')
+text = 'Déjalo en rojo, no lo cambies'
+
+    @pytest.mark.parametrize('text',[
+     'No, mejor azules, pero no hagas nada','Mejor azul cuando termine',
+     'Mejor azul, pero no ahora','No, mejor azul, aunque todavía no lo cambies',
+     'Déjalo en rojo, no lo cambies','Si es posible después, mejor azul',
+     'No era una orden, solo estaba preguntando'])
+    def test_correction_cannot_bypass_prohibition_or_future(tmp_path,text):
+        m=manager(tmp_path);m.interpret('Pon las luces rojas')
+        old=[a.model_dump() for a in m.context.proposals];count=len(m.executor.records)
+        d,_=m.interpret(text)
+>       assert not d.interpretation.actions and len(m.executor.records)==count
+E       AssertionError: assert (not [ActionProposal(intent='set_light_color', target='main_light', parameters={'color': 'red'}, source_clause='dejalo en rojo')])
+E        +  where [ActionProposal(intent='set_light_color', target='main_light', parameters={'color': 'red'}, source_clause='dejalo en rojo')] = Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='set_light_color', targe...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='').actions
+E        +    where Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent='set_light_color', targe...rue, negated=False, condition=None, clarification_question=None, reason_code='explicit_immediate_request', response='') = Decision(interpretation=Interpretation(kind=<Kind.ACTION_PROPOSAL: 'action_proposal'>, actions=[ActionProposal(intent=...nostic', turn_id='1', request_id='25a69be7b0f54268a58fcbf70fd165fc', simulated=True, executed=False, end_session=False).interpretation
+
+tests\test_phase31_reproductions.py:37: AssertionError
+_____________ test_past_relative_reference_is_not_a_past_comment ______________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_past_relative_reference_i0')
+
+    def test_past_relative_reference_is_not_a_past_comment(tmp_path):
+        d,_=manager(tmp_path).interpret('Abre la aplicación que usé ayer')
+>       assert d.interpretation.kind==Kind.CLARIFICATION
+E       AssertionError: assert <Kind.CONVERS...conversation'> == <Kind.CLARIFI...larification'>
+E         
+E         - clarification
+E         + conversation
+
+tests\test_phase31_reproductions.py:43: AssertionError
+____________ test_cancelled_interpretation_does_not_create_pending ____________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_cancelled_interpretation_0')
+
+    def test_cancelled_interpretation_does_not_create_pending(tmp_path):
+        cancel=threading.Event();m=manager(tmp_path,cancel);m.begin_session('s');before=m.context.snapshot()
+        cancel.set()
+        with pytest.raises(RequestCancelled):m.interpret('Abre una aplicación','s')
+>       assert m.context.snapshot()==before
+E       AssertionError: assert {'history': [...als': [], ...} == {'history': [...als': [], ...}
+E         
+E         Omitting 7 identical items, use -vv to show
+E         Differing items:
+E         {'pending': {'attempts': 0, 'candidates': [], 'created': 90865.984, 'expires': 90925.984, ...}} != {'pending': None}
+E         Use -v to get more diff
+
+tests\test_phase31_reproductions.py:50: AssertionError
+________ test_rejected_clarification_resolution_does_not_lose_pending _________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_rejected_clarification_re0')
+
+    def test_rejected_clarification_resolution_does_not_lose_pending(tmp_path):
+        m=manager(tmp_path);m.interpret('Abre una aplicación');before=m.context.snapshot()
+        def reject(*args,**kwargs):raise ValueError('controlled independent rejection')
+        m.validator.validate=reject
+        d,_=m.interpret('Steam')
+        assert d.interpretation.kind==Kind.CLARIFICATION
+>       assert m.context.pending is not None
+E       assert None is not None
+E        +  where None = <jarvis.intelligence.context.ContextManager object at 0x000001BBE018A2D0>.pending
+E        +    where <jarvis.intelligence.context.ContextManager object at 0x000001BBE018A2D0> = <jarvis.intelligence.dialogue_manager.DialogueManager object at 0x000001BBE018BD10>.context
+
+tests\test_phase31_reproductions.py:59: AssertionError
+___ test_negation_during_pending_is_not_automatic_cancellation[No canceles] ___
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_negation_during_pending_i0')
+text = 'No canceles'
+
+    @pytest.mark.parametrize('text',['No canceles','No quiero cancelar','Espera','Todavía no','No, esa no','No era Chrome'])
+    def test_negation_during_pending_is_not_automatic_cancellation(tmp_path,text):
+        m=manager(tmp_path);m.interpret('Abre una aplicación')
+        d,_=m.interpret(text)
+>       assert not d.interpretation.actions and m.context.pending is not None
+E       AssertionError: assert (not [] and None is not None)
+E        +  where [] = Interpretation(kind=<Kind.NEGATED: 'negated'>, actions=[], immediate=False, negated=True, condition=None, clarification_question=None, reason_code='explicit_negation', response='').actions
+E        +    where Interpretation(kind=<Kind.NEGATED: 'negated'>, actions=[], immediate=False, negated=True, condition=None, clarification_question=None, reason_code='explicit_negation', response='') = Decision(interpretation=Interpretation(kind=<Kind.NEGATED: 'negated'>, actions=[], immediate=False, negated=True, cond...nostic', turn_id='1', request_id='56b9ba3581b24f4ea9ec557b5b491567', simulated=True, executed=False, end_session=False).interpretation
+E        +  and   None = <jarvis.intelligence.context.ContextManager object at 0x000001BBE01CED50>.pending
+E        +    where <jarvis.intelligence.context.ContextManager object at 0x000001BBE01CED50> = <jarvis.intelligence.dialogue_manager.DialogueManager object at 0x000001BBE01CF610>.context
+
+tests\test_phase31_reproductions.py:68: AssertionError
+_ test_negation_during_pending_is_not_automatic_cancellation[No quiero cancelar] _
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_negation_during_pending_i1')
+text = 'No quiero cancelar'
+
+    @pytest.mark.parametrize('text',['No canceles','No quiero cancelar','Espera','Todavía no','No, esa no','No era Chrome'])
+    def test_negation_during_pending_is_not_automatic_cancellation(tmp_path,text):
+        m=manager(tmp_path);m.interpret('Abre una aplicación')
+        d,_=m.interpret(text)
+>       assert not d.interpretation.actions and m.context.pending is not None
+E       AssertionError: assert (not [] and None is not None)
+E        +  where [] = Interpretation(kind=<Kind.NEGATED: 'negated'>, actions=[], immediate=False, negated=True, condition=None, clarification_question=None, reason_code='explicit_negation', response='').actions
+E        +    where Interpretation(kind=<Kind.NEGATED: 'negated'>, actions=[], immediate=False, negated=True, condition=None, clarification_question=None, reason_code='explicit_negation', response='') = Decision(interpretation=Interpretation(kind=<Kind.NEGATED: 'negated'>, actions=[], immediate=False, negated=True, cond...nostic', turn_id='1', request_id='5a0d3611e5a44a9bb5602abe39c35905', simulated=True, executed=False, end_session=False).interpretation
+E        +  and   None = <jarvis.intelligence.context.ContextManager object at 0x000001BBE01214D0>.pending
+E        +    where <jarvis.intelligence.context.ContextManager object at 0x000001BBE01214D0> = <jarvis.intelligence.dialogue_manager.DialogueManager object at 0x000001BBE01211D0>.context
+
+tests\test_phase31_reproductions.py:68: AssertionError
+______________________ test_append_preserves_prior_plan _______________________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_append_preserves_prior_pl0')
+
+    def test_append_preserves_prior_plan(tmp_path):
+        m=manager(tmp_path);m.interpret('Abre Steam y pon las luces rojas')
+        m.interpret('Y baja el volumen')
+>       assert {a.intent for a in m.context.proposals}=={'open_application','set_light_color','decrease_volume'}
+E       AssertionError: assert {'decrease_volume'} == {'decrease_vo..._light_color'}
+E         
+E         Extra items in the right set:
+E         'open_application'
+E         'set_light_color'
+E         Use -v to get more diff
+
+tests\test_phase31_reproductions.py:80: AssertionError
+_________ test_short_parameter_correction_keeps_color_and_application _________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_short_parameter_correctio0')
+
+    def test_short_parameter_correction_keeps_color_and_application(tmp_path):
+        m=manager(tmp_path);m.interpret('Abre Steam y pon las luces rojas')
+        m.interpret('Mejor azules');m.interpret('Y el brillo al veinte');d,_=m.interpret('No, al treinta')
+>       assert d.interpretation.actions[0].parameters=={'value':30}
+E       IndexError: list index out of range
+
+tests\test_phase31_reproductions.py:86: IndexError
+______________ test_short_absolute_values[Volumen al veinte-20] _______________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_short_absolute_values_Vol0')
+text = 'Volumen al veinte', value = 20
+
+    @pytest.mark.parametrize('text,value',[
+     ('Volumen al veinte',20),('Volumen al veinticinco',25),('Volumen al treinta y cinco',35),('Volumen al cien',100)])
+    def test_short_absolute_values(tmp_path,text,value):
+        d,_=manager(tmp_path).interpret(text)
+>       assert d.interpretation.actions[0].parameters=={'value':value}
+E       IndexError: list index out of range
+
+tests\test_phase31_reproductions.py:101: IndexError
+____________ test_short_absolute_values[Volumen al veinticinco-25] ____________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_short_absolute_values_Vol1')
+text = 'Volumen al veinticinco', value = 25
+
+    @pytest.mark.parametrize('text,value',[
+     ('Volumen al veinte',20),('Volumen al veinticinco',25),('Volumen al treinta y cinco',35),('Volumen al cien',100)])
+    def test_short_absolute_values(tmp_path,text,value):
+        d,_=manager(tmp_path).interpret(text)
+>       assert d.interpretation.actions[0].parameters=={'value':value}
+E       IndexError: list index out of range
+
+tests\test_phase31_reproductions.py:101: IndexError
+__________ test_short_absolute_values[Volumen al treinta y cinco-35] __________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_short_absolute_values_Vol2')
+text = 'Volumen al treinta y cinco', value = 35
+
+    @pytest.mark.parametrize('text,value',[
+     ('Volumen al veinte',20),('Volumen al veinticinco',25),('Volumen al treinta y cinco',35),('Volumen al cien',100)])
+    def test_short_absolute_values(tmp_path,text,value):
+        d,_=manager(tmp_path).interpret(text)
+>       assert d.interpretation.actions[0].parameters=={'value':value}
+E       IndexError: list index out of range
+
+tests\test_phase31_reproductions.py:101: IndexError
+_______________ test_short_absolute_values[Volumen al cien-100] _______________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_short_absolute_values_Vol3')
+text = 'Volumen al cien', value = 100
+
+    @pytest.mark.parametrize('text,value',[
+     ('Volumen al veinte',20),('Volumen al veinticinco',25),('Volumen al treinta y cinco',35),('Volumen al cien',100)])
+    def test_short_absolute_values(tmp_path,text,value):
+        d,_=manager(tmp_path).interpret(text)
+>       assert d.interpretation.actions[0].parameters=={'value':value}
+E       IndexError: list index out of range
+
+tests\test_phase31_reproductions.py:101: IndexError
+______________ test_selective_cancellation_preserves_application ______________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_selective_cancellation_pr0')
+
+    def test_selective_cancellation_preserves_application(tmp_path):
+        m=manager(tmp_path);m.interpret('Pon las luces rojas y abre Steam')
+        d,_=m.interpret('Bueno, olvida lo de las luces')
+        assert not d.interpretation.actions
+>       assert [a.target for a in m.context.proposals]==['steam']
+E       AssertionError: assert ['main_light', 'steam'] == ['steam']
+E         
+E         At index 0 diff: 'main_light' != 'steam'
+E         Left contains one more item: 'steam'
+E         Use -v to get more diff
+
+tests\test_phase31_reproductions.py:108: AssertionError
+________ test_forged_fast_reason_does_not_authorize_ungrounded_target _________
+
+tmp_path = WindowsPath('<TEMP>/pytest-of-sebas/pytest-45/test_forged_fast_reason_does_n0')
+
+    def test_forged_fast_reason_does_not_authorize_ungrounded_target(tmp_path):
+        m=manager(tmp_path);m.interpret('Pon las luces rojas')
+        forged=Interpretation(kind=Kind.ACTION_PROPOSAL,immediate=True,reason_code='context_correction',actions=[
+            ActionProposal(intent='open_application',target='discord',source_clause='mejor azul')])
+>       with pytest.raises(ValueError):m.validator.validate(forged,'Mejor azul',m.context,trusted_fast=True)
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests\test_phase31_reproductions.py:115: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_phase31_reproductions.py::test_future_never_authorizes_immediate_proposals[Apaga las luces al acabar la partida]
+FAILED tests/test_phase31_reproductions.py::test_future_never_authorizes_immediate_proposals[Abre Steam al salir de clase]
+FAILED tests/test_phase31_reproductions.py::test_future_never_authorizes_immediate_proposals[Abre Chrome una vez haya guardado]
+FAILED tests/test_phase31_reproductions.py::test_future_never_authorizes_immediate_proposals[Apaga la luz luego de cenar]
+FAILED tests/test_phase31_reproductions.py::test_future_never_authorizes_immediate_proposals[Baja el volumen en cuanto acabe]
+FAILED tests/test_phase31_reproductions.py::test_future_never_authorizes_immediate_proposals[Abre Steam siempre que termine la partida]
+FAILED tests/test_phase31_reproductions.py::test_correction_cannot_bypass_prohibition_or_future[No, mejor azules, pero no hagas nada]
+FAILED tests/test_phase31_reproductions.py::test_correction_cannot_bypass_prohibition_or_future[Mejor azul, pero no ahora]
+FAILED tests/test_phase31_reproductions.py::test_correction_cannot_bypass_prohibition_or_future[No, mejor azul, aunque todav\xeda no lo cambies]
+FAILED tests/test_phase31_reproductions.py::test_correction_cannot_bypass_prohibition_or_future[D\xe9jalo en rojo, no lo cambies]
+FAILED tests/test_phase31_reproductions.py::test_past_relative_reference_is_not_a_past_comment
+FAILED tests/test_phase31_reproductions.py::test_cancelled_interpretation_does_not_create_pending
+FAILED tests/test_phase31_reproductions.py::test_rejected_clarification_resolution_does_not_lose_pending
+FAILED tests/test_phase31_reproductions.py::test_negation_during_pending_is_not_automatic_cancellation[No canceles]
+FAILED tests/test_phase31_reproductions.py::test_negation_during_pending_is_not_automatic_cancellation[No quiero cancelar]
+FAILED tests/test_phase31_reproductions.py::test_append_preserves_prior_plan
+FAILED tests/test_phase31_reproductions.py::test_short_parameter_correction_keeps_color_and_application
+FAILED tests/test_phase31_reproductions.py::test_short_absolute_values[Volumen al veinte-20]
+FAILED tests/test_phase31_reproductions.py::test_short_absolute_values[Volumen al veinticinco-25]
+FAILED tests/test_phase31_reproductions.py::test_short_absolute_values[Volumen al treinta y cinco-35]
+FAILED tests/test_phase31_reproductions.py::test_short_absolute_values[Volumen al cien-100]
+FAILED tests/test_phase31_reproductions.py::test_selective_cancellation_preserves_application
+FAILED tests/test_phase31_reproductions.py::test_forged_fast_reason_does_not_authorize_ungrounded_target
+23 failed, 15 passed in 1.21s
