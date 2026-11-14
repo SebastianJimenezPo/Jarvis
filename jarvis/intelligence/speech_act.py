@@ -29,6 +29,9 @@ def replacement_request(text):
 
 def analyze(text):
     from .language import normalize,explicit_request,number
+    quoted=re.findall(r'["«“]([^"»”]+)["»”]',text)
+    if any(explicit_request(normalize(part)) or correction_text(normalize(part)) for part in quoted):
+        return SpeechAct('conversation','quoted','quoted_action_reference')
     text=normalize(text)
     replacement=replacement_request(text)
     if replacement:return analyze(replacement)
@@ -43,6 +46,8 @@ def analyze(text):
         return SpeechAct('conversation',reason='metalinguistic_negation')
     if re.search(r'\b(?:quiero|necesito) (?:solo )?saber\b|\b(?:era|fue|es) (?:solo )?(?:un|el) ejemplo\b',text):
         return SpeechAct('conversation',reason='metalinguistic_or_information_request')
+    if re.match(r'^(?:el (?:manual|texto|mensaje)|la (?:guia|pantalla)) (?:dice|indica|explica|muestra|decia)\b',text):
+        return SpeechAct('conversation',reason='reported_instruction')
     if re.search(r'\b(?:que pasaria|como si|si (?:pudiera|pusiera|apagara|bajara|abriera)|hipoteticamente|suponiendo)\b',text):
         return SpeechAct('hypothetical','hypothetical','counterfactual')
     if re.search(r'\b(?:me gustaria|estaria bien|quisiera algun dia|estoy pensando en)\b',text):

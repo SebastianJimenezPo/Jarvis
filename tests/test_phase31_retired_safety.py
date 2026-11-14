@@ -77,3 +77,19 @@ def test_clitics_colloquial_time_and_pronominal_veto(tmp_path,text):
     m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False,semantic_enabled=False))
     d,_=m.interpret(text)
     assert not d.interpretation.actions
+
+
+@pytest.mark.parametrize('text',['«Abre Steam»','El manual dice, abre Steam','Solo estoy citando: "abre Steam"'])
+def test_literal_or_reported_imperative_is_not_a_tool_request(tmp_path,text):
+    m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False,semantic_enabled=False))
+    d,_=m.interpret(text)
+    assert not d.interpretation.actions
+    forged=Interpretation(kind=Kind.ACTION_PROPOSAL,immediate=True,actions=[ActionProposal(
+        intent='open_application',target='steam',source_clause='abre steam')])
+    with pytest.raises(ValueError):m.validator.validate(forged,text,m.context)
+
+
+def test_quotes_around_entity_do_not_block_immediate_request(tmp_path):
+    m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False,semantic_enabled=False))
+    d,_=m.interpret('Abre "Microsoft Edge"')
+    assert [a.target for a in d.interpretation.actions]==['edge']

@@ -10,7 +10,7 @@ from .speech_act import analyze,correction_text,replacement_request
 class SafetyValidator:
     def validate(self,result,text,context,trusted_fast=False):
         if result.kind!=Kind.ACTION_PROPOSAL:return result
-        normalized=normalize(text);normalized=replacement_request(normalized) or normalized;speech=analyze(normalized)
+        normalized=normalize(text);normalized=replacement_request(normalized) or normalized;speech=analyze(text)
         if speech.kind in ('unsupported','hypothetical','deferred_request','preference','conversation','cancel') or speech.reason=='whole_turn_veto':
             raise ValueError('Speech act does not authorize immediate proposals')
         if context.plan.authorization=='withheld' and not explicit_request(normalized):

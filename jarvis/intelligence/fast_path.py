@@ -71,6 +71,10 @@ class FastPath:
         return Interpretation(kind=Kind.CLARIFICATION,clarification_question='¿A cuál te refieres?',reason_code='unresolved_clarification')
 
     def interpret(self,raw):
+        from .speech_act import analyze
+        raw_speech=analyze(raw)
+        if raw_speech.reason=='quoted_action_reference':
+            return Interpretation(kind=Kind.CONVERSATION,reason_code=raw_speech.reason)
         text=normalize(raw);self.context.expire()
         text=re.sub(r'^jarvis[ ,]*','',text)
         text=re.sub(r'^y\s+','',text)
