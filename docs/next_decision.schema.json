@@ -1,0 +1,220 @@
+{
+  "$defs": {
+    "ActionChange": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Action Id",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "maxProperties": 8,
+          "minProperties": 1,
+          "title": "Parameters",
+          "type": "object"
+        }
+      },
+      "required": [
+        "action_id",
+        "parameters"
+      ],
+      "title": "ActionChange",
+      "type": "object"
+    },
+    "Span": {
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "exclusiveMinimum": 0,
+          "title": "End",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "Span",
+      "type": "object"
+    },
+    "ToolCall": {
+      "additionalProperties": false,
+      "properties": {
+        "tool": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Tool",
+          "type": "string"
+        },
+        "target": {
+          "maxLength": 60,
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "maxProperties": 8,
+          "title": "Parameters",
+          "type": "object"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Span"
+        },
+        "depends_on": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Depends On",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tool",
+        "target",
+        "evidence"
+      ],
+      "title": "ToolCall",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "operation": {
+      "enum": [
+        "create_plan",
+        "append_plan",
+        "modify_plan",
+        "replace_plan",
+        "remove_actions",
+        "cancel_subset",
+        "cancel_all",
+        "hold",
+        "answer_clarification",
+        "query_state",
+        "clarify",
+        "preference",
+        "deferred",
+        "unsupported",
+        "conversation",
+        "negated",
+        "hypothetical"
+      ],
+      "title": "Operation",
+      "type": "string"
+    },
+    "expected_revision": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Expected Revision",
+      "type": "integer"
+    },
+    "plan_id": {
+      "anyOf": [
+        {
+          "maxLength": 64,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Plan Id"
+    },
+    "temporal": {
+      "default": "unspecified",
+      "enum": [
+        "now",
+        "future",
+        "conditional",
+        "unspecified"
+      ],
+      "title": "Temporal",
+      "type": "string"
+    },
+    "evidence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Span"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "actions": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ToolCall"
+      },
+      "maxItems": 8,
+      "title": "Actions",
+      "type": "array"
+    },
+    "changes": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ActionChange"
+      },
+      "maxItems": 8,
+      "title": "Changes",
+      "type": "array"
+    },
+    "action_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8,
+      "title": "Action Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "operation"
+  ],
+  "title": "Decision",
+  "type": "object"
+}
