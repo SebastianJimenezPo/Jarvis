@@ -1,0 +1,148 @@
+{
+  "method": "Final focused DEVELOPMENT regression of eight already observed turns after prompt/evaluator corrections. Not independent or held out, never a general accuracy claim.",
+  "cases": [
+    {
+      "id": "apps",
+      "turns": [
+        {
+          "text": "Abre Steam",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "steam",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "No, mejor Spotify",
+          "decision": {
+            "operation": "modify_plan",
+            "changes": [
+              {
+                "match": {
+                  "tool": "applications.open",
+                  "target": "steam"
+                },
+                "target": "spotify"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Y abre Discord",
+          "decision": {
+            "operation": "append_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "discord",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            },
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Quita Discord y conserva Spotify",
+          "decision": {
+            "operation": "cancel_subset",
+            "remove": [
+              {
+                "tool": "applications.open",
+                "target": "discord"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "decision": {
+            "operation": "cancel_all"
+          },
+          "expected_plan": []
+        }
+      ]
+    },
+    {
+      "id": "guard01",
+      "turns": [
+        {
+          "text": "No abras Steam",
+          "decision": {
+            "operation": "negated",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "guard04",
+      "turns": [
+        {
+          "text": "El manual dice: \"abre Steam\"",
+          "decision": {
+            "operation": "conversation",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "natural-read",
+      "turns": [
+        {
+          "text": "Dime el volumen real del equipo",
+          "decision": {
+            "operation": "query_state",
+            "actions": [
+              {
+                "tool": "system_audio.get_volume",
+                "target": "system_audio",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": null
+        }
+      ]
+    }
+  ]
+}

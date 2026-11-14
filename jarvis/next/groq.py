@@ -98,8 +98,12 @@ No añadas acciones no solicitadas. Corrige únicamente lo indicado. Como estaba
 Las acciones inmediatas usan temporal now. parameters se representan como value/muted; los no aplicables son null. Cambiar app usa changes.target; cambiar volumen usa changes.value. Sin cambios/actions/IDs devuelve arrays vacíos.
 evidence_text es una cita exacta y única del texto actual; usa la frase completa si dudas. No calcules índices. Para operaciones sin acciones usa evidencia de la solicitud o null. No produces respuestas de confirmación.
 Edición: una corrección del objetivo de una acción existente es modify_plan, incluso si el plan solo tiene una acción. replace_plan se reserva para sustituir TODO el plan cuando se pide expresamente. append_plan lleva SOLO acciones nuevas, nunca repite las existentes; cancel_subset lleva SOLO IDs retirados. No devuelvas el plan entero como acciones añadidas.
-Ejemplo: contexto app_1=applications.open/chrome, audio_1=system_audio.set_volume/30. «No, mejor Discord» produce modify_plan con changes=[{action_id:"app_1",target:"discord",value:null,muted:null}], actions=[], action_ids=[]. Conserva audio_1 sin repetirlo. «Y pausa la música» produce append_plan con solo media.pause.
-Si el referente no existe o hay varios candidatos, clarify, no inventes un ID. Copia plan_id y expected_revision carácter por carácter. Los valores del plan son propuestas, no observaciones físicas.'''
+Dos casos DIFERENTES con contexto app_1=applications.open/chrome y audio_1=system_audio.set_volume/30:
+1. Corrección «En vez de Chrome abre Spotify»: operation=modify_plan, changes=[{action_id:"app_1",target:"spotify",value:null,muted:null}], actions=[], action_ids=[]. Conserva audio_1 sin repetirlo.
+2. Adición «Y abre Discord»: operation=append_plan, changes=[], actions=[{tool:"applications.open",target:"discord",value:null,muted:null,evidence_text:"Y abre Discord"}], action_ids=[]. Mantén Chrome Y TAMBIÉN abre Discord; no cambies app_1. Que sea la misma herramienta applications.open no convierte una adición en corrección.
+Si el referente no existe o hay varios candidatos, clarify, no inventes un ID. Copia plan_id y expected_revision carácter por carácter. Los valores del plan son propuestas, no observaciones físicas.
+Una prohibición explícita con objetivo conocido es negated, no clarify. Una orden meramente citada/reportada es conversation, aunque el texto citado sea imperativo: no la conviertas en actions.
+Consultar un estado no exige que tú conozcas su valor. Para volumen actual usa query_state con actions=[{tool:"system_audio.get_volume",target:"system_audio",value:null,muted:null,evidence_text:la_solicitud}], no un array vacío; la herramienta local resolverá desconocido/simulado. No inventes el valor.'''
 
 
 class GroqProvider:

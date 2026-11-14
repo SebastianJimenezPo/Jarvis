@@ -91,3 +91,27 @@ def test_cli_rejects_implicit_remote_use_before_creating_provider(monkeypatch):
     with pytest.raises(SystemExit) as caught:
         main()
     assert caught.value.code == 2
+
+
+def test_pending_removal_alias_is_semantically_equivalent_but_replace_is_not():
+    from scripts.evaluate_next_pilot import operation_matches
+    assert operation_matches('remove_actions', 'cancel_subset')
+    assert operation_matches('cancel_subset', 'remove_actions')
+    assert not operation_matches('replace_plan', 'modify_plan')
+    assert not operation_matches('conversation', 'hypothetical')
+
+
+def test_correct_removal_with_alias_is_reviewed_only_when_whole_plan_matches(tmp_path, monkeypatch):
+    import scripts.evaluate_next_pilot as pilot
+    dataset = {'method': 'Evaluator alias regression, not model quality', 'cases': [{'id': 'alias', 'turns': [
+        data()['cases'][0]['turns'][0],
+        {'text': 'Quita Steam', 'decision': {'operation': 'cancel_subset',
+            'remove': [{'tool': 'applications.open', 'target': 'steam'}]}, 'expected_plan': []}]}]}
+    original = pilot.fixture_decision
+    def alias(row, req):
+        result = original(row, req)
+        return result.model_copy(update={'operation': 'remove_actions'}) if result.operation == 'cancel_subset' else result
+    monkeypatch.setattr(pilot, 'fixture_decision', alias)
+    report = pilot.run_pilot(dataset, 'fixture', output=tmp_path/'alias.json')
+    assert report['summary']['checks_passed'] == 2
+    assert report['rows'][1]['operation_equivalence_used'] and report['rows'][1]['review_applied']

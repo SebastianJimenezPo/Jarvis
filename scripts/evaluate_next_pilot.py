@@ -17,6 +17,12 @@ def calls(view):
     return [{'tool': item.call.tool, 'target': item.call.target, 'parameters': item.call.parameters} for item in view.items]
 
 
+def operation_matches(actual, expected):
+    # Both remove the same pending IDs in the simulation-only reducer. This is
+    # not an equivalence between correcting an action and replacing its plan.
+    return actual == expected or {actual, expected} == {'remove_actions', 'cancel_subset'}
+
+
 def fixture_decision(row, request):
     spec = row['decision']
     def local_id(selector):
@@ -100,7 +106,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                 result = engine.interpret(row['text'], case['id'], str(index))
                 candidate = result.review.proposed_plan if result.review else result.plan
                 expected = row['expected_plan']
-                operation_ok = result.decision is not None and result.decision.operation == row['decision']['operation']
+                operation_ok = result.decision is not None and operation_matches(result.decision.operation, row['decision']['operation'])
                 plan_ok = calls(candidate) == (calls(before) if expected is None else expected)
                 match = operation_ok and plan_ok and result.error is None
                 confirmed = None
@@ -115,6 +121,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                     'expected_operation': row['decision']['operation'], 'actual_operation': result.decision.operation if result.decision else result.proposed_operation,
                     'route': result.route, 'disposition': result.disposition, 'semantic_and_plan_match': bool(match),
                     'review_offered': result.review is not None, 'review_applied': confirmed is not None,
+                    'operation_equivalence_used': bool(operation_ok and result.decision.operation != row['decision']['operation']),
                     'unexpected_action_draft': forbidden and bool(result.review),
                     'error': result.error, 'policy_reason': result.policy_reason, 'candidate_plan': calls(candidate), 'seconds': result.seconds,
                     'usage': result.usage.model_dump(), 'executed': result.executed,
