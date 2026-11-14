@@ -1,6 +1,16 @@
 # JARVIS — Core, voz e inteligencia local
 
-Repositorio público: [SebastianJimenezPo/Jarvis](https://github.com/SebastianJimenezPo/Jarvis). Rama de desarrollo: `phase-3-1-hardening`. Cada cambio terminado se comprueba, confirma y publica; la base `phase-3-intelligence` se conserva.
+Repositorio público: [SebastianJimenezPo/Jarvis](https://github.com/SebastianJimenezPo/Jarvis). Rama de desarrollo: `phase-3-2-jarvis-next`. Cada cambio terminado se comprueba, confirma y publica; la base `phase-3-intelligence` se conserva.
+
+**Jarvis Next — primera etapa de Fase 3.2.** Base textual nueva en `jarvis.next`, con ruta directa mínima, proveedor intercambiable offline/falso, contratos estrictos y gestor central de planes simulados. No necesita E5, Ollama ni API key. [Estado exacto y pruebas](docs/phase_3_2_stage_1.md), [arquitectura y límites](docs/jarvis_next_architecture.md).
+
+```powershell
+.\.venv\Scripts\python.exe -m jarvis.next "Abre Steam" "Volumen al 30%" "Olvida todo lo anterior"
+```
+
+Cada argumento es un turno de una sesión temporal. Todo sigue en simulación. Las peticiones complejas requieren un proveedor futuro y una política contextual todavía pendiente; no se inventan ejecuciones. **La Fase 3.2 no está terminada.**
+
+El residente `python -m jarvis` conserva por ahora el motor y la configuración de 3.1. No se ha conectado Next al micrófono ni sustituido la ruta de voz; su integración será un bloque posterior. La referencia `5337b86` permanece en `phase-3-1-hardening` y en el tag `phase-3-1-restore`.
 
 **Versión 0.3.1 — estabilización para revisión, fase pendiente de aceptación.** Validador con evidencia del turno completo, contexto atómico, planes acotados, aclaraciones y recuperación STT conservadora. **Todas las acciones siguen siendo simuladas.** El [informe de Fase 3.1](docs/phase_3_1.md) contiene resultados, limitaciones y pruebas físicas pendientes; la evaluación distingue datos reservados de regresión y conserva los fallos.
 
