@@ -93,3 +93,10 @@ def test_quotes_around_entity_do_not_block_immediate_request(tmp_path):
     m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False,semantic_enabled=False))
     d,_=m.interpret('Abre "Microsoft Edge"')
     assert [a.target for a in d.interpretation.actions]==['edge']
+
+
+@pytest.mark.parametrize('text',['De Chrome no quiero abrir ninguna ventana','Quiero aprender a abrir Chrome'])
+def test_topicalized_negation_and_learning_are_not_immediate_requests(tmp_path,text):
+    m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False,semantic_enabled=False))
+    forged=Interpretation(kind=Kind.ACTION_PROPOSAL,immediate=True,actions=[ActionProposal(intent='open_application',target='chrome',source_clause=text)])
+    with pytest.raises(ValueError):m.validator.validate(forged,text,m.context)

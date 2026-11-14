@@ -44,7 +44,7 @@ def analyze(text):
         return SpeechAct('negated','withheld','whole_turn_veto')
     if re.search(r'\bno (?:significa|quiere decir) que\b',text):
         return SpeechAct('conversation',reason='metalinguistic_negation')
-    if re.search(r'\b(?:quiero|necesito) (?:solo )?saber\b|\b(?:era|fue|es) (?:solo )?(?:un|el) ejemplo\b',text):
+    if re.search(r'\b(?:quiero|necesito) (?:solo )?(?:saber|aprender|entender|comprender)\b|\b(?:era|fue|es) (?:solo )?(?:un|el) ejemplo\b',text):
         return SpeechAct('conversation',reason='metalinguistic_or_information_request')
     if re.match(r'^(?:el (?:manual|texto|mensaje)|la (?:guia|pantalla)) (?:dice|indica|explica|muestra|decia)\b',text):
         return SpeechAct('conversation',reason='reported_instruction')
@@ -95,6 +95,8 @@ def analyze(text):
         return SpeechAct('conversation',reason='question')
     if re.match(r'^no (?:se (?:oye|escucha)|quiero que (?:suene|se escuche) (?:tan|muy) fuerte)',text):return SpeechAct(None)
     if correction_text(text):return SpeechAct(None,reason='contextual_modification')
+    if re.search(r'\bno (?:quiero|debes|vayas a)\b',text):
+        return SpeechAct('negated',reason='negative_clause')
     if re.search(r'^(?:no (?:quiero que |debes |vayas a )?|nunca |jamas |evita )',text):
         return SpeechAct('negated',reason='negative_clause')
     return SpeechAct(None,relative_past_reference=relative)
