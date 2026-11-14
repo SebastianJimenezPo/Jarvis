@@ -29,7 +29,7 @@ def replacement_request(text):
 
 def analyze(text):
     from .language import normalize,explicit_request,number
-    quoted=re.findall(r'["«“]([^"»”]+)["»”]',text)
+    quoted=re.findall(r"[\"'«“‘]([^\"'»”’]+)[\"'»”’]",text)
     if any(explicit_request(normalize(part)) or correction_text(normalize(part)) for part in quoted):
         return SpeechAct('conversation','quoted','quoted_action_reference')
     text=normalize(text)
