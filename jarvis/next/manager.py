@@ -4,7 +4,7 @@ import threading
 import time
 import uuid
 from dataclasses import dataclass, field
-from .contracts import ContextView, Decision, PlanItem
+from .contracts import ContextView, Decision, PlanItem, PlanReview
 from .direct import direct_decision
 
 
@@ -26,6 +26,15 @@ class Ticket:
     text: str = field(repr=False)
 
 
+@dataclass(frozen=True)
+class PendingReview:
+    ticket: Ticket
+    decision: Decision
+    view: PlanReview
+    touched: tuple
+    expires: float
+
+
 class ActionPolicy:
     def __init__(self, registry):
         self.registry = registry
@@ -42,6 +51,8 @@ class ActionPolicy:
             raise PolicyError()
         for call in decision.actions:
             self.registry.validate(call)
+            if self.registry.is_read(call) != (decision.operation == 'query_state'):
+                raise PolicyError()
             if any(key not in known for key in call.depends_on):
                 raise PolicyError()
         for change in decision.changes:
@@ -59,7 +70,7 @@ class ActionPolicy:
 
 
 class ActionManager:
-    def __init__(self, registry, ttl=120.0, clock=time.monotonic):
+    def __init__(self, registry, ttl=120.0, clock=time.monotonic, review_enabled=False):
         if not math.isfinite(ttl) or not 1 <= ttl <= 600:
             raise ValueError('Invalid context TTL')
         self.registry, self.clock, self.ttl = registry, clock, ttl
@@ -70,6 +81,8 @@ class ActionManager:
         self._serial = self._epoch = 0
         self._expires = clock() + ttl
         self._closed = False
+        self._pending = None
+        self.review_enabled = review_enabled is True
 
     def begin_session(self, session_id):
         if not isinstance(session_id, str) or not 1 <= len(session_id) <= 64:
@@ -81,11 +94,13 @@ class ActionManager:
             self._serial += 1
             self._epoch += 1
             self._context = ContextView()
+            self._pending = None
             self._expires = self.clock() + self.ttl
 
     def _expire(self):
         if self.clock() >= self._expires:
             self._context = ContextView(revision=self._context.revision+1)
+            self._pending = None
             self._epoch += 1
             self._expires = self.clock() + self.ttl
 
@@ -100,6 +115,7 @@ class ActionManager:
             if self._closed or session_id != self._session:
                 raise StaleDecision()
             self._serial += 1
+            self._pending = None  # Any new ordinary turn supersedes the review.
             return Ticket(session_id, turn_id, self._serial, self._epoch, self._context.revision, text)
 
     def current(self, ticket):
@@ -120,6 +136,8 @@ class ActionManager:
             if not self.current(ticket):
                 raise StaleDecision()
             if authorization != 'direct':
+                if self.review_enabled:
+                    self._prepare_review(ticket, decision)
                 return 'withheld', (), 'La propuesta necesita validación contextual; no he ejecutado acciones.', self._context.model_copy(deep=True)
             base = self._context
             if decision.operation == 'cancel_all':
@@ -147,6 +165,114 @@ class ActionManager:
             self._expires = self.clock() + self.ttl
             return disposition, results, message, self._context.model_copy(deep=True)
 
+    def _prepare_review(self, ticket, decision):
+        supported = ('create_plan', 'replace_plan', 'append_plan', 'modify_plan', 'remove_actions',
+                     'cancel_subset', 'cancel_all', 'hold', 'query_state')
+        if decision.operation not in supported:
+            return
+        if not decision.evidence or decision.evidence.start != 0 or decision.evidence.end != len(ticket.text):
+            raise PolicyError()
+        if decision.operation not in ('cancel_all', 'hold') and decision.temporal != 'now':
+            raise PolicyError()
+        proposed, touched = self._project(decision)
+        now = self.clock()
+        expires = min(self._expires, now+30)
+        if expires <= now:
+            raise StaleDecision()
+        view = PlanReview(review_id=uuid.uuid4().hex, operation=decision.operation,
+            base_revision=self._context.revision, proposed_plan=proposed, expires_in_seconds=expires-now)
+        self._pending = PendingReview(ticket, decision.model_copy(deep=True), view,
+            tuple(call.model_copy(deep=True) for call in touched), expires)
+
+    def _project(self, decision):
+        """Pure bounded reducer for a draft. Never authorizes or executes tools."""
+        base, op = self._context, decision.operation
+        if op in ('cancel_all', 'hold'):
+            return ContextView(plan_id=base.plan_id, revision=base.revision+1,
+                status='cancelled' if op == 'cancel_all' else 'withheld',
+                items=() if op == 'cancel_all' else base.items), ()
+        if op == 'query_state':
+            return base.model_copy(deep=True), tuple(decision.actions)
+        existing = list(base.items)
+        touched = []
+        plan_id = base.plan_id
+        if op in ('create_plan', 'replace_plan'):
+            existing, plan_id = [], uuid.uuid4().hex
+        elif not plan_id or not existing:
+            raise PolicyError()
+        if op in ('cancel_subset', 'remove_actions'):
+            existing = [item for item in existing if item.action_id not in decision.action_ids]
+        elif op == 'modify_plan':
+            changes = {change.action_id: change for change in decision.changes}
+            updated = []
+            for item in existing:
+                change = changes.get(item.action_id)
+                if change:
+                    call = item.call.model_copy(update={'target': change.target or item.call.target,
+                        'parameters': {**item.call.parameters, **change.parameters}, 'evidence': decision.evidence}, deep=True)
+                    self.registry.validate(call)
+                    touched.append(call)
+                    item = item.model_copy(update={'call': call}, deep=True)
+                updated.append(item)
+            existing = updated
+        for call in decision.actions:
+            touched.append(call.model_copy(deep=True))
+            existing.append(PlanItem(action_id=uuid.uuid4().hex, call=call.model_copy(deep=True)))
+        keys = [(item.call.tool, item.call.target) for item in existing]
+        ids = {item.action_id for item in existing}
+        if len(keys) != len(set(keys)) or any(dep not in ids for item in existing for dep in item.call.depends_on):
+            raise PolicyError()
+        try:
+            proposed = ContextView(plan_id=plan_id, revision=base.revision+1,
+                status='withheld' if existing else 'cancelled', items=tuple(existing))
+        except ValueError:
+            raise PolicyError() from None
+        return proposed, tuple(touched)
+
+    def review(self, ticket):
+        with self._lock:
+            pending = self._pending
+            if pending and self.current(ticket) and pending.ticket == ticket and self.clock() < pending.expires:
+                return pending.view.model_copy(deep=True)
+            return None
+
+    def confirm(self, review_id, session_id, turn_id):
+        """Developer pilot: an explicit local review of THIS draft, simulation only."""
+        with self._lock:
+            self._expire()
+            if self._closed or session_id != self._session:
+                raise StaleDecision()
+            pending, self._pending = self._pending, None
+            previous_serial = self._serial
+            self._serial += 1
+            ticket = Ticket(session_id, turn_id, self._serial, self._epoch, self._context.revision, '')
+            if (pending is None or pending.view.review_id != review_id or self.clock() >= pending.expires
+                or pending.ticket.serial != previous_serial or pending.ticket.epoch != self._epoch
+                or pending.ticket.revision != self._context.revision):
+                return ticket, None, 'rejected', (), 'La propuesta no está vigente. Solicítala otra vez.', self._context.model_copy(deep=True)
+            # Parameters and current capabilities are checked again before commit.
+            for call in pending.touched:
+                self.registry.validate(call)
+            results = tuple(self.registry.simulate(call) for call in pending.touched)
+            if not self.current(ticket):
+                raise StaleDecision()
+            decision = pending.decision
+            projected = pending.view.proposed_plan.model_copy(deep=True)
+            op = decision.operation
+            if op not in ('hold', 'query_state') and projected.items:
+                projected = projected.model_copy(update={'status': 'simulated'})
+            self._context = projected
+            self._expires = self.clock()+self.ttl
+            if op == 'query_state':
+                message, disposition = 'No puedo confirmar el estado real: solo hay herramientas simuladas.', 'simulated'
+            elif op == 'hold':
+                message, disposition = 'El plan queda retenido. No he ejecutado acciones.', 'held'
+            elif op == 'cancel_all' or not projected.items:
+                message, disposition = 'Descarté las propuestas indicadas. No he revertido acciones físicas.', 'cancelled'
+            else:
+                message, disposition = 'En simulación, apliqué la revisión del plan. No he ejecutado acciones físicas.', 'simulated'
+            return ticket, decision, disposition, results, message, projected.model_copy(deep=True)
+
     def can_publish(self, outcome):
         """The future speech bridge must check this immediately before TTS."""
         with self._lock:
@@ -157,5 +283,6 @@ class ActionManager:
     def close(self):
         with self._lock:
             self._closed = True
+            self._pending = None
             self._serial += 1
             self._context = ContextView(revision=self._context.revision+1, status='cancelled')

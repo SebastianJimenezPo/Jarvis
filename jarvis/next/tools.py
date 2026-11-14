@@ -39,6 +39,10 @@ class ToolRegistry:
             raise ValueError('Unknown tool or target')
         definition.parameters.model_validate(call.parameters, strict=True)
 
+    def is_read(self, call):
+        self.validate(call)
+        return self._tools[call.tool].capability.access == 'read'
+
     def simulate(self, call: ToolCall):
         self.validate(call)
         return ToolResult(tool=call.tool, target=call.target,

@@ -127,6 +127,14 @@ class ToolResult(Record):
     verified: Literal[False] = False
 
 
+class PlanReview(Record):
+    review_id: StrictStr
+    operation: Operation
+    base_revision: StrictInt
+    proposed_plan: ContextView
+    expires_in_seconds: float = Field(gt=0)
+
+
 class Outcome(Record):
     request_id: StrictStr
     session_id: StrictStr
@@ -141,4 +149,5 @@ class Outcome(Record):
     error: StrictStr | None = None
     seconds: float = Field(ge=0)
     usage: Usage = Field(default_factory=Usage)
+    review: PlanReview | None = None
     executed: Literal[False] = False

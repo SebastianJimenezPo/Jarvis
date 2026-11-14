@@ -10,9 +10,9 @@ from .tools import default_registry
 
 
 class NextEngine:
-    def __init__(self, provider=None, registry=None, timeout=3.0, ttl=120.0, clock=time.monotonic):
+    def __init__(self, provider=None, registry=None, timeout=3.0, ttl=120.0, clock=time.monotonic, review_enabled=False):
         self.registry = registry or default_registry()
-        self.manager = ActionManager(self.registry, ttl, clock)
+        self.manager = ActionManager(self.registry, ttl, clock, review_enabled)
         self.runner = ProviderRunner(provider if provider is not None else OfflineProvider(), timeout)
 
     def begin_session(self, session_id):
@@ -49,7 +49,8 @@ class NextEngine:
                 usage = reply.usage
                 self.runner.record()
             disposition, results, message, plan = self.manager.apply(ticket, decision)
-            return outcome(disposition, message, results=results, plan=plan)
+            result = outcome(disposition, message, results=results, plan=plan)
+            return result.model_copy(update={'review': self.manager.review(ticket)})
         except StaleDecision:
             decision = None
             return outcome('stale', '', 'stale')  # No cancelled/stale text may reach TTS.
@@ -65,6 +66,19 @@ class NextEngine:
 
     def cancel(self, session_id='cli', turn_id='ui-cancel'):
         return self.interpret('Cancela', session_id, turn_id)
+
+    def confirm(self, review_id, session_id='cli', turn_id='local-review'):
+        start = time.perf_counter()
+        try:
+            ticket, decision, disposition, results, message, plan = self.manager.confirm(review_id, session_id, turn_id)
+            generation = ticket.serial
+            error = 'review_invalid' if decision is None else None
+        except StaleDecision:
+            decision, disposition, results, message = None, 'stale', (), ''
+            generation, error, plan = 0, 'stale', self.manager.snapshot()
+        return Outcome(request_id=uuid.uuid4().hex, session_id=session_id, turn_id=turn_id,
+            generation=generation, route='direct', disposition=disposition, decision=decision,
+            plan=plan, results=results, message=message, error=error, seconds=time.perf_counter()-start)
 
     def close(self):
         self.manager.close()
