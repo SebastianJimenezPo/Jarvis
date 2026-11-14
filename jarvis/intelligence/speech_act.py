@@ -28,7 +28,7 @@ def replacement_request(text):
 
 
 def analyze(text):
-    from .language import normalize,explicit_request
+    from .language import normalize,explicit_request,number
     text=normalize(text)
     replacement=replacement_request(text)
     if replacement:return analyze(replacement)
@@ -37,28 +37,47 @@ def analyze(text):
     # Explicit abandonment differs from negating the verb "cancelar".
     if re.search(r'\b(?:olvidalo|olvida eso|cancela todo|espera[, ]+(?:mejor[, ]+)?no|no lo hagas)\b',text):
         return SpeechAct('cancel',reason='explicit_abandonment')
+    if re.search(r'\b(?:no (?:es|era|fue) (?:una )?orden|no es lo que (?:quiero|pedi)|sin (?:hacerlo|ejecutarlo|aplicarlo|realizarlo))\b',text):
+        return SpeechAct('negated','withheld','whole_turn_veto')
+    if re.search(r'\bno (?:significa|quiere decir) que\b',text):
+        return SpeechAct('conversation',reason='metalinguistic_negation')
+    if re.search(r'\b(?:quiero|necesito) (?:solo )?saber\b|\b(?:era|fue|es) (?:solo )?(?:un|el) ejemplo\b',text):
+        return SpeechAct('conversation',reason='metalinguistic_or_information_request')
     if re.search(r'\b(?:que pasaria|como si|si (?:pudiera|pusiera|apagara|bajara|abriera)|hipoteticamente|suponiendo)\b',text):
         return SpeechAct('hypothetical','hypothetical','counterfactual')
     if re.search(r'\b(?:me gustaria|estaria bien|quisiera algun dia|estoy pensando en)\b',text):
         return SpeechAct('hypothetical','hypothetical','desire_or_deliberation')
     # Time belongs to the action's subordinate clause, including postposed clauses.
-    if re.search(r'\b(?:cuando|en cuanto|tan pronto como|siempre que|hasta que|a menos que|con tal de que|a condicion de que|mientras|apenas)\b',text):
+    if re.search(r'\b(?:cuando|en cuanto|tan pronto(?: como)?|a partir de que|en caso de que|siempre que|hasta que|a menos que|con tal de que|a condicion de que|mientras|apenas)\b',text):
         return SpeechAct('deferred_request','condition','subordinate_condition')
+    if re.search(r'\b(?:la (?:siguiente|proxima|primera) vez que|al (?:momento|instante|rato) de)\b',text):
+        return SpeechAct('deferred_request','condition','nominal_temporal_clause')
+    if re.search(r'\b(?:en (?:el|ese|aquel) (?:momento|instante|punto) (?:en )?que|luego que|a la (?:vuelta|llegada|salida) (?:de|del))\b',text):
+        return SpeechAct('deferred_request','condition','temporal_nominalization')
+    if re.search(r'\buna vez\s+\w+(?:ad[oa]s?|id[oa]s?)\b',text):
+        return SpeechAct('deferred_request','condition','completed_participle_condition')
     if re.search(r'\b(?:una vez)\s+(?:que\s+)?(?:termine|acabe|finalice|haya|este|pueda|salga|cierre|guarde)\b',text):
         return SpeechAct('deferred_request','condition','completion_condition')
-    if re.search(r'\bal\s+\w*(?:ar|er|ir)(?:se)?\b',text):
+    if re.search(r'\bal\s+\w*(?:ar|er|ir)(?:me|te|se|nos|os|lo|la|los|las|le|les){0,2}\b',text):
         return SpeechAct('deferred_request','after','infinitive_temporal_clause')
-    if re.search(r'\ben\s+(?:\w+\s+){1,5}(?:segundos?|minutos?|horas?|dias?|semanas?)\b',text):
+    if re.search(r'\ben\s+(?:\w+\s+){1,5}(?:segundos?|minutos?|horas?|dias?|semanas?|rato|ratico|ratito|momentico|momento|tris)\b',text):
         return SpeechAct('deferred_request','future','duration_phrase')
     if re.search(r'\b(?:mas adelante|(?:el|la) proxim[oa]|(?:este|el) (?:lunes|martes|miercoles|jueves|viernes|sabado|domingo))\b',text):
         return SpeechAct('deferred_request','future','calendar_reference')
+    clock=re.search(r'\ba (?:las?|eso de las?)\s+(.+)',text)
+    if (clock and number(clock[1]) is not None) or re.search(r'\b(?:esta tarde|a medianoche|a mediodia|a primera hora)\b',text):
+        return SpeechAct('deferred_request','future','clock_reference')
     if re.search(r'\b(?:antes de|tras)\s+(?:que\s+)?\w+',text):
         return SpeechAct('deferred_request','condition','relative_temporal_clause')
     if re.search(r'\b(?:manana|despues|mas tarde|esta noche|dentro de|algun dia|luego de|si\s+\w+|en (?:\d+|cinco|diez|veinte|treinta|una|dos) (?:minutos|horas|segundos))\b',text):
         return SpeechAct('deferred_request','future','explicit_future_or_condition')
-    if re.search(r'\b(?:todavia no|aun no|no ahora|por ahora no)\b',text):
+    if re.search(r'\b(?:todavia no|aun no|no ahora|por ahora no|ahora mismo no|en este momento no)\b',text):
         return SpeechAct('deferred_request','withheld','not_yet')
     if re.search(r'\b(?:no hagas (?:nada|eso)|no (?:lo|la|las|los) (?:cambies|abras|cierres|apagues|enciendas)|no era una orden|solo estaba preguntando)\b',text):
+        return SpeechAct('negated','withheld','whole_turn_veto')
+    if re.search(r'\b(?:no (?:lo|la|las|los) (?:ejecutes|apliques|realices|inicies|actives|toques|modifiques)|no quiero que (?:lo|la|las|los) (?:hagas|ejecutes|cambies))\b',text):
+        return SpeechAct('negated','withheld','whole_turn_veto')
+    if re.search(r'\bno (?:cambi|modifiqu|toqu|ejecut|realic|inici)\w*\s+(?:absolutamente\s+)?nada\b',text):
         return SpeechAct('negated','withheld','whole_turn_veto')
     if re.search(r'\b(?:ni se te ocurra|no se te ocurra|de ningun modo|esta prohibido)\b',text):
         return SpeechAct('negated','withheld','whole_turn_veto')

@@ -1,0 +1,13 @@
+# Protocolo de evaluación — 2026-11-14
+
+Los corpus de fase 3 y las pruebas unitarias son desarrollo/regresión. No se presentan como datos independientes.
+
+`phase31_reserved.json` se selló antes de su primera evaluación con SHA256 `1f29c20ae3cf1797466036abcba652a9d96d1dbc10e716cb941557fa20f984a4`: 156 casos generales y 104 críticos. Son ejemplos redactados internamente por el mismo autor después de congelar el código; no son voces reales, datos humanos externos ni una prueba estadística de generalización. Un caso general coincide exactamente con desarrollo (`h047`); se excluye de las métricas de datos nuevos, quedando 155 casos generales nuevos.
+
+Primero se ejecutó **solo el conjunto crítico**. El informe `phase31-critical-first-evaluation.json` encontró tres turnos con acciones indebidas y tres bypasses del validador: «tan pronto termine», «a partir de que» y un infinitivo con clítico «al irme». Los cuatro turnos de preparación contextual pasaron; su exactitud de intención del 100% no es una medida sobre los 104 turnos críticos. El resultado real de seguridad inicial fue 3/104 autorizaciones indebidas.
+
+Ese conjunto crítico quedó **retirado como holdout y pasó a desarrollo**. Se conserva intacto y las reproducciones están en `test_phase31_retired_safety.py`, junto con comprobaciones adicionales de familias temporales, cláusulas nominales, petición de información, citas, vetos universales y pronombres. Todas se ejecutaron primero para reproducir fallos. La evaluación reforzada también intenta extraer una cláusula positiva y varias intenciones/objetivos, no solo un JSON falso con el texto completo.
+
+El conjunto general original no se ejecutó ni se usaron sus errores para estos cambios. Su contenido se conserva sin modificaciones. Puede vincularse a la revisión corregida mediante un nuevo manifiesto que mantenga el hash de los casos originales; esto no vuelve independientes los datos críticos retirados. La evaluación final requiere otro conjunto crítico nuevo, sellado tras congelar la revisión corregida.
+
+El evaluador no modifica reglas ni casos, rechaza sobrescribir un resultado existente y registra hashes del motor, dataset y commit. Clasificación, precisión/recall de acciones, parámetros, contexto, aclaraciones, abstención y latencia se informan por separado. Los turnos de seguridad se cuentan como seguros solo si no producen acciones y no permiten propuestas falsas; los escenarios contextuales con preparación fallida se señalan como no ejercitados. No se ocultan fallos bajo una exactitud global.
