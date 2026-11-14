@@ -95,7 +95,10 @@ create_plan crea solicitud independiente; append_plan añade; modify_plan cambia
 Negación de cancelación no cancela. Prohibiciones=negated; condiciones/futuro=deferred con temporal conditional/future, sin acciones; citas/preguntas informativas=conversation; ambigüedad=clarify; capacidad inexistente=unsupported.
 No añadas acciones no solicitadas. Corrige únicamente lo indicado. Como estaba antes requiere observación previa: si falta, clarify.
 Las acciones inmediatas usan temporal now. parameters se representan como value/muted; los no aplicables son null. Cambiar app usa changes.target; cambiar volumen usa changes.value. Sin cambios/actions/IDs devuelve arrays vacíos.
-evidence_text es una cita exacta y única del texto actual; usa la frase completa si dudas. No calcules índices. Para operaciones sin acciones usa evidencia de la solicitud o null. No produces respuestas de confirmación.'''
+evidence_text es una cita exacta y única del texto actual; usa la frase completa si dudas. No calcules índices. Para operaciones sin acciones usa evidencia de la solicitud o null. No produces respuestas de confirmación.
+Edición: una corrección del objetivo de una acción existente es modify_plan, incluso si el plan solo tiene una acción. replace_plan se reserva para sustituir TODO el plan cuando se pide expresamente. append_plan lleva SOLO acciones nuevas, nunca repite las existentes; cancel_subset lleva SOLO IDs retirados. No devuelvas el plan entero como acciones añadidas.
+Ejemplo: contexto app_1=applications.open/chrome, audio_1=system_audio.set_volume/30. «No, mejor Discord» produce modify_plan con changes=[{action_id:"app_1",target:"discord",value:null,muted:null}], actions=[], action_ids=[]. Conserva audio_1 sin repetirlo. «Y pausa la música» produce append_plan con solo media.pause.
+Si el referente no existe o hay varios candidatos, clarify, no inventes un ID. Copia plan_id y expected_revision carácter por carácter. Los valores del plan son propuestas, no observaciones físicas.'''
 
 
 class GroqProvider:

@@ -25,13 +25,15 @@ class NextEngine:
         if not isinstance(turn_id, str) or not 1 <= len(turn_id) <= 64:
             raise ValueError('Invalid turn identifier')
         route, decision, usage = 'direct', None, Usage()
+        proposed_operation = None
         request_id, ticket = uuid.uuid4().hex, None
 
-        def outcome(disposition, message, error=None, results=(), plan=None):
+        def outcome(disposition, message, error=None, results=(), plan=None, policy_reason=None):
             return Outcome(request_id=request_id, session_id=session_id, turn_id=turn_id,
                 generation=ticket.serial if ticket else 0, route=route, disposition=disposition, decision=decision,
                 plan=plan if plan is not None else self.manager.snapshot(), results=results, message=message,
-                error=error, seconds=time.perf_counter()-start, usage=usage)
+                error=error, seconds=time.perf_counter()-start, usage=usage,
+                proposed_operation=proposed_operation, policy_reason=policy_reason)
 
         try:
             ticket = self.manager.begin_turn(text, session_id, turn_id)
@@ -48,6 +50,7 @@ class NextEngine:
                     raise ProviderError('invalid_response') from None
                 usage = reply.usage
                 self.runner.record()
+            proposed_operation = decision.operation
             disposition, results, message, plan = self.manager.apply(ticket, decision)
             result = outcome(disposition, message, results=results, plan=plan)
             return result.model_copy(update={'review': self.manager.review(ticket)})
@@ -60,9 +63,9 @@ class NextEngine:
             if exc.code in ('stale', 'cancelled', 'closed'):
                 return outcome('stale', '', exc.code)
             return outcome('unavailable', 'El intérprete no está disponible. Puedo seguir con órdenes directas locales.', exc.code)
-        except PolicyError:
+        except PolicyError as exc:
             decision = None
-            return outcome('rejected', 'No puedo validar esa propuesta. No he ejecutado acciones.', 'policy_rejected')
+            return outcome('rejected', 'No puedo validar esa propuesta. No he ejecutado acciones.', 'policy_rejected', policy_reason=exc.reason)
 
     def cancel(self, session_id='cli', turn_id='ui-cancel'):
         return self.interpret('Cancela', session_id, turn_id)

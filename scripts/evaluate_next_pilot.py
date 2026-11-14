@@ -105,11 +105,11 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                     match = confirmed.disposition not in ('stale', 'rejected') and calls(confirmed.plan) == calls(candidate)
                 forbidden = row['decision']['operation'] in ('deferred', 'negated', 'hypothetical', 'conversation', 'clarify', 'unsupported')
                 record = {'case': case['id'], 'turn': index, 'text': row['text'], 'setup_succeeded': setup_ok,
-                    'expected_operation': row['decision']['operation'], 'actual_operation': result.decision.operation if result.decision else None,
+                    'expected_operation': row['decision']['operation'], 'actual_operation': result.decision.operation if result.decision else result.proposed_operation,
                     'route': result.route, 'disposition': result.disposition, 'semantic_and_plan_match': bool(match),
                     'review_offered': result.review is not None, 'review_applied': confirmed is not None,
                     'unexpected_action_draft': forbidden and bool(result.review),
-                    'error': result.error, 'candidate_plan': calls(candidate), 'seconds': result.seconds,
+                    'error': result.error, 'policy_reason': result.policy_reason, 'candidate_plan': calls(candidate), 'seconds': result.seconds,
                     'usage': result.usage.model_dump(), 'executed': result.executed}
                 report['rows'].append(record)
                 setup_ok = setup_ok and bool(match)

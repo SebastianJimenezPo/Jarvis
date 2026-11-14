@@ -4,7 +4,7 @@ import threading
 import time
 import uuid
 from dataclasses import dataclass, field
-from .contracts import ContextView, Decision, PlanItem, PlanReview
+from .contracts import ContextView, Decision, PlanItem, PlanReview, PolicyReason
 from .direct import direct_decision
 
 
@@ -13,7 +13,9 @@ class StaleDecision(Exception):
 
 
 class PolicyError(Exception):
-    pass
+    def __init__(self, reason='catalog'):
+        self.reason = reason if reason in PolicyReason.__args__ else 'catalog'
+        super().__init__(self.reason)
 
 
 @dataclass(frozen=True)
@@ -40,21 +42,23 @@ class ActionPolicy:
         self.registry = registry
 
     def assess(self, decision: Decision, text: str, context: ContextView):
-        if decision.expected_revision != context.revision or decision.plan_id != context.plan_id:
-            raise PolicyError()
+        if decision.expected_revision != context.revision:
+            raise PolicyError('revision')
+        if decision.plan_id != context.plan_id:
+            raise PolicyError('plan_identity')
         known = {item.action_id: item.call for item in context.items}
         ids = [*decision.action_ids, *(change.action_id for change in decision.changes)]
         if len(ids) != len(set(ids)) or any(key not in known for key in ids):
-            raise PolicyError()
+            raise PolicyError('reference')
         spans = [decision.evidence, *(call.evidence for call in decision.actions)]
         if any(span and (span.end > len(text) or not text[span.start:span.end].strip()) for span in spans):
-            raise PolicyError()
+            raise PolicyError('evidence')
         for call in decision.actions:
             self.registry.validate(call)
             if self.registry.is_read(call) != (decision.operation == 'query_state'):
                 raise PolicyError()
             if any(key not in known for key in call.depends_on):
-                raise PolicyError()
+                raise PolicyError('reference')
         for change in decision.changes:
             call = known[change.action_id]
             self.registry.validate(call.model_copy(update={'target': change.target or call.target,
@@ -65,7 +69,7 @@ class ActionPolicy:
         if canonical == decision:
             return 'direct'
         if canonical is not None:
-            raise PolicyError()
+            raise PolicyError('direct_mismatch')
         return 'withheld'
 
 
@@ -131,7 +135,9 @@ class ActionManager:
             # All candidate validation precedes state changes and simulated results.
             try:
                 authorization = self.policy.assess(decision, ticket.text, self._context)
-            except (ValueError, PolicyError):
+            except PolicyError:
+                raise
+            except ValueError:
                 raise PolicyError() from None
             if not self.current(ticket):
                 raise StaleDecision()
@@ -171,9 +177,9 @@ class ActionManager:
         if decision.operation not in supported:
             return
         if not decision.evidence or decision.evidence.start != 0 or decision.evidence.end != len(ticket.text):
-            raise PolicyError()
+            raise PolicyError('scope')
         if decision.operation not in ('cancel_all', 'hold') and decision.temporal != 'now':
-            raise PolicyError()
+            raise PolicyError('temporal')
         proposed, touched = self._project(decision)
         now = self.clock()
         expires = min(self._expires, now+30)
@@ -199,7 +205,7 @@ class ActionManager:
         if op in ('create_plan', 'replace_plan'):
             existing, plan_id = [], uuid.uuid4().hex
         elif not plan_id or not existing:
-            raise PolicyError()
+            raise PolicyError('missing_plan')
         if op in ('cancel_subset', 'remove_actions'):
             existing = [item for item in existing if item.action_id not in decision.action_ids]
         elif op == 'modify_plan':
@@ -220,13 +226,15 @@ class ActionManager:
             existing.append(PlanItem(action_id=uuid.uuid4().hex, call=call.model_copy(deep=True)))
         keys = [(item.call.tool, item.call.target) for item in existing]
         ids = {item.action_id for item in existing}
-        if len(keys) != len(set(keys)) or any(dep not in ids for item in existing for dep in item.call.depends_on):
-            raise PolicyError()
+        if len(keys) != len(set(keys)):
+            raise PolicyError('conflict')
+        if any(dep not in ids for item in existing for dep in item.call.depends_on):
+            raise PolicyError('reference')
         try:
             proposed = ContextView(plan_id=plan_id, revision=base.revision+1,
                 status='withheld' if existing else 'cancelled', items=tuple(existing))
         except ValueError:
-            raise PolicyError() from None
+            raise PolicyError('capacity') from None
         return proposed, tuple(touched)
 
     def review(self, ticket):

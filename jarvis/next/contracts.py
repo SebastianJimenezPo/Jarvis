@@ -13,6 +13,8 @@ Operation = Literal[
     'cancel_subset', 'cancel_all', 'hold', 'answer_clarification', 'query_state',
     'clarify', 'preference', 'deferred', 'unsupported', 'conversation', 'negated', 'hypothetical',
 ]
+PolicyReason = Literal['revision', 'plan_identity', 'reference', 'evidence', 'catalog',
+                       'direct_mismatch', 'scope', 'temporal', 'missing_plan', 'conflict', 'capacity']
 
 
 class Span(Record):
@@ -147,6 +149,8 @@ class Outcome(Record):
     results: tuple[ToolResult, ...] = ()
     message: StrictStr
     error: StrictStr | None = None
+    proposed_operation: Operation | None = None
+    policy_reason: PolicyReason | None = None
     seconds: float = Field(ge=0)
     usage: Usage = Field(default_factory=Usage)
     review: PlanReview | None = None
