@@ -35,7 +35,8 @@ def fixture_decision(row, request):
         actions=actions, changes=changes, action_ids=tuple(local_id(s) for s in spec.get('remove', [])))
 
 
-def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=False, timeout=8.0, interval=6.0, max_turns=32):
+def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=False, timeout=8.0, interval=6.0, max_turns=32, model='openai/gpt-oss-20b'):
+    import psutil
     if provider_kind not in ('fixture', 'offline', 'groq'):
         raise ValueError('Unknown provider')
     if output.exists():
@@ -44,7 +45,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
         raise ValueError('Pilot limit is 1..40 turns')
     if provider_kind == 'groq' and (not allow_remote or not free_tier or not math.isfinite(interval) or interval < 6):
         raise ValueError('Remote opt-in, Free attestation and >=6-second interval required')
-    report = {'provider': provider_kind, 'method': data['method'], 'commit': subprocess.check_output(
+    report = {'provider': provider_kind, 'model': model if provider_kind == 'groq' else None, 'method': data['method'], 'commit': subprocess.check_output(
         ['git', 'rev-parse', 'HEAD'], text=True).strip(), 'status': 'running', 'rows': [],
         'max_turns': max_turns, 'available_turns': sum(len(c['turns']) for c in data['cases']),
         'limits': 'Development cases. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.'}
@@ -64,10 +65,12 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
         provider = FakeProvider(lambda req, _: ProviderReply(decision_json=fixture_decision(active[0], req).model_dump_json()))
     elif provider_kind == 'groq':
         from jarvis.next.groq import GroqProvider
-        provider = GroqProvider(api_key=remote_key, enabled=True, free_tier_confirmed=True)
+        provider = GroqProvider(api_key=remote_key, enabled=True, free_tier_confirmed=True, model=model)
     else:
         provider = None
     engine = NextEngine(provider, timeout=timeout, review_enabled=True)
+    process = psutil.Process()
+    report['client_rss_start_bytes'] = process.memory_info().rss
     attempted = 0
     last_request = None
     stop = False
@@ -91,6 +94,8 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                 if remote:
                     last_request = time.monotonic()
                     attempted += 1
+                cpu = process.cpu_times()
+                cpu_before = cpu.user+cpu.system
                 result = engine.interpret(row['text'], case['id'], str(index))
                 candidate = result.review.proposed_plan if result.review else result.plan
                 expected = row['expected_plan']
@@ -103,6 +108,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                 if match and result.review:
                     confirmed = engine.confirm(result.review.review_id, case['id'], f'{index}-review')
                     match = confirmed.disposition not in ('stale', 'rejected') and calls(confirmed.plan) == calls(candidate)
+                cpu = process.cpu_times()
                 forbidden = row['decision']['operation'] in ('deferred', 'negated', 'hypothetical', 'conversation', 'clarify', 'unsupported')
                 record = {'case': case['id'], 'turn': index, 'text': row['text'], 'setup_succeeded': setup_ok,
                     'expected_operation': row['decision']['operation'], 'actual_operation': result.decision.operation if result.decision else result.proposed_operation,
@@ -110,7 +116,9 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                     'review_offered': result.review is not None, 'review_applied': confirmed is not None,
                     'unexpected_action_draft': forbidden and bool(result.review),
                     'error': result.error, 'policy_reason': result.policy_reason, 'candidate_plan': calls(candidate), 'seconds': result.seconds,
-                    'usage': result.usage.model_dump(), 'executed': result.executed}
+                    'usage': result.usage.model_dump(), 'executed': result.executed,
+                    'client_rss_after_turn_bytes': process.memory_info().rss,
+                    'client_cpu_seconds_delta': max(0, cpu.user+cpu.system-cpu_before)}
                 report['rows'].append(record)
                 setup_ok = setup_ok and bool(match)
                 save()
@@ -123,6 +131,11 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
     finally:
         engine.close()
     rows = report['rows']
+    report['client_resources'] = {'rss_final_bytes': process.memory_info().rss,
+        'rss_max_turn_boundary_bytes': max((r['client_rss_after_turn_bytes'] for r in rows), default=report['client_rss_start_bytes']),
+        'cpu_seconds_during_interpretation_and_review': sum(r['client_cpu_seconds_delta'] for r in rows),
+        'cpu_peak': None, 'gpu': None,
+        'limits': 'Text pilot process only; snapshots at turn boundaries, not sampled peaks. No resident, STT, TTS, gaming or remote-server memory measurement.'}
     report['summary'] = {'turns': len(rows), 'checks_passed': sum(r['semantic_and_plan_match'] for r in rows),
         'setup_failed_turns': sum(not r['setup_succeeded'] for r in rows),
         'unexpected_action_drafts': sum(r['unexpected_action_draft'] for r in rows),
@@ -147,10 +160,11 @@ def main():
     parser.add_argument('--free-tier', action='store_true')
     parser.add_argument('--max-turns', type=int, default=32)
     parser.add_argument('--interval-seconds', type=float, default=6.0)
+    parser.add_argument('--model', choices=['openai/gpt-oss-20b', 'openai/gpt-oss-120b'], default='openai/gpt-oss-20b')
     args = parser.parse_args()
     try:
         report = run_pilot(json.loads(args.dataset.read_text(encoding='utf-8')), args.provider, output=args.output,
-            allow_remote=args.allow_remote, free_tier=args.free_tier, max_turns=args.max_turns, interval=args.interval_seconds)
+            allow_remote=args.allow_remote, free_tier=args.free_tier, max_turns=args.max_turns, interval=args.interval_seconds, model=args.model)
     except ValueError:
         parser.error('Check output path, turn limit, remote opt-in and Free account attestation.')
     print(json.dumps({'status': report['status'], 'summary': report.get('summary')}, indent=2))

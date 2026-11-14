@@ -13,6 +13,7 @@ def main():
     parser.add_argument('--review', action='store_true', help='Offer contextual drafts for explicit local simulation review')
     parser.add_argument('--interactive', action='store_true', help='Read turns; :confirm ID applies a reviewed simulation, :quit exits')
     parser.add_argument('--timeout', type=float, default=None)
+    parser.add_argument('--model', choices=['openai/gpt-oss-20b', 'openai/gpt-oss-120b'], default='openai/gpt-oss-20b')
     args = parser.parse_args()
     if not args.text and not args.interactive:
         parser.error('Provide text or --interactive.')
@@ -21,7 +22,7 @@ def main():
     provider = None
     if args.provider == 'groq':
         from .groq import GroqProvider
-        provider = GroqProvider(enabled=True, free_tier_confirmed=True)
+        provider = GroqProvider(enabled=True, free_tier_confirmed=True, model=args.model)
     timeout = args.timeout if args.timeout is not None else (8.0 if args.provider == 'groq' else 3.0)
     try:
         engine = NextEngine(provider, timeout=timeout, review_enabled=args.review)

@@ -11,6 +11,7 @@ from .contracts import ActionChange, Decision, Operation, ProviderReply, Record,
 from .providers import ProviderCapabilities, ProviderError
 
 MODEL = 'openai/gpt-oss-20b'
+MODELS = (MODEL, 'openai/gpt-oss-120b')
 HOST = 'api.groq.com'
 PATH = '/openai/v1/chat/completions'
 
@@ -104,10 +105,13 @@ Si el referente no existe o hay varios candidatos, clarify, no inventes un ID. C
 class GroqProvider:
     capabilities = ProviderCapabilities('groq', remote=True)
 
-    def __init__(self, api_key=None, *, enabled=False, free_tier_confirmed=False, connection_factory=None):
+    def __init__(self, api_key=None, *, enabled=False, free_tier_confirmed=False, connection_factory=None, model=MODEL):
         # Opt-in and Free-account attestation precede reading the environment.
         # The API does not attest the billing tier; this never upgrades an account.
         self._enabled = enabled is True and free_tier_confirmed is True
+        if model not in MODELS:
+            raise ValueError('Unapproved pilot model')
+        self.model = model
         if self._enabled and api_key is None:
             from .credentials import read_groq_key
             api_key = read_groq_key()
@@ -139,7 +143,7 @@ class GroqProvider:
                 'capabilities': [row.model_dump(mode='json') for row in request.capabilities]}
         if self._key in json.dumps(data, ensure_ascii=False):
             raise ProviderError('invalid_response')
-        payload = {'model': MODEL, 'messages': [{'role': 'system', 'content': PROMPT},
+        payload = {'model': self.model, 'messages': [{'role': 'system', 'content': PROMPT},
             {'role': 'user', 'content': json.dumps(data, ensure_ascii=False, separators=(',', ':'))}],
             'response_format': {'type': 'json_schema', 'json_schema': {'name': 'jarvis_decision', 'strict': True, 'schema': strict_schema()}},
             'max_completion_tokens': 1024, 'reasoning_effort': 'low', 'stream': False, 'n': 1}
@@ -175,7 +179,7 @@ class GroqProvider:
                     raise ProviderError('invalid_response')
             control.checkpoint()
             parsed = json.loads(body)
-            if parsed.get('model') != MODEL or len(parsed['choices']) != 1:
+            if parsed.get('model') != self.model or len(parsed['choices']) != 1:
                 raise ProviderError('invalid_response')
             choice = parsed['choices'][0]
             if choice.get('finish_reason') != 'stop' or choice['message'].get('tool_calls') or choice['message'].get('refusal'):

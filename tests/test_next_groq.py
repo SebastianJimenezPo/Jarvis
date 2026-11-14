@@ -236,3 +236,16 @@ def test_invalid_credential_never_touches_windows_store(monkeypatch):
     monkeypatch.setattr(credentials, '_windows_api', lambda: pytest.fail('Invalid secret reached Windows'))
     with pytest.raises(ValueError):
         credentials.store_groq_key('invalid key')
+
+
+def test_larger_model_is_explicit_and_never_an_automatic_fallback():
+    model = 'openai/gpt-oss-120b'
+    conn = Connection([Response(completion(model=model))])
+    p = provider(conn, model=model)
+    try:
+        p.interpret(request(), RequestControl(time.monotonic()+2))
+        assert conn.requests[0][2]['model'] == model and len(conn.requests) == 1
+    finally:
+        p.close()
+    with pytest.raises(ValueError):
+        provider(Connection([]), model='unapproved-model')

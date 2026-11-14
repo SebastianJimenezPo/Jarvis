@@ -1,0 +1,170 @@
+{
+  "provider": "groq",
+  "method": "Development pilot, not held out. Fixture replies are derived from authored expectations and prove orchestration only, never model accuracy. Only exact expected previews can be confirmed automatically in simulation.",
+  "commit": "1e5959edaefecaeb728ff2fa1d8a9c60ad8752ac",
+  "status": "completed_limited",
+  "rows": [
+    {
+      "case": "apps",
+      "turn": 0,
+      "text": "Abre Steam",
+      "setup_succeeded": true,
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "direct",
+      "disposition": "simulated",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "steam",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.00018289999934495427,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "apps",
+      "turn": 1,
+      "text": "No, mejor Spotify",
+      "setup_succeeded": true,
+      "expected_operation": "modify_plan",
+      "actual_operation": "modify_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "spotify",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.5731209000005038,
+      "usage": {
+        "input_tokens": 1675,
+        "output_tokens": 140
+      },
+      "executed": false
+    },
+    {
+      "case": "apps",
+      "turn": 2,
+      "text": "Y abre Discord",
+      "setup_succeeded": true,
+      "expected_operation": "append_plan",
+      "actual_operation": "modify_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": false,
+      "review_offered": true,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "discord",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.44513799999913317,
+      "usage": {
+        "input_tokens": 1674,
+        "output_tokens": 133
+      },
+      "executed": false
+    },
+    {
+      "case": "apps",
+      "turn": 3,
+      "text": "Quita Discord y conserva Spotify",
+      "setup_succeeded": false,
+      "expected_operation": "cancel_subset",
+      "actual_operation": "remove_actions",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": false,
+      "review_offered": true,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [],
+      "seconds": 0.4307659000005515,
+      "usage": {
+        "input_tokens": 1677,
+        "output_tokens": 111
+      },
+      "executed": false
+    },
+    {
+      "case": "apps",
+      "turn": 4,
+      "text": "Olvida todo lo anterior",
+      "setup_succeeded": false,
+      "expected_operation": "cancel_all",
+      "actual_operation": "cancel_all",
+      "route": "direct",
+      "disposition": "cancelled",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [],
+      "seconds": 0.00022419999731937423,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    }
+  ],
+  "max_turns": 5,
+  "available_turns": 32,
+  "limits": "Development cases. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.",
+  "summary": {
+    "turns": 5,
+    "checks_passed": 3,
+    "setup_failed_turns": 2,
+    "unexpected_action_drafts": 0,
+    "remote_requests_attempted": 3,
+    "real_model_accuracy": null,
+    "live_pipeline_match_rate": 0.6
+  },
+  "route_latency": {
+    "direct": {
+      "count": 2,
+      "median": 0.00020354999833216425,
+      "p95": 0.00022419999731937423
+    },
+    "provider": {
+      "count": 3,
+      "median": 0.44513799999913317,
+      "p95": 0.5731209000005038
+    },
+    "offline": {
+      "count": 0,
+      "median": null,
+      "p95": null
+    }
+  }
+}
