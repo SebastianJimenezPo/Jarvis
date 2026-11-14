@@ -100,7 +100,7 @@ def main():
                     logger.info('ollama_service_'+ensure_service())
             except Exception:
                 logger.exception('intelligence_service_unavailable_voice_core_preserved')
-            logger.info("application_start version=0.3.0 phase=3")
+            logger.info("application_start version=0.3.1 phase=3.1")
             return run(LifecycleManager(config, root), root, args.exit_after)
     except Exception as exc:
         logger.exception("application_failed")

@@ -1,5 +1,8 @@
 # Validación de Fase 3 — 2026-11-10
 
+> Histórico de Fase 3. La revisión actual 0.3.1 y sus resultados están en [Fase 3.1](phase_3_1.md); este informe conserva las mediciones originales.
+
+
 Estado: implementación terminada para revisión física, sin cierre de fase. Ninguna acción solicitada por el usuario se ejecuta en el sistema. Documento maestro conservado en `phase_3_spec.md`.
 
 Actualización tras las primeras pruebas del usuario: 218 pruebas automáticas aprobadas (`reports/pytest-phase3-feedback.txt`). Aclaraciones, cancelación y perfil de consumo ajustados. Las mediciones iniciales siguientes se conservan como evidencia histórica; ver `phase_3_feedback.md` para el comportamiento actual y los pendientes físicos.

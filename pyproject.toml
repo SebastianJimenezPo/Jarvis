@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jarvis-always-on-core"
-version = "0.3.0"
-description = "Local Windows wake-word resident, phase 1"
+version = "0.3.1"
+description = "Local Windows voice assistant with simulated, validated action plans"
 requires-python = ">=3.11,<3.12"
 dependencies = [
   "numpy==2.2.6", "sounddevice==0.5.2", "soxr==0.5.0.post1",

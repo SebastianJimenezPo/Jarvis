@@ -1,5 +1,8 @@
 # Fase 3 — motor de comprensión local
 
+> Histórico de Fase 3. La revisión actual 0.3.1 y sus resultados están en [Fase 3.1](phase_3_1.md); este informe conserva las mediciones originales.
+
+
 Entrega del 10 de noviembre de 2026. Implementación preparada para aceptación física; la fase no se declara cerrada. Base de Fase 2: `f6ac68a`, conservada en `phase-2-baseline`. Desarrollo: `phase-3-intelligence`, versión 0.3.0.
 
 Jarvis interpreta órdenes, propone acciones simuladas, solicita aclaraciones y conversa mediante un modelo local. **No abre aplicaciones, modifica volumen, controla luces ni ejecuta código.** Las respuestas de acciones indican expresamente la simulación. No existe un interruptor que habilite ejecución real.

@@ -29,3 +29,7 @@ Los campos desconocidos, valores fuera de rango, tipos incorrectos y números no
 No existe una bandera `startup` desconectada de Windows: la fuente de verdad es la tarea registrada, y se gestiona con los scripts de instalación/eliminación. Las credenciales no se guardan.
 
 Los diagnósticos del menú contienen el estado en vivo, tiempos por estado, errores y estadísticas. `--diagnostics` muestra disponibilidad y entorno sin capturar audio. CPU/GPU o latencias no medidas se representan como `null`, no como cero.
+
+En 0.3.1 los perfiles manuales `gaming`, `balanced` y `saving` se aplican mediante `scripts/set_performance_profile.py`; reiniciar después. Ver [mediciones y campos](phase_3_1_performance.md). El equipo conserva gaming, dos hilos Qwen y retención 30 s, voz dos CPU lógicas y retención 20 s.
+
+La recuperación `voice.stt_recovery_enabled` es opcional y falsa por defecto; `stt_recovery_timeout_seconds` limita su subproceso. Los diagnósticos voluntarios de [voz](phase_3_1_voice.md) usan configuración temporal. `voice.log_transcripts` e `intelligence.log_text` siguen desactivados en el residente. No habilitar registros de texto para una medición de consumo ni subir conversaciones personales a Git.

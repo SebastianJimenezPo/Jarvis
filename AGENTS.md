@@ -2,7 +2,7 @@
 
 El usuario pidió el 10 de noviembre de 2026 guardar en GitHub los cambios que hagamos en Jarvis.
 
-Remoto `origin`: `https://github.com/SebastianJimenezPo/Jarvis.git` (privado). Rama de desarrollo actual: `phase-3-intelligence`.
+Remoto `origin`: `https://github.com/SebastianJimenezPo/Jarvis.git` (público). Rama de desarrollo actual: `phase-3-1-hardening`.
 
 - Para cada cambio terminado, ejecutar las comprobaciones apropiadas, crear un commit descriptivo y enviarlo al remoto GitHub configurado.
 - Conservar el historial; no hacer force-push ni reescribir commits publicados sin autorización explícita.

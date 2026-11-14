@@ -1,12 +1,12 @@
 # JARVIS — Core, voz e inteligencia local
 
-Repositorio privado: [SebastianJimenezPo/Jarvis](https://github.com/SebastianJimenezPo/Jarvis). Los cambios terminados se guardan en commits y se publican en GitHub. La rama actual de desarrollo es `phase-3-intelligence`.
+Repositorio público: [SebastianJimenezPo/Jarvis](https://github.com/SebastianJimenezPo/Jarvis). Rama de desarrollo: `phase-3-1-hardening`. Cada cambio terminado se comprueba, confirma y publica; la base `phase-3-intelligence` se conserva.
 
-**Fase 3 implementada, pendiente de aceptación física del usuario.** Versión 0.3.0: comprensión híbrida, conversación mediante Ollama local, referencias temporales, aclaraciones y propuestas estructuradas. **Todas las acciones son simuladas.** Guías: [Fase 3 y pruebas físicas](docs/phase_3.md), [arquitectura](docs/intelligence_architecture.md), [comparación de modelos](docs/model_comparison.md) y [validación y límites](docs/intelligence_validation.md).
+**Versión 0.3.1 — estabilización para revisión, fase pendiente de aceptación.** Validador con evidencia del turno completo, contexto atómico, planes acotados, aclaraciones y recuperación STT conservadora. **Todas las acciones siguen siendo simuladas.** El [informe de Fase 3.1](docs/phase_3_1.md) contiene resultados, limitaciones y pruebas físicas pendientes; la evaluación distingue datos reservados de regresión y conserva los fallos.
 
-Tras las primeras pruebas físicas se corrigieron aclaraciones y cancelación y se redujeron cargas innecesarias de modelos. Perfil de consumo con dos hilos y liberación más temprana; [resultados y límites de los ajustes](docs/phase_3_feedback.md). La batería actual pasa 218 pruebas.
+Se mantiene el perfil de dos hilos por prioridad de consumo. Consulta la [comparación de rendimiento](docs/phase_3_1_performance.md), el [diagnóstico de voz](docs/phase_3_1_voice.md), la [auditoría](docs/phase_3_1_audit.md) y el [protocolo de evaluación](docs/evaluation/PROTOCOL.md). La recuperación alternativa está desactivada por defecto; micrófono, umbral y silencio aceptados se conservan.
 
-Las bases se conservan en Git: Fase 1 `695c068`; Fase 2 `f6ac68a`, rama `phase-2-baseline`. El desarrollo actual está en `phase-3-intelligence`. Para usar las respuestas de prueba de Fase 2: `python -m jarvis --disable-intelligence` y reiniciar. Para volver al comportamiento de activación de Fase 1: `python -m jarvis --disable-voice` y reiniciar.
+Bases: Fase 1 `695c068`; Fase 2 `f6ac68a` en `phase-2-baseline`; Fase 3 `fed3f11`. Para volver a respuestas de Fase 2: `python -m jarvis --disable-intelligence` y reiniciar. Para activación de Fase 1: `python -m jarvis --disable-voice` y reiniciar.
 
 La documentación siguiente describe la base y sus procedimientos de calibración/inicio.
 
@@ -32,7 +32,7 @@ Start-Process -FilePath '.\.venv\Scripts\pythonw.exe' -ArgumentList '"scripts\ru
 
 En la bandeja: estado, pausar, reanudar/reintentar, activación manual, diagnósticos, registros y salir. La activación manual solo funciona cuando los recursos están preparados en `DORMANT`. Pausar cierra el micrófono y el auxiliar.
 
-En este equipo el inicio automático **ya está registrado** y el usuario comprobó que funciona después de reiniciar en Fase 1. La validación después de reinicio con el motor de Fase 2 queda pendiente. Para instalarlo en otra ubicación o equipo:
+En este equipo el inicio automático **ya está registrado** y el usuario comprobó que funciona después de reiniciar en Fase 1. Repetir reinicio y suspensión con la versión 0.3.1 forma parte de la aceptación física pendiente. Para instalarlo en otra ubicación o equipo:
 
 ```powershell
 .\scripts\install_startup.ps1 -ValidateOnly
@@ -50,7 +50,7 @@ En este equipo el inicio automático **ya está registrado** y el usuario compro
 .\.venv\Scripts\python.exe scripts\benchmark.py --seconds 60
 ```
 
-La entrega de Fase 3 pasa 189 pruebas automáticas y contiene corpus escritos de 328 casos / 363 turnos, comparaciones locales y una integración de voz sintética. Consulta [validación de inteligencia](docs/intelligence_validation.md) y los informes JSON en `docs/reports/`. Los conjuntos revisados y las pruebas sintéticas no demuestran precisión con lenguaje o voces nuevos.
+Los resultados actuales están en el [informe de Fase 3.1](docs/phase_3_1.md) y `docs/reports/`. CI ejecuta la selección headless; las pruebas con modelos, auxiliar nativo y bandeja se verifican localmente. Los conjuntos revisados y las pruebas sintéticas no demuestran precisión con lenguaje o voces nuevos.
 
 ## Documentación
 

@@ -7,6 +7,7 @@ No real-user audio or acoustic echo test. Failed original phrases stay failed.
 import argparse
 import json
 import queue
+import statistics
 import subprocess
 import sys
 import tempfile
@@ -40,6 +41,17 @@ CASES={
   ('Mejor azules','action_proposal','set_light_color',{'color':'blue'})]}
 
 
+def summarize(report):
+    rows=[row for case in report['cases'] for row in case['rows']]
+    values=[row['voice_end_to_playback_seconds'] for row in rows if row.get('voice_end_to_playback_seconds') is not None]
+    return {'cases':len(report['cases']),'cases_passed':sum(case['passed'] for case in report['cases']),
+        'turns':len(rows),'turns_passed':sum(row['passed'] for row in rows),
+        'turns_failed':sum(not row['passed'] for row in rows),
+        'criterion':'Expected interpretation kind and exact action intent/target/parameters where requested. Does not score conversational answer correctness or exact STT.',
+        'voice_end_to_playback_seconds':{'count':len(values),'min':min(values) if values else None,
+            'median':statistics.median(values) if values else None,'max':max(values) if values else None}}
+
+
 def main():
     import numpy as np
     from jarvis.core.config import data_dir,load
@@ -58,7 +70,7 @@ def main():
     parser.add_argument('--case',choices=[*CASES,'all'],default='all')
     parser.add_argument('--recovery',action='store_true')
     parser.add_argument('--output',type=Path,default=Path('docs/reports/phase31-voice-integration.json'))
-    args=parser.parse_args();root=data_dir();config=load(root);report={'method':__doc__,'cases':[]}
+    args=parser.parse_args();root=data_dir();config=load(root);report={'method':__doc__,'harness_revision':3,'cases':[]}
     if args.output.exists():raise RuntimeError('Preserve the first integration result; choose a new output for another run')
     selected=CASES if args.case=='all' else {args.case:CASES[args.case]}
     voice=PiperAdapter(root,'es_MX-ald-medium');voice.load();signals={}
@@ -112,18 +124,30 @@ def main():
                 while manager.snapshot()['state']!='DORMANT' or time.monotonic()<manager.machine.next_wake:
                     if time.monotonic()>until:return False
                     time.sleep(.03)
-                count=len(wake_events);source.put(signals['Jarvis'])
+                count=len(wake_events);event_start=len(events);source.put(signals['Jarvis'])
                 until=time.monotonic()+8
                 while len(wake_events)==count:
                     if time.monotonic()>until:return False
                     time.sleep(.03)
-                time.sleep(2)  # Finish the wake-only acoustic turn before the command.
-                return True
+                # Cold STT preparation can exceed a fixed two-second sleep. Wait
+                # for the wake-only turn to be consumed, or its transcript could
+                # be wrongly attributed to the next command by the harness.
+                until=time.monotonic()+20
+                while time.monotonic()<until:
+                    consumed=[e for e in events[event_start:] if e['kind']=='activation_only_or_ambiguous']
+                    if consumed and manager.voice.state=='WAITING_FOR_SPEECH':
+                        time.sleep(.5)
+                        return True
+                    # The wake observer runs BEFORE Lifecycle handles the event;
+                    # IDLE here can mean the worker has not been started yet.
+                    if manager.snapshot()['state']=='DEGRADED':return False
+                    time.sleep(.03)
+                return False
             end=None
             try:
                 for text,expected_kind,intent,parameters in phrases:
                     if manager.snapshot()['state']!='AWAKE' and not wake():
-                        rows.append({'expected_text':text,'passed':False,'failure_stage':'wake_detection'});break
+                        rows.append({'expected_text':text,'passed':False,'failure_stage':'wake_or_preparation'});break
                     existing={(e.get('session_id'),e.get('turn_id')) for e in events if e['kind']=='transcript' and e.get('final')}
                     time.sleep(.5);source.put(signals[text]);until=time.monotonic()+50;final=None
                     while time.monotonic()<until:
@@ -143,13 +167,19 @@ def main():
                         'primary_transcript':final.get('text') if final else None,'decision':decision,'passed':bool(passed),
                         'failure_stage':None if passed else 'stt_or_normalization' if final and normalize(final.get('text',''))!=normalize(text) else 'interpretation_or_session',
                         'timing_events':[e for e in turn_events if e['kind'] in ('speech_started','speech_ended','transcription_timing','dialogue_timing','synthesis_first_chunk','playback_started')]}
+                    endings=[e for e in turn_events if e['kind']=='speech_ended']
+                    starts=[e for e in turn_events if e['kind']=='playback_started']
+                    row['voice_end_to_playback_seconds']=(starts[0]['monotonic']-endings[-1]['estimated_voice_end_monotonic']) if starts and endings else None
                     rows.append(row);print(name,text,'PASS' if passed else 'FAIL',flush=True)
                 end=manager.snapshot()
             finally:manager.stop()
             report['cases'].append({'name':name,'wake_events':wake_events,'rows':rows,'snapshot_before_stop':end,
+                'wake_only_events':[e for e in events if e['kind']=='activation_only_or_ambiguous'],
+                'voice_events':events,
                 'passed':len(rows)==len(phrases) and all(row['passed'] for row in rows)})
             args.output.write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding='utf-8')
     report['passed']=all(case['passed'] for case in report['cases'])
+    report['summary']=summarize(report)
     args.output.write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding='utf-8')
 
 

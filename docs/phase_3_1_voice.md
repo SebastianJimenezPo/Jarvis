@@ -32,3 +32,9 @@ El diagnóstico de voz usa configuración temporal y no cambia la privacidad del
 La prueba de activación solicita que el usuario marque cada intento y diga Jarvis una vez. Así existe denominador para intentos perdidos. Registra el dispositivo, estado, umbral y puntuaciones de detecciones aceptadas disponibles. No inventa puntuaciones de intentos rechazados que Rustpotter no publica. La ventana de ruido se etiqueta como ausencia de palabra de activación. No cambia umbral, referencia ni micrófono. Comparar distancia/ruido/micrófonos en sesiones separadas y conservar también falsos positivos antes de decidir una recalibración.
 
 No se ejecutaron estos procedimientos con voz del usuario durante desarrollo. Quedan pendientes habla espontánea, audífonos si el usuario decide usarlos, pausas, música y calibración física.
+
+## Integración final sintética A–F
+
+El informe `reports/phase31-voice-integration.json` conserva los 18 turnos originales, transcripciones, decisiones y eventos. Solo 7 cumplieron el criterio de categoría/acción; 11 fallaron y ninguna secuencia pasó completa. No se puntúa calidad de la respuesta conversacional. «Dame un ejemplo» se reconoció correctamente pero produjo aclaración; otros fallos son acústicos, como Steam → Sta. y Cancela → En la danza de la ciudad. Mediana fin estimado de voz → reproducción: 6,943 s (1,451–18,169), incluidos fallos y cargas. Cero errores del proceso y cero bloques perdidos; esto demuestra transporte e integración, no reconocimiento fiable.
+
+Los informes `phase31-voice-integration-harness-v1.json` y `-v2.json` se conservan como inválidos para exactitud: espera fija y una carrera al comprobar IDLE, respectivamente. El ensayo corregido espera consumo de la activación y estado de escucha; mantiene frases y expectativas. Sus seis activaciones acústicas sintéticas no son una medida de wakeword con voz humana. No hay evidencia para cambiar micrófono, umbral ni motor predeterminado a partir de estos clips.

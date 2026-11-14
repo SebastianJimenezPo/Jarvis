@@ -1,0 +1,814 @@
+{
+  "method": "Real synthetic Rustpotter→VAD→Moonshine→dialogue→Piper, fixed A–F stimuli.\n\nThis trains a TEMPORARY synthetic wake reference; it never changes the personal\nreference or microphone. Synthetic Capture supplies PCM; playback is physical.\nNo real-user audio or acoustic echo test. Failed original phrases stay failed.\n",
+  "harness_revision": 2,
+  "cases": [
+    {
+      "name": "A_lights",
+      "wake_events": [
+        {
+          "score": 0.7310512065887451,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "Pon las luces rojas",
+          "passed": false,
+          "failure_stage": "wake_detection"
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "DORMANT",
+        "session": 0,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.030999999999039574,
+          "DORMANT": 2.235000000000582,
+          "AWAKE": 0.0,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 0,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.030999999999039574,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 12904,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "IDLE",
+          "session_id": null,
+          "last_error": null,
+          "last_transcript": null,
+          "worker_pid": null,
+          "metrics": {
+            "sessions_opened": 0,
+            "sessions_closed": 0,
+            "empty_transcripts": 0,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 0
+          },
+          "timings": {},
+          "intelligence": null
+        }
+      },
+      "wake_only_events": [],
+      "passed": false
+    },
+    {
+      "name": "B_clarification",
+      "wake_events": [
+        {
+          "score": 0.7310512065887451,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "Abre una aplicación",
+          "passed": false,
+          "failure_stage": "wake_detection"
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "DORMANT",
+        "session": 0,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.030999999999039574,
+          "DORMANT": 2.2190000000009604,
+          "AWAKE": 0.0,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 0,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.030999999999039574,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 14588,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "IDLE",
+          "session_id": null,
+          "last_error": null,
+          "last_transcript": null,
+          "worker_pid": null,
+          "metrics": {
+            "sessions_opened": 0,
+            "sessions_closed": 0,
+            "empty_transcripts": 0,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 0
+          },
+          "timings": {},
+          "intelligence": null
+        }
+      },
+      "wake_only_events": [],
+      "passed": false
+    },
+    {
+      "name": "C_polarity",
+      "wake_events": [
+        {
+          "score": 0.7310512065887451,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "No abras Steam",
+          "passed": false,
+          "failure_stage": "wake_detection"
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "DORMANT",
+        "session": 0,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.030999999999039574,
+          "DORMANT": 2.2190000000009604,
+          "AWAKE": 0.0,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 0,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.030999999999039574,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 14000,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "IDLE",
+          "session_id": null,
+          "last_error": null,
+          "last_transcript": null,
+          "worker_pid": null,
+          "metrics": {
+            "sessions_opened": 0,
+            "sessions_closed": 0,
+            "empty_transcripts": 0,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 0
+          },
+          "timings": {},
+          "intelligence": null
+        }
+      },
+      "wake_only_events": [],
+      "passed": false
+    },
+    {
+      "name": "D_cancel",
+      "wake_events": [
+        {
+          "score": 0.7310512065887451,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "Pon las luces azules",
+          "passed": false,
+          "failure_stage": "wake_detection"
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "DORMANT",
+        "session": 0,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.0319999999992433,
+          "DORMANT": 2.2810000000008586,
+          "AWAKE": 0.0,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 0,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.0319999999992433,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 26436,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "IDLE",
+          "session_id": null,
+          "last_error": null,
+          "last_transcript": null,
+          "worker_pid": null,
+          "metrics": {
+            "sessions_opened": 0,
+            "sessions_closed": 0,
+            "empty_transcripts": 0,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 0
+          },
+          "timings": {},
+          "intelligence": null
+        }
+      },
+      "wake_only_events": [],
+      "passed": false
+    },
+    {
+      "name": "E_conversation",
+      "wake_events": [
+        {
+          "score": 0.7310512065887451,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "¿Qué es la memoria RAM?",
+          "expected_kind": "conversation",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "¿Qué es la memoria de Daine?",
+          "decision": {
+            "interpretation": {
+              "kind": "conversation",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "local_conversation",
+              "response": "La memoria de Daine es un tipo de memoria de solo lectura que se utiliza en algunos dispositivos electrónicos para almacenar datos temporales durante el funcionamiento del dispositivo."
+            },
+            "route": "llm",
+            "seconds": 9.65942609999911,
+            "session_id": "0:1",
+            "turn_id": "0:1:2",
+            "request_id": "e15ffbb10c0f46909b5a6779d199f0fe",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 2,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "dba2145cf6724627b11e68c8ecb2f245",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {
+              "load_duration": 3472169700,
+              "prompt_eval_duration": 3918481000,
+              "eval_duration": 2146844999,
+              "prompt_eval_count": 163,
+              "eval_count": 38,
+              "model": "qwen3:1.7b",
+              "wall_seconds": 9.563000000000102,
+              "total_seconds": 9.656999999999243,
+              "metadata_cached": false,
+              "thinking_disabled": true
+            },
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "¿Qué es la memoria de Daine?",
+              "selected_transcript": "¿Qué es la memoria de Daine?",
+              "normalized_text": "que es la memoria de daine",
+              "response": "La memoria de Daine es un tipo de memoria de solo lectura que se utiliza en algunos dispositivos electrónicos para almacenar datos temporales durante el funcionamiento del dispositivo."
+            },
+            "routes": {
+              "fast": 0,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": true,
+          "failure_stage": null,
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12461.562,
+              "vad_probability": 0.9999808073043823
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12465.265,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12464.048999999999
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12465.281,
+              "finalize_seconds": 0.01600000000144064,
+              "voice_end_to_final_seconds": 1.2320000000017899
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12474.953,
+              "seconds": 9.671999999998661
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12481.328,
+              "seconds": 6.375
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12481.343
+            }
+          ],
+          "voice_end_to_playback_seconds": 17.294000000001688
+        },
+        {
+          "expected_text": "Explícamelo más fácil",
+          "expected_kind": "conversation",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "Explícamelo más fácil.",
+          "decision": {
+            "interpretation": {
+              "kind": "conversation",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "local_conversation",
+              "response": "La memoria de Daine es una forma de almacenar información temporal en un dispositivo, como un teléfono o un ordenador, para que pueda usarla durante su funcionamiento. No se conserva después de que se apague el dispositivo."
+            },
+            "route": "llm",
+            "seconds": 5.471959399999832,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "fdbe8276c3984292adde77f07b290d4f",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "dba2145cf6724627b11e68c8ecb2f245",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {
+              "load_duration": 12576300,
+              "prompt_eval_duration": 1780762000,
+              "eval_duration": 3574259000,
+              "prompt_eval_count": 217,
+              "eval_count": 49,
+              "model": "qwen3:1.7b",
+              "wall_seconds": 5.375,
+              "total_seconds": 5.46900000000096,
+              "metadata_cached": false,
+              "thinking_disabled": true
+            },
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "Explícamelo más fácil.",
+              "selected_transcript": "Explícamelo más fácil.",
+              "normalized_text": "explicamelo mas facil",
+              "response": "La memoria de Daine es una forma de almacenar información temporal en un dispositivo, como un teléfono o un ordenador, para que pueda usarla durante su funcionamiento. No se conserva después de que se apague el dispositivo."
+            },
+            "routes": {
+              "fast": 0,
+              "semantic": 0,
+              "llm": 2,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": true,
+          "failure_stage": null,
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12494.39,
+              "vad_probability": 0.9990166425704956
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12499.031,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12497.815
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12499.046,
+              "finalize_seconds": 0.014999999999417923,
+              "voice_end_to_final_seconds": 1.2309999999997672
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12504.531,
+              "seconds": 5.485000000000582
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12505.812,
+              "seconds": 1.2809999999990396
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12505.828
+            }
+          ],
+          "voice_end_to_playback_seconds": 8.01299999999901
+        },
+        {
+          "expected_text": "Dame un ejemplo",
+          "expected_kind": "conversation",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "Dame un ejemplo.",
+          "decision": {
+            "interpretation": {
+              "kind": "clarification",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": "No pude consultar el modelo local. ¿Puedes decirlo de forma más directa?",
+              "reason_code": "local_model_unavailable_or_invalid",
+              "response": ""
+            },
+            "route": "fallback",
+            "seconds": 12.013600500000393,
+            "session_id": "0:1",
+            "turn_id": "0:1:4",
+            "request_id": "6c00d32ae71c4308925f07c6a9c796cb",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 4,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "dba2145cf6724627b11e68c8ecb2f245",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "Dame un ejemplo.",
+              "selected_transcript": "Dame un ejemplo.",
+              "normalized_text": "dame un ejemplo",
+              "response": "No pude consultar el modelo local. ¿Puedes decirlo de forma más directa?"
+            },
+            "routes": {
+              "fast": 0,
+              "semantic": 0,
+              "llm": 2,
+              "fallback": 1
+            },
+            "last_error": "TimeoutError: Ollama request timed out"
+          },
+          "passed": false,
+          "failure_stage": "interpretation_or_session",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12521.671,
+              "vad_probability": 0.9999800324440002
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12525.093,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12523.877
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12525.093,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12537.109,
+              "seconds": 12.015999999999622
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12537.359,
+              "seconds": 0.25
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12537.375
+            }
+          ],
+          "voice_end_to_playback_seconds": 13.497999999999593
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "AWAKE",
+        "session": 1,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.06199999999989814,
+          "DORMANT": 2.2340000000003783,
+          "AWAKE": 86.45399999999972,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 1,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.06199999999989814,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 24124,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "SPEAKING",
+          "session_id": "0:1",
+          "last_error": null,
+          "last_transcript": "Dame un ejemplo.",
+          "worker_pid": 11936,
+          "metrics": {
+            "sessions_opened": 1,
+            "sessions_closed": 0,
+            "empty_transcripts": 1,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 2
+          },
+          "timings": {
+            "stt_ready": {
+              "load_seconds": 1.2659999999996217
+            },
+            "transcription_timing": {
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            },
+            "dialogue_timing": {
+              "seconds": 12.015999999999622
+            },
+            "synthesis_first_chunk": {
+              "seconds": 0.25
+            },
+            "turn_completed": {
+              "seconds": 25.89100000000144
+            }
+          },
+          "intelligence": {
+            "interpretation": {
+              "kind": "clarification",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": "No pude consultar el modelo local. ¿Puedes decirlo de forma más directa?",
+              "reason_code": "local_model_unavailable_or_invalid",
+              "response": ""
+            },
+            "route": "fallback",
+            "seconds": 12.013600500000393,
+            "session_id": "0:1",
+            "turn_id": "0:1:4",
+            "request_id": "6c00d32ae71c4308925f07c6a9c796cb",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 4,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "dba2145cf6724627b11e68c8ecb2f245",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "Dame un ejemplo.",
+              "selected_transcript": "Dame un ejemplo.",
+              "normalized_text": "dame un ejemplo",
+              "response": "No pude consultar el modelo local. ¿Puedes decirlo de forma más directa?"
+            },
+            "routes": {
+              "fast": 0,
+              "semantic": 0,
+              "llm": 2,
+              "fallback": 1
+            },
+            "last_error": "TimeoutError: Ollama request timed out"
+          }
+        }
+      },
+      "wake_only_events": [
+        {
+          "kind": "activation_only_or_ambiguous",
+          "session_id": "0:1",
+          "turn_id": "0:1:1",
+          "monotonic": 12459.843,
+          "reason": "wake_audio_boundary"
+        }
+      ],
+      "passed": false
+    },
+    {
+      "name": "F_historical_stt",
+      "wake_events": [
+        {
+          "score": 0.7310512065887451,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "Por favor pon la luz principal de color rojo",
+          "passed": false,
+          "failure_stage": "wake_detection"
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "DORMANT",
+        "session": 0,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.04700000000048021,
+          "DORMANT": 2.2190000000009604,
+          "AWAKE": 0.0,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 0,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.04700000000048021,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 23916,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "IDLE",
+          "session_id": null,
+          "last_error": null,
+          "last_transcript": null,
+          "worker_pid": null,
+          "metrics": {
+            "sessions_opened": 0,
+            "sessions_closed": 0,
+            "empty_transcripts": 0,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 0
+          },
+          "timings": {},
+          "intelligence": null
+        }
+      },
+      "wake_only_events": [],
+      "passed": false
+    }
+  ],
+  "passed": false,
+  "validity": "INVALID as a complete A-F evaluation: harness revision 2 could see IDLE after accepted acoustic wake but before Lifecycle handled the event, prematurely labelling accepted wakes as failures. Revision 3 removes that race, waits for actual wake-only consumption and saves all synthetic voice events. Same stimuli and expectations retained."
+}

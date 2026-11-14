@@ -1,0 +1,2235 @@
+{
+  "method": "Real synthetic Rustpotter→VAD→Moonshine→dialogue→Piper, fixed A–F stimuli.\n\nThis trains a TEMPORARY synthetic wake reference; it never changes the personal\nreference or microphone. Synthetic Capture supplies PCM; playback is physical.\nNo real-user audio or acoustic echo test. Failed original phrases stay failed.\n",
+  "cases": [
+    {
+      "name": "A_lights",
+      "wake_events": [
+        {
+          "score": 0.7310463786125183,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "Pon las luces rojas",
+          "expected_kind": "action_proposal",
+          "expected_intent": "set_light_color",
+          "expected_parameters": {
+            "color": "red"
+          },
+          "primary_transcript": "fargrs",
+          "decision": null,
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12157.656,
+              "vad_probability": 0.9999003410339355
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12158.593,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12157.377
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12158.593,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            }
+          ]
+        },
+        {
+          "expected_text": "No, mejor azules",
+          "expected_kind": "action_proposal",
+          "expected_intent": "set_light_color",
+          "expected_parameters": {
+            "color": "blue"
+          },
+          "primary_transcript": "no se socas",
+          "decision": {
+            "interpretation": {
+              "kind": "negated",
+              "actions": [],
+              "immediate": false,
+              "negated": true,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "explicit_negation",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0010942000008071773,
+            "session_id": "0:1",
+            "turn_id": "0:1:2",
+            "request_id": "510a0773932c4793a2ac488f8076fc42",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 2,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "8aecffff9fbd46ee966f04ada3dbed03",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "no se socas",
+              "selected_transcript": "no se socas",
+              "normalized_text": "no se socas",
+              "response": "Entendido, no propondré esa acción."
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 0,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12159.39,
+              "vad_probability": 0.9999940991401672
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12162.406,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12161.19
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12162.406,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12162.437,
+              "seconds": 0.030999999999039574
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12169.796,
+              "seconds": 7.359000000000378
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12169.812
+            }
+          ]
+        },
+        {
+          "expected_text": "Y bájales el brillo",
+          "expected_kind": "action_proposal",
+          "expected_intent": "set_light_brightness",
+          "expected_parameters": {
+            "delta": -10
+          },
+          "primary_transcript": "que baja de ese brío",
+          "decision": {
+            "interpretation": {
+              "kind": "conversation",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "local_conversation",
+              "response": "Entiendo. No propondré acciones que puedan considerarse como \"bajar de ese brío\"."
+            },
+            "route": "llm",
+            "seconds": 9.130569599999944,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "1d79185897814266be8292865216ed27",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "8aecffff9fbd46ee966f04ada3dbed03",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {
+              "load_duration": 3462783700,
+              "prompt_eval_duration": 4383403000,
+              "eval_duration": 1182757000,
+              "prompt_eval_count": 185,
+              "eval_count": 23,
+              "model": "qwen3:1.7b",
+              "wall_seconds": 9.031000000000859,
+              "total_seconds": 9.125,
+              "metadata_cached": false,
+              "thinking_disabled": true
+            },
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "que baja de ese brío",
+              "selected_transcript": "que baja de ese brío",
+              "normalized_text": "que baja de ese brio",
+              "response": "Entiendo. No propondré acciones que puedan considerarse como \"bajar de ese brío\"."
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12173.953,
+              "vad_probability": 0.9999735355377197
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12177.578,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12176.362
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12177.578,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12186.718,
+              "seconds": 9.140000000001237
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12186.812,
+              "seconds": 0.09399999999914144
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12186.828
+            }
+          ]
+        },
+        {
+          "expected_text": "Mejor al treinta por ciento",
+          "expected_kind": "action_proposal",
+          "expected_intent": "set_light_brightness",
+          "expected_parameters": {
+            "value": 30
+          },
+          "primary_transcript": "mejor al treinta por ciento",
+          "decision": {
+            "interpretation": {
+              "kind": "clarification",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": "¿Qué luz quieres usar?",
+              "reason_code": "missing_or_ambiguous_reference",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0005153000001882901,
+            "session_id": "0:1",
+            "turn_id": "0:1:4",
+            "request_id": "d7869dbad4e542fd865a12eeceb2bdb5",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 4,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "8aecffff9fbd46ee966f04ada3dbed03",
+            "plan_revision": 1,
+            "plan_operation": "hold",
+            "plan_authorization": "pending_clarification",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "mejor al treinta por ciento",
+              "selected_transcript": "mejor al treinta por ciento",
+              "normalized_text": "mejor al treinta por ciento",
+              "response": "¿Qué luz quieres usar?"
+            },
+            "routes": {
+              "fast": 2,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": false,
+          "failure_stage": "interpretation_or_session",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12193.968,
+              "vad_probability": 0.9998886585235596
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12198.781,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12197.565
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12198.781,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12198.781,
+              "seconds": 0.0
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12198.968,
+              "seconds": 0.18699999999989814
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:4",
+              "monotonic": 12198.984
+            }
+          ]
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "AWAKE",
+        "session": 1,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.046000000000276486,
+          "DORMANT": 2.2819999999992433,
+          "AWAKE": 46.0619999999999,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 1,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 3,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.046000000000276486,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 23012,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "SPEAKING",
+          "session_id": "0:1",
+          "last_error": null,
+          "last_transcript": "mejor al treinta por ciento",
+          "worker_pid": 7904,
+          "metrics": {
+            "sessions_opened": 1,
+            "sessions_closed": 0,
+            "empty_transcripts": 1,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 2
+          },
+          "timings": {
+            "stt_ready": {
+              "load_seconds": 1.5160000000014406
+            },
+            "transcription_timing": {
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            },
+            "dialogue_timing": {
+              "seconds": 0.0
+            },
+            "synthesis_first_chunk": {
+              "seconds": 0.18699999999989814
+            },
+            "turn_completed": {
+              "seconds": 18.765000000001237
+            }
+          },
+          "intelligence": {
+            "interpretation": {
+              "kind": "clarification",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": "¿Qué luz quieres usar?",
+              "reason_code": "missing_or_ambiguous_reference",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0005153000001882901,
+            "session_id": "0:1",
+            "turn_id": "0:1:4",
+            "request_id": "d7869dbad4e542fd865a12eeceb2bdb5",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 4,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "8aecffff9fbd46ee966f04ada3dbed03",
+            "plan_revision": 1,
+            "plan_operation": "hold",
+            "plan_authorization": "pending_clarification",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "mejor al treinta por ciento",
+              "selected_transcript": "mejor al treinta por ciento",
+              "normalized_text": "mejor al treinta por ciento",
+              "response": "¿Qué luz quieres usar?"
+            },
+            "routes": {
+              "fast": 2,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          }
+        }
+      },
+      "passed": false
+    },
+    {
+      "name": "B_clarification",
+      "wake_events": [
+        {
+          "score": 0.7310463786125183,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "Abre una aplicación",
+          "expected_kind": "clarification",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "fargrs",
+          "decision": null,
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12205.593,
+              "vad_probability": 0.9999003410339355
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12206.312,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12205.096
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12206.312,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            }
+          ]
+        },
+        {
+          "expected_text": "Steam",
+          "expected_kind": "action_proposal",
+          "expected_intent": "open_application",
+          "expected_parameters": {},
+          "primary_transcript": "abre una aplicación",
+          "decision": {
+            "interpretation": {
+              "kind": "clarification",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": "¿Qué aplicación quieres usar?",
+              "reason_code": "missing_or_ambiguous_reference",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0015583000003971392,
+            "session_id": "0:1",
+            "turn_id": "0:1:2",
+            "request_id": "c95f8feb60d042a2989b59ca5409956f",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 2,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "3a86f444c9f54b34bb9223a9a9d9e7c4",
+            "plan_revision": 1,
+            "plan_operation": "hold",
+            "plan_authorization": "pending_clarification",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "abre una aplicación",
+              "selected_transcript": "abre una aplicación",
+              "normalized_text": "abre una aplicacion",
+              "response": "¿Qué aplicación quieres usar?"
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 0,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12207.265,
+              "vad_probability": 0.9999647736549377
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12211.703,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12210.487
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12211.703,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12211.75,
+              "seconds": 0.0319999999992433
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12220.109,
+              "seconds": 8.359000000000378
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12220.125
+            }
+          ]
+        },
+        {
+          "expected_text": "No, mejor Chrome",
+          "expected_kind": "action_proposal",
+          "expected_intent": "open_application",
+          "expected_parameters": {},
+          "primary_transcript": "No mejor Crom.",
+          "decision": {
+            "interpretation": {
+              "kind": "action_proposal",
+              "actions": [
+                {
+                  "intent": "open_application",
+                  "target": "chrome",
+                  "parameters": {},
+                  "source_clause": "no mejor crom"
+                }
+              ],
+              "immediate": true,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "clarification_resolved",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0044108999991294695,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "a4f04384145f40d58e1e1c68e096b4da",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [
+              {
+                "target": "explicit_current_turn",
+                "parameters": {}
+              }
+            ],
+            "plan_id": "3a86f444c9f54b34bb9223a9a9d9e7c4",
+            "plan_revision": 2,
+            "plan_operation": "replace",
+            "plan_authorization": "validated_simulation",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "No mejor Crom.",
+              "selected_transcript": "No mejor Crom.",
+              "normalized_text": "no mejor crom",
+              "response": "En simulación: abrir chrome. No he ejecutado ninguna acción."
+            },
+            "routes": {
+              "fast": 2,
+              "semantic": 0,
+              "llm": 0,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": true,
+          "failure_stage": null,
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12223.75,
+              "vad_probability": 0.9995899200439453
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12227.765,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12226.548999999999
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12227.781,
+              "finalize_seconds": 0.01600000000144064,
+              "voice_end_to_final_seconds": 1.2320000000017899
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12227.796,
+              "seconds": 0.014999999999417923
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12228.109,
+              "seconds": 0.31300000000010186
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12228.125
+            }
+          ]
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "AWAKE",
+        "session": 1,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.0319999999992433,
+          "DORMANT": 2.25,
+          "AWAKE": 29.70300000000134,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 1,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.0319999999992433,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 25484,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "SPEAKING",
+          "session_id": "0:1",
+          "last_error": null,
+          "last_transcript": "No mejor Crom.",
+          "worker_pid": 23852,
+          "metrics": {
+            "sessions_opened": 1,
+            "sessions_closed": 0,
+            "empty_transcripts": 1,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 1
+          },
+          "timings": {
+            "stt_ready": {
+              "load_seconds": 1.2340000000003783
+            },
+            "transcription_timing": {
+              "finalize_seconds": 0.01600000000144064,
+              "voice_end_to_final_seconds": 1.2320000000017899
+            },
+            "dialogue_timing": {
+              "seconds": 0.014999999999417923
+            },
+            "synthesis_first_chunk": {
+              "seconds": 0.31300000000010186
+            },
+            "turn_completed": {
+              "seconds": 15.188000000000102
+            }
+          },
+          "intelligence": {
+            "interpretation": {
+              "kind": "action_proposal",
+              "actions": [
+                {
+                  "intent": "open_application",
+                  "target": "chrome",
+                  "parameters": {},
+                  "source_clause": "no mejor crom"
+                }
+              ],
+              "immediate": true,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "clarification_resolved",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0044108999991294695,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "a4f04384145f40d58e1e1c68e096b4da",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [
+              {
+                "target": "explicit_current_turn",
+                "parameters": {}
+              }
+            ],
+            "plan_id": "3a86f444c9f54b34bb9223a9a9d9e7c4",
+            "plan_revision": 2,
+            "plan_operation": "replace",
+            "plan_authorization": "validated_simulation",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "No mejor Crom.",
+              "selected_transcript": "No mejor Crom.",
+              "normalized_text": "no mejor crom",
+              "response": "En simulación: abrir chrome. No he ejecutado ninguna acción."
+            },
+            "routes": {
+              "fast": 2,
+              "semantic": 0,
+              "llm": 0,
+              "fallback": 0
+            },
+            "last_error": null
+          }
+        }
+      },
+      "passed": false
+    },
+    {
+      "name": "C_polarity",
+      "wake_events": [
+        {
+          "score": 0.7310463786125183,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "No abras Steam",
+          "expected_kind": "negated",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "fargrs",
+          "decision": null,
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12238.125,
+              "vad_probability": 0.9999003410339355
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12238.843,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12237.627
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12238.859,
+              "finalize_seconds": 0.01599999999962165,
+              "voice_end_to_final_seconds": 1.231999999999971
+            }
+          ]
+        },
+        {
+          "expected_text": "Cuando termine de jugar, abre Steam",
+          "expected_kind": "deferred_request",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "no abraste a",
+          "decision": {
+            "interpretation": {
+              "kind": "negated",
+              "actions": [],
+              "immediate": false,
+              "negated": true,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "explicit_negation",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0005392000002757413,
+            "session_id": "0:1",
+            "turn_id": "0:1:2",
+            "request_id": "64781dcb71094660b96db1328d07b335",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 2,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "91473c38e2af43ca8ee36406ec9de0b0",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "no abraste a",
+              "selected_transcript": "no abraste a",
+              "normalized_text": "no abraste a",
+              "response": "Entendido, no propondré esa acción."
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 0,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12239.609,
+              "vad_probability": 0.999638020992279
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12242.875,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12241.659
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12242.89,
+              "finalize_seconds": 0.014999999999417923,
+              "voice_end_to_final_seconds": 1.2309999999997672
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12242.906,
+              "seconds": 0.0
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12249.703,
+              "seconds": 6.796999999998661
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12249.718
+            }
+          ]
+        },
+        {
+          "expected_text": "Abre Steam",
+          "expected_kind": "action_proposal",
+          "expected_intent": "open_application",
+          "expected_parameters": {},
+          "primary_transcript": "Pobre Stein.",
+          "decision": {
+            "interpretation": {
+              "kind": "conversation",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "local_conversation",
+              "response": "Es una pérdida triste. ¿Hay algo específico que quieras saber sobre él?"
+            },
+            "route": "llm",
+            "seconds": 7.483413800000562,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "b6a423305d1c45fe99ceac48e090ac19",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "91473c38e2af43ca8ee36406ec9de0b0",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {
+              "load_duration": 2647294000,
+              "prompt_eval_duration": 3606609000,
+              "eval_duration": 1046661000,
+              "prompt_eval_count": 184,
+              "eval_count": 19,
+              "model": "qwen3:1.7b",
+              "wall_seconds": 7.311999999999898,
+              "total_seconds": 7.484000000000378,
+              "metadata_cached": false,
+              "thinking_disabled": true
+            },
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "Pobre Stein.",
+              "selected_transcript": "Pobre Stein.",
+              "normalized_text": "pobre stein",
+              "response": "Es una pérdida triste. ¿Hay algo específico que quieras saber sobre él?"
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12253.953,
+              "vad_probability": 0.9999865293502808
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12256.921,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12255.705
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12256.937,
+              "finalize_seconds": 0.01599999999962165,
+              "voice_end_to_final_seconds": 1.231999999999971
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12264.437,
+              "seconds": 7.5
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12264.609,
+              "seconds": 0.1720000000004802
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12264.625
+            }
+          ]
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "AWAKE",
+        "session": 1,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.030999999999039574,
+          "DORMANT": 2.25,
+          "AWAKE": 35.125,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 1,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.030999999999039574,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 12892,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "SPEAKING",
+          "session_id": "0:1",
+          "last_error": null,
+          "last_transcript": "Pobre Stein.",
+          "worker_pid": 2760,
+          "metrics": {
+            "sessions_opened": 1,
+            "sessions_closed": 0,
+            "empty_transcripts": 1,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 1
+          },
+          "timings": {
+            "stt_ready": {
+              "load_seconds": 1.2029999999995198
+            },
+            "transcription_timing": {
+              "finalize_seconds": 0.01599999999962165,
+              "voice_end_to_final_seconds": 1.231999999999971
+            },
+            "dialogue_timing": {
+              "seconds": 7.5
+            },
+            "synthesis_first_chunk": {
+              "seconds": 0.1720000000004802
+            },
+            "turn_completed": {
+              "seconds": 13.07799999999952
+            }
+          },
+          "intelligence": {
+            "interpretation": {
+              "kind": "conversation",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "local_conversation",
+              "response": "Es una pérdida triste. ¿Hay algo específico que quieras saber sobre él?"
+            },
+            "route": "llm",
+            "seconds": 7.483413800000562,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "b6a423305d1c45fe99ceac48e090ac19",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "91473c38e2af43ca8ee36406ec9de0b0",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {
+              "load_duration": 2647294000,
+              "prompt_eval_duration": 3606609000,
+              "eval_duration": 1046661000,
+              "prompt_eval_count": 184,
+              "eval_count": 19,
+              "model": "qwen3:1.7b",
+              "wall_seconds": 7.311999999999898,
+              "total_seconds": 7.484000000000378,
+              "metadata_cached": false,
+              "thinking_disabled": true
+            },
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "Pobre Stein.",
+              "selected_transcript": "Pobre Stein.",
+              "normalized_text": "pobre stein",
+              "response": "Es una pérdida triste. ¿Hay algo específico que quieras saber sobre él?"
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          }
+        }
+      },
+      "passed": false
+    },
+    {
+      "name": "D_cancel",
+      "wake_events": [
+        {
+          "score": 0.7310463786125183,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "Pon las luces azules",
+          "expected_kind": "action_proposal",
+          "expected_intent": "set_light_color",
+          "expected_parameters": {
+            "color": "blue"
+          },
+          "primary_transcript": "fargrs",
+          "decision": null,
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12275.796,
+              "vad_probability": 0.9999003410339355
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12276.562,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12275.346
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12276.578,
+              "finalize_seconds": 0.01599999999962165,
+              "voice_end_to_final_seconds": 1.231999999999971
+            }
+          ]
+        },
+        {
+          "expected_text": "Cancela",
+          "expected_kind": "cancel",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "Bonda Sous es Azudes.",
+          "decision": {
+            "interpretation": {
+              "kind": "conversation",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "local_conversation",
+              "response": "Bonda Sous es Azudes."
+            },
+            "route": "llm",
+            "seconds": 7.209734899999603,
+            "session_id": "0:1",
+            "turn_id": "0:1:2",
+            "request_id": "2a8a7ca831474f208c8b738a2b3f320f",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 2,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "5c1c15b91d804a189207817003c6f9cb",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {
+              "load_duration": 2938378500,
+              "prompt_eval_duration": 3703756000,
+              "eval_duration": 444499000,
+              "prompt_eval_count": 161,
+              "eval_count": 8,
+              "model": "qwen3:1.7b",
+              "wall_seconds": 7.093999999999141,
+              "total_seconds": 7.20299999999952,
+              "metadata_cached": false,
+              "thinking_disabled": true
+            },
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "Bonda Sous es Azudes.",
+              "selected_transcript": "Bonda Sous es Azudes.",
+              "normalized_text": "bonda sous es azudes",
+              "response": "Bonda Sous es Azudes."
+            },
+            "routes": {
+              "fast": 0,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12277.468,
+              "vad_probability": 0.9994461536407471
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12281.718,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12280.487
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12281.718,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2310000000015862
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12288.968,
+              "seconds": 7.25
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12293.703,
+              "seconds": 4.734999999998763
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12293.703
+            }
+          ]
+        },
+        {
+          "expected_text": "No canceles la siguiente solicitud",
+          "expected_kind": "negated",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "No canceles la siguiente sodicito.",
+          "decision": {
+            "interpretation": {
+              "kind": "negated",
+              "actions": [],
+              "immediate": false,
+              "negated": true,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "explicit_negation",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0010397999994893325,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "d838845b60ed4a97a5f4c47cad99d00f",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "5c1c15b91d804a189207817003c6f9cb",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "No canceles la siguiente sodicito.",
+              "selected_transcript": "No canceles la siguiente sodicito.",
+              "normalized_text": "no canceles la siguiente sodicito",
+              "response": "Entendido, no propondré esa acción."
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": true,
+          "failure_stage": null,
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12297.25,
+              "vad_probability": 0.9996823072433472
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12302.531,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12301.315
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12302.546,
+              "finalize_seconds": 0.014999999999417923,
+              "voice_end_to_final_seconds": 1.2309999999997672
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12302.546,
+              "seconds": 0.0
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12302.875,
+              "seconds": 0.3289999999997235
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12302.89
+            }
+          ]
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "AWAKE",
+        "session": 1,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.04700000000048021,
+          "DORMANT": 2.25,
+          "AWAKE": 32.29600000000028,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 1,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.04700000000048021,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 7492,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "SPEAKING",
+          "session_id": "0:1",
+          "last_error": null,
+          "last_transcript": "No canceles la siguiente sodicito.",
+          "worker_pid": 7732,
+          "metrics": {
+            "sessions_opened": 1,
+            "sessions_closed": 0,
+            "empty_transcripts": 1,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 1
+          },
+          "timings": {
+            "stt_ready": {
+              "load_seconds": 1.1720000000004802
+            },
+            "transcription_timing": {
+              "finalize_seconds": 0.014999999999417923,
+              "voice_end_to_final_seconds": 1.2309999999997672
+            },
+            "dialogue_timing": {
+              "seconds": 0.0
+            },
+            "synthesis_first_chunk": {
+              "seconds": 0.3289999999997235
+            },
+            "turn_completed": {
+              "seconds": 18.484999999998763
+            }
+          },
+          "intelligence": {
+            "interpretation": {
+              "kind": "negated",
+              "actions": [],
+              "immediate": false,
+              "negated": true,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "explicit_negation",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0010397999994893325,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "d838845b60ed4a97a5f4c47cad99d00f",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "5c1c15b91d804a189207817003c6f9cb",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "No canceles la siguiente sodicito.",
+              "selected_transcript": "No canceles la siguiente sodicito.",
+              "normalized_text": "no canceles la siguiente sodicito",
+              "response": "Entendido, no propondré esa acción."
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          }
+        }
+      },
+      "passed": false
+    },
+    {
+      "name": "E_conversation",
+      "wake_events": [
+        {
+          "score": 0.7310463786125183,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "¿Qué es la memoria RAM?",
+          "expected_kind": "conversation",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "fargrs",
+          "decision": null,
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12310.875,
+              "vad_probability": 0.9999003410339355
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12311.687,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12310.471
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12311.687,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            }
+          ]
+        },
+        {
+          "expected_text": "Explícamelo más fácil",
+          "expected_kind": "conversation",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "es la memoria arame",
+          "decision": {
+            "interpretation": {
+              "kind": "conversation",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "local_conversation",
+              "response": "La memoria arame es un tipo de memoria de solo lectura que se utiliza en algunos sistemas para almacenar datos temporales o información específica."
+            },
+            "route": "llm",
+            "seconds": 9.068518800000675,
+            "session_id": "0:1",
+            "turn_id": "0:1:2",
+            "request_id": "0c3e91e8519b4357b9791292f8995eb7",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 2,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "5b3c56aae5bb4bd2bb3a091ad3ba81b3",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {
+              "load_duration": 3730943900,
+              "prompt_eval_duration": 3563438000,
+              "eval_duration": 1658629000,
+              "prompt_eval_count": 159,
+              "eval_count": 30,
+              "model": "qwen3:1.7b",
+              "wall_seconds": 8.968999999999141,
+              "total_seconds": 9.063000000000102,
+              "metadata_cached": false,
+              "thinking_disabled": true
+            },
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "es la memoria arame",
+              "selected_transcript": "es la memoria arame",
+              "normalized_text": "es la memoria arame",
+              "response": "La memoria arame es un tipo de memoria de solo lectura que se utiliza en algunos sistemas para almacenar datos temporales o información específica."
+            },
+            "routes": {
+              "fast": 0,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": true,
+          "failure_stage": null,
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12312.453,
+              "vad_probability": 0.9999016523361206
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12315.953,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12314.737
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12315.984,
+              "finalize_seconds": 0.031000000000858563,
+              "voice_end_to_final_seconds": 1.2470000000012078
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12325.078,
+              "seconds": 9.093999999999141
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12330.593,
+              "seconds": 5.515000000001237
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12330.609
+            }
+          ]
+        },
+        {
+          "expected_text": "Dame un ejemplo",
+          "expected_kind": "conversation",
+          "expected_intent": null,
+          "expected_parameters": null,
+          "primary_transcript": "Dame un ejemplo.",
+          "decision": {
+            "interpretation": {
+              "kind": "clarification",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": "No pude consultar el modelo local. ¿Puedes decirlo de forma más directa?",
+              "reason_code": "local_model_unavailable_or_invalid",
+              "response": ""
+            },
+            "route": "fallback",
+            "seconds": 12.004700700001194,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "bfab9e00757b4b9ea000b374e4394360",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "5b3c56aae5bb4bd2bb3a091ad3ba81b3",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "Dame un ejemplo.",
+              "selected_transcript": "Dame un ejemplo.",
+              "normalized_text": "dame un ejemplo",
+              "response": "No pude consultar el modelo local. ¿Puedes decirlo de forma más directa?"
+            },
+            "routes": {
+              "fast": 0,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 1
+            },
+            "last_error": "TimeoutError: Ollama request timed out"
+          },
+          "passed": false,
+          "failure_stage": "interpretation_or_session",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12341.406,
+              "vad_probability": 0.9999672174453735
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12344.89,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12343.673999999999
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12344.89,
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12356.906,
+              "seconds": 12.01600000000144
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12357.171,
+              "seconds": 0.2649999999994179
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:3",
+              "monotonic": 12357.187
+            }
+          ]
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "AWAKE",
+        "session": 1,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.031000000000858563,
+          "DORMANT": 2.25,
+          "AWAKE": 54.54700000000048,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 1,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.031000000000858563,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 9352,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "SPEAKING",
+          "session_id": "0:1",
+          "last_error": null,
+          "last_transcript": "Dame un ejemplo.",
+          "worker_pid": 14720,
+          "metrics": {
+            "sessions_opened": 1,
+            "sessions_closed": 0,
+            "empty_transcripts": 1,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 1
+          },
+          "timings": {
+            "stt_ready": {
+              "load_seconds": 1.3130000000001019
+            },
+            "transcription_timing": {
+              "finalize_seconds": 0.0,
+              "voice_end_to_final_seconds": 1.2160000000003492
+            },
+            "dialogue_timing": {
+              "seconds": 12.01600000000144
+            },
+            "synthesis_first_chunk": {
+              "seconds": 0.2649999999994179
+            },
+            "turn_completed": {
+              "seconds": 27.70300000000134
+            }
+          },
+          "intelligence": {
+            "interpretation": {
+              "kind": "clarification",
+              "actions": [],
+              "immediate": false,
+              "negated": false,
+              "condition": null,
+              "clarification_question": "No pude consultar el modelo local. ¿Puedes decirlo de forma más directa?",
+              "reason_code": "local_model_unavailable_or_invalid",
+              "response": ""
+            },
+            "route": "fallback",
+            "seconds": 12.004700700001194,
+            "session_id": "0:1",
+            "turn_id": "0:1:3",
+            "request_id": "bfab9e00757b4b9ea000b374e4394360",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 3,
+            "validation": "validated",
+            "evidence": [],
+            "plan_id": "5b3c56aae5bb4bd2bb3a091ad3ba81b3",
+            "plan_revision": 0,
+            "plan_operation": "none",
+            "plan_authorization": "none",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "Dame un ejemplo.",
+              "selected_transcript": "Dame un ejemplo.",
+              "normalized_text": "dame un ejemplo",
+              "response": "No pude consultar el modelo local. ¿Puedes decirlo de forma más directa?"
+            },
+            "routes": {
+              "fast": 0,
+              "semantic": 0,
+              "llm": 1,
+              "fallback": 1
+            },
+            "last_error": "TimeoutError: Ollama request timed out"
+          }
+        }
+      },
+      "passed": false
+    },
+    {
+      "name": "F_historical_stt",
+      "wake_events": [
+        {
+          "score": 0.7310463786125183,
+          "manual": false
+        }
+      ],
+      "rows": [
+        {
+          "expected_text": "Por favor pon la luz principal de color rojo",
+          "expected_kind": "action_proposal",
+          "expected_intent": "set_light_color",
+          "expected_parameters": {
+            "color": "red"
+          },
+          "primary_transcript": "fargrs",
+          "decision": null,
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12367.796,
+              "vad_probability": 0.9999003410339355
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12368.64,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12367.423999999999
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:1",
+              "monotonic": 12368.656,
+              "finalize_seconds": 0.01600000000144064,
+              "voice_end_to_final_seconds": 1.2320000000017899
+            }
+          ]
+        },
+        {
+          "expected_text": "Mejor azules",
+          "expected_kind": "action_proposal",
+          "expected_intent": "set_light_color",
+          "expected_parameters": {
+            "color": "blue"
+          },
+          "primary_transcript": "por favor pon la luz principal de color rojo",
+          "decision": {
+            "interpretation": {
+              "kind": "action_proposal",
+              "actions": [
+                {
+                  "intent": "set_light_color",
+                  "target": "main_light",
+                  "parameters": {
+                    "color": "red"
+                  },
+                  "source_clause": "pon la luz principal de color rojo"
+                }
+              ],
+              "immediate": true,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "explicit_immediate_request",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0024503999993612524,
+            "session_id": "0:1",
+            "turn_id": "0:1:2",
+            "request_id": "262723d4756242d488b56fabb0b624e3",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 2,
+            "validation": "validated",
+            "evidence": [
+              {
+                "target": "explicit_current_turn",
+                "parameters": {
+                  "color": "explicit_current_turn"
+                }
+              }
+            ],
+            "plan_id": "53eca5307e4f436896c60f03f66ff13b",
+            "plan_revision": 1,
+            "plan_operation": "replace",
+            "plan_authorization": "validated_simulation",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "por favor pon la luz principal de color rojo",
+              "selected_transcript": "por favor pon la luz principal de color rojo",
+              "normalized_text": "por favor pon la luz principal de color rojo",
+              "response": "En simulación: cambiar el color de la luz principal a rojo. No he ejecutado ninguna acción."
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 0,
+              "fallback": 0
+            },
+            "last_error": null
+          },
+          "passed": false,
+          "failure_stage": "stt_or_normalization",
+          "timing_events": [
+            {
+              "kind": "speech_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12369.453,
+              "vad_probability": 0.9999822378158569
+            },
+            {
+              "kind": "speech_ended",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12375.453,
+              "reason": "silence",
+              "estimated_voice_end_monotonic": 12374.237
+            },
+            {
+              "kind": "transcription_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12375.484,
+              "finalize_seconds": 0.031000000000858563,
+              "voice_end_to_final_seconds": 1.2470000000012078
+            },
+            {
+              "kind": "dialogue_timing",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12375.5,
+              "seconds": 0.01599999999962165
+            },
+            {
+              "kind": "synthesis_first_chunk",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12382.937,
+              "seconds": 7.436999999999898
+            },
+            {
+              "kind": "playback_started",
+              "session_id": "0:1",
+              "turn_id": "0:1:2",
+              "monotonic": 12382.953
+            }
+          ]
+        }
+      ],
+      "snapshot_before_stop": {
+        "state": "AWAKE",
+        "session": 1,
+        "generation": 0,
+        "state_seconds": {
+          "STARTING": 0.031000000000858563,
+          "DORMANT": 2.25,
+          "AWAKE": 23.84399999999914,
+          "PAUSED": 0.0,
+          "DEGRADED": 0.0,
+          "STOPPING": 0.0
+        },
+        "activations": 1,
+        "restarts": 0,
+        "capture_failures": 0,
+        "dropped_blocks": 0,
+        "queue_peak": 1,
+        "capture_overflows": 0,
+        "initialization_seconds": 0.031000000000858563,
+        "last_error": null,
+        "consecutive_failures": 0,
+        "retry_at_monotonic": null,
+        "capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_device": {
+          "name": "SYNTHETIC PHASE31 PCM"
+        },
+        "last_capture_rate": 16000,
+        "detector_pid": 15020,
+        "voice": {
+          "enabled": true,
+          "engine": "moonshine-small",
+          "model": "moonshine-small",
+          "voice": "es_MX-ald-medium",
+          "tts_enabled": true,
+          "state": "SPEAKING",
+          "session_id": "0:1",
+          "last_error": null,
+          "last_transcript": "por favor pon la luz principal de color rojo",
+          "worker_pid": 13768,
+          "metrics": {
+            "sessions_opened": 1,
+            "sessions_closed": 0,
+            "empty_transcripts": 1,
+            "errors": 0,
+            "cancelled": 0,
+            "audio_dropped": 0,
+            "turns": 0
+          },
+          "timings": {
+            "stt_ready": {
+              "load_seconds": 1.235000000000582
+            },
+            "transcription_timing": {
+              "finalize_seconds": 0.031000000000858563,
+              "voice_end_to_final_seconds": 1.2470000000012078
+            },
+            "dialogue_timing": {
+              "seconds": 0.01599999999962165
+            },
+            "synthesis_first_chunk": {
+              "seconds": 7.436999999999898
+            }
+          },
+          "intelligence": {
+            "interpretation": {
+              "kind": "action_proposal",
+              "actions": [
+                {
+                  "intent": "set_light_color",
+                  "target": "main_light",
+                  "parameters": {
+                    "color": "red"
+                  },
+                  "source_clause": "pon la luz principal de color rojo"
+                }
+              ],
+              "immediate": true,
+              "negated": false,
+              "condition": null,
+              "clarification_question": null,
+              "reason_code": "explicit_immediate_request",
+              "response": ""
+            },
+            "route": "fast",
+            "seconds": 0.0024503999993612524,
+            "session_id": "0:1",
+            "turn_id": "0:1:2",
+            "request_id": "262723d4756242d488b56fabb0b624e3",
+            "simulated": true,
+            "executed": false,
+            "end_session": false,
+            "context_revision": 2,
+            "validation": "validated",
+            "evidence": [
+              {
+                "target": "explicit_current_turn",
+                "parameters": {
+                  "color": "explicit_current_turn"
+                }
+              }
+            ],
+            "plan_id": "53eca5307e4f436896c60f03f66ff13b",
+            "plan_revision": 1,
+            "plan_operation": "replace",
+            "plan_authorization": "validated_simulation",
+            "llm_metrics": {},
+            "stt_recovery": "not_needed",
+            "turn_trace": {
+              "original_transcript": "por favor pon la luz principal de color rojo",
+              "selected_transcript": "por favor pon la luz principal de color rojo",
+              "normalized_text": "por favor pon la luz principal de color rojo",
+              "response": "En simulación: cambiar el color de la luz principal a rojo. No he ejecutado ninguna acción."
+            },
+            "routes": {
+              "fast": 1,
+              "semantic": 0,
+              "llm": 0,
+              "fallback": 0
+            },
+            "last_error": null
+          }
+        }
+      },
+      "passed": false
+    }
+  ],
+  "passed": false,
+  "validity": "INVALID for per-command accuracy: fixed two-second wake preparation could attribute the wake-only transcript or the previous command to the next stimulus. Preserved as a failed harness run; no STT accuracy claim. Corrected harness waits for activation-only and listening events with the SAME phrases."
+}

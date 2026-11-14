@@ -33,4 +33,12 @@ Si faltan servicio, dependencias, modelos o calibración, las rutas disponibles 
 
 ## Límites
 
+### Revisión 0.3.1
+
+El turno se analiza sobre copias del contexto. Solo se publica después de validar y volver a comprobar identidad, revisión, caducidad y cancelación. Las respuestas tardías no pueden modificar otra sesión; un rechazo no conserva mutaciones parciales. La recuperación STT utiliza el mismo ticket anterior a su trabajo.
+
+El plan tiene identificador, revisión, elementos con origen/evidencia/dependencias y operaciones append/modify/replace/cancel. Mantiene hasta ocho elementos activos y 32 entradas históricas. La autorización distingue simulación validada, aclaración pendiente, cancelación y retención explícita; una corrección abreviada no reactiva un plan retenido. Los estados describen propuestas, nunca ejecuciones físicas.
+
+La autorización revisa el turno completo aunque la propuesta venga de ruta rápida, semántica, LLM o corrección. Reconstruye evidencia contextual y comprueba cláusula, operación, objetivo y parámetros. El vocabulario de alcance no reconocido fuera de consultas literales provoca abstención. Esta medida reduce flexibilidad y no equivale a comprender todo el español. El [informe 3.1](phase_3_1.md) publica el coste medido.
+
 Las guardas y el catálogo son conservadores y dependen de expresiones lingüísticas conocidas. La conversación usa historia recortada por caracteres, una aproximación al presupuesto de tokens. La precisión end-to-end depende del STT: las pruebas sintéticas detectaron errores en frases cortas. La similitud semántica y los modelos crudos cometieron errores en las comparaciones; no se presentan como clasificadores fiables por sí solos. No hay memoria permanente, acceso a Internet conversacional, automatización real ni integraciones de Fase 4.
