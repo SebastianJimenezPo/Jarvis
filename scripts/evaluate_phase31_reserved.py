@@ -25,7 +25,11 @@ def main():
     parser.add_argument('--hybrid',action='store_true')
     parser.add_argument('--allow-new-engine',action='store_true',help='Record engine change explicitly; never pretend original engine seal still matches.')
     args=parser.parse_args();raw=args.dataset.read_bytes();data=json.loads(raw)
-    changed=[name for name,digest in data['engine_sha256'].items() if hashlib.sha256(Path(name).read_bytes()).hexdigest()!=digest]
+    def engine_digest(path):
+        raw=Path(path).read_bytes()
+        if data.get('engine_hash_mode')=='utf8_lf':raw=raw.replace(b'\r\n',b'\n')
+        return hashlib.sha256(raw).hexdigest()
+    changed=[name for name,digest in data['engine_sha256'].items() if engine_digest(name)!=digest]
     if changed and not args.allow_new_engine:raise RuntimeError('Engine changed after sealing: '+', '.join(changed))
     if args.output.exists():raise RuntimeError('Evaluation result already exists; preserve earlier runs')
     old=set()
@@ -37,7 +41,8 @@ def main():
     rows=[];manager=DialogueManager(data_dir(),replace(IntelligenceConfig(),llm_enabled=args.hybrid,semantic_enabled=args.hybrid))
     report={'dataset_sha256':hashlib.sha256(raw).hexdigest(),'split':args.split,'hybrid':args.hybrid,
         'commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'engine_changed_since_dataset_seal':changed,
-        'engine_sha256_current':{p.as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(Path('jarvis/intelligence').glob('*.py'))},
+        'engine_hash_mode':data.get('engine_hash_mode','raw_bytes'),
+        'engine_sha256_current':{p.as_posix():engine_digest(p) for p in sorted(Path('jarvis/intelligence').glob('*.py'))},
         'limits':data['limits'],'rows':rows}
     selected=data['general_cases' if args.split=='general' else 'critical_safety_cases']
     try:
