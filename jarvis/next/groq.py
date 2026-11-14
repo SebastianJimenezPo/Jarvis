@@ -105,13 +105,16 @@ Si el referente no existe o hay varios candidatos, clarify, no inventes un ID. C
 class GroqProvider:
     capabilities = ProviderCapabilities('groq', remote=True)
 
-    def __init__(self, api_key=None, *, enabled=False, free_tier_confirmed=False, connection_factory=None, model=MODEL):
+    def __init__(self, api_key=None, *, enabled=False, free_tier_confirmed=False, connection_factory=None, model=MODEL, reasoning_effort='low'):
         # Opt-in and Free-account attestation precede reading the environment.
         # The API does not attest the billing tier; this never upgrades an account.
         self._enabled = enabled is True and free_tier_confirmed is True
         if model not in MODELS:
             raise ValueError('Unapproved pilot model')
         self.model = model
+        if reasoning_effort not in ('low', 'medium'):
+            raise ValueError('Unapproved reasoning budget')
+        self.reasoning_effort = reasoning_effort
         if self._enabled and api_key is None:
             from .credentials import read_groq_key
             api_key = read_groq_key()
@@ -146,7 +149,7 @@ class GroqProvider:
         payload = {'model': self.model, 'messages': [{'role': 'system', 'content': PROMPT},
             {'role': 'user', 'content': json.dumps(data, ensure_ascii=False, separators=(',', ':'))}],
             'response_format': {'type': 'json_schema', 'json_schema': {'name': 'jarvis_decision', 'strict': True, 'schema': strict_schema()}},
-            'max_completion_tokens': 1024, 'reasoning_effort': 'low', 'stream': False, 'n': 1}
+            'max_completion_tokens': 1024, 'reasoning_effort': self.reasoning_effort, 'stream': False, 'n': 1}
         try:
             with self._lock:
                 if self._closed:

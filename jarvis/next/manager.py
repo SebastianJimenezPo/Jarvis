@@ -176,7 +176,7 @@ class ActionManager:
                      'cancel_subset', 'cancel_all', 'hold', 'query_state')
         if decision.operation not in supported:
             return
-        if not decision.evidence or decision.evidence.start != 0 or decision.evidence.end != len(ticket.text):
+        if not decision.evidence:
             raise PolicyError('scope')
         if decision.operation not in ('cancel_all', 'hold') and decision.temporal != 'now':
             raise PolicyError('temporal')
@@ -186,7 +186,7 @@ class ActionManager:
         if expires <= now:
             raise StaleDecision()
         view = PlanReview(review_id=uuid.uuid4().hex, operation=decision.operation,
-            base_revision=self._context.revision, proposed_plan=proposed, expires_in_seconds=expires-now)
+            source_text=ticket.text, base_revision=self._context.revision, proposed_plan=proposed, expires_in_seconds=expires-now)
         self._pending = PendingReview(ticket, decision.model_copy(deep=True), view,
             tuple(call.model_copy(deep=True) for call in touched), expires)
 

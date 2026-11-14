@@ -132,6 +132,7 @@ class ToolResult(Record):
 class PlanReview(Record):
     review_id: StrictStr
     operation: Operation
+    source_text: StrictStr = Field(min_length=1, max_length=1600)
     base_revision: StrictInt
     proposed_plan: ContextView
     expires_in_seconds: float = Field(gt=0)

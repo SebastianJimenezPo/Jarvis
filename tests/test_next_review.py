@@ -205,3 +205,22 @@ def test_cancellation_during_confirmation_validation_prevents_commit():
         assert not result.plan.items
     finally:
         e.close()
+
+
+def test_review_binds_full_request_even_when_model_cites_only_affected_clause():
+    text = 'Conserva los demás, pero quita Steam'
+    def respond(req):
+        fragment = 'quita Steam'
+        return Decision(operation='cancel_subset', plan_id=req.context.plan_id, expected_revision=req.context.revision,
+            temporal='now', evidence=Span(start=text.index(fragment), end=len(text)),
+            action_ids=(req.context.items[0].action_id,))
+    e, _ = make(respond)
+    try:
+        first = e.interpret('Abre Steam')
+        draft = e.interpret(text)
+        assert draft.review is not None and draft.plan == first.plan
+        assert draft.review.source_text == text
+        accepted = confirm(e, draft)
+        assert not accepted.plan.items and not accepted.executed
+    finally:
+        e.close()

@@ -1,0 +1,319 @@
+{
+  "method": "Focused DEVELOPMENT regression after observed pilot failures; not reserved or independent. Same cases, reviewed locally. Joint policy/reasoning changes cannot be attributed solely to model reasoning.",
+  "cases": [
+    {
+      "id": "apps",
+      "turns": [
+        {
+          "text": "Abre Steam",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "steam",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "No, mejor Spotify",
+          "decision": {
+            "operation": "modify_plan",
+            "changes": [
+              {
+                "match": {
+                  "tool": "applications.open",
+                  "target": "steam"
+                },
+                "target": "spotify"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Y abre Discord",
+          "decision": {
+            "operation": "append_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "discord",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            },
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Quita Discord y conserva Spotify",
+          "decision": {
+            "operation": "cancel_subset",
+            "remove": [
+              {
+                "tool": "applications.open",
+                "target": "discord"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "decision": {
+            "operation": "cancel_all"
+          },
+          "expected_plan": []
+        }
+      ]
+    },
+    {
+      "id": "compound",
+      "turns": [
+        {
+          "text": "Abre Steam, volumen al veinte y pausa la música",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "steam",
+                "parameters": {}
+              },
+              {
+                "tool": "system_audio.set_volume",
+                "target": "system_audio",
+                "parameters": {
+                  "value": 20
+                }
+              },
+              {
+                "tool": "media.pause",
+                "target": "music_player",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            },
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 20
+              }
+            },
+            {
+              "tool": "media.pause",
+              "target": "music_player",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Conserva Steam y el volumen, pero quita lo de la música",
+          "decision": {
+            "operation": "cancel_subset",
+            "remove": [
+              {
+                "tool": "media.pause",
+                "target": "music_player"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            },
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 20
+              }
+            }
+          ]
+        },
+        {
+          "text": "Y silencia el audio",
+          "decision": {
+            "operation": "append_plan",
+            "actions": [
+              {
+                "tool": "system_audio.set_mute",
+                "target": "system_audio",
+                "parameters": {
+                  "muted": true
+                }
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            },
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 20
+              }
+            },
+            {
+              "tool": "system_audio.set_mute",
+              "target": "system_audio",
+              "parameters": {
+                "muted": true
+              }
+            }
+          ]
+        },
+        {
+          "text": "Sustituye todo por abrir Chrome",
+          "decision": {
+            "operation": "replace_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "chrome",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "chrome",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Todavía no hagas nada",
+          "decision": {
+            "operation": "hold"
+          },
+          "expected_plan": null
+        },
+        {
+          "text": "Abre Spotify",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "spotify",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guard01",
+      "turns": [
+        {
+          "text": "No abras Steam",
+          "decision": {
+            "operation": "negated",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "guard04",
+      "turns": [
+        {
+          "text": "El manual dice: \"abre Steam\"",
+          "decision": {
+            "operation": "conversation",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "guard05",
+      "turns": [
+        {
+          "text": "¿Qué pasaría si abriera Discord?",
+          "decision": {
+            "operation": "hypothetical",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "natural-read",
+      "turns": [
+        {
+          "text": "Dime el volumen real del equipo",
+          "decision": {
+            "operation": "query_state",
+            "actions": [
+              {
+                "tool": "system_audio.get_volume",
+                "target": "system_audio",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": null
+        }
+      ]
+    }
+  ]
+}

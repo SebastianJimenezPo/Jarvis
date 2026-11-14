@@ -35,7 +35,7 @@ def fixture_decision(row, request):
         actions=actions, changes=changes, action_ids=tuple(local_id(s) for s in spec.get('remove', [])))
 
 
-def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=False, timeout=8.0, interval=6.0, max_turns=32, model='openai/gpt-oss-20b'):
+def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=False, timeout=8.0, interval=6.0, max_turns=32, model='openai/gpt-oss-20b', reasoning_effort='low'):
     import psutil
     if provider_kind not in ('fixture', 'offline', 'groq'):
         raise ValueError('Unknown provider')
@@ -45,7 +45,8 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
         raise ValueError('Pilot limit is 1..40 turns')
     if provider_kind == 'groq' and (not allow_remote or not free_tier or not math.isfinite(interval) or interval < 6):
         raise ValueError('Remote opt-in, Free attestation and >=6-second interval required')
-    report = {'provider': provider_kind, 'model': model if provider_kind == 'groq' else None, 'method': data['method'], 'commit': subprocess.check_output(
+    report = {'provider': provider_kind, 'model': model if provider_kind == 'groq' else None,
+        'reasoning_effort': reasoning_effort if provider_kind == 'groq' else None, 'method': data['method'], 'commit': subprocess.check_output(
         ['git', 'rev-parse', 'HEAD'], text=True).strip(), 'status': 'running', 'rows': [],
         'max_turns': max_turns, 'available_turns': sum(len(c['turns']) for c in data['cases']),
         'limits': 'Development cases. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.'}
@@ -65,7 +66,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
         provider = FakeProvider(lambda req, _: ProviderReply(decision_json=fixture_decision(active[0], req).model_dump_json()))
     elif provider_kind == 'groq':
         from jarvis.next.groq import GroqProvider
-        provider = GroqProvider(api_key=remote_key, enabled=True, free_tier_confirmed=True, model=model)
+        provider = GroqProvider(api_key=remote_key, enabled=True, free_tier_confirmed=True, model=model, reasoning_effort=reasoning_effort)
     else:
         provider = None
     engine = NextEngine(provider, timeout=timeout, review_enabled=True)
@@ -161,10 +162,12 @@ def main():
     parser.add_argument('--max-turns', type=int, default=32)
     parser.add_argument('--interval-seconds', type=float, default=6.0)
     parser.add_argument('--model', choices=['openai/gpt-oss-20b', 'openai/gpt-oss-120b'], default='openai/gpt-oss-20b')
+    parser.add_argument('--reasoning-effort', choices=['low', 'medium'], default='low')
     args = parser.parse_args()
     try:
         report = run_pilot(json.loads(args.dataset.read_text(encoding='utf-8')), args.provider, output=args.output,
-            allow_remote=args.allow_remote, free_tier=args.free_tier, max_turns=args.max_turns, interval=args.interval_seconds, model=args.model)
+            allow_remote=args.allow_remote, free_tier=args.free_tier, max_turns=args.max_turns, interval=args.interval_seconds,
+            model=args.model, reasoning_effort=args.reasoning_effort)
     except ValueError:
         parser.error('Check output path, turn limit, remote opt-in and Free account attestation.')
     print(json.dumps({'status': report['status'], 'summary': report.get('summary')}, indent=2))
