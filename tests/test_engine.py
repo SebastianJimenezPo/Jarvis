@@ -7,6 +7,8 @@ import numpy as np
 import pytest
 from jarvis.wakeword.rustpotter_adapter import RustpotterDetector, engine_path
 
+pytestmark=pytest.mark.native
+
 
 @pytest.fixture(scope="module")
 def reference(tmp_path_factory):

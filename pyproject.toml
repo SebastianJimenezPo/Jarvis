@@ -22,3 +22,9 @@ include = ["jarvis*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+  "models: requires explicitly installed local model assets",
+  "native: requires the locally compiled Rustpotter helper",
+  "gui: requires interactive Windows Qt/tray facilities",
+  "hardware: requires microphone, speakers or other physical user hardware",
+]

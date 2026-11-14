@@ -2,9 +2,12 @@ import json
 import subprocess
 import sys
 import time
+import pytest
 from dataclasses import replace
 from pathlib import Path
 from jarvis.core.config import Config, save
+
+pytestmark=pytest.mark.gui
 
 
 def test_pythonw_launcher_in_path_with_spaces(tmp_path):

@@ -65,6 +65,7 @@ def test_invalid_intelligence_config_falls_back_to_phase2(tmp_path):
     assert isinstance(make_provider(tmp_path),Phase2ResponseProvider)
 
 
+@pytest.mark.models
 def test_real_semantic_path_when_models_explicitly_installed():
     from jarvis.core.config import data_dir
     root=data_dir()
