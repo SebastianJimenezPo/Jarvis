@@ -27,12 +27,14 @@ class ActionPlan:
     plan_id:str=field(default_factory=lambda:uuid.uuid4().hex)
     revision:int=0
     items:list[PlanItem]=field(default_factory=list)
+    authorization:str='none'
 
     def active(self):return [item for item in self.items if item.status=='validated']
 
     def apply(self,actions,operation,source,evidence):
         if operation not in ('replace','append','modify'):raise ValueError('Unknown plan operation')
         self.revision+=1
+        self.authorization='validated_simulation'
         for item in self.items:
             if item.status in ('proposed','pending_clarification'):item.status='replaced'
         if operation=='replace':
@@ -54,6 +56,7 @@ class ActionPlan:
 
     def hold(self,pending,source):
         self.revision+=1
+        self.authorization='pending_clarification'
         for item in self.items:
             if item.status in ('proposed','pending_clarification'):item.status='replaced'
         pending_id=uuid.uuid4().hex
@@ -68,12 +71,17 @@ class ActionPlan:
         for item in self.items:
             if item.status in ('validated','proposed','pending_clarification') and (group is None or entity_type(item.intent)==group):
                 item.status='cancelled'
+        if not self.active():self.authorization='cancelled'
+
+    def withhold(self):
+        self.revision+=1;self.authorization='withheld'
 
     def snapshot(self):return asdict(self)
 
     @classmethod
     def restore(cls,data):
-        plan=cls(plan_id=str(data['plan_id']),revision=int(data['revision']))
+        plan=cls(plan_id=str(data['plan_id']),revision=int(data['revision']),authorization=data.get('authorization','none'))
+        if plan.authorization not in ('none','validated_simulation','pending_clarification','cancelled','withheld'):raise ValueError('Invalid plan authorization')
         for row in data.get('items',[])[-32:]:
             item=PlanItem(**row)
             if item.status not in ('proposed','pending_clarification','validated','replaced','cancelled'):raise ValueError('Invalid simulated plan state')

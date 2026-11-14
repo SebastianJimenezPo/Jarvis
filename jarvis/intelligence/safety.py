@@ -13,6 +13,8 @@ class SafetyValidator:
         normalized=normalize(text);normalized=replacement_request(normalized) or normalized;speech=analyze(normalized)
         if speech.kind in ('unsupported','hypothetical','deferred_request','preference','conversation','cancel') or speech.reason=='whole_turn_veto':
             raise ValueError('Speech act does not authorize immediate proposals')
+        if context.plan.authorization=='withheld' and not explicit_request(normalized):
+            raise ValueError('An abbreviated correction cannot rearm a withheld plan')
         clauses=split_clauses(normalized)
         evidence=[]
         for a in result.actions:

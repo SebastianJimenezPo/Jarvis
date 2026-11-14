@@ -1,0 +1,108 @@
+{
+  "method": "Actual ONNX lifecycle in a fresh process; Python tracked allocations are not total RAM.",
+  "semantic_stages": [
+    {
+      "stage": "direct_and_general_without_e5",
+      "memory_info": {
+        "rss": 44662784,
+        "vms": 535678976,
+        "num_page_faults": 11774,
+        "peak_wset": 44662784,
+        "wset": 44662784,
+        "peak_paged_pool": 235472,
+        "paged_pool": 235472,
+        "peak_nonpaged_pool": 22696,
+        "nonpaged_pool": 22568,
+        "pagefile": 535678976,
+        "peak_pagefile": 535678976,
+        "private": 535678976
+      },
+      "python_traced_current_bytes": 103719,
+      "semantic_loaded": false
+    },
+    {
+      "stage": "semantic_loaded",
+      "memory_info": {
+        "rss": 820432896,
+        "vms": 1341771776,
+        "num_page_faults": 617339,
+        "peak_wset": 1191194624,
+        "wset": 820432896,
+        "peak_paged_pool": 323384,
+        "paged_pool": 322968,
+        "peak_nonpaged_pool": 35400,
+        "nonpaged_pool": 34672,
+        "pagefile": 1341771776,
+        "peak_pagefile": 1866936320,
+        "private": 1341771776
+      },
+      "python_traced_current_bytes": 1247131,
+      "semantic_loaded": true
+    },
+    {
+      "stage": "general_after_semantic",
+      "memory_info": {
+        "rss": 820441088,
+        "vms": 1341771776,
+        "num_page_faults": 617341,
+        "peak_wset": 1191194624,
+        "wset": 820441088,
+        "peak_paged_pool": 323384,
+        "paged_pool": 322968,
+        "peak_nonpaged_pool": 35400,
+        "nonpaged_pool": 34672,
+        "pagefile": 1341771776,
+        "peak_pagefile": 1866936320,
+        "private": 1341771776
+      },
+      "python_traced_current_bytes": 1251504,
+      "semantic_loaded": true
+    },
+    {
+      "stage": "explicit_onnx_unload",
+      "memory_info": {
+        "rss": 78249984,
+        "vms": 594575360,
+        "num_page_faults": 617468,
+        "peak_wset": 1191194624,
+        "wset": 78249984,
+        "peak_paged_pool": 323384,
+        "paged_pool": 322968,
+        "peak_nonpaged_pool": 35400,
+        "nonpaged_pool": 30456,
+        "pagefile": 594575360,
+        "peak_pagefile": 1866936320,
+        "private": 594575360
+      },
+      "python_traced_current_bytes": 1181811,
+      "semantic_loaded": false
+    },
+    {
+      "stage": "fresh_semantic_reload",
+      "memory_info": {
+        "rss": 823463936,
+        "vms": 1345138688,
+        "num_page_faults": 1214020,
+        "peak_wset": 1196670976,
+        "wset": 823463936,
+        "peak_paged_pool": 323384,
+        "paged_pool": 322968,
+        "peak_nonpaged_pool": 35400,
+        "nonpaged_pool": 34672,
+        "pagefile": 1345138688,
+        "peak_pagefile": 1904697344,
+        "private": 1345138688
+      },
+      "python_traced_current_bytes": 1256694,
+      "semantic_loaded": true
+    }
+  ],
+  "semantic_process_exited": true,
+  "silent_voice_worker": {
+    "configured_retention_seconds": 20,
+    "elapsed_until_worker_released": 22.639999999999418,
+    "worker_released": true,
+    "voice_error": null
+  },
+  "limits": "RSS includes Python interpreter plus native allocations and mappings. tracemalloc only tracks participating Python allocations; subtracting it from RSS is not a measurement of native/reserved memory. Windows private/pagefile fields are reported raw, not claimed as virtual reservation. External Ollama is excluded; its separate benchmark includes its own full tree. No mic or playback."
+}

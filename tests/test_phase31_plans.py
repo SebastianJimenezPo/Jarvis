@@ -62,3 +62,17 @@ def test_held_partial_plan_depends_on_clarification(tmp_path):
     m.interpret('Chrome')
     assert {item.target for item in m.context.plan.active()}=={'chrome','steam'}
     assert not any(item.status=='pending_clarification' for item in m.context.plan.items)
+
+
+def test_postponement_blocks_plan_without_losing_referents(tmp_path):
+    m=manager(tmp_path);m.interpret('Abre Steam y pon las luces rojas')
+    d,_=m.interpret('Pero todavía no hagas nada')
+    assert not d.interpretation.actions
+    assert m.context.plan.authorization=='withheld'
+    assert {a.target for a in m.context.proposals}=={'steam','main_light'}
+
+
+def test_short_correction_does_not_implicitly_rearm_withheld_plan(tmp_path):
+    m=manager(tmp_path);m.interpret('Pon las luces rojas');m.interpret('Pero todavía no hagas nada')
+    d,_=m.interpret('Mejor azules')
+    assert not d.interpretation.actions and m.context.plan.authorization=='withheld'

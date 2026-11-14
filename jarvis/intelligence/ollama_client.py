@@ -14,6 +14,10 @@ class RequestCancelled(OllamaError):pass
 class OllamaClient:
     def __init__(self,config):
         config.validate();self.config=config;self.last_metrics={};self.used_models=set()
+        self._metadata_key=None;self._metadata_expires=0;self._tags=None;self._capabilities={};self._signature=None
+
+    def invalidate_metadata(self):
+        self._metadata_expires=0;self._tags=None;self._capabilities={};self._signature=None
 
     def request(self,path,payload=None,cancel=None,timeout=None):
         url=urlparse(self.config.ollama_url)
@@ -46,17 +50,32 @@ class OllamaClient:
                 except OSError:pass
             conn.close()
 
-    def installed(self):return self.request('/api/tags',timeout=2).get('models',[])
+    def installed(self,cancel=None):
+        models=self.request('/api/tags',cancel=cancel,timeout=2).get('models',[])
+        signature=tuple(sorted((m.get('name',''),m.get('digest','')) for m in models))
+        if signature!=self._signature:self._capabilities={}
+        self._signature=signature;self._tags=models;self._metadata_expires=time.monotonic()+15
+        return models
     def running(self):return self.request('/api/ps',timeout=2).get('models',[])
-    def show(self,model):return self.request('/api/show',{'model':model},timeout=3)
+    def show(self,model,cancel=None):
+        data=self.request('/api/show',{'model':model},cancel=cancel,timeout=3)
+        self._capabilities[model]=data.get('capabilities',[])
+        return data
 
     def chat(self,messages,schema=None,cancel=None,model=None):
-        names={m.get('name') for m in self.installed()}
+        total_start=time.monotonic()
+        key=(self.config.ollama_url,model or self.config.model,self.config.fallback_model)
+        if key!=self._metadata_key or time.monotonic()>=self._metadata_expires:
+            self.invalidate_metadata();self._metadata_key=key
+        cached=self._tags is not None
+        models=self._tags if cached else self.installed(cancel)
+        names={m.get('name') for m in models}
         chosen=model or self.config.model
         if chosen not in names:
             if self.config.fallback_model in names:chosen=self.config.fallback_model
             else:raise OllamaError('Requested local model is not installed; no automatic downloads')
-        capabilities=self.show(chosen).get('capabilities',[])
+        capabilities=self._capabilities.get(chosen)
+        if capabilities is None:capabilities=self.show(chosen,cancel).get('capabilities',[])
         payload={'model':chosen,'messages':messages,'stream':False,'keep_alive':f'{self.config.keep_alive_seconds}s',
             'options':{'temperature':self.config.temperature if schema else self.config.conversation_temperature,'num_ctx':self.config.context_tokens,
                        'num_predict':self.config.max_output_tokens if schema else self.config.conversation_max_output_tokens,'num_thread':self.config.cpu_threads,
@@ -64,9 +83,15 @@ class OllamaClient:
         if 'thinking' in capabilities:payload['think']=False
         if schema:payload['format']=schema
         start=time.monotonic();self.used_models.add(chosen)
-        result=self.request('/api/chat',payload,cancel)
+        remaining=self.config.timeout_seconds-(time.monotonic()-total_start)
+        if remaining<=0:raise TimeoutError('Ollama metadata exceeded request deadline')
+        try:result=self.request('/api/chat',payload,cancel,timeout=remaining)
+        except OllamaError as exc:
+            if any(word in str(exc).lower() for word in ('not found','unknown model','not installed')):self.invalidate_metadata()
+            raise
         self.last_metrics={key:result.get(key) for key in ('load_duration','prompt_eval_duration','eval_duration','prompt_eval_count','eval_count')}
-        self.last_metrics.update(model=chosen,wall_seconds=time.monotonic()-start,thinking_disabled='think' in payload)
+        self.last_metrics.update(model=chosen,wall_seconds=time.monotonic()-start,total_seconds=time.monotonic()-total_start,
+                                 metadata_cached=cached,thinking_disabled='think' in payload)
         if result.get('done_reason')=='length':raise OllamaError('Model output reached token limit')
         return result['message']['content']
 

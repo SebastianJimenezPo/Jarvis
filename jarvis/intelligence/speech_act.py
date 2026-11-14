@@ -46,8 +46,12 @@ def analyze(text):
         return SpeechAct('deferred_request','condition','subordinate_condition')
     if re.search(r'\b(?:una vez)\s+(?:que\s+)?(?:termine|acabe|finalice|haya|este|pueda|salga|cierre|guarde)\b',text):
         return SpeechAct('deferred_request','condition','completion_condition')
-    if re.search(r'\bal\s+(?:acabar|terminar|finalizar|salir|cerrar|guardar|volver|llegar|iniciar|abrir)\b',text):
+    if re.search(r'\bal\s+\w*(?:ar|er|ir)(?:se)?\b',text):
         return SpeechAct('deferred_request','after','infinitive_temporal_clause')
+    if re.search(r'\ben\s+(?:\w+\s+){1,5}(?:segundos?|minutos?|horas?|dias?|semanas?)\b',text):
+        return SpeechAct('deferred_request','future','duration_phrase')
+    if re.search(r'\b(?:mas adelante|(?:el|la) proxim[oa]|(?:este|el) (?:lunes|martes|miercoles|jueves|viernes|sabado|domingo))\b',text):
+        return SpeechAct('deferred_request','future','calendar_reference')
     if re.search(r'\b(?:antes de|tras)\s+(?:que\s+)?\w+',text):
         return SpeechAct('deferred_request','condition','relative_temporal_clause')
     if re.search(r'\b(?:manana|despues|mas tarde|esta noche|dentro de|algun dia|luego de|si\s+\w+|en (?:\d+|cinco|diez|veinte|treinta|una|dos) (?:minutos|horas|segundos))\b',text):

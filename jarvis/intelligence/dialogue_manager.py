@@ -80,6 +80,8 @@ class DialogueManager:
                                    'append' if re.match(r'^y\b',normalize(text)) else 'replace')
                         working.remember(result.actions,operation=operation,source=turn_id,evidence=self.validator.last_evidence)
                     elif result.kind==Kind.CANCEL:operation='cancel'
+                    elif result.kind==Kind.DEFERRED_REQUEST or result.reason_code=='whole_turn_veto':
+                        working.plan.withhold();operation='hold'
                     elif result.kind==Kind.CLARIFICATION and working.pending:
                         operation='hold';working.plan.hold(working.pending,turn_id)
                 except ValueError as exc:
@@ -97,7 +99,7 @@ class DialogueManager:
                 end_session=result.reason_code in ('farewell','user_cancel'),
                 context_revision=self.context.revision,validation='validated' if accepted else 'rejected',
                 evidence=self.validator.last_evidence if accepted else [],plan_id=self.context.plan.plan_id,
-                plan_revision=self.context.plan.revision,plan_operation=operation)
+                plan_revision=self.context.plan.revision,plan_operation=operation,plan_authorization=self.context.plan.authorization)
             self.counts[route]+=1;self.last_decision=decision
             return decision,response
 
@@ -192,5 +194,5 @@ class DialogueManager:
         return {k:v[2] for k,v in CATALOG.items() if not groups or v[1] in groups}
 
     def close(self):
-        if self.semantic.provider:self.semantic.provider.unload()
+        self.semantic.unload()
         self.client.unload()

@@ -81,3 +81,9 @@ def test_absolute_and_relative_parameters_are_not_interchangeable(tmp_path,text,
     forged=Interpretation(kind=Kind.ACTION_PROPOSAL,immediate=True,actions=[ActionProposal(
         intent=intent,target='system_audio',parameters=parameters,source_clause=text)])
     with pytest.raises(ValueError):m.validator.validate(forged,text,m.context)
+
+
+@pytest.mark.parametrize('suffix',['en media hora','en un par de minutos','al entrar a la partida','al ponerse el sol','más adelante','el próximo lunes'])
+def test_temporal_construction_property(tmp_path,suffix):
+    m=manager(tmp_path);d,_=m.interpret('Apaga las luces '+suffix)
+    assert not d.interpretation.actions

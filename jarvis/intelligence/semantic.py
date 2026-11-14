@@ -47,7 +47,7 @@ class EmbeddingProvider:
             output=(output*mask).sum(axis=1)/np.maximum(mask.sum(axis=1),1)
         return output/np.maximum(np.linalg.norm(output,axis=1,keepdims=True),1e-12)
 
-    def unload(self):self.session=None
+    def unload(self):self.session=None;self.tokenizer=None
 
 
 class SemanticRouter:
@@ -64,14 +64,18 @@ class SemanticRouter:
         return bool(evidence and (audio or light))
     def load(self):
         start=time.monotonic()
-        self.provider=EmbeddingProvider(self.root,self.config.semantic_model,self.config.cpu_threads);self.provider.load()
+        provider=EmbeddingProvider(self.root,self.config.semantic_model,self.config.cpu_threads);provider.load()
         self.labels=[];texts=[]
         for intent,phrases in EXAMPLES.items():
             self.labels.extend([intent]*len(phrases));texts.extend(phrases)
-        self.vectors=self.provider.encode(texts)
+        self.vectors=provider.encode(texts)
         calibration=self.root/'intelligence_models'/('calibration-'+self.config.semantic_model+'.json')
         self.thresholds=json.loads(calibration.read_text(encoding='utf-8')) if calibration.exists() else None
         self.load_seconds=time.monotonic()-start
+        self.provider=provider
+    def unload(self):
+        if self.provider:self.provider.unload()
+        self.provider=None;self.vectors=None;self.thresholds=None
     def rank(self,text):
         if self.provider is None:self.load()
         scores=self.vectors@self.provider.encode([text],query=True)[0]

@@ -65,6 +65,7 @@ class Decision(BaseModel):
     plan_id:str=''
     plan_revision:int=0
     plan_operation:Literal['replace','append','modify','cancel','hold','none']='none'
+    plan_authorization:str='none'
 
 
 class ModelInterpretation(BaseModel):
