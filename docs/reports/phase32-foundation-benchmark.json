@@ -1,0 +1,3764 @@
+{
+  "method": "Development-only text microbenchmark. No voice, remote service or model load.\n\nRuns each architecture in a fresh child with the SAME fixed scripted utterances.\nLegacy is deliberately rules-only (LLM/semantic disabled), not its hybrid profile.\nThis does not measure generalization, resident idle, acoustic quality or API speed.\n",
+  "commit": "21d0b5816860b8c4da8f3ade9a244c1a55663e2d",
+  "python": "3.11.14",
+  "cases": [
+    "Abre Steam",
+    "Volumen al 30%",
+    "Pausa la música",
+    "Silencia el audio",
+    "Cancela",
+    "Olvida todo lo anterior"
+  ],
+  "runs": [
+    {
+      "mode": "legacy",
+      "initialization_seconds_single_sample": 0.5008223999993788,
+      "rss_before_engine_import_bytes": 20574208,
+      "rss_after_initialization_bytes": 43761664,
+      "rss_after_180_turns_bytes": 44597248,
+      "cpu_seconds_delta": 0.4375,
+      "elapsed_seconds": 0.4500485000007757,
+      "peak_cpu": null,
+      "gpu": null,
+      "rows": [
+        {
+          "text": "Abre Steam",
+          "cycle": 0,
+          "seconds": 0.0013389000014285557,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 0,
+          "seconds": 0.001367200000458979,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 0,
+          "seconds": 0.0014735000004293397,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 0,
+          "seconds": 0.0014823000001342734,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 0,
+          "seconds": 0.000668700000460376,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 0,
+          "seconds": 0.001542600000902894,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 1,
+          "seconds": 0.0014526000013574958,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 1,
+          "seconds": 0.001463099999455153,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 1,
+          "seconds": 0.0017625000000407454,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 1,
+          "seconds": 0.002357299999857787,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 1,
+          "seconds": 0.0008527999998477753,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 1,
+          "seconds": 0.0013877000001230044,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 2,
+          "seconds": 0.0026461999987077434,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 2,
+          "seconds": 0.005217699999775505,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 2,
+          "seconds": 0.002069300000584917,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 2,
+          "seconds": 0.0019683000009536045,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 2,
+          "seconds": 0.0010196999992331257,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 2,
+          "seconds": 0.0014257000002544373,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 3,
+          "seconds": 0.0018371999994997168,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 3,
+          "seconds": 0.001877700000477489,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 3,
+          "seconds": 0.0023438999996869825,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 3,
+          "seconds": 0.002154300000256626,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 3,
+          "seconds": 0.0011981999996351078,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 3,
+          "seconds": 0.0015913999995973427,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 4,
+          "seconds": 0.0020215000004100148,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 4,
+          "seconds": 0.0021075999993627192,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 4,
+          "seconds": 0.003291400000307476,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 4,
+          "seconds": 0.002227199998742435,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 4,
+          "seconds": 0.0014370999997481704,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 4,
+          "seconds": 0.008014900000489433,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 5,
+          "seconds": 0.0021377999983087648,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 5,
+          "seconds": 0.0022625000001426088,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 5,
+          "seconds": 0.0025239000005967682,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 5,
+          "seconds": 0.0025050999993254663,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 5,
+          "seconds": 0.001494400001320173,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 5,
+          "seconds": 0.0018951000001834473,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 6,
+          "seconds": 0.002282299999933457,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 6,
+          "seconds": 0.0024498000002495246,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 6,
+          "seconds": 0.0023540000001958106,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 6,
+          "seconds": 0.0023765000005369075,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 6,
+          "seconds": 0.0016684000001987442,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 6,
+          "seconds": 0.002565500000855536,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 7,
+          "seconds": 0.0027448000000731554,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 7,
+          "seconds": 0.0025006000014400342,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 7,
+          "seconds": 0.002529299999878276,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 7,
+          "seconds": 0.002494299998943461,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 7,
+          "seconds": 0.002003100000365521,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 7,
+          "seconds": 0.0035571999997046078,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 8,
+          "seconds": 0.002520100000765524,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 8,
+          "seconds": 0.0026242999992973637,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 8,
+          "seconds": 0.0024353000007977244,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 8,
+          "seconds": 0.0024272000009659678,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 8,
+          "seconds": 0.0016281000007438706,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 8,
+          "seconds": 0.0033750999991752906,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 9,
+          "seconds": 0.0028761000012309523,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 9,
+          "seconds": 0.002601600001071347,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 9,
+          "seconds": 0.0024106999990181066,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 9,
+          "seconds": 0.0025896999995893566,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 9,
+          "seconds": 0.00159929999972519,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 9,
+          "seconds": 0.002017699998759781,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 10,
+          "seconds": 0.0023890000011306256,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 10,
+          "seconds": 0.0025983000014093705,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 10,
+          "seconds": 0.0024094000000332016,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 10,
+          "seconds": 0.00240019999910146,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 10,
+          "seconds": 0.0015734999997221166,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 10,
+          "seconds": 0.001997299999857205,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 11,
+          "seconds": 0.003150399999867659,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 11,
+          "seconds": 0.0030332000005728332,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 11,
+          "seconds": 0.006915200001458288,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 11,
+          "seconds": 0.0026388999995106133,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 11,
+          "seconds": 0.0016310999999404885,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 11,
+          "seconds": 0.0022690999994665617,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 12,
+          "seconds": 0.002564399999755551,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 12,
+          "seconds": 0.00272679999943648,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 12,
+          "seconds": 0.002750699999523931,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 12,
+          "seconds": 0.0024670999991940334,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 12,
+          "seconds": 0.0017161000014311867,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 12,
+          "seconds": 0.002249199998914264,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 13,
+          "seconds": 0.0024503000004187925,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 13,
+          "seconds": 0.002454100000250037,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 13,
+          "seconds": 0.004209299999274663,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 13,
+          "seconds": 0.0024556999997003004,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 13,
+          "seconds": 0.0016632000006211456,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 13,
+          "seconds": 0.002003899999181158,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 14,
+          "seconds": 0.0024925000016082777,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 14,
+          "seconds": 0.002449499999784166,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 14,
+          "seconds": 0.0023946999990585027,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 14,
+          "seconds": 0.002519699999538716,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 14,
+          "seconds": 0.001611100000445731,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 14,
+          "seconds": 0.002044999999270658,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 15,
+          "seconds": 0.0026460999997652834,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 15,
+          "seconds": 0.002429399999527959,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 15,
+          "seconds": 0.002411299999948824,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 15,
+          "seconds": 0.002447000000756816,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 15,
+          "seconds": 0.003925400000298396,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 15,
+          "seconds": 0.002180600000428967,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 16,
+          "seconds": 0.0026496000009501586,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 16,
+          "seconds": 0.0025049000014405465,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 16,
+          "seconds": 0.00240250000024389,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 16,
+          "seconds": 0.0023854999999457505,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 16,
+          "seconds": 0.0017631000009714626,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 16,
+          "seconds": 0.002100700001392397,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 17,
+          "seconds": 0.002423899999485002,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 17,
+          "seconds": 0.003102200000284938,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 17,
+          "seconds": 0.0035172999996575527,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 17,
+          "seconds": 0.0037455000001500593,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 17,
+          "seconds": 0.0041417000011279015,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 17,
+          "seconds": 0.003422199999477016,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 18,
+          "seconds": 0.0025376000012329314,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 18,
+          "seconds": 0.0025222000003850553,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 18,
+          "seconds": 0.0025463000001764158,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 18,
+          "seconds": 0.0027372999993531266,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 18,
+          "seconds": 0.002438000001347973,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 18,
+          "seconds": 0.0034319999995204853,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 19,
+          "seconds": 0.00398970000060217,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 19,
+          "seconds": 0.0033648999997240026,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 19,
+          "seconds": 0.002737499999057036,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 19,
+          "seconds": 0.003883499999574269,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 19,
+          "seconds": 0.002802999999403255,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 19,
+          "seconds": 0.0031216999996104278,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 20,
+          "seconds": 0.0027465000002848683,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 20,
+          "seconds": 0.0023939000002428656,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 20,
+          "seconds": 0.0024675999993633013,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 20,
+          "seconds": 0.0026080000006913906,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 20,
+          "seconds": 0.0016713000004529022,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 20,
+          "seconds": 0.002040100000158418,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 21,
+          "seconds": 0.0028615999999601627,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 21,
+          "seconds": 0.002406699999482953,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 21,
+          "seconds": 0.002344299999094801,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 21,
+          "seconds": 0.0023689999998168787,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 21,
+          "seconds": 0.0019458999995549675,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 21,
+          "seconds": 0.002040100000158418,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 22,
+          "seconds": 0.002359299998715869,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 22,
+          "seconds": 0.0023854999999457505,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 22,
+          "seconds": 0.0023230999995575985,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 22,
+          "seconds": 0.002317399999810732,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 22,
+          "seconds": 0.0015466000004380476,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 22,
+          "seconds": 0.0019516000011208234,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 23,
+          "seconds": 0.0023913000004540663,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 23,
+          "seconds": 0.0023366000004898524,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 23,
+          "seconds": 0.002376499998717918,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 23,
+          "seconds": 0.00230089999968186,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 23,
+          "seconds": 0.0015780000012455275,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 23,
+          "seconds": 0.0019892000000254484,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 24,
+          "seconds": 0.002345400000194786,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 24,
+          "seconds": 0.005928399999902467,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 24,
+          "seconds": 0.00275820000024396,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 24,
+          "seconds": 0.002526700000089477,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 24,
+          "seconds": 0.0015607000004820293,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 24,
+          "seconds": 0.001961600000868202,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 25,
+          "seconds": 0.0024474000001646345,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 25,
+          "seconds": 0.0024982999984786147,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 25,
+          "seconds": 0.0024812000010570046,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 25,
+          "seconds": 0.002376800001002266,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 25,
+          "seconds": 0.001632799998333212,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 25,
+          "seconds": 0.0020631999996112427,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 26,
+          "seconds": 0.0023838999986764975,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 26,
+          "seconds": 0.0024924999997892883,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 26,
+          "seconds": 0.0046143999988998985,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 26,
+          "seconds": 0.0025128999986918643,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 26,
+          "seconds": 0.0016512000001966953,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 26,
+          "seconds": 0.0020535999992716825,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 27,
+          "seconds": 0.0024847000004228903,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 27,
+          "seconds": 0.0026364000004832633,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 27,
+          "seconds": 0.0027733999995689373,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 27,
+          "seconds": 0.002637400000821799,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 27,
+          "seconds": 0.002485000000888249,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 27,
+          "seconds": 0.00258169999870006,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 28,
+          "seconds": 0.0025316000010207063,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 28,
+          "seconds": 0.002636799999891082,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 28,
+          "seconds": 0.0025969999987864867,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 28,
+          "seconds": 0.006154700000479352,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 28,
+          "seconds": 0.0024290999990626005,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 28,
+          "seconds": 0.002269799999339739,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 29,
+          "seconds": 0.002814800000123796,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "open_application"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 29,
+          "seconds": 0.0031280999992304714,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 29,
+          "seconds": 0.0040120000012393575,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "pause_music"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 29,
+          "seconds": 0.003873700001349789,
+          "operation": "action_proposal",
+          "route": "fast",
+          "actions": [
+            "mute_audio"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 29,
+          "seconds": 0.002592799999547424,
+          "operation": "cancel",
+          "route": "fast",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 29,
+          "seconds": 0.0033827000006567687,
+          "operation": "clarification",
+          "route": "fallback",
+          "actions": []
+        }
+      ],
+      "summary": {
+        "Abre Steam": {
+          "count": 30,
+          "median_seconds": 0.002488600001015584,
+          "p95_seconds_nearest_rank": 0.003150399999867659,
+          "outcome": {
+            "text": "Abre Steam",
+            "cycle": 29,
+            "seconds": 0.002814800000123796,
+            "operation": "action_proposal",
+            "route": "fast",
+            "actions": [
+              "open_application"
+            ]
+          }
+        },
+        "Volumen al 30%": {
+          "count": 30,
+          "median_seconds": 0.0024994499999593245,
+          "p95_seconds_nearest_rank": 0.005217699999775505,
+          "outcome": {
+            "text": "Volumen al 30%",
+            "cycle": 29,
+            "seconds": 0.0031280999992304714,
+            "operation": "action_proposal",
+            "route": "fast",
+            "actions": [
+              "set_volume"
+            ]
+          }
+        },
+        "Pausa la música": {
+          "count": 30,
+          "median_seconds": 0.002474400000210153,
+          "p95_seconds_nearest_rank": 0.0046143999988998985,
+          "outcome": {
+            "text": "Pausa la música",
+            "cycle": 29,
+            "seconds": 0.0040120000012393575,
+            "operation": "action_proposal",
+            "route": "fast",
+            "actions": [
+              "pause_music"
+            ]
+          }
+        },
+        "Silencia el audio": {
+          "count": 30,
+          "median_seconds": 0.002461399999447167,
+          "p95_seconds_nearest_rank": 0.003883499999574269,
+          "outcome": {
+            "text": "Silencia el audio",
+            "cycle": 29,
+            "seconds": 0.003873700001349789,
+            "operation": "action_proposal",
+            "route": "fast",
+            "actions": [
+              "mute_audio"
+            ]
+          }
+        },
+        "Cancela": {
+          "count": 30,
+          "median_seconds": 0.0016419999992649537,
+          "p95_seconds_nearest_rank": 0.003925400000298396,
+          "outcome": {
+            "text": "Cancela",
+            "cycle": 29,
+            "seconds": 0.002592799999547424,
+            "operation": "cancel",
+            "route": "fast",
+            "actions": []
+          }
+        },
+        "Olvida todo lo anterior": {
+          "count": 30,
+          "median_seconds": 0.0020583999994414626,
+          "p95_seconds_nearest_rank": 0.0035571999997046078,
+          "outcome": {
+            "text": "Olvida todo lo anterior",
+            "cycle": 29,
+            "seconds": 0.0033827000006567687,
+            "operation": "clarification",
+            "route": "fallback",
+            "actions": []
+          }
+        }
+      }
+    },
+    {
+      "mode": "next",
+      "initialization_seconds_single_sample": 0.3193356000010681,
+      "rss_before_engine_import_bytes": 20643840,
+      "rss_after_initialization_bytes": 31117312,
+      "rss_after_180_turns_bytes": 31268864,
+      "cpu_seconds_delta": 0.03125,
+      "elapsed_seconds": 0.037340800001402386,
+      "peak_cpu": null,
+      "gpu": null,
+      "rows": [
+        {
+          "text": "Abre Steam",
+          "cycle": 0,
+          "seconds": 0.00021769999875687063,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 0,
+          "seconds": 0.00023709999913990032,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 0,
+          "seconds": 0.0002459999996062834,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 0,
+          "seconds": 0.00023260000125446822,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 0,
+          "seconds": 0.00012290000086068176,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 0,
+          "seconds": 0.00010320000001229346,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 1,
+          "seconds": 0.00019160000010742806,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 1,
+          "seconds": 0.00022510000053443946,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 1,
+          "seconds": 0.00021860000015294645,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 1,
+          "seconds": 0.00022320000061881728,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 1,
+          "seconds": 0.00012170000081823673,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 1,
+          "seconds": 9.799999861570541e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 2,
+          "seconds": 0.00018760000057227444,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 2,
+          "seconds": 0.00024219999977503903,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 2,
+          "seconds": 0.00021920000108366366,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 2,
+          "seconds": 0.0002299999996466795,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 2,
+          "seconds": 0.0002507999997760635,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 2,
+          "seconds": 0.00035229999957664404,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 3,
+          "seconds": 0.0003541999994922662,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 3,
+          "seconds": 0.000426500000685337,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 3,
+          "seconds": 0.0002435000005789334,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 3,
+          "seconds": 0.00024159999884432182,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 3,
+          "seconds": 0.00012880000031145755,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 3,
+          "seconds": 0.00010250000013911631,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 4,
+          "seconds": 0.0001962000005732989,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 4,
+          "seconds": 0.00022559999888471793,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 4,
+          "seconds": 0.00021740000011050142,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 4,
+          "seconds": 0.00027880000016011763,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 4,
+          "seconds": 0.0001630000006116461,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 4,
+          "seconds": 9.649999992689118e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 5,
+          "seconds": 0.00043059999916295055,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 5,
+          "seconds": 0.00028500000007625204,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 5,
+          "seconds": 0.0002365000000281725,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 5,
+          "seconds": 0.0002361999995628139,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 5,
+          "seconds": 0.00011930000073334668,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 5,
+          "seconds": 9.59999997576233e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 6,
+          "seconds": 0.00018660000023373868,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 6,
+          "seconds": 0.0002376000011281576,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 6,
+          "seconds": 0.00022480000006908085,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 6,
+          "seconds": 0.00022079999871493783,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 6,
+          "seconds": 0.00011870000162161887,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 6,
+          "seconds": 9.639999916544184e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 7,
+          "seconds": 0.00020030000086990185,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 7,
+          "seconds": 0.00022469999930763151,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 7,
+          "seconds": 0.00024810000104480423,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 7,
+          "seconds": 0.00032529999953112565,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 7,
+          "seconds": 0.00012740000056510326,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 7,
+          "seconds": 9.520000094198622e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 8,
+          "seconds": 0.00019289999909233302,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 8,
+          "seconds": 0.00022680000074615236,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 8,
+          "seconds": 0.00022499999977299012,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 8,
+          "seconds": 0.00022949999947741162,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 8,
+          "seconds": 0.00011709999853337649,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 8,
+          "seconds": 9.400000089954119e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 9,
+          "seconds": 0.0002051999999821419,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 9,
+          "seconds": 0.00022370000078808516,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 9,
+          "seconds": 0.00021860000015294645,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 9,
+          "seconds": 0.0002182000007451279,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 9,
+          "seconds": 0.00013760000001639128,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 9,
+          "seconds": 9.7400001322967e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 10,
+          "seconds": 0.0001872000011644559,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 10,
+          "seconds": 0.00022610000087297522,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 10,
+          "seconds": 0.00021879999985685572,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 10,
+          "seconds": 0.00021949999973003287,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 10,
+          "seconds": 0.00013789999866276048,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 10,
+          "seconds": 0.00010649999967426993,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 11,
+          "seconds": 0.00021109999943291768,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 11,
+          "seconds": 0.0003126999999949476,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 11,
+          "seconds": 0.0003481999992800411,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 11,
+          "seconds": 0.0003042999996978324,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 11,
+          "seconds": 0.00014039999950909987,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 11,
+          "seconds": 0.0001291999997192761,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 12,
+          "seconds": 0.00022600000011152588,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 12,
+          "seconds": 0.00023680000049353112,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 12,
+          "seconds": 0.00022790000002714805,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 12,
+          "seconds": 0.00023599999985890463,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 12,
+          "seconds": 0.0001202000003104331,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 12,
+          "seconds": 9.530000170343556e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 13,
+          "seconds": 0.00018970000019180588,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 13,
+          "seconds": 0.00023429999964719173,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 13,
+          "seconds": 0.0002190000013797544,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 13,
+          "seconds": 0.0002210000002378365,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 13,
+          "seconds": 0.00011859999904118013,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 13,
+          "seconds": 9.529999988444615e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 14,
+          "seconds": 0.0001917000008688774,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 14,
+          "seconds": 0.00022170000011101365,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 14,
+          "seconds": 0.0002172999993490521,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 14,
+          "seconds": 0.00022119999994174577,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 14,
+          "seconds": 0.00011869999980262946,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 14,
+          "seconds": 9.31999984459253e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 15,
+          "seconds": 0.00018559999989520293,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 15,
+          "seconds": 0.00021999999989930075,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 15,
+          "seconds": 0.00021949999973003287,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 15,
+          "seconds": 0.00023150000015448313,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 15,
+          "seconds": 0.00012070000047970098,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 15,
+          "seconds": 9.630000022298191e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 16,
+          "seconds": 0.00019260000044596381,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 16,
+          "seconds": 0.00022540000099979807,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 16,
+          "seconds": 0.00021700000070268288,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 16,
+          "seconds": 0.00023300000066228677,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 16,
+          "seconds": 0.00043169999844394624,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 16,
+          "seconds": 0.00024339999981748406,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 17,
+          "seconds": 0.00026199999956588726,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 17,
+          "seconds": 0.0002627000012580538,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 17,
+          "seconds": 0.0002432000001135748,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 17,
+          "seconds": 0.00023630000032426324,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 17,
+          "seconds": 0.00012120000064896885,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 17,
+          "seconds": 0.0001053000014508143,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 18,
+          "seconds": 0.00021580000066023786,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 18,
+          "seconds": 0.00023719999990134966,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 18,
+          "seconds": 0.0002563999987614807,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 18,
+          "seconds": 0.00027709999994840473,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 18,
+          "seconds": 0.00012120000064896885,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 18,
+          "seconds": 0.00010370000018156134,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 19,
+          "seconds": 0.00019150000116496813,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 19,
+          "seconds": 0.0002311000007466646,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 19,
+          "seconds": 0.00022139999964565504,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 19,
+          "seconds": 0.00023920000057842117,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 19,
+          "seconds": 0.00012260000039532315,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 19,
+          "seconds": 9.580000005371403e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 20,
+          "seconds": 0.00018989999989571515,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 20,
+          "seconds": 0.00022669999998470303,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 20,
+          "seconds": 0.00023210000108520035,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 20,
+          "seconds": 0.00027859999863721896,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 20,
+          "seconds": 0.0001264000002265675,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 20,
+          "seconds": 9.610000051907264e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 21,
+          "seconds": 0.00019149999934597872,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 21,
+          "seconds": 0.00022729999909643084,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 21,
+          "seconds": 0.00022600000011152588,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 21,
+          "seconds": 0.000221800000872463,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 21,
+          "seconds": 0.00011919999997189734,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 21,
+          "seconds": 9.660000068834051e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 22,
+          "seconds": 0.00019740000061574392,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 22,
+          "seconds": 0.00023669999973208178,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 22,
+          "seconds": 0.00023239999973156955,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 22,
+          "seconds": 0.00023640000108571257,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 22,
+          "seconds": 0.0001236000007338589,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 22,
+          "seconds": 9.479999971517827e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 23,
+          "seconds": 0.00020030000086990185,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 23,
+          "seconds": 0.00023979999969014898,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 23,
+          "seconds": 0.0002731000004132511,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 23,
+          "seconds": 0.00027580000096349977,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 23,
+          "seconds": 0.00012539999988803174,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 23,
+          "seconds": 9.490000047662761e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 24,
+          "seconds": 0.0003422999998292653,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 24,
+          "seconds": 0.0003981000008934643,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 24,
+          "seconds": 0.0003577999996196013,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 24,
+          "seconds": 0.0003557999989425298,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 24,
+          "seconds": 0.00015050000001792796,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 24,
+          "seconds": 0.00010110000039276201,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 25,
+          "seconds": 0.00021639999977196567,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 25,
+          "seconds": 0.00022849999913887586,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 25,
+          "seconds": 0.00022179999905347358,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 25,
+          "seconds": 0.00022560000070370734,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 25,
+          "seconds": 0.00011999999878753442,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 25,
+          "seconds": 9.42999995459104e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 26,
+          "seconds": 0.00018710000040300656,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 26,
+          "seconds": 0.00022929999977350235,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 26,
+          "seconds": 0.00021629999901051633,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 26,
+          "seconds": 0.00021879999985685572,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 26,
+          "seconds": 0.00011810000069090165,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 26,
+          "seconds": 9.710000085760839e-05,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 27,
+          "seconds": 0.0001919999995152466,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 27,
+          "seconds": 0.00022170000011101365,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 27,
+          "seconds": 0.00021670000023732428,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 27,
+          "seconds": 0.00022390000049199443,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 27,
+          "seconds": 0.00015250000069499947,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 27,
+          "seconds": 0.00015329999951063655,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 28,
+          "seconds": 0.0003159000007144641,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 28,
+          "seconds": 0.0005249000005278504,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 28,
+          "seconds": 0.0002856999999494292,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 28,
+          "seconds": 0.00023520000104326755,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 28,
+          "seconds": 0.0001238999993802281,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 28,
+          "seconds": 0.00010990000009769574,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Abre Steam",
+          "cycle": 29,
+          "seconds": 0.00021600000036414713,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "applications.open"
+          ]
+        },
+        {
+          "text": "Volumen al 30%",
+          "cycle": 29,
+          "seconds": 0.0003376000004209345,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_volume"
+          ]
+        },
+        {
+          "text": "Pausa la música",
+          "cycle": 29,
+          "seconds": 0.0002583999994385522,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "media.pause"
+          ]
+        },
+        {
+          "text": "Silencia el audio",
+          "cycle": 29,
+          "seconds": 0.0004079000009369338,
+          "operation": "create_plan",
+          "disposition": "simulated",
+          "route": "direct",
+          "actions": [
+            "system_audio.set_mute"
+          ]
+        },
+        {
+          "text": "Cancela",
+          "cycle": 29,
+          "seconds": 0.00022780000108468812,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "cycle": 29,
+          "seconds": 0.00016250000044237822,
+          "operation": "cancel_all",
+          "disposition": "cancelled",
+          "route": "direct",
+          "actions": []
+        }
+      ],
+      "summary": {
+        "Abre Steam": {
+          "count": 30,
+          "median_seconds": 0.0001968000005945214,
+          "p95_seconds_nearest_rank": 0.0003541999994922662,
+          "outcome": {
+            "text": "Abre Steam",
+            "cycle": 29,
+            "seconds": 0.00021600000036414713,
+            "operation": "create_plan",
+            "disposition": "simulated",
+            "route": "direct",
+            "actions": [
+              "applications.open"
+            ]
+          }
+        },
+        "Volumen al 30%": {
+          "count": 30,
+          "median_seconds": 0.00023270000019692816,
+          "p95_seconds_nearest_rank": 0.000426500000685337,
+          "outcome": {
+            "text": "Volumen al 30%",
+            "cycle": 29,
+            "seconds": 0.0003376000004209345,
+            "operation": "create_plan",
+            "disposition": "simulated",
+            "route": "direct",
+            "actions": [
+              "system_audio.set_volume"
+            ]
+          }
+        },
+        "Pausa la música": {
+          "count": 30,
+          "median_seconds": 0.000225499999942258,
+          "p95_seconds_nearest_rank": 0.0003481999992800411,
+          "outcome": {
+            "text": "Pausa la música",
+            "cycle": 29,
+            "seconds": 0.0002583999994385522,
+            "operation": "create_plan",
+            "disposition": "simulated",
+            "route": "direct",
+            "actions": [
+              "media.pause"
+            ]
+          }
+        },
+        "Silencia el audio": {
+          "count": 30,
+          "median_seconds": 0.00023410000085277716,
+          "p95_seconds_nearest_rank": 0.0003557999989425298,
+          "outcome": {
+            "text": "Silencia el audio",
+            "cycle": 29,
+            "seconds": 0.0004079000009369338,
+            "operation": "create_plan",
+            "disposition": "simulated",
+            "route": "direct",
+            "actions": [
+              "system_audio.set_mute"
+            ]
+          }
+        },
+        "Cancela": {
+          "count": 30,
+          "median_seconds": 0.00012325000079727033,
+          "p95_seconds_nearest_rank": 0.0002507999997760635,
+          "outcome": {
+            "text": "Cancela",
+            "cycle": 29,
+            "seconds": 0.00022780000108468812,
+            "operation": "cancel_all",
+            "disposition": "cancelled",
+            "route": "direct",
+            "actions": []
+          }
+        },
+        "Olvida todo lo anterior": {
+          "count": 30,
+          "median_seconds": 9.685000077297445e-05,
+          "p95_seconds_nearest_rank": 0.00024339999981748406,
+          "outcome": {
+            "text": "Olvida todo lo anterior",
+            "cycle": 29,
+            "seconds": 0.00016250000044237822,
+            "operation": "cancel_all",
+            "disposition": "cancelled",
+            "route": "direct",
+            "actions": []
+          }
+        }
+      }
+    }
+  ],
+  "limits": "Single process per mode, fixed order, warm microbenchmark on known development commands. No accuracy, model inference, voice or idle claims; RSS values are snapshots, not sampled peaks."
+}
