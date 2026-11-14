@@ -1,0 +1,103 @@
+{
+  "method": "Five known development app turns after correcting the action-evidence review gate. Not held out; not general accuracy.",
+  "cases": [
+    {
+      "id": "apps",
+      "turns": [
+        {
+          "text": "Abre Steam",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "steam",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "No, mejor Spotify",
+          "decision": {
+            "operation": "modify_plan",
+            "changes": [
+              {
+                "match": {
+                  "tool": "applications.open",
+                  "target": "steam"
+                },
+                "target": "spotify"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Y abre Discord",
+          "decision": {
+            "operation": "append_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "discord",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            },
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Quita Discord y conserva Spotify",
+          "decision": {
+            "operation": "cancel_subset",
+            "remove": [
+              {
+                "tool": "applications.open",
+                "target": "discord"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Olvida todo lo anterior",
+          "decision": {
+            "operation": "cancel_all"
+          },
+          "expected_plan": []
+        }
+      ]
+    }
+  ]
+}

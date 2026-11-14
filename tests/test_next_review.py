@@ -224,3 +224,16 @@ def test_review_binds_full_request_even_when_model_cites_only_affected_clause():
         assert not accepted.plan.items and not accepted.executed
     finally:
         e.close()
+
+
+def test_action_level_evidence_is_sufficient_for_a_review_not_automatic_authority():
+    e, _ = make(lambda req: decision(req, 'append_plan', actions=(app(req, 'discord'),)).model_copy(update={'evidence': None}))
+    try:
+        first = e.interpret('Abre Steam')
+        draft = e.interpret('Y abre Discord')
+        assert draft.review is not None and draft.plan == first.plan and not draft.results
+        assert draft.review.source_text == 'Y abre Discord'
+        result = confirm(e, draft)
+        assert [i.call.target for i in result.plan.items] == ['steam', 'discord']
+    finally:
+        e.close()

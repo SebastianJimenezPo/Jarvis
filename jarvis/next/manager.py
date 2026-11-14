@@ -176,7 +176,7 @@ class ActionManager:
                      'cancel_subset', 'cancel_all', 'hold', 'query_state')
         if decision.operation not in supported:
             return
-        if not decision.evidence:
+        if not decision.evidence and not decision.actions:
             raise PolicyError('scope')
         if decision.operation not in ('cancel_all', 'hold') and decision.temporal != 'now':
             raise PolicyError('temporal')
