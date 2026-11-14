@@ -36,7 +36,14 @@ class ToolCall(Record):
 
 class ActionChange(Record):
     action_id: StrictStr = Field(min_length=1, max_length=64)
-    parameters: Parameters = Field(min_length=1, max_length=8)
+    target: StrictStr | None = Field(default=None, min_length=1, max_length=60)
+    parameters: Parameters = Field(default_factory=dict, max_length=8)
+
+    @model_validator(mode='after')
+    def nonempty(self):
+        if not self.parameters and self.target is None:
+            raise ValueError('Empty change')
+        return self
 
 
 class Decision(Record):

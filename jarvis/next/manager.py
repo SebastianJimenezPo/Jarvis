@@ -46,7 +46,8 @@ class ActionPolicy:
                 raise PolicyError()
         for change in decision.changes:
             call = known[change.action_id]
-            self.registry.validate(call.model_copy(update={'parameters': {**call.parameters, **change.parameters}}))
+            self.registry.validate(call.model_copy(update={'target': change.target or call.target,
+                'parameters': {**call.parameters, **change.parameters}}))
         # Reconstruct local evidence independently of route or provider claims.
         # Complex semantic authorization is intentionally not implemented yet.
         canonical = direct_decision(text, context)
