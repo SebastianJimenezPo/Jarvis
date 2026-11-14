@@ -1,7 +1,6 @@
 """Opt-in Groq text pilot. Fixed TLS endpoint, stdlib HTTP, no SDK or retries."""
 import http.client
 import json
-import os
 import socket
 import ssl
 import threading
@@ -106,7 +105,10 @@ class GroqProvider:
         # Opt-in and Free-account attestation precede reading the environment.
         # The API does not attest the billing tier; this never upgrades an account.
         self._enabled = enabled is True and free_tier_confirmed is True
-        self._key = (api_key if api_key is not None else os.environ.get('GROQ_API_KEY', '')) if self._enabled else ''
+        if self._enabled and api_key is None:
+            from .credentials import read_groq_key
+            api_key = read_groq_key()
+        self._key = (api_key or '') if self._enabled else ''
         self._factory = connection_factory or (lambda timeout: http.client.HTTPSConnection(HOST, timeout=timeout, context=ssl.create_default_context()))
         self._connection = None
         self._lock = threading.Lock()

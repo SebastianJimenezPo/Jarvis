@@ -1,7 +1,7 @@
 """32 scripted development turns. No retries, personal audio or physical actions."""
 import argparse
 import json
-import os
+import math
 from pathlib import Path
 import statistics
 import subprocess
@@ -42,7 +42,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
         raise ValueError('Preserve previous report')
     if not 1 <= max_turns <= 40:
         raise ValueError('Pilot limit is 1..40 turns')
-    if provider_kind == 'groq' and (not allow_remote or not free_tier or interval < 6):
+    if provider_kind == 'groq' and (not allow_remote or not free_tier or not math.isfinite(interval) or interval < 6):
         raise ValueError('Remote opt-in, Free attestation and >=6-second interval required')
     report = {'provider': provider_kind, 'method': data['method'], 'commit': subprocess.check_output(
         ['git', 'rev-parse', 'HEAD'], text=True).strip(), 'status': 'running', 'rows': [],
@@ -51,7 +51,11 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
     output.parent.mkdir(parents=True, exist_ok=True)
     def save():
         output.write_text(json.dumps(report, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
-    if provider_kind == 'groq' and not os.environ.get('GROQ_API_KEY'):
+    remote_key = None
+    if provider_kind == 'groq':
+        from jarvis.next.credentials import read_groq_key
+        remote_key = read_groq_key()
+    if provider_kind == 'groq' and not remote_key:
         report.update(status='not_run_missing_key', summary=None)
         save()
         return report
@@ -60,7 +64,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
         provider = FakeProvider(lambda req, _: ProviderReply(decision_json=fixture_decision(active[0], req).model_dump_json()))
     elif provider_kind == 'groq':
         from jarvis.next.groq import GroqProvider
-        provider = GroqProvider(enabled=True, free_tier_confirmed=True)
+        provider = GroqProvider(api_key=remote_key, enabled=True, free_tier_confirmed=True)
     else:
         provider = None
     engine = NextEngine(provider, timeout=timeout, review_enabled=True)
@@ -110,7 +114,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                 report['rows'].append(record)
                 setup_ok = setup_ok and bool(match)
                 save()
-                if result.error in ('authentication', 'quota', 'model_unavailable'):
+                if provider_kind == 'groq' and result.error in ('authentication', 'quota', 'model_unavailable', 'invalid_response', 'timeout', 'connection', 'unavailable'):
                     report['status'] = 'stopped_on_provider_error'
                     stop = True
                     break
@@ -129,7 +133,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
     for route in ('direct', 'provider', 'offline'):
         values = sorted(r['seconds'] for r in rows if r['route'] == route)
         report['route_latency'][route] = {'count': len(values), 'median': statistics.median(values) if values else None,
-            'p95': values[min(len(values)-1, __import__('math').ceil(.95*len(values))-1)] if values else None}
+            'p95': values[min(len(values)-1, math.ceil(.95*len(values))-1)] if values else None}
     save()
     return report
 
@@ -142,10 +146,11 @@ def main():
     parser.add_argument('--allow-remote', action='store_true')
     parser.add_argument('--free-tier', action='store_true')
     parser.add_argument('--max-turns', type=int, default=32)
+    parser.add_argument('--interval-seconds', type=float, default=6.0)
     args = parser.parse_args()
     try:
         report = run_pilot(json.loads(args.dataset.read_text(encoding='utf-8')), args.provider, output=args.output,
-            allow_remote=args.allow_remote, free_tier=args.free_tier, max_turns=args.max_turns)
+            allow_remote=args.allow_remote, free_tier=args.free_tier, max_turns=args.max_turns, interval=args.interval_seconds)
     except ValueError:
         parser.error('Check output path, turn limit, remote opt-in and Free account attestation.')
     print(json.dumps({'status': report['status'], 'summary': report.get('summary')}, indent=2))

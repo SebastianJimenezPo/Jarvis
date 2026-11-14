@@ -198,3 +198,41 @@ def test_changed_target_must_be_registered_and_match_resource():
         assert result.disposition == 'rejected' and result.plan == first.plan
     finally:
         e.close()
+
+
+def test_credential_store_is_used_only_after_remote_opt_in(monkeypatch):
+    from jarvis.next import credentials
+    calls = []
+    monkeypatch.delenv('GROQ_API_KEY', raising=False)
+    monkeypatch.setattr(credentials, 'read_windows_key', lambda: calls.append(1) or SECRET)
+    disabled = GroqProvider()
+    assert not calls
+    enabled = GroqProvider(enabled=True, free_tier_confirmed=True)
+    assert calls == [1]
+    enabled.close()
+    disabled.close()
+
+
+def test_environment_overrides_store_without_reading_or_logging_it(monkeypatch, capsys):
+    from jarvis.next import credentials
+    monkeypatch.setenv('GROQ_API_KEY', SECRET)
+    monkeypatch.setattr(credentials, 'read_windows_key', lambda: pytest.fail('Store should not be read'))
+    assert credentials.read_groq_key() == SECRET
+    assert SECRET not in str(capsys.readouterr())
+
+
+def test_credential_store_error_is_not_exposed(monkeypatch, capsys, caplog):
+    from jarvis.next import credentials
+    monkeypatch.delenv('GROQ_API_KEY', raising=False)
+    def fail():
+        raise RuntimeError(SECRET)
+    monkeypatch.setattr(credentials, 'read_windows_key', fail)
+    assert credentials.read_groq_key() is None
+    assert SECRET not in str(capsys.readouterr())+caplog.text
+
+
+def test_invalid_credential_never_touches_windows_store(monkeypatch):
+    from jarvis.next import credentials
+    monkeypatch.setattr(credentials, '_windows_api', lambda: pytest.fail('Invalid secret reached Windows'))
+    with pytest.raises(ValueError):
+        credentials.store_groq_key('invalid key')

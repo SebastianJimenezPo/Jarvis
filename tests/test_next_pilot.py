@@ -27,6 +27,7 @@ def test_offline_keeps_local_commands_without_claiming_natural_understanding(tmp
 
 def test_missing_key_skips_remote_instead_of_inventing_results(tmp_path, monkeypatch):
     monkeypatch.delenv('GROQ_API_KEY', raising=False)
+    monkeypatch.setattr('jarvis.next.credentials.read_groq_key', lambda: None)
     report = run_pilot(data(), 'groq', output=tmp_path/'missing.json', allow_remote=True, free_tier=True)
     assert report['status'] == 'not_run_missing_key' and report['summary'] is None and not report['rows']
 
