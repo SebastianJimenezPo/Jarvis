@@ -100,3 +100,31 @@ def test_topicalized_negation_and_learning_are_not_immediate_requests(tmp_path,t
     m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False,semantic_enabled=False))
     forged=Interpretation(kind=Kind.ACTION_PROPOSAL,immediate=True,actions=[ActionProposal(intent='open_application',target='chrome',source_clause=text)])
     with pytest.raises(ValueError):m.validator.validate(forged,text,m.context)
+
+
+@pytest.mark.parametrize('text',[
+ 'Abre Chrome hoy en la noche',
+ 'Apaga la iluminación en el atardecer',
+ 'Baja el volumen en las vacaciones',
+ 'Abre Steam despuésito',
+ 'Pon las luces rojas a futuro'])
+def test_unparsed_scope_is_withheld_instead_of_guessing_immediacy(tmp_path,text):
+    m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False,semantic_enabled=False))
+    d,_=m.interpret(text)
+    assert not d.interpretation.actions
+
+
+@pytest.mark.parametrize('text',[
+ 'Busca la canción abre Chrome',
+ 'Muestra cómo abrir Chrome',
+ 'Dame consejos para abrir Chrome'])
+def test_main_operation_cannot_be_replaced_by_embedded_app_verb(tmp_path,text):
+    m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False,semantic_enabled=False))
+    forged=Interpretation(kind=Kind.ACTION_PROPOSAL,immediate=True,actions=[ActionProposal(intent='open_application',target='chrome',source_clause=text)])
+    with pytest.raises(ValueError):m.validator.validate(forged,text,m.context)
+
+
+def test_negative_correction_does_not_open_a_new_app(tmp_path):
+    m=DialogueManager(tmp_path,replace(IntelligenceConfig(),llm_enabled=False,semantic_enabled=False))
+    m.interpret('Abre Steam');d,_=m.interpret('Mejor no abras Chrome')
+    assert not d.interpretation.actions

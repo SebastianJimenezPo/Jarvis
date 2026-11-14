@@ -94,6 +94,7 @@ def analyze(text):
     if re.search(r'^(?:como (?:puedo|se)|que (?:es|significa)|por que|puedes (?:abrir programas|cerrar aplicaciones automaticamente)|sabes |es posible|podrias explicarme)\b',text):
         return SpeechAct('conversation',reason='question')
     if re.match(r'^no (?:se (?:oye|escucha)|quiero que (?:suene|se escuche) (?:tan|muy) fuerte)',text):return SpeechAct(None)
+    if re.match(r'^mejor no\b',text):return SpeechAct('negated',reason='negative_clause')
     if correction_text(text):return SpeechAct(None,reason='contextual_modification')
     if re.search(r'\bno (?:quiero|debes|vayas a)\b',text):
         return SpeechAct('negated',reason='negative_clause')

@@ -2,7 +2,7 @@
 import re
 import copy
 from .contracts import Kind,Interpretation,ActionProposal
-from .catalog import validate_action,entity_type,APPLICATIONS,LIGHTS,SCENES
+from .catalog import validate_action,entity_type,APPLICATIONS,LIGHTS,SCENES,COLORS
 from .language import normalize,clause_kind,split_clauses,mentions,color,number,explicit_request
 from .speech_act import analyze,correction_text,replacement_request
 
@@ -16,6 +16,7 @@ class SafetyValidator:
         if context.plan.authorization=='withheld' and not explicit_request(normalized):
             raise ValueError('An abbreviated correction cannot rearm a withheld plan')
         clauses=split_clauses(normalized)
+        self.check_scope_coverage(result,normalized)
         evidence=[]
         for a in result.actions:
             validate_action(a)
@@ -35,6 +36,7 @@ class SafetyValidator:
             if not matches or any(clause_kind(c) is not None for c in matches):
                 raise ValueError('Ungrounded or guarded source clause')
             clause=matches[0];group=entity_type(a.intent)
+            self.check_main_operation(a,clause)
             table={'application':APPLICATIONS,'light':LIGHTS,'scene':SCENES}.get(group)
             target_source='explicit_current_turn' if table else 'default_configured'
             if table:
@@ -71,6 +73,64 @@ class SafetyValidator:
             evidence.append({'target':target_source,'parameters':origins})
         self.last_evidence=evidence
         return result
+
+    def check_scope_coverage(self,result,text):
+        """Recognized verb/target words alone do not consume an entire request.
+
+        Unknown material outside literal query parameters is unresolved scope,
+        not permission to ignore a possible condition. This intentionally costs
+        recall: a clarification is preferable to an ungrounded immediate plan.
+        """
+        allowed=set('''a al del de el la los las un una unos unas y pero por para con en
+            este esta actual momento ahora mismo ya inmediato inmediatamente favor porfa
+            me te se lo le les ese esa esos esas otra otro vez tambien que no si mejor era realidad
+            abre abrir abierto abierta abras cierra cerrar cierralo cierrala cierres enfoca enfocar trae frente
+            pon poner ponlo ponla ponlas cambialo cambiala cambia cambiar ajusta ajustar deja dejalo dejala
+            baja bajar bajale bajales baje reduce reducir disminuye sube subir subele aumenta aumentar
+            silencia silencio mudo quita desilencia activa enciende encender prende apaga apagar apagalo apagala
+            muestra dame reproduce reproducir busca buscar pausa pausar pasa vuelve quiero necesito puedes podrias
+            escuchar sonar suene sonando oye escucha esta estan esten muy tan demasiado casi nada fuerte fuertes
+            duro suave suaves tenue tenues alto bajo bajito bajita poco poquito tantico tris tanto alumbre alumbren
+            volumen audio sonido musica cancion pista brillo color luz luces iluminacion sistema estado
+            programa programas aplicacion aplicaciones navegador ventana computador equipo habitacion cuarto
+            puntos punto ciento cero uno dos tres cuatro cinco seis siete ocho nueve diez once doce trece catorce quince
+            dieciseis diecisiete dieciocho diecinueve veinte veintiuno veintidos veintitres veinticuatro veinticinco
+            veintiseis veintisiete veintiocho veintinueve treinta cuarenta cincuenta sesenta setenta ochenta noventa cien mitad
+            principal escritorio modo jugar estudio estudiar voy juego gaming cine pelicula siguiente anterior
+            use usaba utilice abri cerre tenia ayer el otro dia una
+            llamada leer trabajar concentrarme'''.split())
+        allowed.update(COLORS)
+        allowed.update('apagues primera primero segunda segundo mas menos encandilando cancelar canceles'.split())
+        for table in (APPLICATIONS,LIGHTS,SCENES):
+            for aliases in table.values():
+                for alias in aliases:allowed.update(normalize(alias).split())
+        remaining=text
+        for action in result.actions:
+            query=action.parameters.get('query')
+            if isinstance(query,str):remaining=remaining.replace(normalize(query),'')
+        unknown=[word for word in re.findall(r'\w+',remaining) if word not in allowed and not word.isdecimal()]
+        if unknown:raise ValueError('Unparsed authorization scope')
+
+    def check_main_operation(self,action,clause):
+        text=clause
+        if correction_text(text):text=re.sub(r'^no[, ]+','',text)
+        text=re.sub(r'^(?:(?:y|pero|por favor|puedes|podrias|mejor)\s+)+','',text)
+        match=re.match(r'\w+',text)
+        if not match:return
+        families={
+            'abre':{'open_application'},'abrir':{'open_application'},'abrelo':{'open_application'},
+            'cierra':{'close_application'},'cerrar':{'close_application'},'cierralo':{'close_application'},'cierrala':{'close_application'},
+            'enfoca':{'focus_application'},'trae':{'focus_application'},
+            'busca':{'search_music'},'buscar':{'search_music'},'reproduce':{'play_music'},
+            'muestra':{'get_system_status'},'dame':{'get_system_status'},
+            'baja':{'decrease_volume','set_volume','set_light_brightness'},'bajale':{'decrease_volume','set_light_brightness'},
+            'bajales':{'decrease_volume','set_light_brightness'},'reduce':{'decrease_volume','set_light_brightness'},
+            'sube':{'increase_volume','set_volume','set_light_brightness'},'subele':{'increase_volume','set_light_brightness'},
+            'apaga':{'turn_off_light'},'apagar':{'turn_off_light'},'enciende':{'turn_on_light'},'prende':{'turn_on_light'},
+            'silencia':{'mute_audio'},'quita':{'mute_audio','unmute_audio'},'pausa':{'pause_music'},
+            'pasa':{'next_track'},'vuelve':{'previous_track'}}
+        allowed=families.get(match[0])
+        if allowed is not None and action.intent not in allowed:raise ValueError('Embedded verb is not the requested operation')
 
     def context_evidence(self,a,text,context):
         """Reconstruct the exact allowed operation instead of trusting reason_code."""
