@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from jarvis.next.contracts import ActionChange, Decision, ProviderReply, Span, ToolCall
 from jarvis.next.engine import NextEngine
 from jarvis.next.providers import FakeProvider
+from scripts.next_evaluation_metrics import PredictionObserver, prediction_metrics, identity_preserved
 
 
 def calls(view):
@@ -41,7 +42,7 @@ def fixture_decision(row, request):
         actions=actions, changes=changes, action_ids=tuple(local_id(s) for s in spec.get('remove', [])))
 
 
-def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=False, timeout=8.0, interval=6.0, max_turns=32, model='openai/gpt-oss-20b', reasoning_effort='low'):
+def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=False, timeout=8.0, interval=6.0, max_turns=32, model='openai/gpt-oss-20b', reasoning_effort='low', detailed_metrics=False):
     import psutil
     if provider_kind not in ('fixture', 'offline', 'groq'):
         raise ValueError('Unknown provider')
@@ -55,7 +56,7 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
         'reasoning_effort': reasoning_effort if provider_kind == 'groq' else None, 'method': data['method'], 'commit': subprocess.check_output(
         ['git', 'rev-parse', 'HEAD'], text=True).strip(), 'status': 'running', 'rows': [],
         'max_turns': max_turns, 'available_turns': sum(len(c['turns']) for c in data['cases']),
-        'limits': 'Development cases. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.'}
+        'limits': 'Dataset method/manifest defines development versus internal-reserved status. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.'}
     output.parent.mkdir(parents=True, exist_ok=True)
     def save():
         output.write_text(json.dumps(report, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
@@ -75,6 +76,9 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
         provider = GroqProvider(api_key=remote_key, enabled=True, free_tier_confirmed=True, model=model, reasoning_effort=reasoning_effort)
     else:
         provider = None
+    observer = PredictionObserver(provider) if provider is not None and detailed_metrics else None
+    if observer:
+        provider = observer
     engine = NextEngine(provider, timeout=timeout, review_enabled=True)
     process = psutil.Process()
     report['client_rss_start_bytes'] = process.memory_info().rss
@@ -92,6 +96,8 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                     stop = True
                     break
                 active[0] = row
+                if observer:
+                    observer.reset()
                 before = engine.manager.snapshot()
                 # Throttle outside engine timing; no direct command spends API quota.
                 from jarvis.next.direct import direct_decision
@@ -106,27 +112,38 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                 result = engine.interpret(row['text'], case['id'], str(index))
                 candidate = result.review.proposed_plan if result.review else result.plan
                 expected = row['expected_plan']
-                operation_ok = result.decision is not None and operation_matches(result.decision.operation, row['decision']['operation'])
+                accepted = row.get('accepted_operations', [row['decision']['operation']])
+                operation_ok = result.decision is not None and any(operation_matches(result.decision.operation, op) for op in accepted)
                 plan_ok = calls(candidate) == (calls(before) if expected is None else expected)
                 match = operation_ok and plan_ok and result.error is None
                 confirmed = None
+                identity_ok = None
                 # Scripted expected tool/target/values are the local review oracle.
                 # Never auto-confirm a wrong or merely schema-valid model proposal.
                 if match and result.review:
                     confirmed = engine.confirm(result.review.review_id, case['id'], f'{index}-review')
                     match = confirmed.disposition not in ('stale', 'rejected') and calls(confirmed.plan) == calls(candidate)
+                if match and detailed_metrics:
+                    identity_ok = identity_preserved(row['decision'], before, confirmed.plan if confirmed else result.plan)
+                    match = match and identity_ok
                 cpu = process.cpu_times()
                 forbidden = row['decision']['operation'] in ('deferred', 'negated', 'hypothetical', 'conversation', 'clarify', 'unsupported')
                 record = {'case': case['id'], 'turn': index, 'text': row['text'], 'setup_succeeded': setup_ok,
+                    'role': row.get('role', 'evaluation'),
+                    'category': case.get('category', 'development'),
                     'expected_operation': row['decision']['operation'], 'actual_operation': result.decision.operation if result.decision else result.proposed_operation,
                     'route': result.route, 'disposition': result.disposition, 'semantic_and_plan_match': bool(match),
                     'review_offered': result.review is not None, 'review_applied': confirmed is not None,
+                    'unreviewed_provider_results': len(result.results) if result.route == 'provider' else 0,
                     'operation_equivalence_used': bool(operation_ok and result.decision.operation != row['decision']['operation']),
+                    'operation_match': bool(operation_ok), 'plan_match': plan_ok, 'identity_preserved': identity_ok,
                     'unexpected_action_draft': forbidden and bool(result.review),
                     'error': result.error, 'policy_reason': result.policy_reason, 'candidate_plan': calls(candidate), 'seconds': result.seconds,
                     'usage': result.usage.model_dump(), 'executed': result.executed,
                     'client_rss_after_turn_bytes': process.memory_info().rss,
                     'client_cpu_seconds_delta': max(0, cpu.user+cpu.system-cpu_before)}
+                if detailed_metrics:
+                    record.update(prediction_metrics(observer, result, before, engine.registry, accepted, operation_matches))
                 report['rows'].append(record)
                 setup_ok = setup_ok and bool(match)
                 save()
@@ -155,6 +172,23 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
         values = sorted(r['seconds'] for r in rows if r['route'] == route)
         report['route_latency'][route] = {'count': len(values), 'median': statistics.median(values) if values else None,
             'p95': values[min(len(values)-1, math.ceil(.95*len(values))-1)] if values else None}
+    if detailed_metrics:
+        fresh = [r for r in rows if r['role'] == 'evaluation']
+        inferred = [r for r in fresh if r['route'] == 'provider']
+        observed = [r for r in inferred if r['provider_contract_valid'] is True]
+        applied = [r for r in fresh if r['identity_preserved'] is not None]
+        report['detailed_summary'] = {
+            'evaluation_turns': len(fresh), 'known_control_turns': len(rows)-len(fresh),
+            'pipeline_matches': sum(r['semantic_and_plan_match'] for r in fresh),
+            'provider_turns': len(inferred), 'observable_provider_decisions': len(observed),
+            'provider_operation_matches_observed': sum(r['provider_operation_match'] is True for r in observed),
+            'catalog_proposals_observed': sum(r['provider_catalog_valid'] is not None for r in observed),
+            'provider_catalog_valid_observed': sum(r['provider_catalog_valid'] is True for r in observed),
+            'provider_references_valid_observed': sum(r['provider_references_valid'] is True for r in observed),
+            'policy_rejections': sum(r['error']=='policy_rejected' for r in fresh),
+            'identity_checks': len(applied), 'identity_checks_passed': sum(r['identity_preserved'] is True for r in applied),
+            'setup_failed_turns': sum(not r['setup_succeeded'] for r in fresh),
+            'limits': 'Operation/catalog/reference scores cover observable parsed provider decisions only. Unobservable transport/wire failures remain separate. Plan score includes policy/projection; no isolated general model-accuracy claim.'}
     save()
     return report
 
@@ -170,11 +204,12 @@ def main():
     parser.add_argument('--interval-seconds', type=float, default=6.0)
     parser.add_argument('--model', choices=['openai/gpt-oss-20b', 'openai/gpt-oss-120b'], default='openai/gpt-oss-20b')
     parser.add_argument('--reasoning-effort', choices=['low', 'medium'], default='low')
+    parser.add_argument('--detailed', action='store_true')
     args = parser.parse_args()
     try:
         report = run_pilot(json.loads(args.dataset.read_text(encoding='utf-8')), args.provider, output=args.output,
             allow_remote=args.allow_remote, free_tier=args.free_tier, max_turns=args.max_turns, interval=args.interval_seconds,
-            model=args.model, reasoning_effort=args.reasoning_effort)
+            model=args.model, reasoning_effort=args.reasoning_effort, detailed_metrics=args.detailed)
     except ValueError:
         parser.error('Check output path, turn limit, remote opt-in and Free account attestation.')
     print(json.dumps({'status': report['status'], 'summary': report.get('summary')}, indent=2))

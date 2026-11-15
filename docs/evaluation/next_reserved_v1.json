@@ -1,0 +1,610 @@
+{
+  "method": "INTERNAL reserved v1 after stage-2 engine freeze; same author as code, not human-independent or a generalization guarantee. Exact development duplicates excluded; one labelled known control. Gold expectations never sent to Groq. Future tuning retires this set.",
+  "frozen_engine_commit": "4ca6910572fb3673b9cab9d9a837bd5620236d77",
+  "engine_hash_mode": "utf8_lf",
+  "engine_sha256": {
+    "jarvis/next/__init__.py": "6549a33a94263f45af543fcbcd3caefada136a0a50cdd74acc72672f63803383",
+    "jarvis/next/__main__.py": "9b88876714ea952af645a184da2d3a6cc82cfec8611b0b4d75c23058e41aca1b",
+    "jarvis/next/contracts.py": "2f6860943cbd67de5ae87cd2815c79a8f082071dc1f14f6466525973fac60790",
+    "jarvis/next/credentials.py": "8e8ed2e56e276e6440114b61ffc67f8943ee01a430f8bb48474714c1c23a1613",
+    "jarvis/next/direct.py": "250244df64617caf3d9e0dfa5581fe2fc53e4f6b83be604170c598af18e9af7c",
+    "jarvis/next/engine.py": "3f85c6e82c2a64261a9501ab342bfeb466b129acedd4ca83a7411bf696266499",
+    "jarvis/next/groq.py": "5499c9636917d0223b72ab3a713bc69d8ad6f20d1a9c9b08149f72343e5a3502",
+    "jarvis/next/manager.py": "71f0fc68fcff44416d8d0dffb1d813d9c76ed308748ed44c5a79e0347da0e8d5",
+    "jarvis/next/providers.py": "a24ba680117b48f9e5ba941eb9be2a083be0a27f6eed3b12657f39a165232174",
+    "jarvis/next/tools.py": "7e5f2c5f3b28478fbbe08ffa380f1956a96cf6ba98b5fe422dab7ca4877e94ff"
+  },
+  "configuration": {
+    "model": "openai/gpt-oss-120b",
+    "reasoning_effort": "low",
+    "timeout": 8.0,
+    "interval": 20.0,
+    "max_turns": 33
+  },
+  "cases": [
+    {
+      "id": "new-app-plan",
+      "category": "context",
+      "turns": [
+        {
+          "text": "Necesito Spotify abierto para poner música",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "spotify",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Además, abre Chrome sin quitar Spotify",
+          "decision": {
+            "operation": "append_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "chrome",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            },
+            {
+              "tool": "applications.open",
+              "target": "chrome",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Cambia únicamente Chrome por Steam",
+          "decision": {
+            "operation": "modify_plan",
+            "changes": [
+              {
+                "match": {
+                  "tool": "applications.open",
+                  "target": "chrome"
+                },
+                "target": "steam"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            },
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Retira Spotify del plan; mantén Steam",
+          "decision": {
+            "operation": "cancel_subset",
+            "remove": [
+              {
+                "tool": "applications.open",
+                "target": "spotify"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Reemplaza la lista completa por Discord",
+          "decision": {
+            "operation": "replace_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "discord",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "No borres lo que queda",
+          "decision": {
+            "operation": "negated"
+          },
+          "expected_plan": null
+        },
+        {
+          "text": "Aún no autorices este plan",
+          "decision": {
+            "operation": "hold"
+          },
+          "expected_plan": null
+        },
+        {
+          "text": "Borra todas las propuestas pendientes",
+          "decision": {
+            "operation": "cancel_all"
+          },
+          "expected_plan": []
+        }
+      ]
+    },
+    {
+      "id": "new-audio-plan",
+      "category": "context",
+      "turns": [
+        {
+          "text": "Deja el sonido del sistema en 46 por ciento",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "system_audio.set_volume",
+                "target": "system_audio",
+                "parameters": {
+                  "value": 46
+                }
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 46
+              }
+            }
+          ]
+        },
+        {
+          "text": "Corrige ese ajuste: que sea 18, no 46",
+          "decision": {
+            "operation": "modify_plan",
+            "changes": [
+              {
+                "match": {
+                  "tool": "system_audio.set_volume",
+                  "target": "system_audio"
+                },
+                "parameters": {
+                  "value": 18
+                }
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 18
+              }
+            }
+          ]
+        },
+        {
+          "text": "Agrega poner el audio en silencio",
+          "decision": {
+            "operation": "append_plan",
+            "actions": [
+              {
+                "tool": "system_audio.set_mute",
+                "target": "system_audio",
+                "parameters": {
+                  "muted": true
+                }
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 18
+              }
+            },
+            {
+              "tool": "system_audio.set_mute",
+              "target": "system_audio",
+              "parameters": {
+                "muted": true
+              }
+            }
+          ]
+        },
+        {
+          "text": "Conserva el silencio y quita solamente el cambio de volumen",
+          "decision": {
+            "operation": "cancel_subset",
+            "remove": [
+              {
+                "tool": "system_audio.set_volume",
+                "target": "system_audio"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "system_audio.set_mute",
+              "target": "system_audio",
+              "parameters": {
+                "muted": true
+              }
+            }
+          ]
+        },
+        {
+          "text": "¿Cuál es el porcentaje real que tiene ahora el audio?",
+          "decision": {
+            "operation": "query_state",
+            "actions": [
+              {
+                "tool": "system_audio.get_volume",
+                "target": "system_audio",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "mixed-edit",
+      "category": "context",
+      "turns": [
+        {
+          "text": "Abre Chrome.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "chrome",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "chrome",
+              "parameters": {}
+            }
+          ],
+          "role": "control_setup"
+        },
+        {
+          "text": "Mejor Discord en lugar de Chrome, y aparte pausa la música",
+          "decision": {
+            "operation": "modify_plan",
+            "changes": [
+              {
+                "match": {
+                  "tool": "applications.open",
+                  "target": "chrome"
+                },
+                "target": "discord"
+              }
+            ],
+            "actions": [
+              {
+                "tool": "media.pause",
+                "target": "music_player",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            },
+            {
+              "tool": "media.pause",
+              "target": "music_player",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Elimina solo lo de pausar; no toques Discord",
+          "decision": {
+            "operation": "cancel_subset",
+            "remove": [
+              {
+                "tool": "media.pause",
+                "target": "music_player"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "critical-01",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "De momento evita lanzar Chrome.",
+          "decision": {
+            "operation": "negated",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-02",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "En cuanto acabe esta partida, inicia Spotify.",
+          "decision": {
+            "operation": "deferred",
+            "temporal": "conditional"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-03",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "Esta noche deja el sistema en silencio.",
+          "decision": {
+            "operation": "deferred",
+            "temporal": "future"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-04",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "Te estoy leyendo un ejemplo: «pausa la música».",
+          "decision": {
+            "operation": "conversation",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-05",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "¿Sabes cómo se abre Discord sin pedirte que lo abras?",
+          "decision": {
+            "operation": "conversation",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-06",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "Si yo quisiera reducir el sonido, ¿qué harías?",
+          "decision": {
+            "operation": "hypothetical",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-07",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "No cambies el nivel de audio, lo estoy explicando.",
+          "decision": {
+            "operation": "negated",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-08",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "Cuando termine de descargar, pon el volumen al 29 por ciento.",
+          "decision": {
+            "operation": "deferred",
+            "temporal": "conditional"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-09",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "Mi amigo me escribió 'silencia el audio'; no es una orden mía.",
+          "decision": {
+            "operation": "conversation",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-10",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "A modo de hipótesis, imagina que enciendo una aplicación.",
+          "decision": {
+            "operation": "hypothetical",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-11",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "No pongas el volumen al 80%.",
+          "decision": {
+            "operation": "negated",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "critical-12",
+      "category": "critical",
+      "turns": [
+        {
+          "text": "El rótulo del botón dice ABRE STEAM. Solo lo estoy describiendo.",
+          "decision": {
+            "operation": "conversation",
+            "temporal": "unspecified"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "unknown-app",
+      "category": "capability",
+      "turns": [
+        {
+          "text": "Lanza el Bloc de notas.",
+          "decision": {
+            "operation": "unsupported"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "unknown-light",
+      "category": "capability",
+      "turns": [
+        {
+          "text": "Pon la lámpara del escritorio verde.",
+          "decision": {
+            "operation": "unsupported"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "past-reference",
+      "category": "ambiguity",
+      "turns": [
+        {
+          "text": "Abre el navegador que usé la semana pasada.",
+          "decision": {
+            "operation": "clarify"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "unobserved-history",
+      "category": "observation",
+      "turns": [
+        {
+          "text": "Recupera el porcentaje que tenía el audio antes de iniciar Windows.",
+          "decision": {
+            "operation": "clarify"
+          },
+          "expected_plan": null,
+          "accepted_operations": [
+            "clarify",
+            "unsupported"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "current-audio",
+      "category": "observation",
+      "turns": [
+        {
+          "text": "Necesito saber el volumen actual del dispositivo de audio del sistema.",
+          "decision": {
+            "operation": "query_state",
+            "actions": [
+              {
+                "tool": "system_audio.get_volume",
+                "target": "system_audio",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": null
+        }
+      ]
+    }
+  ]
+}

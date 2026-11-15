@@ -1,0 +1,99 @@
+import json
+from pathlib import Path
+import pytest
+from jarvis.next.contracts import ContextView, InterpretationRequest, ProviderReply, Decision, Span, ToolCall
+from jarvis.next.engine import NextEngine
+from jarvis.next.providers import FakeProvider, RequestControl
+from scripts.evaluate_next_pilot import run_pilot, operation_matches
+from scripts.evaluate_next_reserved import verify
+from scripts.next_evaluation_metrics import PredictionObserver, prediction_metrics, identity_preserved
+
+
+def data():
+    return json.loads(Path('docs/evaluation/next_reserved_v1.json').read_text(encoding='utf-8'))
+
+
+def test_new_corpus_has_32_new_turns_and_one_explicit_control():
+    rows = [row for case in data()['cases'] for row in case['turns']]
+    assert len(rows) == 33
+    assert sum(row.get('role') == 'control_setup' for row in rows) == 1
+    assert sum(len(c['turns']) for c in data()['cases'] if c['category'] == 'critical') == 12
+
+
+def test_fixture_checks_context_ids_but_does_not_claim_model_accuracy(tmp_path):
+    report = run_pilot(data(), 'fixture', output=tmp_path/'fixture.json', max_turns=33, detailed_metrics=True)
+    summary = report['detailed_summary']
+    assert report['summary']['checks_passed'] == 33
+    assert summary['evaluation_turns'] == 32 and summary['known_control_turns'] == 1
+    assert summary['identity_checks'] == summary['identity_checks_passed'] == 32
+    assert summary['observable_provider_decisions'] == 32
+    assert report['summary']['real_model_accuracy'] is None
+    assert all(row['unreviewed_provider_results'] == 0 for row in report['rows'])
+
+
+def test_observer_does_not_export_unknown_model_parameter_or_change_engine_policy(tmp_path):
+    secret = 'fake-private-value-not-for-report'
+    def wrong(req, _):
+        return ProviderReply(decision_json=Decision(operation='create_plan', temporal='now',
+            actions=(ToolCall(tool='shell.run', target=secret, parameters={'command': secret},
+                evidence=Span(start=0, end=len(req.text))),)).model_dump_json())
+    observer = PredictionObserver(FakeProvider(wrong))
+    e = NextEngine(observer)
+    e.begin_session('cli')
+    try:
+        before = e.manager.snapshot()
+        result = e.interpret('Una solicitud sin privilegios')
+        fields = prediction_metrics(observer, result, before, e.registry, ['unsupported'], operation_matches)
+        assert result.disposition == 'rejected' and result.decision is None
+        assert fields['provider_operation_match'] is False and fields['provider_catalog_valid'] is False
+        assert secret not in json.dumps(fields) + result.model_dump_json()
+    finally:
+        e.close()
+
+
+def test_schema_failure_and_unobserved_transport_are_distinct():
+    observer = PredictionObserver(FakeProvider(lambda *_: ProviderReply(decision_json='{}')))
+    e = NextEngine(observer)
+    e.begin_session('cli')
+    try:
+        result = e.interpret('Haz algo contextual')
+        fields = prediction_metrics(observer, result, ContextView(), e.registry, ['clarify'], operation_matches)
+        assert fields['provider_reply_received'] and fields['provider_contract_valid'] is False
+        observer.reset()
+        fields = prediction_metrics(observer, result, ContextView(), e.registry, ['clarify'], operation_matches)
+        assert not fields['provider_reply_received'] and fields['provider_contract_valid'] is None
+    finally:
+        e.close()
+
+
+def test_identity_check_detects_replacement_disguised_as_modification():
+    e = NextEngine()
+    e.begin_session('cli')
+    try:
+        first = e.interpret('Abre Steam')
+        second = e.interpret('Abre Spotify')
+        assert not identity_preserved({'operation': 'modify_plan'}, first.plan, second.plan)
+        assert identity_preserved({'operation': 'replace_plan'}, first.plan, second.plan)
+    finally:
+        e.close()
+
+
+def test_seal_rejects_tampered_data_without_any_provider_call(tmp_path):
+    source = Path('docs/evaluation/next_reserved_v1.json')
+    copy = tmp_path/'changed.json'
+    copy.write_bytes(source.read_bytes()+b' ')
+    copy.with_suffix('.sha256').write_text(source.with_suffix('.sha256').read_text())
+    with pytest.raises(ValueError, match='seal mismatch'):
+        verify(copy)
+
+
+def test_seal_also_checks_module_set_not_only_known_file_hashes(tmp_path):
+    import hashlib
+    manifest = data()
+    manifest['engine_sha256']['jarvis/next/unsealed_module.py'] = 'not-a-real-module'
+    raw = json.dumps(manifest).encode()
+    path = tmp_path/'module-set.json'
+    path.write_bytes(raw)
+    path.with_suffix('.sha256').write_text(hashlib.sha256(raw).hexdigest())
+    with pytest.raises(ValueError, match='module set'):
+        verify(path)
