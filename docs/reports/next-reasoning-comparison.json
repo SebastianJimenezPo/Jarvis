@@ -1,0 +1,81 @@
+{
+  "method": "DEVELOPMENT comparison on known cases, fixed order, no causal or general accuracy claim; no default or physical authorization change.",
+  "engine_commit": "97f5a32c264b186eb5ad5d4665a281e325ecf04e",
+  "total_remote_calls": 14,
+  "results": {
+    "low": {
+      "source": "docs/reports/next-reasoning-low.json",
+      "source_sha256_utf8_lf": "916afe8702801c8d71187fb242ae1fb9d2c840bc1f5a094f484ff332536dfe89",
+      "complete": true,
+      "turns": 8,
+      "exact_matches": 7,
+      "provider_calls": 7,
+      "unexpected_drafts": 1,
+      "errors": 0,
+      "context_matches": 3,
+      "context_turns": 3,
+      "context_identity_checks": 3,
+      "unreviewed_results": 0,
+      "physical_execution_claims": 0,
+      "provider_latency": {
+        "count": 7,
+        "median": 0.880876499999431,
+        "p95": 1.4878778999991482
+      },
+      "provider_metrics": {
+        "evaluation_turns": 7,
+        "known_control_turns": 1,
+        "pipeline_matches": 6,
+        "provider_turns": 7,
+        "observable_provider_decisions": 7,
+        "provider_operation_matches_observed": 6,
+        "catalog_proposals_observed": 3,
+        "provider_catalog_valid_observed": 3,
+        "provider_references_valid_observed": 7,
+        "policy_rejections": 0,
+        "identity_checks": 6,
+        "identity_checks_passed": 6,
+        "setup_failed_turns": 0,
+        "limits": "Operation/catalog/reference scores cover observable parsed provider decisions only. Unobservable transport/wire failures remain separate. Plan score includes policy/projection; no isolated general model-accuracy claim."
+      },
+      "candidate_criteria_passed": false
+    },
+    "medium": {
+      "source": "docs/reports/next-reasoning-medium.json",
+      "source_sha256_utf8_lf": "048399f86f79b9c00ecc63707d5370b3e46104964f6b046b67467a51b0837537",
+      "complete": true,
+      "turns": 8,
+      "exact_matches": 8,
+      "provider_calls": 7,
+      "unexpected_drafts": 0,
+      "errors": 0,
+      "context_matches": 3,
+      "context_turns": 3,
+      "context_identity_checks": 3,
+      "unreviewed_results": 0,
+      "physical_execution_claims": 0,
+      "provider_latency": {
+        "count": 7,
+        "median": 1.570783199997095,
+        "p95": 2.4760410000017146
+      },
+      "provider_metrics": {
+        "evaluation_turns": 7,
+        "known_control_turns": 1,
+        "pipeline_matches": 7,
+        "provider_turns": 7,
+        "observable_provider_decisions": 7,
+        "provider_operation_matches_observed": 7,
+        "catalog_proposals_observed": 2,
+        "provider_catalog_valid_observed": 2,
+        "provider_references_valid_observed": 7,
+        "policy_rejections": 0,
+        "identity_checks": 7,
+        "identity_checks_passed": 7,
+        "setup_failed_turns": 0,
+        "limits": "Operation/catalog/reference scores cover observable parsed provider decisions only. Unobservable transport/wire failures remain separate. Plan score includes policy/projection; no isolated general model-accuracy claim."
+      },
+      "candidate_criteria_passed": true
+    }
+  }
+}

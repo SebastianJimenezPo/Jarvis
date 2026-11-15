@@ -8,7 +8,7 @@ Repositorio público: [SebastianJimenezPo/Jarvis](https://github.com/SebastianJi
 .\.venv\Scripts\python.exe -m jarvis.next "Abre Steam" "Volumen al 30%" "Olvida todo lo anterior"
 ```
 
-Cada argumento es un turno de una sesión temporal. Todo sigue en simulación. Las peticiones complejas pueden usar Groq de forma optativa, con revisión de borradores simulados; su autorización automática sigue pendiente. Ver [etapa 2, pruebas y uso](docs/phase_3_2_stage_2.md), [etapa 3, evaluación y correcciones](docs/phase_3_2_stage_3.md), [etapa 4, alcance de la intención](docs/phase_3_2_stage_4.md) y [etapa 5, coherencia de petición](docs/phase_3_2_stage_5.md). No se inventan ejecuciones. **La Fase 3.2 no está terminada.**
+Cada argumento es un turno de una sesión temporal. Todo sigue en simulación. Las peticiones complejas pueden usar Groq de forma optativa, con revisión de borradores simulados; su autorización automática sigue pendiente. Ver [etapa 2, pruebas y uso](docs/phase_3_2_stage_2.md), [etapa 3, evaluación y correcciones](docs/phase_3_2_stage_3.md), [etapa 4, alcance de la intención](docs/phase_3_2_stage_4.md), [etapa 5, coherencia de petición](docs/phase_3_2_stage_5.md) y [etapa 6, comparación de razonamiento](docs/phase_3_2_stage_6.md). No se inventan ejecuciones. **La Fase 3.2 no está terminada.**
 
 El residente `python -m jarvis` conserva por ahora el motor y la configuración de 3.1. No se ha conectado Next al micrófono ni sustituido la ruta de voz; su integración será un bloque posterior. La referencia `5337b86` permanece en `phase-3-1-hardening` y en el tag `phase-3-1-restore`.
 

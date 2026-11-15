@@ -1,0 +1,26 @@
+{
+  "engine_commit": "97f5a32c264b186eb5ad5d4665a281e325ecf04e",
+  "engine_sha256_utf8_lf": {
+    "jarvis/next/__init__.py": "6549a33a94263f45af543fcbcd3caefada136a0a50cdd74acc72672f63803383",
+    "jarvis/next/__main__.py": "9b88876714ea952af645a184da2d3a6cc82cfec8611b0b4d75c23058e41aca1b",
+    "jarvis/next/contracts.py": "713a6f7e9f6fcbdd5c7908f4dff10a515a987711d58af7089e5183e33b825afd",
+    "jarvis/next/credentials.py": "8e8ed2e56e276e6440114b61ffc67f8943ee01a430f8bb48474714c1c23a1613",
+    "jarvis/next/direct.py": "250244df64617caf3d9e0dfa5581fe2fc53e4f6b83be604170c598af18e9af7c",
+    "jarvis/next/engine.py": "73f77099698c5b692942038b03480644eaa229eb9a233f481aef249b769fea90",
+    "jarvis/next/groq.py": "1b7fd44ec1b9e137dad616c8e96a14e0c13ecb373a5624f28472ca09c481c5b3",
+    "jarvis/next/manager.py": "980ca2a46a838aa6a95652d7c405dbc1c7f06fd1cff98e104465da67587eaae7",
+    "jarvis/next/providers.py": "c402fa2a429a8a895a10403c6200cddc53a3d20936e18f08567821bb88d427de",
+    "jarvis/next/scope.py": "e0f61af259c5f3772199d91d9c77e863b28ec0972b09e7042b8d5ad19e8b459e",
+    "jarvis/next/tools.py": "7e5f2c5f3b28478fbbe08ffa380f1956a96cf6ba98b5fe422dab7ca4877e94ff"
+  },
+  "dataset_sha256_utf8_lf": "2f48e0e2cedfeb508232d0e825b4ee3cb9111d493d9b363f097751bf81405729",
+  "order": [
+    "low",
+    "medium"
+  ],
+  "model": "openai/gpt-oss-120b",
+  "timeout": 8,
+  "interval": 20,
+  "max_completion_tokens": 1024,
+  "max_remote_requests_total": 14
+}

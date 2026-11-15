@@ -1,6 +1,6 @@
 # Jarvis Next — contratos y límites de la base v1
 
-Estado: quinta etapa de 3.2, contrato de modo de petición y validación de coherencia; ver [resultados y límites](phase_3_2_stage_2.md). La voz del residente sigue en 3.1; no hay dos motores obligatorios por turno. Next se ejecuta aparte y no importa `jarvis.intelligence`, audio ni ONNX. El proveedor de red solo se crea por selección explícita; offline sigue siendo el valor predeterminado. Conservar esos módulos temporalmente no los convierte en dependencia del nuevo motor. Ver [auditoría y alcance](phase_3_2_stage_1.md).
+Estado: sexta etapa de 3.2, comparación de razonamiento y diagnóstico de errores; ver [resultados y límites](phase_3_2_stage_2.md). La voz del residente sigue en 3.1; no hay dos motores obligatorios por turno. Next se ejecuta aparte y no importa `jarvis.intelligence`, audio ni ONNX. El proveedor de red solo se crea por selección explícita; offline sigue siendo el valor predeterminado. Conservar esos módulos temporalmente no los convierte en dependencia del nuevo motor. Ver [auditoría y alcance](phase_3_2_stage_1.md).
 
 ## Flujo pequeño
 
@@ -83,3 +83,5 @@ La [etapa 3](phase_3_2_stage_3.md) conserva la primera evaluación interna antes
 La [etapa 4](phase_3_2_stage_4.md) aclara el alcance por cláusula y distingue hipótesis, peticiones futuras y contenido citado en las instrucciones del proveedor. La regresión conocida solo mejora 2/4 casos; un aplazamiento aún puede producir un borrador indebido. No se considera resuelta la autorización semántica.
 
 La [etapa 5](phase_3_2_stage_5.md) añade `request_mode` al formato remoto Groq; el adaptador comprueba su coherencia con operación y tiempo antes de traducir a `Decision`. El campo no se persiste ni se convierte en permiso. Una clasificación equivocada pero coherente todavía puede ofrecer un borrador: la revisión local sigue siendo obligatoria. No se amplió la gramática directa ni el veto local.
+
+La [etapa 6](phase_3_2_stage_6.md) propaga un `provider_error_stage` opcional y cerrado para errores de respuesta inválida, sin almacenar contenido remoto. La comparación selecciona `medium` como candidato explícito para datos nuevos; no cambia la política, la gramática directa ni los valores predeterminados del residente o del CLI.
