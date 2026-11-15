@@ -1,7 +1,7 @@
 """Whole-utterance grammar, not a general Spanish interpreter or a word allowlist."""
 import re
 import unicodedata
-from .contracts import ContextView, Decision, Span, ToolCall
+from .contracts import ActionChange, ContextView, Decision, Span, ToolCall
 
 
 def direct_decision(text: str, context: ContextView):
@@ -12,6 +12,16 @@ def direct_decision(text: str, context: ContextView):
     normalized = normalized.removesuffix('.')
     evidence = Span(start=0, end=len(text))
     common = dict(plan_id=context.plan_id, expected_revision=context.revision, evidence=evidence)
+    if normalized in ('autoriza la simulacion', 'simula el plan') and context.items and context.status == 'withheld':
+        return Decision(operation='authorize_plan', **common)
+    if match := re.fullmatch(r'(?:no,? )?mejor (steam|spotify|chrome|discord)', normalized):
+        apps = [item for item in context.items if item.call.tool == 'applications.open']
+        if len(apps) == 1 and context.status == 'withheld':
+            return Decision(operation='modify_plan', temporal='now',
+                changes=(ActionChange(action_id=apps[0].action_id,target=match[1]),), **common)
+    if match := re.fullmatch(r'abre (steam|spotify|chrome|discord),? pero todavia no hagas nada', normalized):
+        return Decision(operation='create_plan', temporal='now', retained=True,
+            actions=(ToolCall(tool='applications.open',target=match[1],evidence=evidence),), **common)
     if normalized in ('cancela', 'olvida todo lo anterior'):
         return Decision(operation='cancel_all', **common)
     if normalized in ('todavia no hagas nada', 'no hagas nada todavia'):

@@ -36,6 +36,7 @@ class PendingReview:
     view: PlanReview
     touched: tuple
     expires: float
+    retained: bool = False
 
 
 class ActionPolicy:
@@ -71,6 +72,8 @@ class ActionPolicy:
             return 'direct'
         if canonical is not None:
             raise PolicyError('direct_mismatch')
+        if decision.operation == 'authorize_plan':
+            raise PolicyError('scope')  # Only a reconstructed local request can offer this review.
         return 'withheld'
 
 
@@ -147,6 +150,18 @@ class ActionManager:
                     self._prepare_review(ticket, decision)
                 return 'withheld', (), 'La propuesta necesita validación contextual; no he ejecutado acciones.', self._context.model_copy(deep=True)
             base = self._context
+            if decision.operation == 'authorize_plan':
+                if not self.review_enabled:
+                    raise PolicyError('scope')
+                self._prepare_review(ticket, decision)
+                return 'withheld', (), 'La simulación del plan necesita confirmación local.', base.model_copy(deep=True)
+            if decision.retained or decision.operation == 'modify_plan':
+                projected, touched = self._project(decision)
+                retained = decision.retained or base.status == 'withheld'
+                self._context = projected.model_copy(update={'status':'withheld' if retained else 'simulated'})
+                results = () if retained else tuple(self.registry.simulate(call) for call in touched)
+                self._expires = self.clock()+self.ttl
+                return ('held' if retained else 'simulated'), results, ('La propuesta sigue retenida; no he simulado sus acciones.' if retained else 'En simulación, corregí la propuesta.'), self._context.model_copy(deep=True)
             if decision.operation == 'cancel_all':
                 self._context = ContextView(plan_id=base.plan_id, revision=base.revision+1, status='cancelled')
                 message, disposition, results = 'Descarté el plan pendiente. No he revertido acciones físicas.', 'cancelled', ()
@@ -174,7 +189,7 @@ class ActionManager:
 
     def _prepare_review(self, ticket, decision):
         supported = ('create_plan', 'replace_plan', 'append_plan', 'modify_plan', 'remove_actions',
-                     'cancel_subset', 'cancel_all', 'hold', 'query_state')
+                     'cancel_subset', 'cancel_all', 'hold', 'query_state', 'authorize_plan')
         if decision.operation not in supported:
             return
         if reason := blocked_scope(ticket.text, self._context):
@@ -183,7 +198,7 @@ class ActionManager:
                          and decision.plan_id is not None and decision.plan_id == self._context.plan_id)
         if not decision.evidence and not decision.actions and not context_bound:
             raise PolicyError('scope')
-        if decision.operation not in ('cancel_all', 'hold') and decision.temporal != 'now':
+        if decision.operation not in ('cancel_all', 'hold', 'authorize_plan') and decision.temporal != 'now':
             raise PolicyError('temporal')
         proposed, touched = self._project(decision)
         now = self.clock()
@@ -191,13 +206,18 @@ class ActionManager:
         if expires <= now:
             raise StaleDecision()
         view = PlanReview(review_id=uuid.uuid4().hex, operation=decision.operation,
-            source_text=ticket.text, base_revision=self._context.revision, proposed_plan=proposed, expires_in_seconds=expires-now)
+            source_text=ticket.text, base_revision=self._context.revision, proposed_plan=proposed, expires_in_seconds=expires-now,
+            purpose='authorization' if decision.operation == 'authorize_plan' else 'edit' if self._context.status == 'withheld' else 'simulation')
         self._pending = PendingReview(ticket, decision.model_copy(deep=True), view,
-            tuple(call.model_copy(deep=True) for call in touched), expires)
+            tuple(call.model_copy(deep=True) for call in touched), expires, self._context.status == 'withheld' or decision.retained)
 
     def _project(self, decision):
         """Pure bounded reducer for a draft. Never authorizes or executes tools."""
         base, op = self._context, decision.operation
+        if op == 'authorize_plan':
+            if not base.items or base.status != 'withheld':
+                raise PolicyError('missing_plan')
+            return base.model_copy(update={'revision':base.revision+1},deep=True), tuple(item.call for item in base.items)
         if op in ('cancel_all', 'hold'):
             return ContextView(plan_id=base.plan_id, revision=base.revision+1,
                 status='cancelled' if op == 'cancel_all' else 'withheld',
@@ -266,13 +286,13 @@ class ActionManager:
             # Parameters and current capabilities are checked again before commit.
             for call in pending.touched:
                 self.registry.validate(call)
-            results = tuple(self.registry.simulate(call) for call in pending.touched)
+            results = tuple(self.registry.simulate(call) for call in pending.touched) if not pending.retained or pending.decision.operation in ('authorize_plan','query_state') else ()
             if not self.current(ticket):
                 raise StaleDecision()
             decision = pending.decision
             projected = pending.view.proposed_plan.model_copy(deep=True)
             op = decision.operation
-            if op not in ('hold', 'query_state') and projected.items:
+            if op not in ('hold', 'query_state') and projected.items and (not pending.retained or op == 'authorize_plan'):
                 projected = projected.model_copy(update={'status': 'simulated'})
             self._context = projected
             self._expires = self.clock()+self.ttl
@@ -282,6 +302,8 @@ class ActionManager:
                 message, disposition = 'El plan queda retenido. No he ejecutado acciones.', 'held'
             elif op == 'cancel_all' or not projected.items:
                 message, disposition = 'Descarté las propuestas indicadas. No he revertido acciones físicas.', 'cancelled'
+            elif pending.retained and op != 'authorize_plan':
+                message, disposition = 'Corregí la propuesta; sigue retenida y sin simular.', 'held'
             else:
                 message, disposition = 'En simulación, apliqué la revisión del plan. No he ejecutado acciones físicas.', 'simulated'
             return ticket, decision, disposition, results, message, projected.model_copy(deep=True)

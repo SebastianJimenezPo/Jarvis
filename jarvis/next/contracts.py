@@ -13,6 +13,7 @@ Operation = Literal[
     'create_plan', 'append_plan', 'modify_plan', 'replace_plan', 'remove_actions',
     'cancel_subset', 'cancel_all', 'hold', 'answer_clarification', 'query_state',
     'clarify', 'preference', 'deferred', 'unsupported', 'conversation', 'negated', 'hypothetical',
+    'authorize_plan',
 ]
 PolicyReason = Literal['revision', 'plan_identity', 'reference', 'evidence', 'catalog',
                        'direct_mismatch', 'scope', 'temporal', 'missing_plan', 'conflict', 'capacity',
@@ -60,6 +61,7 @@ class Decision(Record):
     actions: tuple[ToolCall, ...] = Field(default=(), max_length=8)
     changes: tuple[ActionChange, ...] = Field(default=(), max_length=8)
     action_ids: tuple[StrictStr, ...] = Field(default=(), max_length=8)
+    retained: StrictBool = False
 
     @model_validator(mode='after')
     def shape(self):
@@ -138,6 +140,12 @@ class PlanReview(Record):
     base_revision: StrictInt
     proposed_plan: ContextView
     expires_in_seconds: float = Field(gt=0)
+    purpose: Literal['simulation', 'edit', 'authorization'] = 'simulation'
+
+
+class ProcessingTimings(Record):
+    interpretation_seconds: float = Field(default=0, ge=0)
+    validation_context_seconds: float = Field(default=0, ge=0)
 
 
 class Outcome(Record):
@@ -159,3 +167,4 @@ class Outcome(Record):
     usage: Usage = Field(default_factory=Usage)
     review: PlanReview | None = None
     executed: Literal[False] = False
+    timings: ProcessingTimings = Field(default_factory=ProcessingTimings)

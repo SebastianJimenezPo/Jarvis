@@ -2,7 +2,7 @@
 import time
 import uuid
 from pydantic import ValidationError
-from .contracts import Decision, InterpretationRequest, Outcome, Usage
+from .contracts import Decision, InterpretationRequest, Outcome, Usage, ProcessingTimings
 from .direct import direct_decision
 from .manager import ActionManager, PolicyError, StaleDecision
 from .providers import OfflineProvider, ProviderError, ProviderRunner
@@ -10,10 +10,11 @@ from .tools import default_registry
 
 
 class NextEngine:
-    def __init__(self, provider=None, registry=None, timeout=3.0, ttl=120.0, clock=time.monotonic, review_enabled=False):
+    def __init__(self, provider=None, registry=None, timeout=4.0, ttl=120.0, clock=time.monotonic, review_enabled=False, cancelled=None):
         self.registry = registry or default_registry()
         self.manager = ActionManager(self.registry, ttl, clock, review_enabled)
         self.runner = ProviderRunner(provider if provider is not None else OfflineProvider(), timeout)
+        self.cancelled = cancelled or (lambda: False)
 
     def begin_session(self, session_id):
         self.manager.begin_session(session_id)
@@ -27,13 +28,15 @@ class NextEngine:
         route, decision, usage = 'direct', None, Usage()
         proposed_operation = None
         request_id, ticket = uuid.uuid4().hex, None
+        interpretation_seconds = validation_seconds = 0.0
 
         def outcome(disposition, message, error=None, results=(), plan=None, policy_reason=None, provider_error_stage=None):
             return Outcome(request_id=request_id, session_id=session_id, turn_id=turn_id,
                 generation=ticket.serial if ticket else 0, route=route, disposition=disposition, decision=decision,
                 plan=plan if plan is not None else self.manager.snapshot(), results=results, message=message,
                 error=error, seconds=time.perf_counter()-start, usage=usage,
-                proposed_operation=proposed_operation, policy_reason=policy_reason, provider_error_stage=provider_error_stage)
+                proposed_operation=proposed_operation, policy_reason=policy_reason, provider_error_stage=provider_error_stage,
+                timings=ProcessingTimings(interpretation_seconds=interpretation_seconds,validation_context_seconds=validation_seconds))
 
         try:
             ticket = self.manager.begin_turn(text, session_id, turn_id)
@@ -43,21 +46,32 @@ class NextEngine:
                 route = 'offline' if isinstance(self.runner.provider, OfflineProvider) else 'provider'
                 request = InterpretationRequest(request_id=request_id, session_id=session_id,
                     turn_id=turn_id, text=text, context=context, capabilities=self.registry.capabilities())
-                reply = self.runner.call(request, lambda: self.manager.current(ticket))
+                reply = self.runner.call(request, lambda: not self.cancelled() and self.manager.current(ticket))
+                interpretation_seconds = time.perf_counter()-start
+                validation_start = time.perf_counter()
                 try:
                     decision = Decision.model_validate_json(reply.decision_json)
                 except (ValidationError, ValueError):
                     raise ProviderError('invalid_response') from None
                 usage = reply.usage
                 self.runner.record()
+                validation_seconds += time.perf_counter()-validation_start
+            else:
+                interpretation_seconds = time.perf_counter()-start
             proposed_operation = decision.operation
-            disposition, results, message, plan = self.manager.apply(ticket, decision)
+            validation_start = time.perf_counter()
+            try:
+                disposition, results, message, plan = self.manager.apply(ticket, decision)
+            finally:
+                validation_seconds += time.perf_counter()-validation_start
             result = outcome(disposition, message, results=results, plan=plan)
             return result.model_copy(update={'review': self.manager.review(ticket)})
         except StaleDecision:
             decision = None
             return outcome('stale', '', 'stale')  # No cancelled/stale text may reach TTS.
         except ProviderError as exc:
+            if route == 'provider' and not interpretation_seconds:
+                interpretation_seconds = time.perf_counter()-start
             decision = None
             self.runner.record(exc.code)
             if exc.code in ('stale', 'cancelled', 'closed'):
@@ -69,6 +83,11 @@ class NextEngine:
 
     def cancel(self, session_id='cli', turn_id='ui-cancel'):
         return self.interpret('Cancela', session_id, turn_id)
+
+    def local_reply(self, message, session_id='cli', turn_id='local'):
+        ticket = self.manager.begin_turn('',session_id,turn_id)
+        return Outcome(request_id=uuid.uuid4().hex,session_id=session_id,turn_id=turn_id,
+            generation=ticket.serial,route='direct',disposition='held',plan=self.manager.snapshot(),message=message,seconds=0)
 
     def confirm(self, review_id, session_id='cli', turn_id='local-review'):
         start = time.perf_counter()
