@@ -1,0 +1,107 @@
+{
+  "source": "docs/reports/next-voice-synthetic-first.json",
+  "source_sha256_utf8_lf": "c6f88005500bcca4dd5daed0e362122b7ec0ea3bcea0d41a85707c535f5a548f",
+  "tested_runtime_commit": "5d1bbd3f4e735d88e65b309077ba79cc720b79eb",
+  "rows": [
+    {
+      "case": "question",
+      "expected_text": "Abre una aplicación",
+      "passed": true,
+      "normalized_stt_match": true,
+      "first_observed_discrepancy": null,
+      "downstream_error": null,
+      "downstream_error_stage": null,
+      "follows_prior_failure": false
+    },
+    {
+      "case": "question",
+      "expected_text": "Spotify",
+      "passed": false,
+      "normalized_stt_match": false,
+      "first_observed_discrepancy": "stt_discrepancy",
+      "downstream_error": null,
+      "downstream_error_stage": null,
+      "follows_prior_failure": false
+    },
+    {
+      "case": "question",
+      "expected_text": "Cancela",
+      "passed": false,
+      "normalized_stt_match": false,
+      "first_observed_discrepancy": "stt_discrepancy",
+      "downstream_error": "unavailable",
+      "downstream_error_stage": null,
+      "follows_prior_failure": true
+    },
+    {
+      "case": "retained",
+      "expected_text": "Abre Steam, pero todavía no hagas nada",
+      "passed": false,
+      "normalized_stt_match": false,
+      "first_observed_discrepancy": "stt_discrepancy",
+      "downstream_error": "unavailable",
+      "downstream_error_stage": null,
+      "follows_prior_failure": false
+    },
+    {
+      "case": "retained",
+      "expected_text": "Mejor Spotify",
+      "passed": false,
+      "normalized_stt_match": false,
+      "first_observed_discrepancy": "stt_discrepancy",
+      "downstream_error": "unavailable",
+      "downstream_error_stage": null,
+      "follows_prior_failure": true
+    },
+    {
+      "case": "retained",
+      "expected_text": "Autoriza la simulación",
+      "passed": false,
+      "normalized_stt_match": false,
+      "first_observed_discrepancy": "stt_discrepancy",
+      "downstream_error": "unavailable",
+      "downstream_error_stage": null,
+      "follows_prior_failure": true
+    },
+    {
+      "case": "retained",
+      "expected_text": "Sí",
+      "passed": false,
+      "normalized_stt_match": false,
+      "first_observed_discrepancy": "stt_discrepancy",
+      "downstream_error": "suspended",
+      "downstream_error_stage": null,
+      "follows_prior_failure": true
+    },
+    {
+      "case": "provider",
+      "expected_text": "Necesito Discord abierto",
+      "passed": false,
+      "normalized_stt_match": false,
+      "first_observed_discrepancy": "stt_discrepancy",
+      "downstream_error": "invalid_response",
+      "downstream_error_stage": "decision_contract",
+      "follows_prior_failure": false
+    },
+    {
+      "case": "provider",
+      "expected_text": "Sí",
+      "passed": false,
+      "normalized_stt_match": false,
+      "first_observed_discrepancy": "stt_discrepancy",
+      "downstream_error": null,
+      "downstream_error_stage": null,
+      "follows_prior_failure": true
+    }
+  ],
+  "summary": {
+    "turns": 9,
+    "passed": 1,
+    "normalized_stt_matches": 1,
+    "remote_text_turns": 2,
+    "latency_observations": 9,
+    "estimated_response_median_seconds": 1.7010000000009313,
+    "estimated_response_max_seconds": 11.34100000000035
+  },
+  "limits": "First discrepancy labels do not prove exclusive causation; no transcript replacement or retry was used. Later dependent failures are marked. Original latency estimated voice end from processed VAD trailing silence and may omit startup queue delay; current instrumentation separately anchors capture callbacks. Original ResourceSampler method text mentions 5s but this harness sampled at turn boundaries; its active CPU means are unweighted irregular samples and RSS maxima are sampled, include the harness, and are not resident-only peaks. Voice presentation arming was strengthened after this original run and checked by mocked worker integration, not a rescore of this audio."
+}

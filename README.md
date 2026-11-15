@@ -2,7 +2,7 @@
 
 Repositorio público: [SebastianJimenezPo/Jarvis](https://github.com/SebastianJimenezPo/Jarvis). Rama de desarrollo: `phase-3-2-jarvis-next`. Cada cambio terminado se comprueba, confirma y publica; la base `phase-3-intelligence` se conserva.
 
-**Jarvis Next — piloto textual de Fase 3.2.** Base textual nueva en `jarvis.next`, con ruta directa mínima, proveedores offline/falso/Groq opcional, contratos estrictos y gestor central de planes simulados. La ruta offline no necesita E5, Ollama ni API key; Groq requiere credencial local y habilitación explícita. [Estado exacto y pruebas](docs/phase_3_2_stage_1.md), [arquitectura y límites](docs/jarvis_next_architecture.md).
+**Jarvis Next — perfil experimental textual y de voz de Fase 3.2.** Base textual nueva en `jarvis.next`, con ruta directa mínima, proveedores offline/falso/Groq opcional, contratos estrictos y gestor central de planes simulados. La ruta offline no necesita E5, Ollama ni API key; Groq requiere credencial local y habilitación explícita. [Estado exacto y pruebas](docs/phase_3_2_stage_1.md), [arquitectura y límites](docs/jarvis_next_architecture.md).
 
 ```powershell
 .\.venv\Scripts\python.exe -m jarvis.next "Abre Steam" "Volumen al 30%" "Olvida todo lo anterior"
@@ -10,7 +10,7 @@ Repositorio público: [SebastianJimenezPo/Jarvis](https://github.com/SebastianJi
 
 Cada argumento es un turno de una sesión temporal. Todo sigue en simulación. Las peticiones complejas pueden usar Groq de forma optativa, con revisión de borradores simulados; su autorización automática sigue pendiente. Ver [etapa 2, pruebas y uso](docs/phase_3_2_stage_2.md), [etapa 3, evaluación y correcciones](docs/phase_3_2_stage_3.md), [etapa 4, alcance de la intención](docs/phase_3_2_stage_4.md), [etapa 5, coherencia de petición](docs/phase_3_2_stage_5.md) y [etapa 6, comparación de razonamiento](docs/phase_3_2_stage_6.md). No se inventan ejecuciones. **La Fase 3.2 no está terminada.**
 
-El residente `python -m jarvis` conserva por ahora el motor y la configuración de 3.1. No se ha conectado Next al micrófono ni sustituido la ruta de voz; su integración será un bloque posterior. La referencia `5337b86` permanece en `phase-3-1-hardening` y en el tag `phase-3-1-restore`.
+El perfil de voz Next ya está integrado y se abre con `.\scripts\start_next.ps1`. Reutiliza tu captura, Rustpotter, VAD, STT y Piper; Groq 120B Medium trabaja bajo demanda, con preguntas pendientes y confirmaciones naturales locales. Todo sigue en simulación. **La voz aún no está aceptada: la primera prueba sintética acertó 1/9 turnos por discrepancias de transcripción.** Consulta la [guía física breve](docs/next_voice_quick_test.md) y el [informe completo de consolidación y voz](docs/phase_3_2_voice_experimental.md). El perfil legacy permanece disponible; no se ejecuta como segundo intérprete en Next. La referencia `5337b86` permanece intacta en `phase-3-1-hardening` y `phase-3-1-restore`.
 
 **Versión 0.3.1 — estabilización para revisión, fase pendiente de aceptación.** Validador con evidencia del turno completo, contexto atómico, planes acotados, aclaraciones y recuperación STT conservadora. **Todas las acciones siguen siendo simuladas.** El [informe de Fase 3.1](docs/phase_3_1.md) contiene resultados, limitaciones y pruebas físicas pendientes; la evaluación distingue datos reservados de regresión y conserva los fallos.
 

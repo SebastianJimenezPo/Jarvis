@@ -1,0 +1,207 @@
+{
+  "method": "Bounded local STT comparison. No Groq, downloads, microphone capture or playback.\n\nDefault: six newly generated synthetic clips, identical arrays across profiles.\n--dataset: local JSON array of {audio: WAV path, text: reference}; mono 16-bit PCM.\nPersonal recordings/reports should remain under ignored build/, never Git.\n",
+  "origin": "new synthetic Piper generation, not the exact first integration stimuli",
+  "clips": [
+    {
+      "text": "Spotify",
+      "sha256_float32": "9679dbea01a6af95006a3c5af367016f6f67fe65dfa8c484397a7270202a3247",
+      "seconds": 2.3618125
+    },
+    {
+      "text": "Cancela",
+      "sha256_float32": "487c073a78cf001830560694a60c020f70031f37c97fc4257dd478b1a089902b",
+      "seconds": 1.8894375
+    },
+    {
+      "text": "Sí",
+      "sha256_float32": "8d023fdccae38956854e402d3f7cc926f7de2e46ca385941b047c367eea6b584",
+      "seconds": 1.8556875
+    },
+    {
+      "text": "Mejor Spotify",
+      "sha256_float32": "53b9b74459d0f44f2d442c3b17381968d045fa60c78d0b71e705630853f4821b",
+      "seconds": 2.6991875
+    },
+    {
+      "text": "Abre una aplicación",
+      "sha256_float32": "9947eadbcdc5e2e86d9dfb5257b7095c1c56ab9bf37168ac94738c91bb1593eb",
+      "seconds": 3.2390625
+    },
+    {
+      "text": "Abre Steam, pero todavía no hagas nada",
+      "sha256_float32": "ecdc9d5a9cd5cfabc148b9a3acedb09f8a47f593e1d9b648efe2c97a076e420f",
+      "seconds": 3.644
+    }
+  ],
+  "profiles": [
+    {
+      "engine": "moonshine-small",
+      "cpu_threads": 2,
+      "load_seconds": 0.8108621999999741,
+      "rows": [
+        {
+          "expected": "Spotify",
+          "actual": "Sport D. F.",
+          "errors": {
+            "word_errors": 3,
+            "reference_words": 1,
+            "character_errors": 5,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 3.55782249999902,
+          "finalize_seconds": 0.016190700000151992
+        },
+        {
+          "expected": "Cancela",
+          "actual": "Transera.",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 4,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 2.762301300004765,
+          "finalize_seconds": 0.021478499998920597
+        },
+        {
+          "expected": "Sí",
+          "actual": "St.",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 1,
+            "reference_characters": 2
+          },
+          "elapsed_seconds": 2.2442248000006657,
+          "finalize_seconds": 0.008364100001927
+        },
+        {
+          "expected": "Mejor Spotify",
+          "actual": "McForrest Potifi",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 2,
+            "character_errors": 7,
+            "reference_characters": 13
+          },
+          "elapsed_seconds": 4.009200200001942,
+          "finalize_seconds": 0.011177199994563125
+        },
+        {
+          "expected": "Abre una aplicación",
+          "actual": "Abre una aplicación.",
+          "errors": {
+            "word_errors": 0,
+            "reference_words": 3,
+            "character_errors": 0,
+            "reference_characters": 19
+          },
+          "elapsed_seconds": 5.202875399998447,
+          "finalize_seconds": 0.018817299998772796
+        },
+        {
+          "expected": "Abre Steam, pero todavía no hagas nada",
+          "actual": "Abro Stramp, pero todavía no harás nada.",
+          "errors": {
+            "word_errors": 3,
+            "reference_words": 7,
+            "character_errors": 5,
+            "reference_characters": 37
+          },
+          "elapsed_seconds": 6.485403999999107,
+          "finalize_seconds": 0.027119300000777002
+        }
+      ],
+      "rss_bytes": 274972672,
+      "affinity": [
+        0,
+        1
+      ]
+    },
+    {
+      "engine": "whisper-base",
+      "cpu_threads": 2,
+      "load_seconds": 4.632151400001021,
+      "rows": [
+        {
+          "expected": "Spotify",
+          "actual": "Spot D3",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 1,
+            "character_errors": 3,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 3.7109445999958552,
+          "finalize_seconds": 3.7107910999984597
+        },
+        {
+          "expected": "Cancela",
+          "actual": "¡Lancela!",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 1,
+            "reference_characters": 7
+          },
+          "elapsed_seconds": 3.222273800005496,
+          "finalize_seconds": 3.222112900002685
+        },
+        {
+          "expected": "Sí",
+          "actual": "¡Tienes!",
+          "errors": {
+            "word_errors": 1,
+            "reference_words": 1,
+            "character_errors": 6,
+            "reference_characters": 2
+          },
+          "elapsed_seconds": 3.159859699997469,
+          "finalize_seconds": 3.1597651000047335
+        },
+        {
+          "expected": "Mejor Spotify",
+          "actual": "Metforas potifi",
+          "errors": {
+            "word_errors": 2,
+            "reference_words": 2,
+            "character_errors": 5,
+            "reference_characters": 13
+          },
+          "elapsed_seconds": 3.5818030999944312,
+          "finalize_seconds": 3.581622300000163
+        },
+        {
+          "expected": "Abre una aplicación",
+          "actual": "y ahora viene una aplicación",
+          "errors": {
+            "word_errors": 3,
+            "reference_words": 3,
+            "character_errors": 10,
+            "reference_characters": 19
+          },
+          "elapsed_seconds": 1.4338309000013396,
+          "finalize_seconds": 1.4336597000001348
+        },
+        {
+          "expected": "Abre Steam, pero todavía no hagas nada",
+          "actual": "Abre este a pero todavía no hayas nada",
+          "errors": {
+            "word_errors": 3,
+            "reference_words": 7,
+            "character_errors": 4,
+            "reference_characters": 37
+          },
+          "elapsed_seconds": 1.4542379999984405,
+          "finalize_seconds": 1.4540300000007846
+        }
+      ],
+      "rss_bytes": 171294720,
+      "affinity": [
+        0,
+        1
+      ]
+    }
+  ],
+  "limits": "Same arrays across recognizers; no default/config changes. Synthetic accuracy is not physical user accuracy. Moonshine feed is paced; elapsed time is not a directly comparable decoding benchmark."
+}
