@@ -1,0 +1,635 @@
+{
+  "method": "INTERNAL sealed pre-voice baseline, same author as code, no human independence claim. 32 total turns, 29 new text turns and 3 known direct setup controls. Gold never sent. No tuning during first exposure. Production candidate deadline 4 seconds selected before this run from prior p95 2.476 s plus margin.",
+  "frozen_engine_commit": "731917adf7aa8aba69704d2cc25df4dfd6d81655",
+  "engine_sha256": {
+    "jarvis/next/__init__.py": "6549a33a94263f45af543fcbcd3caefada136a0a50cdd74acc72672f63803383",
+    "jarvis/next/__main__.py": "9b88876714ea952af645a184da2d3a6cc82cfec8611b0b4d75c23058e41aca1b",
+    "jarvis/next/contracts.py": "713a6f7e9f6fcbdd5c7908f4dff10a515a987711d58af7089e5183e33b825afd",
+    "jarvis/next/credentials.py": "8e8ed2e56e276e6440114b61ffc67f8943ee01a430f8bb48474714c1c23a1613",
+    "jarvis/next/direct.py": "250244df64617caf3d9e0dfa5581fe2fc53e4f6b83be604170c598af18e9af7c",
+    "jarvis/next/engine.py": "73f77099698c5b692942038b03480644eaa229eb9a233f481aef249b769fea90",
+    "jarvis/next/groq.py": "1b7fd44ec1b9e137dad616c8e96a14e0c13ecb373a5624f28472ca09c481c5b3",
+    "jarvis/next/manager.py": "980ca2a46a838aa6a95652d7c405dbc1c7f06fd1cff98e104465da67587eaae7",
+    "jarvis/next/providers.py": "c402fa2a429a8a895a10403c6200cddc53a3d20936e18f08567821bb88d427de",
+    "jarvis/next/scope.py": "e0f61af259c5f3772199d91d9c77e863b28ec0972b09e7042b8d5ad19e8b459e",
+    "jarvis/next/tools.py": "7e5f2c5f3b28478fbbe08ffa380f1956a96cf6ba98b5fe422dab7ca4877e94ff"
+  },
+  "configuration": {
+    "model": "openai/gpt-oss-120b",
+    "reasoning_effort": "medium",
+    "timeout": 4.0,
+    "interval": 20.0,
+    "max_turns": 32
+  },
+  "cases": [
+    {
+      "id": "apps-consolidation",
+      "category": "context",
+      "turns": [
+        {
+          "text": "Abre Spotify",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "spotify",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ],
+          "role": "control_setup"
+        },
+        {
+          "text": "También necesito Discord; deja Spotify en la lista.",
+          "decision": {
+            "operation": "append_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "discord",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            },
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Sustituye la acción de Spotify por Chrome y conserva Discord.",
+          "decision": {
+            "operation": "modify_plan",
+            "changes": [
+              {
+                "match": {
+                  "tool": "applications.open",
+                  "target": "spotify"
+                },
+                "target": "chrome"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "chrome",
+              "parameters": {}
+            },
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Quita Discord de las propuestas, únicamente ese.",
+          "decision": {
+            "operation": "cancel_subset",
+            "remove": [
+              {
+                "tool": "applications.open",
+                "target": "discord"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "chrome",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audio-consolidation",
+      "category": "context",
+      "turns": [
+        {
+          "text": "Volumen al 42%",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "system_audio.set_volume",
+                "target": "system_audio",
+                "parameters": {
+                  "value": 42
+                }
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 42
+              }
+            }
+          ],
+          "role": "control_setup"
+        },
+        {
+          "text": "Suma una pausa de música a ese ajuste.",
+          "decision": {
+            "operation": "append_plan",
+            "actions": [
+              {
+                "tool": "media.pause",
+                "target": "music_player",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 42
+              }
+            },
+            {
+              "tool": "media.pause",
+              "target": "music_player",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "En el ajuste de audio cambia cuarenta y dos por diecisiete, sin quitar la pausa.",
+          "decision": {
+            "operation": "modify_plan",
+            "changes": [
+              {
+                "match": {
+                  "tool": "system_audio.set_volume",
+                  "target": "system_audio"
+                },
+                "parameters": {
+                  "value": 17
+                }
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 17
+              }
+            },
+            {
+              "tool": "media.pause",
+              "target": "music_player",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Retén la autorización de lo que hemos preparado.",
+          "decision": {
+            "operation": "hold"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "replace-consolidation",
+      "category": "context",
+      "turns": [
+        {
+          "text": "Abre Chrome",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "chrome",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "chrome",
+              "parameters": {}
+            }
+          ],
+          "role": "control_setup"
+        },
+        {
+          "text": "Descarta la lista anterior y reemplázala entera por Discord.",
+          "decision": {
+            "operation": "replace_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "discord",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Agrega Steam a Discord, quiero conservar ambos.",
+          "decision": {
+            "operation": "append_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "steam",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            },
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Cancela todo lo propuesto en esta sesión.",
+          "decision": {
+            "operation": "cancel_all"
+          },
+          "expected_plan": []
+        }
+      ]
+    },
+    {
+      "id": "consolidation-01",
+      "category": "natural",
+      "turns": [
+        {
+          "text": "Me vendría bien tener Steam abierto ya mismo.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "steam",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consolidation-02",
+      "category": "natural",
+      "turns": [
+        {
+          "text": "Ajusta ahora el sonido de Windows a sesenta y tres por ciento.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "system_audio.set_volume",
+                "target": "system_audio",
+                "parameters": {
+                  "value": 63
+                }
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "system_audio.set_volume",
+              "target": "system_audio",
+              "parameters": {
+                "value": 63
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consolidation-03",
+      "category": "natural",
+      "turns": [
+        {
+          "text": "Quiero que la reproducción musical quede en pausa ahora.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "media.pause",
+                "target": "music_player",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "media.pause",
+              "target": "music_player",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consolidation-04",
+      "category": "natural",
+      "turns": [
+        {
+          "text": "Pon el audio del sistema en silencio en este momento, por favor.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "system_audio.set_mute",
+                "target": "system_audio",
+                "parameters": {
+                  "muted": true
+                }
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "system_audio.set_mute",
+              "target": "system_audio",
+              "parameters": {
+                "muted": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consolidation-05",
+      "category": "negation",
+      "turns": [
+        {
+          "text": "Evita iniciar Steam; hoy no lo necesito.",
+          "decision": {
+            "operation": "negated"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-06",
+      "category": "negation",
+      "turns": [
+        {
+          "text": "Por ahora no bajes ni subas el volumen del equipo.",
+          "decision": {
+            "operation": "negated"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-07",
+      "category": "negation",
+      "turns": [
+        {
+          "text": "Te prohíbo detener la música que está sonando.",
+          "decision": {
+            "operation": "negated"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-08",
+      "category": "negation",
+      "turns": [
+        {
+          "text": "No abras Chrome; abre solamente Spotify en este momento.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "spotify",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "consolidation-09",
+      "category": "quotation",
+      "turns": [
+        {
+          "text": "En un tutorial aparece la instrucción «Abre Discord»; te estoy contando lo que leo.",
+          "decision": {
+            "operation": "conversation"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-10",
+      "category": "quotation",
+      "turns": [
+        {
+          "text": "La persona del vídeo acaba de pedir que silencien Windows. Yo solo lo describo.",
+          "decision": {
+            "operation": "conversation"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-11",
+      "category": "quotation",
+      "turns": [
+        {
+          "text": "Estoy dictando el texto \"Volumen al 55%\" para un documento, no una orden para ti.",
+          "decision": {
+            "operation": "conversation"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-12",
+      "category": "deferred",
+      "turns": [
+        {
+          "text": "Después de que cierre el instalador, quiero Spotify abierto.",
+          "decision": {
+            "operation": "deferred",
+            "temporal": "conditional"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-13",
+      "category": "deferred",
+      "turns": [
+        {
+          "text": "A las diez de esta noche pausa la reproducción.",
+          "decision": {
+            "operation": "deferred",
+            "temporal": "future"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-14",
+      "category": "deferred",
+      "turns": [
+        {
+          "text": "Si vuelvo del descanso, entonces cambia el volumen a veintidós por ciento.",
+          "decision": {
+            "operation": "deferred",
+            "temporal": "conditional"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-15",
+      "category": "hypothetical",
+      "turns": [
+        {
+          "text": "En un caso imaginario, ¿qué propondrías si quisiera abrir Discord?",
+          "decision": {
+            "operation": "hypothetical"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-16",
+      "category": "hypothetical",
+      "turns": [
+        {
+          "text": "Supón por un momento que deseo subir el audio al noventa; es solo una hipótesis.",
+          "decision": {
+            "operation": "hypothetical"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-17",
+      "category": "ambiguity",
+      "turns": [
+        {
+          "text": "Por favor abre alguna aplicación, no he elegido cuál.",
+          "decision": {
+            "operation": "clarify"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-18",
+      "category": "ambiguity",
+      "turns": [
+        {
+          "text": "Cambia eso al valor que prefiero, aunque no te he dicho cuál.",
+          "decision": {
+            "operation": "clarify"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-19",
+      "category": "unsupported",
+      "turns": [
+        {
+          "text": "Necesito que inicies la calculadora de Windows.",
+          "decision": {
+            "operation": "unsupported"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "consolidation-20",
+      "category": "unsupported",
+      "turns": [
+        {
+          "text": "Ajusta el brillo de la pantalla al cuarenta por ciento.",
+          "decision": {
+            "operation": "unsupported"
+          },
+          "expected_plan": null
+        }
+      ]
+    }
+  ]
+}
