@@ -1,0 +1,7 @@
+{
+  "status": "retired_as_development",
+  "date": "2026-11-14",
+  "baseline": "a722c7bf0a21cebac23078a71786616abb14d4e8",
+  "reason": "Completed 16 first exposures; four failures will inform provider intent-scope instructions.",
+  "original_results": "docs/reports/next-reserved-v2-combined.json"
+}
