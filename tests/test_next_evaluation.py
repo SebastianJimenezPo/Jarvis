@@ -20,6 +20,20 @@ def test_new_corpus_has_32_new_turns_and_one_explicit_control():
     assert sum(len(c['turns']) for c in data()['cases'] if c['category'] == 'critical') == 12
 
 
+def test_semantic_v2_seal_and_contrasts_are_infrastructure_not_accuracy(tmp_path):
+    source = Path('docs/evaluation/next_reserved_v2.json')
+    import hashlib
+    manifest = json.loads(source.read_text(encoding='utf-8'))
+    assert hashlib.sha256(source.read_bytes()).hexdigest() == source.with_suffix('.sha256').read_text().strip()
+    assert len(manifest['cases']) == 16
+    assert sum(c['category'] == 'positive' for c in manifest['cases']) == 4
+    report = run_pilot(manifest, 'fixture', output=tmp_path/'v2-fixture.json', max_turns=16, detailed_metrics=True)
+    assert report['summary']['checks_passed'] == 16
+    assert report['summary']['real_model_accuracy'] is None
+    assert not report['summary']['unexpected_action_drafts']
+    assert all(not r['unreviewed_provider_results'] and not r['executed'] for r in report['rows'])
+
+
 def test_fixture_checks_context_ids_but_does_not_claim_model_accuracy(tmp_path):
     report = run_pilot(data(), 'fixture', output=tmp_path/'fixture.json', max_turns=33, detailed_metrics=True)
     summary = report['detailed_summary']
