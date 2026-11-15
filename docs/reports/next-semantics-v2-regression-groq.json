@@ -1,0 +1,226 @@
+{
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "reasoning_effort": "low",
+  "method": "DEVELOPMENT regression of all four known v2 failures after retirement; not fresh or general accuracy evidence.",
+  "commit": "c95f6f901544943c3a46bc8eb8fa15047efd4919",
+  "status": "completed",
+  "rows": [
+    {
+      "case": "semantic-v2-07",
+      "turn": 0,
+      "text": "El mensaje que estoy copiando dice: “Pausa la música”.",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "quotation",
+      "expected_operation": "conversation",
+      "actual_operation": "create_plan",
+      "route": "provider",
+      "disposition": "rejected",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": false,
+      "plan_match": true,
+      "identity_preserved": null,
+      "unexpected_action_draft": false,
+      "error": "policy_rejected",
+      "policy_reason": "quoted_command",
+      "candidate_plan": [],
+      "seconds": 0.9122733999975026,
+      "usage": {
+        "input_tokens": 2019,
+        "output_tokens": 175
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43974656,
+      "client_cpu_seconds_delta": 0.03125,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": false,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "semantic-v2-09",
+      "turn": 0,
+      "text": "Al acabar la instalación, deja el volumen del sistema al 37%.",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "deferred",
+      "expected_operation": "deferred",
+      "actual_operation": "create_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": false,
+      "review_offered": true,
+      "review_applied": false,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": false,
+      "plan_match": false,
+      "identity_preserved": null,
+      "unexpected_action_draft": true,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_volume",
+          "target": "system_audio",
+          "parameters": {
+            "value": 37
+          }
+        }
+      ],
+      "seconds": 0.9403351000000839,
+      "usage": {
+        "input_tokens": 2019,
+        "output_tokens": 241
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 44081152,
+      "client_cpu_seconds_delta": 0.03125,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": false,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "semantic-v2-11",
+      "turn": 0,
+      "text": "Supongamos que quisiera silenciar Windows: ¿qué acción propondrías?",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "hypothetical",
+      "expected_operation": "hypothetical",
+      "actual_operation": "hypothetical",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [],
+      "seconds": 0.6147864000013215,
+      "usage": {
+        "input_tokens": 2021,
+        "output_tokens": 138
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 44167168,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": null,
+      "provider_references_valid": true
+    },
+    {
+      "case": "semantic-v2-15",
+      "turn": 0,
+      "text": "No abras Discord; lo que sí quiero es que abras Steam ahora.",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "positive",
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "steam",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.9949646000022767,
+      "usage": {
+        "input_tokens": 2018,
+        "output_tokens": 279
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 44118016,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    }
+  ],
+  "max_turns": 4,
+  "available_turns": 4,
+  "limits": "Dataset method/manifest defines development versus internal-reserved status. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.",
+  "client_rss_start_bytes": 36032512,
+  "client_resources": {
+    "rss_final_bytes": 44167168,
+    "rss_max_turn_boundary_bytes": 44167168,
+    "cpu_seconds_during_interpretation_and_review": 0.0625,
+    "cpu_peak": null,
+    "gpu": null,
+    "limits": "Text pilot process only; snapshots at turn boundaries, not sampled peaks. No resident, STT, TTS, gaming or remote-server memory measurement."
+  },
+  "summary": {
+    "turns": 4,
+    "checks_passed": 2,
+    "setup_failed_turns": 0,
+    "unexpected_action_drafts": 1,
+    "remote_requests_attempted": 4,
+    "real_model_accuracy": null,
+    "live_pipeline_match_rate": 0.5
+  },
+  "route_latency": {
+    "direct": {
+      "count": 0,
+      "median": null,
+      "p95": null
+    },
+    "provider": {
+      "count": 4,
+      "median": 0.9263042499987932,
+      "p95": 0.9949646000022767
+    },
+    "offline": {
+      "count": 0,
+      "median": null,
+      "p95": null
+    }
+  },
+  "detailed_summary": {
+    "evaluation_turns": 4,
+    "known_control_turns": 0,
+    "pipeline_matches": 2,
+    "provider_turns": 4,
+    "observable_provider_decisions": 4,
+    "provider_operation_matches_observed": 2,
+    "catalog_proposals_observed": 3,
+    "provider_catalog_valid_observed": 3,
+    "provider_references_valid_observed": 4,
+    "policy_rejections": 1,
+    "identity_checks": 2,
+    "identity_checks_passed": 2,
+    "setup_failed_turns": 0,
+    "limits": "Operation/catalog/reference scores cover observable parsed provider decisions only. Unobservable transport/wire failures remain separate. Plan score includes policy/projection; no isolated general model-accuracy claim."
+  }
+}

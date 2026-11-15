@@ -13,3 +13,5 @@ Las capacidades siguientes todavía no están habilitadas:
 6. Interfaz flotante, perfiles de rendimiento, instalador y pruebas prolongadas.
 
 Pendiente de evaluación: falsas activaciones, pausas naturales y STT con frases cortas, elección de micrófono de auriculares, voz alternativa, consumo durante juego y conversaciones espontáneas. Conservar la configuración aceptada mientras se recopilan resultados físicos. La dirección 3.2 sustituye la ampliación indefinida del motor anterior; no implica que la aceptación física pendiente de 3.1 se haya aprobado. No conectar acciones reales mientras queden fallos o abstenciones relevantes sin evaluar.
+
+La [cuarta etapa](phase_3_2_stage_4.md) registra 12/16 aciertos en contrastes nuevos, un borrador aplazado indebido y una regresión parcial de 2/4 fallos tras aclarar el prompt. No se alcanzó la aceptación prevista. Se mantienen revisión local y simulación; próximos pasos: investigar los errores críticos restantes y aceptación textual de autor distinto, antes de voz o acciones físicas.
