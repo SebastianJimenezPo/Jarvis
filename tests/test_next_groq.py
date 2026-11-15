@@ -211,6 +211,33 @@ def test_malformed_truncated_or_manipulated_response_is_rejected(body):
     p.close()
 
 
+@pytest.mark.parametrize('body,status,stage', [
+    (completion(choices=[{'finish_reason': 'length', 'message': {'content': SECRET}}]), 200, 'completion_limit'),
+    (b'not JSON', 200, 'response_envelope'),
+    (completion(content=wire(request_mode='reported')), 200, 'decision_contract'),
+    (completion(content=wire(evidence_text='invented')), 200, 'decision_contract'),
+    (SECRET.encode(), 400, 'http_response'),
+])
+def test_safe_error_stage_survives_runner_without_body_or_secret(body, status, stage):
+    conn = Connection([Response(body, status)])
+    e = NextEngine(provider(conn))
+    e.begin_session('cli')
+    try:
+        result = e.interpret(TEXT)
+        assert result.error == 'invalid_response' and result.provider_error_stage == stage
+        assert not result.results and not result.plan.items
+        assert SECRET not in result.model_dump_json()
+        assert conn.closed and len(conn.requests) == 1
+    finally:
+        e.close()
+
+
+def test_error_stage_is_a_closed_category_not_an_exception_message():
+    error = ProviderError('invalid_response', SECRET)
+    assert error.stage is None and SECRET not in repr(error.__dict__) + str(error)
+    assert ProviderError('connection', 'completion_limit').stage is None
+
+
 def test_expired_or_cancelled_control_never_sends():
     conn = Connection([])
     p = provider(conn)

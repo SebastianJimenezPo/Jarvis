@@ -4,17 +4,18 @@ import threading
 import time
 from dataclasses import dataclass, field
 from typing import Callable, Literal, Protocol
-from .contracts import InterpretationRequest, ProviderReply
+from .contracts import InterpretationRequest, ProviderReply, ProviderErrorStage
 
 ErrorCode = Literal['unavailable', 'connection', 'authentication', 'quota', 'model_unavailable',
                     'timeout', 'cancelled', 'stale', 'invalid_response', 'busy', 'suspended', 'closed']
 
 
 class ProviderError(Exception):
-    def __init__(self, code: ErrorCode):
+    def __init__(self, code: ErrorCode, stage=None):
         if code not in ErrorCode.__args__:
             code = 'unavailable'
         self.code = code
+        self.stage = stage if code == 'invalid_response' and stage in ProviderErrorStage.__args__ else None
         super().__init__(code)  # Never retain raw provider errors, headers or credentials.
 
 
@@ -102,7 +103,7 @@ class ProviderRunner:
             try:
                 result.append(self.provider.interpret(request, control))
             except ProviderError as exc:
-                result.append(ProviderError(exc.code))
+                result.append(ProviderError(exc.code, exc.stage))
             except Exception:
                 result.append(ProviderError('unavailable'))
             finally:

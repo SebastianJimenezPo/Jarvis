@@ -28,12 +28,12 @@ class NextEngine:
         proposed_operation = None
         request_id, ticket = uuid.uuid4().hex, None
 
-        def outcome(disposition, message, error=None, results=(), plan=None, policy_reason=None):
+        def outcome(disposition, message, error=None, results=(), plan=None, policy_reason=None, provider_error_stage=None):
             return Outcome(request_id=request_id, session_id=session_id, turn_id=turn_id,
                 generation=ticket.serial if ticket else 0, route=route, disposition=disposition, decision=decision,
                 plan=plan if plan is not None else self.manager.snapshot(), results=results, message=message,
                 error=error, seconds=time.perf_counter()-start, usage=usage,
-                proposed_operation=proposed_operation, policy_reason=policy_reason)
+                proposed_operation=proposed_operation, policy_reason=policy_reason, provider_error_stage=provider_error_stage)
 
         try:
             ticket = self.manager.begin_turn(text, session_id, turn_id)
@@ -62,7 +62,7 @@ class NextEngine:
             self.runner.record(exc.code)
             if exc.code in ('stale', 'cancelled', 'closed'):
                 return outcome('stale', '', exc.code)
-            return outcome('unavailable', 'El intérprete no está disponible. Puedo seguir con órdenes directas locales.', exc.code)
+            return outcome('unavailable', 'El intérprete no está disponible. Puedo seguir con órdenes directas locales.', exc.code, provider_error_stage=exc.stage)
         except PolicyError as exc:
             decision = None
             return outcome('rejected', 'No puedo validar esa propuesta. No he ejecutado acciones.', 'policy_rejected', policy_reason=exc.reason)

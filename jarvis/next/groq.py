@@ -180,6 +180,7 @@ class GroqProvider:
             {'role': 'user', 'content': json.dumps(data, ensure_ascii=False, separators=(',', ':'))}],
             'response_format': {'type': 'json_schema', 'json_schema': {'name': 'jarvis_decision', 'strict': True, 'schema': strict_schema()}},
             'max_completion_tokens': 1024, 'reasoning_effort': self.reasoning_effort, 'stream': False, 'n': 1}
+        phase = 'http_response'
         try:
             with self._lock:
                 if self._closed:
@@ -200,6 +201,7 @@ class GroqProvider:
                         404: 'model_unavailable', 408: 'timeout', 429: 'quota'}.get(response.status, 'connection')
                 raise ProviderError(code)
             body = bytearray()
+            phase = 'response_envelope'
             while True:
                 control.checkpoint()
                 if getattr(conn, 'sock', None):
@@ -215,15 +217,19 @@ class GroqProvider:
             if parsed.get('model') != self.model or len(parsed['choices']) != 1:
                 raise ProviderError('invalid_response')
             choice = parsed['choices'][0]
+            if choice.get('finish_reason') == 'length':
+                raise ProviderError('invalid_response', 'completion_limit')
             if choice.get('finish_reason') != 'stop' or choice['message'].get('tool_calls') or choice['message'].get('refusal'):
                 raise ProviderError('invalid_response')
+            phase = 'decision_contract'
             decision = decision_from_wire(choice['message']['content'], request)
+            phase = 'response_envelope'
             usage = parsed.get('usage') or {}
             return ProviderReply(decision_json=decision.model_dump_json(), usage=Usage(
                 input_tokens=usage.get('prompt_tokens'), output_tokens=usage.get('completion_tokens')))
-        except ProviderError:
+        except ProviderError as exc:
             self._drop()
-            raise
+            raise ProviderError(exc.code, exc.stage or phase) from None
         except (TimeoutError, socket.timeout):
             self._drop()
             raise ProviderError('timeout') from None
@@ -232,7 +238,7 @@ class GroqProvider:
             raise ProviderError('connection') from None
         except Exception:
             self._drop()
-            raise ProviderError('invalid_response') from None
+            raise ProviderError('invalid_response', phase) from None
 
     def close(self):
         with self._lock:

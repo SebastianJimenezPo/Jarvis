@@ -1,0 +1,164 @@
+{
+  "method": "DEVELOPMENT paired low/medium comparison on known cases; 5 independent turns plus a known 3-turn contextual sequence. Same frozen engine and fixed order low then medium; time/order and stochastic confounding remain. Not independent accuracy evidence.",
+  "cases": [
+    {
+      "id": "semantic-v2-01",
+      "category": "negation",
+      "turns": [
+        {
+          "text": "Por favor, no inicies Discord aunque esté cerrado.",
+          "decision": {
+            "operation": "negated"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-07",
+      "category": "quotation",
+      "turns": [
+        {
+          "text": "El mensaje que estoy copiando dice: “Pausa la música”.",
+          "decision": {
+            "operation": "conversation"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-09",
+      "category": "deferred",
+      "turns": [
+        {
+          "text": "Al acabar la instalación, deja el volumen del sistema al 37%.",
+          "decision": {
+            "operation": "deferred",
+            "temporal": "conditional"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-11",
+      "category": "hypothetical",
+      "turns": [
+        {
+          "text": "Supongamos que quisiera silenciar Windows: ¿qué acción propondrías?",
+          "decision": {
+            "operation": "hypothetical"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-15",
+      "category": "positive",
+      "turns": [
+        {
+          "text": "No abras Discord; lo que sí quiero es que abras Steam ahora.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "steam",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mixed-edit",
+      "category": "context",
+      "turns": [
+        {
+          "text": "Abre Chrome.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "chrome",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "chrome",
+              "parameters": {}
+            }
+          ],
+          "role": "control_setup"
+        },
+        {
+          "text": "Mejor Discord en lugar de Chrome, y aparte pausa la música",
+          "decision": {
+            "operation": "modify_plan",
+            "changes": [
+              {
+                "match": {
+                  "tool": "applications.open",
+                  "target": "chrome"
+                },
+                "target": "discord"
+              }
+            ],
+            "actions": [
+              {
+                "tool": "media.pause",
+                "target": "music_player",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            },
+            {
+              "tool": "media.pause",
+              "target": "music_player",
+              "parameters": {}
+            }
+          ]
+        },
+        {
+          "text": "Elimina solo lo de pausar; no toques Discord",
+          "decision": {
+            "operation": "cancel_subset",
+            "remove": [
+              {
+                "tool": "media.pause",
+                "target": "music_player"
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "discord",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

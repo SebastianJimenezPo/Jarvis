@@ -32,6 +32,23 @@ def test_missing_key_skips_remote_instead_of_inventing_results(tmp_path, monkeyp
     assert report['status'] == 'not_run_missing_key' and report['summary'] is None and not report['rows']
 
 
+def test_pilot_records_safe_failure_stage_without_retrying(monkeypatch, tmp_path):
+    from jarvis.next.providers import FakeProvider, ProviderError
+    def fail(*_):
+        raise ProviderError('invalid_response', 'completion_limit')
+    fake = FakeProvider(fail)
+    monkeypatch.setattr('jarvis.next.credentials.read_groq_key', lambda: 'fake-secret-not-for-report')
+    monkeypatch.setattr('jarvis.next.groq.GroqProvider', lambda **_: fake)
+    source = dict(method='unit test with fake transport', cases=[dict(id='one', turns=[dict(
+        text='Solo estoy explicando una idea.', decision=dict(operation='conversation'), expected_plan=None)])])
+    path = tmp_path/'failure.json'
+    report = run_pilot(source, 'groq', output=path, allow_remote=True, free_tier=True, max_turns=1)
+    assert report['status'] == 'stopped_on_provider_error'
+    assert report['rows'][0]['provider_error_stage'] == 'completion_limit'
+    assert fake.calls == 1 and fake.closed
+    assert 'fake-secret-not-for-report' not in path.read_text(encoding='utf-8')
+
+
 def test_no_remote_without_both_opt_ins_and_no_overwriting_results(tmp_path):
     with pytest.raises(ValueError):
         run_pilot(data(), 'groq', output=tmp_path/'bad.json')

@@ -8,6 +8,7 @@ class Record(BaseModel):
 
 
 Parameters = dict[str, StrictInt | StrictStr | StrictBool]
+ProviderErrorStage = Literal['http_response', 'response_envelope', 'completion_limit', 'decision_contract']
 Operation = Literal[
     'create_plan', 'append_plan', 'modify_plan', 'replace_plan', 'remove_actions',
     'cancel_subset', 'cancel_all', 'hold', 'answer_clarification', 'query_state',
@@ -153,6 +154,7 @@ class Outcome(Record):
     error: StrictStr | None = None
     proposed_operation: Operation | None = None
     policy_reason: PolicyReason | None = None
+    provider_error_stage: ProviderErrorStage | None = None
     seconds: float = Field(ge=0)
     usage: Usage = Field(default_factory=Usage)
     review: PlanReview | None = None

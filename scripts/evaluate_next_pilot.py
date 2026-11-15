@@ -138,7 +138,8 @@ def run_pilot(data, provider_kind, *, output, allow_remote=False, free_tier=Fals
                     'operation_equivalence_used': bool(operation_ok and result.decision.operation != row['decision']['operation']),
                     'operation_match': bool(operation_ok), 'plan_match': plan_ok, 'identity_preserved': identity_ok,
                     'unexpected_action_draft': forbidden and bool(result.review),
-                    'error': result.error, 'policy_reason': result.policy_reason, 'candidate_plan': calls(candidate), 'seconds': result.seconds,
+                    'error': result.error, 'provider_error_stage': result.provider_error_stage,
+                    'policy_reason': result.policy_reason, 'candidate_plan': calls(candidate), 'seconds': result.seconds,
                     'usage': result.usage.model_dump(), 'executed': result.executed,
                     'client_rss_after_turn_bytes': process.memory_info().rss,
                     'client_cpu_seconds_delta': max(0, cpu.user+cpu.system-cpu_before)}
