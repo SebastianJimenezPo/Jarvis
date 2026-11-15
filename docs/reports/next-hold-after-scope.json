@@ -1,0 +1,150 @@
+{
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "reasoning_effort": "low",
+  "method": "DEVELOPMENT regression after reserved-v1 retirement. Known hold failure with known direct setup; not independent accuracy evidence.",
+  "commit": "3755f543b163f75897cd70ba8a1ac2a598db1822",
+  "status": "completed",
+  "rows": [
+    {
+      "case": "known-hold-regression",
+      "turn": 0,
+      "text": "Abre Discord",
+      "setup_succeeded": true,
+      "role": "control_setup",
+      "category": "context",
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "direct",
+      "disposition": "simulated",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "discord",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.00017520000255899504,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 35225600,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": false,
+      "provider_contract_valid": null,
+      "provider_operation_match": null,
+      "provider_catalog_valid": null,
+      "provider_references_valid": null
+    },
+    {
+      "case": "known-hold-regression",
+      "turn": 1,
+      "text": "Aún no autorices este plan",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "hold",
+      "actual_operation": "hold",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "discord",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.8601673000011942,
+      "usage": {
+        "input_tokens": 1906,
+        "output_tokens": 164
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43008000,
+      "client_cpu_seconds_delta": 0.03125,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": null,
+      "provider_references_valid": true
+    }
+  ],
+  "max_turns": 2,
+  "available_turns": 2,
+  "limits": "Dataset method/manifest defines development versus internal-reserved status. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.",
+  "client_rss_start_bytes": 35127296,
+  "client_resources": {
+    "rss_final_bytes": 43036672,
+    "rss_max_turn_boundary_bytes": 43008000,
+    "cpu_seconds_during_interpretation_and_review": 0.03125,
+    "cpu_peak": null,
+    "gpu": null,
+    "limits": "Text pilot process only; snapshots at turn boundaries, not sampled peaks. No resident, STT, TTS, gaming or remote-server memory measurement."
+  },
+  "summary": {
+    "turns": 2,
+    "checks_passed": 2,
+    "setup_failed_turns": 0,
+    "unexpected_action_drafts": 0,
+    "remote_requests_attempted": 1,
+    "real_model_accuracy": null,
+    "live_pipeline_match_rate": 1.0
+  },
+  "route_latency": {
+    "direct": {
+      "count": 1,
+      "median": 0.00017520000255899504,
+      "p95": 0.00017520000255899504
+    },
+    "provider": {
+      "count": 1,
+      "median": 0.8601673000011942,
+      "p95": 0.8601673000011942
+    },
+    "offline": {
+      "count": 0,
+      "median": null,
+      "p95": null
+    }
+  },
+  "detailed_summary": {
+    "evaluation_turns": 1,
+    "known_control_turns": 1,
+    "pipeline_matches": 1,
+    "provider_turns": 1,
+    "observable_provider_decisions": 1,
+    "provider_operation_matches_observed": 1,
+    "catalog_proposals_observed": 0,
+    "provider_catalog_valid_observed": 0,
+    "provider_references_valid_observed": 1,
+    "policy_rejections": 0,
+    "identity_checks": 1,
+    "identity_checks_passed": 1,
+    "setup_failed_turns": 0,
+    "limits": "Operation/catalog/reference scores cover observable parsed provider decisions only. Unobservable transport/wire failures remain separate. Plan score includes policy/projection; no isolated general model-accuracy claim."
+  }
+}

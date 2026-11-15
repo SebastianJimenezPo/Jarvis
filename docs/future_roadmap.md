@@ -4,7 +4,7 @@ Fases 1 y 2: base residente y voz local implementadas, con comprobaciones físic
 
 Fase 3.1: estabilización implementada en `phase-3-1-hardening`, con evaluación técnica y aceptación física pendiente. Ver `phase_3_1.md`; los perfiles manuales de rendimiento básicos ya existen. La seguridad reservada aprobada no elimina las limitaciones de comprensión y voz.
 
-Fase 3.2 — Jarvis Next: primera etapa textual en `phase-3-2-jarvis-next`, con contratos, proveedor sustituible y simulación directa. El residente sigue en 3.1. Ver [alcance y resultados](phase_3_2_stage_1.md) y [arquitectura](jarvis_next_architecture.md). La [segunda etapa](phase_3_2_stage_2.md) añade Groq optativo y revisiones contextuales en simulación, con clave fuera de Git y pilotos reales conservados. Sigue pendiente validar con datos nuevos antes de autorización automática e integración de voz; el candidato físico de volumen es posterior. No se declara completa 3.2.
+Fase 3.2 — Jarvis Next: primera etapa textual en `phase-3-2-jarvis-next`, con contratos, proveedor sustituible y simulación directa. El residente sigue en 3.1. Ver [alcance y resultados](phase_3_2_stage_1.md) y [arquitectura](jarvis_next_architecture.md). La [segunda etapa](phase_3_2_stage_2.md) añade Groq optativo y revisiones contextuales en simulación, con clave fuera de Git y pilotos reales conservados. La [tercera etapa](phase_3_2_stage_3.md) conserva una evaluación interna de 23/32 turnos nuevos y añade barreras para citas y tiempos explícitos; el conjunto ya se retiró a desarrollo. Sigue pendiente validar de nuevo con otros datos antes de autorización automática e integración de voz; el candidato físico de volumen es posterior. No se declara completa 3.2.
 
 Las capacidades siguientes todavía no están habilitadas:
 

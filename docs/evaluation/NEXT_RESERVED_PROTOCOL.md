@@ -29,3 +29,7 @@ La ejecución se detuvo tras 18 turnos por `invalid_response`. No se repitió es
 La continuación procesa los 15 casos intactos restantes con el mismo motor `4ca6910`. La consolidación verifica orden, ausencia de duplicados y enlaces de procedencia. No es una segunda evaluación y conserva el fallo original en el denominador. La conexión TLS se inicia de nuevo; las latencias son observaciones de dos procesos, no un experimento continuo controlado.
 
 `setup_succeeded` es un indicador conservador de que todas las comprobaciones anteriores de la secuencia pasaron. Un fallo previo de clasificación puede activar esa marca aun si el plan real no cambió; no demuestra por sí solo que el estado operativo esté equivocado. Las medidas de referencias e identidad/no mutación se informan aparte y también incluyen casos sin elementos activos.
+
+## Retirada de v1
+
+`next_reserved_v1.status.json` registra su retirada antes de modificar el motor. El ejecutor reservado comprueba este estado además de los sellos. La consolidación histórica sigue disponible; repetir ejemplos conocidos solo aporta evidencia de regresión de desarrollo. Ver [etapa 3](../phase_3_2_stage_3.md).

@@ -485,5 +485,19 @@
     "drafts_still_offered": 21
   },
   "limits": "Forced combinations on 12 known critical utterances, not 49 new independent language tests. A schema-valid wrong semantic proposal can still be offered as a draft; ONLY explicit local review authorizes simulation. No guarantee for future real tools.",
-  "commit": "cc1202a04afe47e903ffce254e912eb625ec2b5c"
+  "commit": "cc1202a04afe47e903ffce254e912eb625ec2b5c",
+  "tested_engine_commit": "3755f543b163f75897cd70ba8a1ac2a598db1822",
+  "engine_sha256_utf8_lf": {
+    "jarvis/next/__init__.py": "6549a33a94263f45af543fcbcd3caefada136a0a50cdd74acc72672f63803383",
+    "jarvis/next/__main__.py": "9b88876714ea952af645a184da2d3a6cc82cfec8611b0b4d75c23058e41aca1b",
+    "jarvis/next/contracts.py": "41cfd3f081b5b4fd02df773d877a8a8721e6caf38897a3162cb23f83ac1f5731",
+    "jarvis/next/credentials.py": "8e8ed2e56e276e6440114b61ffc67f8943ee01a430f8bb48474714c1c23a1613",
+    "jarvis/next/direct.py": "250244df64617caf3d9e0dfa5581fe2fc53e4f6b83be604170c598af18e9af7c",
+    "jarvis/next/engine.py": "3f85c6e82c2a64261a9501ab342bfeb466b129acedd4ca83a7411bf696266499",
+    "jarvis/next/groq.py": "d87299873689eb3cf04a0abdf949f75507a6fc6f182677ee4f69f5659e425c67",
+    "jarvis/next/manager.py": "980ca2a46a838aa6a95652d7c405dbc1c7f06fd1cff98e104465da67587eaae7",
+    "jarvis/next/providers.py": "a24ba680117b48f9e5ba941eb9be2a083be0a27f6eed3b12657f39a165232174",
+    "jarvis/next/scope.py": "e0f61af259c5f3772199d91d9c77e863b28ec0972b09e7042b8d5ad19e8b459e",
+    "jarvis/next/tools.py": "7e5f2c5f3b28478fbbe08ffa380f1956a96cf6ba98b5fe422dab7ca4877e94ff"
+  }
 }

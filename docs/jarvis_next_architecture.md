@@ -1,6 +1,6 @@
 # Jarvis Next — contratos y límites de la base v1
 
-Estado: segunda etapa de 3.2, piloto textual experimental; ver [resultados y límites](phase_3_2_stage_2.md). La voz del residente sigue en 3.1; no hay dos motores obligatorios por turno. Next se ejecuta aparte y no importa `jarvis.intelligence`, audio ni ONNX. El proveedor de red solo se crea por selección explícita; offline sigue siendo el valor predeterminado. Conservar esos módulos temporalmente no los convierte en dependencia del nuevo motor. Ver [auditoría y alcance](phase_3_2_stage_1.md).
+Estado: tercera etapa de 3.2, evaluación y barreras conservadoras; ver [resultados y límites](phase_3_2_stage_2.md). La voz del residente sigue en 3.1; no hay dos motores obligatorios por turno. Next se ejecuta aparte y no importa `jarvis.intelligence`, audio ni ONNX. El proveedor de red solo se crea por selección explícita; offline sigue siendo el valor predeterminado. Conservar esos módulos temporalmente no los convierte en dependencia del nuevo motor. Ver [auditoría y alcance](phase_3_2_stage_1.md).
 
 ## Flujo pequeño
 
@@ -77,3 +77,5 @@ En este equipo usar `.\.venv\Scripts\python.exe`; el entorno existente ya contie
 Para inspeccionar la referencia sin perder cambios: `git show phase-3-1-restore:README.md`. Para volver al checkout antiguo, conservar/confirmar primero cualquier trabajo local y cambiar a `phase-3-1-hardening`; no ejecutar reset destructivo ni force-push. El tag y la rama apuntan a `5337b86`.
 
 El piloto textual y las revisiones locales se describen en [etapa 2](phase_3_2_stage_2.md). No se envía audio. La calidad observada aún debe orientar qué configuración conservar antes de integrar voz. La herramienta física de volumen será otro bloque; habilitar cualquier acción física requiere la aprobación explícita indicada por el usuario.
+
+La [etapa 3](phase_3_2_stage_3.md) conserva la primera evaluación interna antes de ajustes y retira el conjunto para regresión. La revisión veta comandos completos conocidos entre comillas y ciertos tiempos explícitos mediante `scope.py`; no valida toda la semántica ni autoriza propuestas automáticamente. Una referencia exacta al plan permite preparar revisión de retención sin cita superior, siempre ligada al texto completo y a la revisión vigente.

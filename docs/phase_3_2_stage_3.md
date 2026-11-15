@@ -46,6 +46,10 @@ En 49 combinaciones forzadas de desarrollo, los borradores ofrecidos pasan de 36
 
 ## Comprobación y siguiente bloque
 
-La suite local completa pasa: **531 pruebas**. Ocho fallos específicos se reprodujeron antes de las correcciones y pasan después; se comprueban además excepciones para no convertir el veto en una lista global de vocabulario. CI ejecuta Next sin modelos ni credenciales, junto con la matriz forzada.
+La suite local completa pasa: **531 pruebas**, incluidas **152 de Next**. Ocho fallos específicos se reprodujeron antes de las correcciones y pasan después; se comprueban además excepciones para no convertir el veto en una lista global de vocabulario. CI ejecuta Next sin modelos ni credenciales, junto con la matriz forzada.
 
 El siguiente bloque recomendado es ampliar la validación semántica de negaciones, citas, hipótesis y tiempos con datos nuevos y criterios previos. Hace falta otra evaluación reservada distinta para estimar la calidad posterior. No corresponde conectar todavía acciones físicas ni declarar terminada la Fase 3.2. No se midieron cambios de voz, FPS, CPU o memoria del residente.
+
+La [regresión dirigida con Groq](reports/next-hold-after-scope.json), sobre `3755f54`, acertó la retención «Aún no autorices este plan» con una preparación directa conocida. Fueron dos turnos, **una sola solicitud remota**, sin repetir el caso ni cambiar modelo. Conservó acciones e identidad al confirmar la retención simulada. No es otra prueba reservada ni una tasa general posterior. Total de este bloque: 33 solicitudes remotas (32 de primera exposición y una de regresión), sin reintentos automáticos ni servicios de pago.
+
+La matriz posterior se ejecutó con los cambios aún sin confirmar sobre `cc1202a`; el campo `commit` original refleja esa base. Se añade la referencia del motor ya confirmado en `3755f54` y sus hashes para identificar el código probado.
