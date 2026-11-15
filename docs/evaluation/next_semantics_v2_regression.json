@@ -1,0 +1,71 @@
+{
+  "method": "DEVELOPMENT regression of all four known v2 failures after retirement; not fresh or general accuracy evidence.",
+  "cases": [
+    {
+      "id": "semantic-v2-07",
+      "category": "quotation",
+      "turns": [
+        {
+          "text": "El mensaje que estoy copiando dice: “Pausa la música”.",
+          "decision": {
+            "operation": "conversation"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-09",
+      "category": "deferred",
+      "turns": [
+        {
+          "text": "Al acabar la instalación, deja el volumen del sistema al 37%.",
+          "decision": {
+            "operation": "deferred",
+            "temporal": "conditional"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-11",
+      "category": "hypothetical",
+      "turns": [
+        {
+          "text": "Supongamos que quisiera silenciar Windows: ¿qué acción propondrías?",
+          "decision": {
+            "operation": "hypothetical"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-15",
+      "category": "positive",
+      "turns": [
+        {
+          "text": "No abras Discord; lo que sí quiero es que abras Steam ahora.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "steam",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
