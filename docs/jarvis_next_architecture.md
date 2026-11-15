@@ -1,6 +1,6 @@
 # Jarvis Next — contratos y límites de la base v1
 
-Estado: primera etapa de 3.2, prototipo textual. La voz del residente sigue en 3.1; no hay dos motores obligatorios por turno. Next se ejecuta aparte y no importa `jarvis.intelligence`, audio, ONNX ni un cliente de red. Conservar esos módulos temporalmente no los convierte en dependencia del nuevo motor. Ver [auditoría y alcance](phase_3_2_stage_1.md).
+Estado: segunda etapa de 3.2, piloto textual experimental; ver [resultados y límites](phase_3_2_stage_2.md). La voz del residente sigue en 3.1; no hay dos motores obligatorios por turno. Next se ejecuta aparte y no importa `jarvis.intelligence`, audio ni ONNX. El proveedor de red solo se crea por selección explícita; offline sigue siendo el valor predeterminado. Conservar esos módulos temporalmente no los convierte en dependencia del nuevo motor. Ver [auditoría y alcance](phase_3_2_stage_1.md).
 
 ## Flujo pequeño
 
@@ -19,7 +19,7 @@ flowchart LR
 
 La ruta directa admite: `Abre Steam/Spotify/Chrome/Discord`, `Volumen al N%` (entero 0–100), `Pausa la música`, `Silencia el audio`, `Consulta el volumen`, `Cancela`, `Olvida todo lo anterior`, `Todavía no hagas nada` y `No canceles`/`No quiero cancelar`. Acepta mayúsculas, espacios, acentos y un punto final. Conserva preguntas, comillas y cláusulas: no extrae una orden positiva de un texto más largo. No hay alias acústicos ni lista global de palabras admitidas.
 
-Una petición natural o contextual va a un único `InterpretationProvider`. Por defecto `OfflineProvider` informa indisponibilidad, sin conexiones. `FakeProvider` es una dependencia explícita para pruebas; no una opción que finja inteligencia en la CLI. No se elige todavía Groq, Gemini ni Ollama, ni se leen claves de entorno. No hay cuotas ni resultados remotos medidos en esta etapa.
+Una petición natural o contextual va a un único `InterpretationProvider`. Por defecto `OfflineProvider` informa indisponibilidad, sin conexiones. `FakeProvider` es una dependencia explícita para pruebas; no una opción que finja inteligencia en la CLI. La segunda etapa añade Groq opcional con dos candidatos de modelo y HTTP de biblioteca estándar. No hay Gemini ni fallback a Ollama. La clave se lee solo al habilitar el proveedor, desde el entorno o Windows Credential Manager. Los resultados reales y los intentos fallidos están separados de las pruebas falsas en el informe de etapa 2.
 
 ## Interfaces implementadas
 
@@ -29,7 +29,7 @@ Una petición natural o contextual va a un único `InterpretationProvider`. Por 
 | Proveedor | `interpret(InterpretationRequest, RequestControl) -> ProviderReply`; `capabilities`; `close()`. La respuesta contiene únicamente JSON de decisión y uso de tokens opcional. |
 | Solicitud | Texto actual, IDs locales, copia del plan/revisión y catálogo mínimo de cinco capacidades. Sin historial conversacional, credenciales, pantalla o estado físico inventado. |
 | Decisión v1 | Operación explícita, identidad/revisión esperada del plan, alcance temporal, evidencias por rangos, llamadas, modificaciones y referencias a IDs locales. Es datos no confiables, no un permiso. [Esquema JSON](next_decision.schema.json). |
-| Gestor | Emite tickets locales, aplica políticas y confirma estado bajo un lock. Los proveedores nunca modifican el estado definitivo. |
+| Gestor | Emite tickets locales, aplica políticas y confirma estado bajo un lock. Los proveedores nunca modifican el estado definitivo; las revisiones optativas vinculan texto completo, contenido, revisión y caducidad antes de una nueva autorización local de simulación. |
 | Herramienta | Registro con ID, objetivos configurados, esquema tipado de parámetros, recurso, lectura/escritura, riesgo y disponibilidad solo simulada. Agregar definiciones no exige cambiar el tipo universal de decisión. |
 | Resultado | Solo `simulated` o `unknown`, siempre `executed=false`, `verified=false`. La consulta de volumen devuelve desconocido: un valor propuesto no es una lectura. |
 | Salida | `Outcome` liga solicitud/sesión/turno/generación, decisión, copia coherente del plan, resultados, código de error y duración local. La futura voz debe comprobar `manager.can_publish(outcome)` antes de sintetizar. |
@@ -42,11 +42,11 @@ Hay una sesión temporal, una revisión monotónica, hasta ocho elementos de pla
 
 Están aplicadas centralmente: creación de una nueva propuesta directa (sustituye el plan anterior), cancelación completa, retención, consulta simulada y negación de cancelación. Cancelar vacía los elementos e incrementa la revisión sin depender de mutaciones hechas por el intérprete. Retener conserva IDs y contenido, aumenta la revisión y no habilita reanudación automática. Una orden directa nueva constituye una solicitud nueva, no una reanudación implícita.
 
-El esquema diferencia append/modify/replace/remove/cancel_subset/answer_clarification/query/preference/deferred/conversation/negated/hypothetical/unsupported. **La aplicación contextual de esas operaciones no está completa.** Los cambios pueden combinar referencias a acciones existentes y nuevas llamadas; sus IDs y parámetros se comprueban, pero las decisiones complejas quedan retenidas sin mutación ni resultado. Aún no hay pregunta pendiente operativa, escenas ni resolución de «como antes».
+El esquema diferencia append/modify/replace/remove/cancel_subset/answer_clarification/query/preference/deferred/conversation/negated/hypothetical/unsupported. La segunda etapa permite proyectar y revisar create/append/modify/replace/remove/cancel_subset/cancel_all/hold/query. Las decisiones complejas continúan retenidas sin mutación hasta una revisión local explícita, disponible solo con `review_enabled`/`--review`. Tras revisarla pueden aplicarse atómicamente a un plan simulado. Las llamadas nuevas, cambios de objetivo/valores y cancelaciones se validan por recurso; el modelo no tiene una operación de confirmación. El resto de operaciones contextuales aún no está implementado. Aún no hay pregunta pendiente operativa, escenas ni resolución de «como antes».
 
 La política comprueba revisión e identidad exactas, herramientas, objetivos registrados, tipos/rangos, dependencias existentes y límites de evidencias. Para autorizar simulación directa reconstruye la decisión completa desde el texto, independientemente de la ruta declarada. No confía en JSON válido, spans aportados por el modelo, risk labels ni texto libre. No toma una acción mencionada como autorización. Los objetivos del catálogo son configuración de simulación, no dispositivos descubiertos.
 
-La semántica compleja aún no está autorizada: no se ha resuelto el problema general de validar lenguaje natural. No se afirma comprensión superior al 95% ni se presenta la gramática mínima como solución permanente de autorización. El siguiente bloque debe ampliar esa política con evidencia y pruebas antes de aceptar planes del modelo.
+La semántica compleja no está autorizada automáticamente: no se ha resuelto el problema general de validar lenguaje natural. La revisión de un borrador concreto es una nueva autorización local exclusivamente de simulación, no una prueba de que el modelo entendió la frase original. No se afirma comprensión superior al 95% ni se presenta la gramática mínima como solución permanente de autorización. El siguiente bloque debe ampliar esa política con evidencia y pruebas antes de aceptar planes del modelo.
 
 ## Plazos, errores y cancelación
 
@@ -76,4 +76,4 @@ En este equipo usar `.\.venv\Scripts\python.exe`; el entorno existente ya contie
 
 Para inspeccionar la referencia sin perder cambios: `git show phase-3-1-restore:README.md`. Para volver al checkout antiguo, conservar/confirmar primero cualquier trabajo local y cambiar a `phase-3-1-hardening`; no ejecutar reset destructivo ni force-push. El tag y la rama apuntan a `5337b86`.
 
-El siguiente bloque recomendado es un piloto textual Groq de alcance acotado y optativo: documentación oficial vigente, selección de modelo/cuota, clave local sin registros, un adaptador y pruebas HTTP falsas; después política/contexto para un plan pequeño. No enviar audio. Si se eligen API o modelos concretos se documentarán configuración y resultados realmente medidos. Integrar voz y preparar volumen físico serán bloques posteriores; habilitar una acción física requerirá la aprobación explícita indicada por el usuario.
+El piloto textual y las revisiones locales se describen en [etapa 2](phase_3_2_stage_2.md). No se envía audio. La calidad observada aún debe orientar qué configuración conservar antes de integrar voz. La herramienta física de volumen será otro bloque; habilitar cualquier acción física requiere la aprobación explícita indicada por el usuario.

@@ -1,0 +1,11 @@
+{
+  "provider": "groq",
+  "method": "Development pilot, not held out. Fixture replies are derived from authored expectations and prove orchestration only, never model accuracy. Only exact expected previews can be confirmed automatically in simulation.",
+  "commit": "9c39c830a57e981e53c2238194e04bfed120b257",
+  "status": "not_run_missing_key",
+  "rows": [],
+  "max_turns": 32,
+  "available_turns": 32,
+  "limits": "Development cases. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.",
+  "summary": null
+}

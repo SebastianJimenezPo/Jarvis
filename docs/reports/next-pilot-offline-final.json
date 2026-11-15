@@ -1,0 +1,809 @@
+{
+  "provider": "offline",
+  "method": "Development pilot, not held out. Fixture replies are derived from authored expectations and prove orchestration only, never model accuracy. Only exact expected previews can be confirmed automatically in simulation.",
+  "commit": "9c39c830a57e981e53c2238194e04bfed120b257",
+  "status": "completed",
+  "rows": [
+    {
+      "case": "apps",
+      "turn": 0,
+      "text": "Abre Steam",
+      "setup_succeeded": true,
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "direct",
+      "disposition": "simulated",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "steam",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.00029770000037387945,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "apps",
+      "turn": 1,
+      "text": "No, mejor Spotify",
+      "setup_succeeded": true,
+      "expected_operation": "modify_plan",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "unavailable",
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "steam",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.0017487000004621223,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "apps",
+      "turn": 2,
+      "text": "Y abre Discord",
+      "setup_succeeded": false,
+      "expected_operation": "append_plan",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "unavailable",
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "steam",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.000594900000578491,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "apps",
+      "turn": 3,
+      "text": "Quita Discord y conserva Spotify",
+      "setup_succeeded": false,
+      "expected_operation": "cancel_subset",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "unavailable",
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "steam",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.0009535999997751787,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "apps",
+      "turn": 4,
+      "text": "Olvida todo lo anterior",
+      "setup_succeeded": false,
+      "expected_operation": "cancel_all",
+      "actual_operation": "cancel_all",
+      "route": "direct",
+      "disposition": "cancelled",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "candidate_plan": [],
+      "seconds": 0.00013110000145388767,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "audio",
+      "turn": 0,
+      "text": "Volumen al 30%",
+      "setup_succeeded": true,
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "direct",
+      "disposition": "simulated",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_volume",
+          "target": "system_audio",
+          "parameters": {
+            "value": 30
+          }
+        }
+      ],
+      "seconds": 0.00021850000121048652,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "audio",
+      "turn": 1,
+      "text": "Déjalo en veinte",
+      "setup_succeeded": true,
+      "expected_operation": "modify_plan",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_volume",
+          "target": "system_audio",
+          "parameters": {
+            "value": 30
+          }
+        }
+      ],
+      "seconds": 0.00022909999825060368,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "audio",
+      "turn": 2,
+      "text": "No quiero cancelar",
+      "setup_succeeded": false,
+      "expected_operation": "negated",
+      "actual_operation": "negated",
+      "route": "direct",
+      "disposition": "held",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_volume",
+          "target": "system_audio",
+          "parameters": {
+            "value": 30
+          }
+        }
+      ],
+      "seconds": 0.00014759999976377003,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "audio",
+      "turn": 3,
+      "text": "Consulta el volumen",
+      "setup_succeeded": false,
+      "expected_operation": "query_state",
+      "actual_operation": "query_state",
+      "route": "direct",
+      "disposition": "simulated",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_volume",
+          "target": "system_audio",
+          "parameters": {
+            "value": 30
+          }
+        }
+      ],
+      "seconds": 0.00020849999782512896,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "audio",
+      "turn": 4,
+      "text": "Cancela",
+      "setup_succeeded": false,
+      "expected_operation": "cancel_all",
+      "actual_operation": "cancel_all",
+      "route": "direct",
+      "disposition": "cancelled",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "candidate_plan": [],
+      "seconds": 0.0002939000005426351,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "compound",
+      "turn": 0,
+      "text": "Abre Steam, volumen al veinte y pausa la música",
+      "setup_succeeded": true,
+      "expected_operation": "create_plan",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00020560000120894983,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "compound",
+      "turn": 1,
+      "text": "Conserva Steam y el volumen, pero quita lo de la música",
+      "setup_succeeded": false,
+      "expected_operation": "cancel_subset",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00022199999875738285,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "compound",
+      "turn": 2,
+      "text": "Y silencia el audio",
+      "setup_succeeded": false,
+      "expected_operation": "append_plan",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.0001632999992580153,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "compound",
+      "turn": 3,
+      "text": "Sustituye todo por abrir Chrome",
+      "setup_succeeded": false,
+      "expected_operation": "replace_plan",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.0003495999990263954,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "compound",
+      "turn": 4,
+      "text": "Todavía no hagas nada",
+      "setup_succeeded": false,
+      "expected_operation": "hold",
+      "actual_operation": "hold",
+      "route": "direct",
+      "disposition": "held",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "candidate_plan": [],
+      "seconds": 0.00015469999925699085,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "compound",
+      "turn": 5,
+      "text": "Abre Spotify",
+      "setup_succeeded": false,
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "direct",
+      "disposition": "simulated",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "spotify",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.00039930000275489874,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard01",
+      "turn": 0,
+      "text": "No abras Steam",
+      "setup_succeeded": true,
+      "expected_operation": "negated",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.0001644000003580004,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard02",
+      "turn": 0,
+      "text": "Cuando termine de jugar, abre Steam",
+      "setup_succeeded": true,
+      "expected_operation": "deferred",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00016879999748198316,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard03",
+      "turn": 0,
+      "text": "Mañana ajusta el volumen al veinte",
+      "setup_succeeded": true,
+      "expected_operation": "deferred",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.000170899998920504,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard04",
+      "turn": 0,
+      "text": "El manual dice: \"abre Steam\"",
+      "setup_succeeded": true,
+      "expected_operation": "conversation",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00016590000086580403,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard05",
+      "turn": 0,
+      "text": "¿Qué pasaría si abriera Discord?",
+      "setup_succeeded": true,
+      "expected_operation": "hypothetical",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00021079999714856967,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard06",
+      "turn": 0,
+      "text": "¿Cómo puedo abrir Steam automáticamente?",
+      "setup_succeeded": true,
+      "expected_operation": "conversation",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00018490000002202578,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard07",
+      "turn": 0,
+      "text": "Activa mi modo jugar",
+      "setup_succeeded": true,
+      "expected_operation": "unsupported",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00040219999937107787,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard08",
+      "turn": 0,
+      "text": "Apaga el computador",
+      "setup_succeeded": true,
+      "expected_operation": "unsupported",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00022219999664230272,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard09",
+      "turn": 0,
+      "text": "Déjalo como estaba antes",
+      "setup_succeeded": true,
+      "expected_operation": "clarify",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.0001694999991741497,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "guard10",
+      "turn": 0,
+      "text": "No ejecutes ninguna acción",
+      "setup_succeeded": true,
+      "expected_operation": "negated",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00014870000086375512,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "natural",
+      "turn": 0,
+      "text": "Necesito que abras Chrome para trabajar",
+      "setup_succeeded": true,
+      "expected_operation": "create_plan",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00015100000018719584,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "unknown-app",
+      "turn": 0,
+      "text": "Abre una aplicación que no recuerdo",
+      "setup_succeeded": true,
+      "expected_operation": "clarify",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00014820000069448724,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "pause",
+      "turn": 0,
+      "text": "Pausa la música",
+      "setup_succeeded": true,
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "direct",
+      "disposition": "simulated",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": null,
+      "candidate_plan": [
+        {
+          "tool": "media.pause",
+          "target": "music_player",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.00017290000323555432,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "natural-mute",
+      "turn": 0,
+      "text": "Quiero dejar el audio en silencio",
+      "setup_succeeded": true,
+      "expected_operation": "create_plan",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00015799999891896732,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "natural-cancel",
+      "turn": 0,
+      "text": "Descarta todas las propuestas anteriores",
+      "setup_succeeded": true,
+      "expected_operation": "cancel_all",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.00015419999908772297,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    },
+    {
+      "case": "natural-read",
+      "turn": 0,
+      "text": "Dime el volumen real del equipo",
+      "setup_succeeded": true,
+      "expected_operation": "query_state",
+      "actual_operation": null,
+      "route": "offline",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unexpected_action_draft": false,
+      "error": "suspended",
+      "candidate_plan": [],
+      "seconds": 0.0001650000012887176,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false
+    }
+  ],
+  "max_turns": 32,
+  "available_turns": 32,
+  "limits": "Development cases. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.",
+  "summary": {
+    "turns": 32,
+    "checks_passed": 9,
+    "setup_failed_turns": 11,
+    "unexpected_action_drafts": 0,
+    "remote_requests_attempted": 0,
+    "real_model_accuracy": null,
+    "live_pipeline_match_rate": null
+  },
+  "route_latency": {
+    "direct": {
+      "count": 9,
+      "median": 0.00020849999782512896,
+      "p95": 0.00039930000275489874
+    },
+    "provider": {
+      "count": 0,
+      "median": null,
+      "p95": null
+    },
+    "offline": {
+      "count": 23,
+      "median": 0.000170899998920504,
+      "p95": 0.0009535999997751787
+    }
+  }
+}

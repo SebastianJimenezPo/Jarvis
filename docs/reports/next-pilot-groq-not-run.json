@@ -1,0 +1,10 @@
+{
+  "provider": "groq",
+  "method": "Development pilot, not held out. Fixture replies are derived from authored expectations and prove orchestration only, never model accuracy. Only exact expected previews can be confirmed automatically in simulation.",
+  "commit": "7f258d1e0bb62d62ea4e1abb92d228d392bcd3b6",
+  "status": "not_run_missing_key",
+  "rows": [],
+  "limits": "Development cases. Fixture scores check infrastructure, not model quality. No accuracy generalization, physical, voice or FPS claims.",
+  "summary": null,
+  "provenance_note": "Initial development run with uncommitted review/evaluator changes; commit identifies baseline only. Preserved, superseded by the final run at 9c39c83. Not an independent evaluation."
+}
