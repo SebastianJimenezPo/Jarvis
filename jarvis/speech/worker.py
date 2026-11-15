@@ -22,10 +22,18 @@ def voice_worker(inbox,outbox,cancel,root,config):
     session_id=None
     turn_id=''
     provider=None
+    voice_end=None
+    latencies={}
     def emit(kind,**fields):
         if kind=='session_end' and provider is not None and hasattr(provider,'snapshot'):
             outbox.put({'kind':'context_snapshot','session_id':session_id,'snapshot':provider.snapshot()},timeout=2)
         outbox.put({'kind':kind,'session_id':session_id,'turn_id':turn_id,'monotonic':time.monotonic(),**fields},timeout=2)
+        if kind=='playback_started' and voice_end is not None:
+            outbox.put({'kind':'voice_latency','session_id':session_id,'turn_id':turn_id,
+                'monotonic':time.monotonic(),**latencies,'end_to_playback_seconds':time.monotonic()-voice_end,
+                'method':'Estimated voice end from VAD trailing silence; STT streaming overlaps capture.'},timeout=2)
+        if kind=='session_end' and provider is not None and hasattr(provider,'end_session'):
+            provider.end_session()
     def state(value):
         emit('voice_state',state=value)
     try:
@@ -38,10 +46,11 @@ def voice_worker(inbox,outbox,cancel,root,config):
             session_id,preroll=command[1],command[2]
             acoustic_activation=bool(command[3]) if len(command)>3 else False
             turn_id=''
+            voice_end=None;latencies={}
             try:
                 if provider is None:
-                    from jarvis.intelligence.provider import make_provider
-                    provider=make_provider(root,cancel)
+                    from jarvis.dialogue.factory import make_provider
+                    provider=make_provider(root,config,cancel)
                 if hasattr(provider,'begin_session'):
                     provider.begin_session(session_id,command[4] if len(command)>4 else None)
                 load_start=time.monotonic()
@@ -83,6 +92,7 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         emit('session_end',reason='session_cap')
                         break
                     if cancel.is_set():
+                        if config.dialogue_profile=='next':provider.cancel()
                         stt.cancel_turn()
                         emit('cancelled')
                         cancel.clear()
@@ -128,10 +138,12 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         if probability>=config.vad_threshold:turn_voiced_ms+=32
                     if reason:
                         voice_end=time.monotonic()-segmenter.silent_ms/1000
+                        latencies={'end_detection_seconds':max(0,time.monotonic()-voice_end)}
                         emit('speech_ended',reason=reason,estimated_voice_end_monotonic=voice_end)
                         state('FINALIZING_TRANSCRIPT')
                         t0=time.monotonic()
                         text=strip_wake_prefix(stt.finish_turn())
+                        latencies['stt_finalize_seconds']=time.monotonic()-t0
                         transcripts.publish(turn_id,text,True)
                         emit('transcription_timing',finalize_seconds=time.monotonic()-t0,
                              voice_end_to_final_seconds=time.monotonic()-voice_end)
@@ -157,6 +169,7 @@ def voice_worker(inbox,outbox,cancel,root,config):
                                     reply=provider.respond_audio(utterance,alternative)
                                 else:reply=DialogueBridge(provider).respond(utterance,config.diagnostic_echo)
                             except Exception as exc:
+                                if config.dialogue_profile=='next':raise
                                 from jarvis.intelligence.ollama_client import RequestCancelled
                                 if not isinstance(exc,RequestCancelled):raise
                                 emit('cancelled');cancel.clear();emit('session_end',reason='cancelled_or_stale');end=True
@@ -164,25 +177,36 @@ def voice_worker(inbox,outbox,cancel,root,config):
                             finally:turn_audio=[]
                             if hasattr(provider,'diagnostic'):
                                 details=provider.diagnostic()
-                                if details:emit('intelligence_decision',decision=details,stt_engine=config.engine)
+                                if details:
+                                    emit('intelligence_decision',decision=details,stt_engine=config.engine)
+                                    if config.dialogue_profile=='next':
+                                        latencies.update({k:v for k,v in details.items() if k.endswith('_seconds')})
                             emit('dialogue_timing',seconds=time.monotonic()-t0)
-                            if config.tts_enabled and reply.text:
+                            def publishable():
+                                return not cancel.is_set() and (not hasattr(provider,'can_publish') or provider.can_publish(reply))
+                            if config.tts_enabled and reply.text and publishable():
                                 # Gate the mic before synthesis, including cold TTS load.
                                 state('SPEAKING')
                                 t0=time.monotonic()
                                 if tts is None:
                                     tts=PiperAdapter(root,config.voice,config.cpu_threads,config.volume)
                                     tts.load()
+                                latencies['piper_preparation_seconds']=time.monotonic()-t0
+                                synthesis_start=time.monotonic()
                                 emit('synthesis_started')
                                 first=[True]
                                 def chunks():
+                                    if not publishable():return
                                     for chunk in tts.synthesize(reply.text):
+                                        if not publishable():return
                                         if first[0]:
+                                            latencies['piper_first_chunk_seconds']=time.monotonic()-synthesis_start
                                             emit('synthesis_first_chunk',seconds=time.monotonic()-t0)
                                             first[0]=False
                                         yield chunk
                                 SpeechPlaybackManager(config.output_device).play(chunks(),cancel,emit)
                                 emit('playback_ended',cancelled=cancel.is_set())
+                                if cancel.is_set() and config.dialogue_profile=='next':provider.cancel()
                                 cancel.clear()
                             if reply.end_session:
                                 time.sleep(config.echo_guard_seconds)
@@ -204,7 +228,7 @@ def voice_worker(inbox,outbox,cancel,root,config):
                 if stt:
                     stt.cancel_turn()
             except Exception as exc:
-                emit('voice_error',error=f'{type(exc).__name__}: {exc}')
+                emit('voice_error',error=(f'{type(exc).__name__}: fallo del perfil Next' if config.dialogue_profile=='next' else f'{type(exc).__name__}: {exc}'))
                 if stt:
                     stt.unload()
                 stt=vad=tts=None

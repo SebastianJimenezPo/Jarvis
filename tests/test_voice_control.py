@@ -7,8 +7,9 @@ import pytest
 from jarvis.speech.settings import VoiceConfig
 
 
-@pytest.mark.parametrize('activation,continues,expected_plays',[(False,False,1),(True,False,0),(True,True,1)])
-def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path,activation,continues,expected_plays):
+@pytest.mark.parametrize('activation,continues,expected_plays,cancel_at_load',[(False,False,1,False),(True,False,0,False),(True,True,1,False),(False,False,0,True)])
+@pytest.mark.parametrize('profile',['legacy','next'])
+def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path,activation,continues,expected_plays,cancel_at_load,profile):
     from jarvis.speech.worker import voice_worker
     from jarvis.speech import recognition,piper_adapter
     from jarvis.audio import vad,playback
@@ -27,14 +28,17 @@ def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path,activ
         def probability(self,samples): return float(np.mean(abs(samples))>0.1)
     class TTS:
         def __init__(self,*args): pass
-        def load(self): pass
+        def load(self):
+            if cancel_at_load:cancel.set()
         def synthesize(self,text): return [text]
         def unload(self): pass
     echo=(np.ones(512*40,dtype=np.float32)*10000).astype('<i2').tobytes()
     class Playback:
         def __init__(self,*args): pass
         def play(self,chunks,cancel,emit):
-            calls.append(('play',list(chunks)))
+            items=list(chunks)
+            if not items:return
+            calls.append(('play',items))
             emit('playback_started')
             # This captured voice belongs to the output window, even if queued for later.
             inbox.put(('audio','s',time.monotonic(),echo))
@@ -44,7 +48,7 @@ def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path,activ
     monkeypatch.setattr(piper_adapter,'PiperAdapter',TTS)
     monkeypatch.setattr(playback,'SpeechPlaybackManager',Playback)
     speech=(np.ones(512*12)*10000).astype('<i2').tobytes()+bytes(512*25*2)
-    config=replace(VoiceConfig(),first_wait_seconds=1,followup_seconds=1,echo_guard_seconds=0.1,end_silence_ms=650)
+    config=replace(VoiceConfig(),first_wait_seconds=1,followup_seconds=1,echo_guard_seconds=0.1,end_silence_ms=650,dialogue_profile=profile)
     thread=threading.Thread(target=voice_worker,args=(inbox,outbox,cancel,str(tmp_path),config))
     thread.start()
     inbox.put(('session','s',speech if not continues else speech[:512*12*2],activation))
@@ -60,7 +64,7 @@ def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path,activ
         assert not any(e['kind']=='voice_error' for e in events),events
         assert len([c for c in calls if c[0]=='turn'])==1
         assert len([c for c in calls if c[0]=='play'])==expected_plays
-        assert any(e['kind']=='playback_ended' and e['cancelled'] for e in events)==bool(expected_plays)
+        assert any(e['kind']=='playback_ended' and e['cancelled'] for e in events)==bool(expected_plays or cancel_at_load)
     finally:
         inbox.put(('stop',));thread.join(timeout=3)
     assert not thread.is_alive()

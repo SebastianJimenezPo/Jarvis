@@ -8,6 +8,7 @@ import unicodedata
 import uuid
 from .engine import NextEngine
 from .responses import response
+from .direct import direct_decision
 
 
 def normalized(text):
@@ -38,6 +39,7 @@ class NextConversation:
         self.engine=engine or NextEngine(review_enabled=True)
         self.session_id='cli';self.pending=None;self.reference=None;self._review=None
         self._turn=0;self._epoch=0;self._last=None;self._question_generation=None
+        self._review_deadline=0
 
     def begin_session(self,session_id):
         self._epoch+=1;self.session_id=session_id
@@ -80,6 +82,9 @@ class NextConversation:
             self._review=None
             return self._local('Descarté el borrador; conservé el plan anterior.',turn)
         self._review=None  # Every ordinary new turn supersedes a confirmation.
+        courtesies={'hola':'Hola. Estoy disponible en simulación.','gracias':'Con gusto.','adios':'Hasta luego.',
+                    'hasta luego':'Hasta luego.','me escuchas':'Sí, te escucho.','me escuchas bien':'Sí, te escucho.'}
+        if key in courtesies: return self._local(courtesies[key],turn)
         if key in ('abre una aplicacion','abre alguna aplicacion','quiero abrir una aplicacion'):
             return self._question('applications.open','target',('spotify','steam','chrome','discord'),turn)
         if key in ('ajusta el volumen','cambia el volumen'):
@@ -88,6 +93,7 @@ class NextConversation:
         if question:
             target=None
             if question.parameter=='target':
+                key=re.sub(r',? por favor$','',key)
                 if key in question.candidates: target=key
                 ordinal={'el primero':0,'la primera':0,'el segundo':1,'la segunda':1,'el tercero':2,'la tercera':2,'el cuarto':3}
                 if key in ordinal and ordinal[key]<len(question.candidates): target=question.candidates[ordinal[key]]
@@ -98,7 +104,7 @@ class NextConversation:
             else:
                 if re.fullmatch(r'(?:100|[1-9]?\d)\s*%?',key): effective='Volumen al '+key.rstrip('% ').strip()+'%';target=effective
             if target: self.pending=None
-            elif len(key.split())<=3:
+            elif len(key.split())<=3 and direct_decision(text,self.engine.manager.snapshot()) is None:
                 # Keep the same candidates/expiry; invalid short replies never guess.
                 return self._local('Necesito un nombre de la lista.' if question.parameter=='target' else 'Necesito un número entre 0 y 100.',turn)
             else: self.pending=None
@@ -108,15 +114,14 @@ class NextConversation:
             effective='Abre '+self.reference.target
         if key in ('autoriza la simulacion','simula el plan') and self.engine.manager.snapshot().status!='withheld':
             return self._local('No hay un plan retenido para autorizar.',turn)
-        courtesies={'hola':'Hola. Estoy disponible en simulación.','gracias':'Con gusto.','adios':'Hasta luego.',
-                    'hasta luego':'Hasta luego.','me escuchas':'Sí, te escucho.','me escuchas bien':'Sí, te escucho.'}
-        if key in courtesies: return self._local(courtesies[key],turn)
         result=self.engine.interpret(effective,self.session_id,turn)
         return self._finish(result,epoch)
 
     def _finish(self,result,epoch):
         if epoch!=self._epoch: return result.model_copy(update={'message':''})
-        if result.review: self._review=result.review.review_id
+        if result.review:
+            self._review=result.review.review_id
+            self._review_deadline=self.engine.manager.clock()+result.review.expires_in_seconds
         decision=result.decision
         if decision and not result.error:
             targets=[c.target for c in decision.actions if c.tool=='applications.open']
@@ -136,6 +141,7 @@ class NextConversation:
 
     def can_publish(self,result):
         if result is not self._last or self.engine.cancelled(): return False
+        if result.review and self.engine.manager.clock()>=self._review_deadline:return False
         if result.generation==self._question_generation and not self._live_question(): return False
         return self.engine.manager.can_publish(result)
 

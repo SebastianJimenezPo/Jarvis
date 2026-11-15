@@ -27,7 +27,7 @@ def test_missing_application_question_resolves_offline_and_does_not_guess():
     finally: c.close()
 
 
-@pytest.mark.parametrize('answer,target', [('el segundo','steam'), ('el primero','spotify'), ('Discord','discord')])
+@pytest.mark.parametrize('answer,target', [('el segundo','steam'), ('el primero','spotify'), ('Discord','discord'),('Spotify por favor','spotify'),('Abre Chrome','chrome')])
 def test_short_answers_are_scoped_to_the_question_candidates(answer,target):
     c = conversation()
     try:

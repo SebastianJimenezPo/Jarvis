@@ -49,10 +49,12 @@ def run(manager, root, exit_after=None):
     for engine in ('moonshine-small','moonshine-tiny','whisper-base','whisper-small'):
         action=engines.addAction(engine)
         action.triggered.connect(lambda checked=False,e=engine:manager.command('stt:'+e))
-    models=menu.addMenu('Modelo de comprensión (simulación)')
-    for model in ('qwen3:1.7b','qwen3.5:2b'):
+    is_next=manager.voice.config.dialogue_profile=='next'
+    models=menu.addMenu('Next · razonamiento (simulación)' if is_next else 'Modelo de comprensión (simulación)')
+    for model in (('medium','low') if is_next else ('qwen3:1.7b','qwen3.5:2b')):
         action=models.addAction(model)
-        action.triggered.connect(lambda checked=False,m=model:manager.command('llm:'+m))
+        prefix='next_reasoning:' if is_next else 'llm:'
+        action.triggered.connect(lambda checked=False,m=model,p=prefix:manager.command(p+m))
     menu.addSeparator()
     menu.addAction("Salir completamente", app.quit)
     tray.setContextMenu(menu)

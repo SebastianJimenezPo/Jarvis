@@ -14,7 +14,7 @@ from .state_machine import StateMachine, State
 
 
 class LifecycleManager:
-    def __init__(self, config, root, capture_factory=Capture, detector_factory=RustpotterDetector):
+    def __init__(self, config, root, capture_factory=Capture, detector_factory=RustpotterDetector, voice_config=None):
         self.config, self.root = config, root
         self.capture_factory, self.detector_factory = capture_factory, detector_factory
         self.bus = EventBus()
@@ -40,7 +40,7 @@ class LifecycleManager:
         self.latest = {**self.machine.snapshot(), **self.metrics}
         self.log = logging.getLogger("jarvis")
         from .voice_session import VoiceSessionManager
-        self.voice = VoiceSessionManager(root, self._voice_event)
+        self.voice = VoiceSessionManager(root, self._voice_event,voice_config)
         self.ignore_audio_before = 0.0
 
     def _voice_event(self, event):
@@ -141,7 +141,16 @@ class LifecycleManager:
                          if self.failures < self.config.retry_limit else None)
 
     def _handle(self, command):
+        if command.startswith('next_reasoning:'):
+            from dataclasses import replace
+            selected=command.split(':',1)[1]
+            if self.voice.config.dialogue_profile!='next' or selected not in ('low','medium'):return
+            self.voice.close()
+            self.voice.config=replace(self.voice.config,next_reasoning=selected)
+            if self.machine.state==State.AWAKE:self._voice_event({'kind':'session_end','reason':'reasoning_changed'})
+            return
         if command.startswith('llm:'):
+            if self.voice.config.dialogue_profile=='next':return
             from dataclasses import replace
             from jarvis.intelligence.settings import load_intelligence,save_intelligence
             selected=command.split(':',1)[1]
@@ -163,7 +172,10 @@ class LifecycleManager:
                      {'diagnostic_echo':not self.voice.config.diagnostic_echo} if command=='toggle_echo' else
                      {'tts_enabled':not self.voice.config.tts_enabled})
             self.voice.config = replace(self.voice.config, **changes).validate()
-            save_voice(self.root,self.voice.config)
+            if self.voice.config.dialogue_profile=='next':
+                from jarvis.speech.settings import load_voice
+                save_voice(self.root,replace(load_voice(self.root),**changes))
+            else:save_voice(self.root,self.voice.config)
             return
         if command == 'test_tts':
             if self.machine.state == State.DORMANT and self.machine.wake(self.machine.generation,manual=True):

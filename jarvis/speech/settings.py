@@ -30,6 +30,10 @@ class VoiceConfig:
     max_session_seconds: float = 600.0
     stt_recovery_enabled: bool = False
     stt_recovery_timeout_seconds: float = 8.0
+    dialogue_profile: str = 'legacy'
+    next_remote: bool = False
+    next_reasoning: str = 'medium'
+    next_timeout_seconds: float = 4.0
 
     def validate(self):
         for name, value in asdict(self).items():
@@ -38,6 +42,8 @@ class VoiceConfig:
                 raise ValueError(f"voice.{name}: tipo incorrecto")
         if self.version != 1 or self.engine not in ("moonshine-small", "moonshine-tiny", "whisper-base", "whisper-small"):
             raise ValueError("Versión o motor de voz inválido")
+        if self.dialogue_profile not in ('legacy','next') or self.next_reasoning not in ('low','medium'):
+            raise ValueError('Perfil de diálogo inválido')
         for field, low, high in [("first_wait_seconds",1,60),("followup_seconds",1,120),
             ("max_turn_seconds",1,60),("preparation_timeout_seconds",5,180),
             ("processing_timeout_seconds",5,180),("retain_seconds",0,600),
@@ -45,7 +51,7 @@ class VoiceConfig:
             ("activation_tail_ms",0,500),
             ("vad_threshold",0.01,0.99),("echo_guard_seconds",0.1,2),
             ("volume",0,1),("cpu_threads",1,8),("pending_audio_seconds",5,90),
-            ("max_session_seconds",30,1800),("stt_recovery_timeout_seconds",1,20)]:
+            ("max_session_seconds",30,1800),("stt_recovery_timeout_seconds",1,20),('next_timeout_seconds',0.01,30)]:
             if not low <= getattr(self,field) <= high:
                 raise ValueError(f"voice.{field}: fuera de rango {low}..{high}")
         if not self.voice or not self.output_device:

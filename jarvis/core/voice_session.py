@@ -162,6 +162,8 @@ class VoiceSessionManager:
 
     def snapshot(self):
         return {'enabled':self.config.enabled,'engine':self.config.engine,'model':self.config.engine,
+                'dialogue_profile':self.config.dialogue_profile,'remote_enabled':self.config.next_remote,
+                'next_reasoning':self.config.next_reasoning,'next_timeout_seconds':self.config.next_timeout_seconds,
                 'voice':self.config.voice,'tts_enabled':self.config.tts_enabled,'state':self.state,
                 'session_id':self.session_id,'last_error':self.error,'last_transcript':self.last_transcript,
                 'worker_pid':self.process.pid if self.process else None,'metrics':self.metrics.copy(),'timings':self.timings.copy(),

@@ -21,7 +21,14 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("build/performance.json"))
     parser.add_argument("--voice-enabled", action="store_true")
     parser.add_argument("--intelligence-enabled", action="store_true")
+    parser.add_argument('--profile',choices=['legacy','next'],default='legacy')
+    parser.add_argument('--allow-remote',action='store_true')
+    parser.add_argument('--free-tier',action='store_true')
     args = parser.parse_args()
+    if args.profile=='next' and args.intelligence_enabled:
+        parser.error('Next does not start the legacy intelligence service')
+    if (args.allow_remote or args.free_tier) and (args.profile!='next' or not (args.allow_remote and args.free_tier)):
+        parser.error('Remote Next benchmark requires both explicit opt-ins')
     def ollama_snapshot():
         import psutil
         from jarvis.intelligence.ollama_client import OllamaClient
@@ -61,20 +68,23 @@ def main():
                 entry['sha256']={str(data_dir()/'models'/name):value for name,value in entry['sha256'].items()}
             (root/'models').mkdir()
             (root/'models'/'registry.json').write_text(json.dumps(entries),encoding='utf-8')
-            save_voice(root,replace(VoiceConfig(),enabled=True))
+            save_voice(root,replace(VoiceConfig(),enabled=True,dialogue_profile=args.profile))
         if args.intelligence_enabled:
             from jarvis.intelligence.settings import IntelligenceConfig,save_intelligence
             save_intelligence(root,replace(IntelligenceConfig(),enabled=True))
         external_before=ollama_snapshot() if args.intelligence_enabled else None
         started=time.monotonic()
         completed = subprocess.run([sys.executable, "-m", "jarvis", "--data-dir", str(root),
-                                    "--exit-after", str(args.seconds)], timeout=args.seconds + 40,
+                                    "--profile",args.profile,"--exit-after", str(args.seconds),
+                                    *(['--allow-remote','--free-tier'] if args.allow_remote else [])], timeout=args.seconds + 40,
                                    creationflags=subprocess.CREATE_NO_WINDOW)
         if completed.returncode:
             raise RuntimeError("Benchmark failed")
         report = json.loads((root / "diagnostics" / "latest.json").read_text(encoding="utf-8"))
         report["scenario"] = "Real microphone, synthetic chirp reference (not Jarvis), actual Qt tray + Rustpotter. No microphone audio saved."
         report["requested_seconds"] = args.seconds
+        report['dialogue_profile']=args.profile
+        report['scope']='Idle resident with synthetic wake reference; not user speech acceptance or gaming measurement.'
         if args.intelligence_enabled:
             import psutil
             external_after=ollama_snapshot()

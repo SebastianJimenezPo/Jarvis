@@ -29,7 +29,14 @@ def main():
     commands.add_argument('--set-semantic',choices=['minilm','e5-small'])
     parser.add_argument("--samples", type=int, choices=range(5, 9), default=6)
     parser.add_argument("--exit-after", type=float, help="Cierre automático para pruebas, en segundos")
+    parser.add_argument('--profile',choices=['legacy','next'],default='legacy')
+    parser.add_argument('--allow-remote',action='store_true')
+    parser.add_argument('--free-tier',action='store_true')
+    parser.add_argument('--next-reasoning',choices=['low','medium'],default='medium')
+    parser.add_argument('--next-timeout',type=float,default=4.0)
     args = parser.parse_args()
+    if (args.allow_remote or args.free_tier) and (args.profile!='next' or not (args.allow_remote and args.free_tier)):
+        parser.error('Next remoto requiere --profile next --allow-remote --free-tier.')
     root = args.data_dir.resolve()
     root.mkdir(parents=True, exist_ok=True)
     from .core.logging import configure
@@ -43,6 +50,11 @@ def main():
             print("Configuración restaurada; se conservó el archivo anterior.")
             return 0
         config = load(root)
+        selected_voice=None
+        if args.profile=='next':
+            from .speech.settings import load_voice
+            selected_voice=replace(load_voice(root),enabled=True,dialogue_profile='next',next_remote=args.allow_remote,
+                next_reasoning=args.next_reasoning,next_timeout_seconds=args.next_timeout).validate()
         logger.setLevel("DEBUG" if args.debug else config.log_level)
         if args.enable_intelligence or args.disable_intelligence or args.set_llm or args.set_semantic:
             from .intelligence.settings import load_intelligence,save_intelligence
@@ -74,12 +86,14 @@ def main():
             from .speech.settings import load_voice
             from .speech.models import registry
             from dataclasses import asdict
-            from .intelligence.settings import load_intelligence
+            if args.profile!='next':
+                from .intelligence.settings import load_intelligence
             print(json.dumps({**environment(), "engine_exists": engine_path().exists(),
                               "reference_exists": config.reference_path(root).exists(),
-                              "config": str(root / "config.json"), "voice":asdict(load_voice(root)),
+                              "config": str(root / "config.json"), "voice":asdict(selected_voice or load_voice(root)),
                               "installed_models":list(registry(root)),
-                              "intelligence":asdict(load_intelligence(root))}, indent=2))
+                              "intelligence":asdict(load_intelligence(root)) if args.profile!='next' else None,
+                              'profile':args.profile}, indent=2))
             return 0
         from .core.single_instance import SingleInstance
         with SingleInstance():
@@ -94,14 +108,15 @@ def main():
             from .core.lifecycle import LifecycleManager
             from .interface.tray import run
             try:
-                from .intelligence.settings import load_intelligence
-                if load_intelligence(root).enabled:
+                if args.profile!='next':
+                    from .intelligence.settings import load_intelligence
+                if args.profile!='next' and load_intelligence(root).enabled:
                     from .intelligence.service import ensure_service
                     logger.info('ollama_service_'+ensure_service())
             except Exception:
                 logger.exception('intelligence_service_unavailable_voice_core_preserved')
-            logger.info("application_start version=0.3.1 phase=3.1")
-            return run(LifecycleManager(config, root), root, args.exit_after)
+            logger.info('application_start profile='+args.profile)
+            return run(LifecycleManager(config, root,voice_config=selected_voice), root, args.exit_after)
     except Exception as exc:
         logger.exception("application_failed")
         message = f"{exc}\nRegistros: {root / 'logs'}\nConfiguración dañada: usa --reset-config para reparar."
