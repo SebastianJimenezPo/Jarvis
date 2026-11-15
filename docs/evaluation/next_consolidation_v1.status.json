@@ -1,0 +1,6 @@
+{
+  "status": "retired_as_development",
+  "date": "2026-11-15",
+  "reason": "First exposure complete before operational context and voice integration. Original engine baseline retained, not a score for the later implementation.",
+  "original_results": "docs/reports/next-consolidation-first.json"
+}
