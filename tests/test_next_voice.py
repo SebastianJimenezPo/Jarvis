@@ -90,3 +90,91 @@ def test_expired_review_is_not_publishable_after_cold_tts_preparation():
         now[0]+=31
         assert not p.can_publish(reply)
     finally:p.close()
+
+
+import pytest
+@pytest.mark.parametrize('presented',[False,True])
+def test_voice_yes_requires_a_proposal_that_was_presented_locally(presented):
+    from jarvis.next.engine import NextEngine
+    from jarvis.next.conversation import NextConversation
+    from jarvis.next.providers import FakeProvider
+    from jarvis.next.contracts import Decision,ProviderReply,ToolCall,Span
+    from jarvis.dialogue.next_bridge import NextVoiceBridge
+    def proposal(req,_):
+        return ProviderReply(decision_json=Decision(operation='create_plan',temporal='now',
+            actions=(ToolCall(tool='applications.open',target='steam',evidence=Span(start=0,end=len(req.text))),)).model_dump_json())
+    c=NextConversation(NextEngine(FakeProvider(proposal),review_enabled=True))
+    p=NextVoiceBridge(VoiceConfig(),threading.Event(),conversation=c);p.begin_session('s')
+    try:
+        reply=p.respond(utterance('Inicia Steam, por favor'))
+        if presented:p.mark_presented(reply)
+        p.respond(utterance('sí','2'))
+        assert bool(c.engine.manager.snapshot().items)==presented
+        assert not p.diagnostic()['executed']
+    finally:p.close()
+
+
+def test_worker_presents_a_review_then_accepts_one_spoken_confirmation(monkeypatch,tmp_path):
+    import queue
+    import numpy as np
+    from jarvis.speech.worker import voice_worker
+    from jarvis.speech import recognition,piper_adapter
+    from jarvis.audio import vad,playback
+    from jarvis.dialogue import factory
+    from jarvis.dialogue.next_bridge import NextVoiceBridge
+    from jarvis.next.engine import NextEngine
+    from jarvis.next.conversation import NextConversation
+    from jarvis.next.providers import FakeProvider
+    from jarvis.next.contracts import Decision,ProviderReply,ToolCall,Span
+    inbox=queue.Queue();outbox=queue.Queue();cancel=threading.Event()
+    def proposal(req,_):
+        return ProviderReply(decision_json=Decision(operation='create_plan',temporal='now',
+            actions=(ToolCall(tool='applications.open',target='steam',evidence=Span(start=0,end=len(req.text))),)).model_dump_json())
+    c=NextConversation(NextEngine(FakeProvider(proposal),review_enabled=True))
+    provider=NextVoiceBridge(VoiceConfig(),cancel,conversation=c)
+    class STT:
+        count=0
+        def load(self):pass
+        def start_turn(self,*_):pass
+        def feed_audio(self,*_):pass
+        def finish_turn(self):
+            self.count+=1
+            return 'Por favor inicia Steam' if self.count==1 else 'sí'
+        def cancel_turn(self):pass
+        def unload(self):pass
+    class VAD:
+        def __init__(self,*_):pass
+        def reset(self):pass
+        def probability(self,frame):return float(np.mean(abs(frame))>.1)
+    class TTS:
+        def __init__(self,*_):pass
+        def load(self):pass
+        def synthesize(self,text):return [text]
+        def unload(self):pass
+    class Playback:
+        def __init__(self,*_):pass
+        def play(self,chunks,cancel,emit):
+            for _ in chunks:emit('playback_started')
+    monkeypatch.setattr(factory,'make_provider',lambda *_:provider)
+    monkeypatch.setattr(recognition,'make_engine',lambda *_:STT())
+    monkeypatch.setattr(vad,'SpeechActivityDetector',VAD)
+    monkeypatch.setattr(piper_adapter,'PiperAdapter',TTS)
+    monkeypatch.setattr(playback,'SpeechPlaybackManager',Playback)
+    pcm=(np.ones(512*12)*10000).astype('<i2').tobytes()+bytes(512*25*2)
+    config=replace(VoiceConfig(),dialogue_profile='next',end_silence_ms=650,echo_guard_seconds=.1,followup_seconds=2)
+    worker=threading.Thread(target=voice_worker,args=(inbox,outbox,cancel,str(tmp_path),config));worker.start()
+    inbox.put(('session','s',pcm,False))
+    try:
+        completed=0;deadline=time.monotonic()+5
+        while completed<2 and time.monotonic()<deadline:
+            event=outbox.get(timeout=2)
+            assert event['kind']!='voice_error',event
+            if event['kind']=='turn_completed':
+                completed+=1
+                if completed==1:
+                    assert not c.engine.manager.snapshot().items
+                    time.sleep(.2);inbox.put(('audio','s',time.monotonic(),pcm))
+        assert completed==2 and c.engine.manager.snapshot().items[0].call.target=='steam'
+    finally:
+        inbox.put(('stop',));worker.join(3)
+    assert not worker.is_alive()

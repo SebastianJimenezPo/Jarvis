@@ -65,6 +65,11 @@ def test_half_duplex_discards_queued_echo_and_cancels(monkeypatch,tmp_path,activ
         assert len([c for c in calls if c[0]=='turn'])==1
         assert len([c for c in calls if c[0]=='play'])==expected_plays
         assert any(e['kind']=='playback_ended' and e['cancelled'] for e in events)==bool(expected_plays or cancel_at_load)
+        if expected_plays:
+            latency=next(e for e in events if e['kind']=='voice_latency')
+            assert latency['end_to_playback_seconds']>=latency['end_detection_seconds']>=0
+            assert latency['stt_finalize_seconds']>=0 and latency['piper_preparation_seconds']>=0
+            if profile=='next':assert latency['interpretation_seconds']>=0 and latency['validation_context_seconds']>=0
     finally:
         inbox.put(('stop',));thread.join(timeout=3)
     assert not thread.is_alive()

@@ -66,7 +66,7 @@ class VoiceSessionManager:
         self.last_progress=time.monotonic()
         self.error=None
         self.cancel_event.clear()
-        self.inbox.put_nowait(('test_tts' if test_tts else 'session',self.session_id,preroll,acoustic_activation,self.dialogue_context))
+        self.inbox.put_nowait(('test_tts' if test_tts else 'session',self.session_id,preroll,acoustic_activation,self.dialogue_context,time.monotonic()))
         self.metrics['sessions_opened']+=1
 
     def feed(self,pcm,timestamp):

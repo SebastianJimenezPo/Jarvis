@@ -34,7 +34,9 @@ def main():
     parser.add_argument('--free-tier',action='store_true')
     parser.add_argument('--next-reasoning',choices=['low','medium'],default='medium')
     parser.add_argument('--next-timeout',type=float,default=4.0)
+    parser.add_argument('--next-stt',choices=['moonshine-small','moonshine-tiny','whisper-base','whisper-small'],help='Temporary Next STT override; does not save voice.json')
     args = parser.parse_args()
+    if args.next_stt and args.profile!='next':parser.error('--next-stt requiere --profile next.')
     if (args.allow_remote or args.free_tier) and (args.profile!='next' or not (args.allow_remote and args.free_tier)):
         parser.error('Next remoto requiere --profile next --allow-remote --free-tier.')
     root = args.data_dir.resolve()
@@ -55,6 +57,7 @@ def main():
             from .speech.settings import load_voice
             selected_voice=replace(load_voice(root),enabled=True,dialogue_profile='next',next_remote=args.allow_remote,
                 next_reasoning=args.next_reasoning,next_timeout_seconds=args.next_timeout).validate()
+            if args.next_stt:selected_voice=replace(selected_voice,engine=args.next_stt).validate()
         logger.setLevel("DEBUG" if args.debug else config.log_level)
         if args.enable_intelligence or args.disable_intelligence or args.set_llm or args.set_semantic:
             from .intelligence.settings import load_intelligence,save_intelligence

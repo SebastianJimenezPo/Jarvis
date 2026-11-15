@@ -24,14 +24,16 @@ def voice_worker(inbox,outbox,cancel,root,config):
     provider=None
     voice_end=None
     latencies={}
+    played=[False]
     def emit(kind,**fields):
         if kind=='session_end' and provider is not None and hasattr(provider,'snapshot'):
             outbox.put({'kind':'context_snapshot','session_id':session_id,'snapshot':provider.snapshot()},timeout=2)
         outbox.put({'kind':kind,'session_id':session_id,'turn_id':turn_id,'monotonic':time.monotonic(),**fields},timeout=2)
         if kind=='playback_started' and voice_end is not None:
+            played[0]=True
             outbox.put({'kind':'voice_latency','session_id':session_id,'turn_id':turn_id,
                 'monotonic':time.monotonic(),**latencies,'end_to_playback_seconds':time.monotonic()-voice_end,
-                'method':'Estimated voice end from VAD trailing silence; STT streaming overlaps capture.'},timeout=2)
+                'method':'Estimated capture-callback end of last voiced frame, including queue delay; excludes hardware input latency.'},timeout=2)
         if kind=='session_end' and provider is not None and hasattr(provider,'end_session'):
             provider.end_session()
     def state(value):
@@ -77,6 +79,8 @@ def voice_worker(inbox,outbox,cancel,root,config):
                 session_deadline=time.monotonic()+config.max_session_seconds
                 accept_after=0
                 pending=np.frombuffer(preroll,dtype='<i2').astype(np.float32)/32768
+                pending_start=(command[5] if len(command)>5 else time.monotonic())-len(pending)/16000
+                last_voiced_clock=None
                 activation_sample=len(pending)
                 processed_samples=0
                 last_voiced_sample=0
@@ -113,14 +117,18 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         if message[0]!='audio' or message[1]!=session_id or message[2]<accept_after:
                             continue
                         incoming=np.frombuffer(message[3],dtype='<i2').astype(np.float32)/32768
+                        if not len(pending):pending_start=message[2]-len(incoming)/16000
                         pending=np.concatenate([pending,incoming])
                     if len(pending)<512:
                         continue
                     frame,pending=pending[:512],pending[512:]
+                    frame_end=pending_start+512/16000
+                    pending_start=frame_end
                     processed_samples+=len(frame)
                     probability=vad.probability(frame)
                     if probability>=config.vad_threshold:
                         last_voiced_sample=processed_samples
+                        last_voiced_clock=frame_end
                     audio,reason,started=segmenter.feed(frame,probability)
                     if started:
                         turn_audio=[]
@@ -137,7 +145,7 @@ def voice_worker(inbox,outbox,cancel,root,config):
                         turn_audio.append(audio.copy())
                         if probability>=config.vad_threshold:turn_voiced_ms+=32
                     if reason:
-                        voice_end=time.monotonic()-segmenter.silent_ms/1000
+                        voice_end=last_voiced_clock if last_voiced_clock is not None else time.monotonic()-segmenter.silent_ms/1000
                         latencies={'end_detection_seconds':max(0,time.monotonic()-voice_end)}
                         emit('speech_ended',reason=reason,estimated_voice_end_monotonic=voice_end)
                         state('FINALIZING_TRANSCRIPT')
@@ -185,6 +193,7 @@ def voice_worker(inbox,outbox,cancel,root,config):
                             def publishable():
                                 return not cancel.is_set() and (not hasattr(provider,'can_publish') or provider.can_publish(reply))
                             if config.tts_enabled and reply.text and publishable():
+                                played[0]=False
                                 # Gate the mic before synthesis, including cold TTS load.
                                 state('SPEAKING')
                                 t0=time.monotonic()
@@ -205,6 +214,8 @@ def voice_worker(inbox,outbox,cancel,root,config):
                                             first[0]=False
                                         yield chunk
                                 SpeechPlaybackManager(config.output_device).play(chunks(),cancel,emit)
+                                if played[0] and publishable() and hasattr(provider,'mark_presented'):
+                                    provider.mark_presented(reply)
                                 emit('playback_ended',cancelled=cancel.is_set())
                                 if cancel.is_set() and config.dialogue_profile=='next':provider.cancel()
                                 cancel.clear()

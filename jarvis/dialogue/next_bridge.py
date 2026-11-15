@@ -18,16 +18,23 @@ class NextVoiceBridge:
                 review_enabled=True,cancelled=cancel.is_set))
         self.conversation=conversation
         self._reply=self._outcome=None
+        self._presented=False
 
     def begin_session(self,session_id,snapshot=None):
         self.conversation.begin_session(str(session_id))
         self._reply=self._outcome=None
+        self._presented=False
 
     def respond(self,utterance,diagnostic_echo=False):
         if utterance.session_id!=self.conversation.session_id or self.cancel_event.is_set():
             return DialogueReply('')
-        result=(self.conversation._local('Escuché: '+utterance.text,utterance.turn_id) if diagnostic_echo
-                else self.conversation.interpret(utterance.text,utterance.turn_id))
+        if (normalized(utterance.text) in ('si','confirmo','confirmo la simulacion','confirmo la revision')
+            and self._outcome is not None and self._outcome.review and not self._presented):
+            result=self.conversation.reject_draft(utterance.turn_id,'No he presentado una propuesta vigente para confirmar. Pídemela otra vez.')
+        else:
+            result=(self.conversation._local('Escuché: '+utterance.text,utterance.turn_id) if diagnostic_echo
+                    else self.conversation.interpret(utterance.text,utterance.turn_id))
+        self._presented=False
         self._outcome=result
         text=result.message if self.conversation.can_publish(result) else ''
         self._reply=DialogueReply(text,normalized(utterance.text) in ('adios','hasta luego'))
@@ -37,9 +44,14 @@ class NextVoiceBridge:
         return (reply is self._reply and self._outcome is not None and not self.cancel_event.is_set()
                 and self.conversation.can_publish(self._outcome))
 
+    def mark_presented(self,reply):
+        if self.can_publish(reply) and self._outcome.review:
+            self._presented=True
+
     def cancel(self):
         self.conversation.cancel()
         self._reply=self._outcome=None
+        self._presented=False
 
     def end_session(self):
         self.cancel()

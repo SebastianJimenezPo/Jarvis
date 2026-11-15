@@ -139,6 +139,10 @@ class NextConversation:
         self._review=None;self.pending=None
         return self._finish(self.engine.confirm(review_id,self.session_id,turn_id),self._epoch)
 
+    def reject_draft(self,turn_id='reject',message='Descarté el borrador; conservé el plan anterior.'):
+        self._review=None
+        return self._local(message,turn_id)
+
     def can_publish(self,result):
         if result is not self._last or self.engine.cancelled(): return False
         if result.review and self.engine.manager.clock()>=self._review_deadline:return False
