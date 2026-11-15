@@ -17,7 +17,7 @@ def request(text=TEXT):
 
 
 def wire(**updates):
-    data = dict(operation='create_plan', plan_id=None, expected_revision=0, temporal='now', evidence_text=TEXT,
+    data = dict(request_mode='immediate', operation='create_plan', plan_id=None, expected_revision=0, temporal='now', evidence_text=TEXT,
         actions=[dict(tool='applications.open', target='steam', value=None, muted=None, evidence_text=TEXT)],
         changes=[], action_ids=[])
     return {**data, **updates}
@@ -70,6 +70,9 @@ def test_groq_strict_request_minimizes_data_and_reuses_connection():
         assert headers['Authorization'] == 'Bearer '+SECRET
         assert payload['response_format']['json_schema']['strict'] is True
         assert payload['model'] == MODEL and payload['reasoning_effort'] == 'low'
+        from jarvis.next.groq import PROMPT
+        assert payload['messages'][0] == {'role': 'system', 'content': PROMPT}
+        assert user_text(payload) == TEXT
         assert not payload['stream'] and not payload.get('tools')
         user = json.loads(payload['messages'][1]['content'])
         assert set(user) == {'text', 'context', 'capabilities'}
@@ -79,6 +82,78 @@ def test_groq_strict_request_minimizes_data_and_reuses_connection():
     finally:
         p.close()
     assert conn.closed and SECRET not in repr(p)
+
+
+def user_text(payload):
+    return json.loads(payload['messages'][1]['content'])['text']
+
+
+@pytest.mark.parametrize('mode', ['reported', 'deferred', 'hypothetical', 'prohibited', 'informational', 'unclear', 'preference'])
+def test_scope_declaration_cannot_carry_an_incompatible_immediate_operation(mode):
+    conn = Connection([Response(completion(wire(request_mode=mode)))])
+    p = provider(conn)
+    try:
+        with pytest.raises(ProviderError, match='invalid_response'):
+            p.interpret(request(), RequestControl(time.monotonic()+2))
+        assert len(conn.requests) == 1 and conn.closed
+    finally:
+        p.close()
+
+
+@pytest.mark.parametrize('mode,operation,temporal', [
+    ('reported', 'conversation', 'unspecified'),
+    ('deferred', 'deferred', 'conditional'),
+    ('hypothetical', 'hypothetical', 'unspecified'),
+    ('prohibited', 'negated', 'unspecified'),
+    ('informational', 'conversation', 'unspecified'),
+    ('unclear', 'clarify', 'unspecified'),
+    ('preference', 'preference', 'unspecified'),
+])
+def test_consistent_non_action_modes_translate_without_tools(mode, operation, temporal):
+    from jarvis.next.groq import decision_from_wire
+    result = decision_from_wire(json.dumps(wire(request_mode=mode, operation=operation,
+        temporal=temporal, actions=[])), request())
+    assert result.operation == operation and not result.actions
+
+
+def test_self_declared_immediate_mode_is_still_not_permission():
+    conn = Connection([Response()])
+    e = NextEngine(provider(conn), review_enabled=True)
+    e.begin_session('cli')
+    try:
+        before = e.manager.snapshot()
+        result = e.interpret(TEXT)
+        assert result.review is not None and not result.results and not result.executed
+        assert e.manager.snapshot() == before
+    finally:
+        e.close()
+
+
+@pytest.mark.parametrize('text,offers_review', [
+    ('Estoy copiando «Abre Steam».', False),
+    ('Al acabar la descarga, inicia Steam.', True),
+])
+def test_consistently_wrong_mode_does_not_bypass_review_or_known_local_veto(text, offers_review):
+    conn = Connection([Response(completion(wire(evidence_text=text,
+        actions=[dict(tool='applications.open', target='steam', value=None, muted=None, evidence_text=text)])))])
+    e = NextEngine(provider(conn), review_enabled=True)
+    e.begin_session('cli')
+    try:
+        before = e.manager.snapshot()
+        result = e.interpret(text)
+        assert bool(result.review) == offers_review
+        assert not result.results and not result.executed and e.manager.snapshot() == before
+        if not offers_review:
+            assert result.policy_reason == 'quoted_command'
+    finally:
+        e.close()
+
+
+@pytest.mark.parametrize('update', [dict(request_mode='invented'), dict(temporal='future')])
+def test_invalid_or_temporally_inconsistent_mode_is_rejected(update):
+    from jarvis.next.groq import decision_from_wire
+    with pytest.raises((ValueError, ProviderError)):
+        decision_from_wire(json.dumps(wire(**update)), request())
 
 
 def test_strict_schema_closes_all_objects_and_requires_all_fields():

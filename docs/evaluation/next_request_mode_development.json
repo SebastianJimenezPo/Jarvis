@@ -1,0 +1,162 @@
+{
+  "method": "DEVELOPMENT request-mode contract experiment: four known failures plus four known controls. Not reserved, not independent, no population or causal improvement claim. At most 8 Groq requests, one pass, no retries; require zero non-action drafts and all 4 positive plans, report exact taxonomy separately.",
+  "cases": [
+    {
+      "id": "semantic-v2-01",
+      "category": "negation",
+      "turns": [
+        {
+          "text": "Por favor, no inicies Discord aunque esté cerrado.",
+          "decision": {
+            "operation": "negated"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-07",
+      "category": "quotation",
+      "turns": [
+        {
+          "text": "El mensaje que estoy copiando dice: “Pausa la música”.",
+          "decision": {
+            "operation": "conversation"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-09",
+      "category": "deferred",
+      "turns": [
+        {
+          "text": "Al acabar la instalación, deja el volumen del sistema al 37%.",
+          "decision": {
+            "operation": "deferred",
+            "temporal": "conditional"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-11",
+      "category": "hypothetical",
+      "turns": [
+        {
+          "text": "Supongamos que quisiera silenciar Windows: ¿qué acción propondrías?",
+          "decision": {
+            "operation": "hypothetical"
+          },
+          "expected_plan": null
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-13",
+      "category": "positive",
+      "turns": [
+        {
+          "text": "Hazme el favor de iniciar Chrome en este momento.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "chrome",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "chrome",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-14",
+      "category": "positive",
+      "turns": [
+        {
+          "text": "Necesito que inicies la aplicación «Spotify» ahora mismo.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "spotify",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "spotify",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-15",
+      "category": "positive",
+      "turns": [
+        {
+          "text": "No abras Discord; lo que sí quiero es que abras Steam ahora.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "applications.open",
+                "target": "steam",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "applications.open",
+              "target": "steam",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "semantic-v2-16",
+      "category": "positive",
+      "turns": [
+        {
+          "text": "Antes pausaba la reproducción yo; esta vez páusala tú ahora.",
+          "decision": {
+            "operation": "create_plan",
+            "actions": [
+              {
+                "tool": "media.pause",
+                "target": "music_player",
+                "parameters": {}
+              }
+            ]
+          },
+          "expected_plan": [
+            {
+              "tool": "media.pause",
+              "target": "music_player",
+              "parameters": {}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
