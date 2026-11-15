@@ -14,7 +14,8 @@ Operation = Literal[
     'clarify', 'preference', 'deferred', 'unsupported', 'conversation', 'negated', 'hypothetical',
 ]
 PolicyReason = Literal['revision', 'plan_identity', 'reference', 'evidence', 'catalog',
-                       'direct_mismatch', 'scope', 'temporal', 'missing_plan', 'conflict', 'capacity']
+                       'direct_mismatch', 'scope', 'temporal', 'missing_plan', 'conflict', 'capacity',
+                       'quoted_command', 'deferred_time']
 
 
 class Span(Record):

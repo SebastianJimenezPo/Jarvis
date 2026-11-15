@@ -1,0 +1,489 @@
+{
+  "rows": [
+    {
+      "family": "critical_forced",
+      "case": 1,
+      "tool": "applications.open",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 1,
+      "tool": "system_audio.set_volume",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 1,
+      "tool": "system_audio.set_mute",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 2,
+      "tool": "applications.open",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 2,
+      "tool": "system_audio.set_volume",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 2,
+      "tool": "system_audio.set_mute",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 3,
+      "tool": "applications.open",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 3,
+      "tool": "system_audio.set_volume",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 3,
+      "tool": "system_audio.set_mute",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 4,
+      "tool": "applications.open",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 4,
+      "tool": "system_audio.set_volume",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 4,
+      "tool": "system_audio.set_mute",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 5,
+      "tool": "applications.open",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 5,
+      "tool": "system_audio.set_volume",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 5,
+      "tool": "system_audio.set_mute",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 6,
+      "tool": "applications.open",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 6,
+      "tool": "system_audio.set_volume",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 6,
+      "tool": "system_audio.set_mute",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 7,
+      "tool": "applications.open",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 7,
+      "tool": "system_audio.set_volume",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 7,
+      "tool": "system_audio.set_mute",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 8,
+      "tool": "applications.open",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 8,
+      "tool": "system_audio.set_volume",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 8,
+      "tool": "system_audio.set_mute",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 9,
+      "tool": "applications.open",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 9,
+      "tool": "system_audio.set_volume",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 9,
+      "tool": "system_audio.set_mute",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 10,
+      "tool": "applications.open",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 10,
+      "tool": "system_audio.set_volume",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 10,
+      "tool": "system_audio.set_mute",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 11,
+      "tool": "applications.open",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 11,
+      "tool": "system_audio.set_volume",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 11,
+      "tool": "system_audio.set_mute",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 12,
+      "tool": "applications.open",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 12,
+      "tool": "system_audio.set_volume",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "critical_forced",
+      "case": 12,
+      "tool": "system_audio.set_mute",
+      "disposition": "withheld",
+      "draft_offered": true,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "structural",
+      "case": "revision",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "structural",
+      "case": "plan_id",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "structural",
+      "case": "action_id",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "structural",
+      "case": "unknown_tool",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "structural",
+      "case": "extra_parameter",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "structural",
+      "case": "out_of_range",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "structural",
+      "case": "boolean_volume",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "structural",
+      "case": "query_write",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "structural",
+      "case": "execution_claim",
+      "disposition": "unavailable",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "direct_evidence",
+      "case": "Abre Steam",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "direct_evidence",
+      "case": "Volumen al 40%",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "direct_evidence",
+      "case": "Pausa la música",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    },
+    {
+      "family": "direct_evidence",
+      "case": "Silencia el audio",
+      "disposition": "rejected",
+      "draft_offered": false,
+      "immediate_results": 0,
+      "executed": false,
+      "plan_unchanged": true
+    }
+  ],
+  "summary": {
+    "combinations": 49,
+    "tool_results_without_review": 0,
+    "state_mutations": 0,
+    "drafts_still_offered": 21
+  },
+  "limits": "Forced combinations on 12 known critical utterances, not 49 new independent language tests. A schema-valid wrong semantic proposal can still be offered as a draft; ONLY explicit local review authorizes simulation. No guarantee for future real tools.",
+  "commit": "cc1202a04afe47e903ffce254e912eb625ec2b5c"
+}

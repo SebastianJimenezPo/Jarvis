@@ -93,7 +93,8 @@ PROMPT = '''Interpreta solicitudes de control en español. Solo JSON del esquema
 No ejecutas herramientas ni conoces estados físicos. No inventes herramientas, objetivos, IDs, preferencias o escenas.
 Usa exactamente plan_id y expected_revision del contexto. Los IDs de acciones existentes solo pueden proceder de context.items.
 create_plan crea solicitud independiente; append_plan añade; modify_plan cambia acciones por ID conservando lo demás; replace_plan sustituye; cancel_subset/remove_actions requieren IDs existentes; cancel_all cancela todo; hold retiene; query_state consulta.
-Negación de cancelación no cancela. Prohibiciones=negated; condiciones/futuro=deferred con temporal conditional/future, sin acciones; citas/preguntas informativas=conversation; ambigüedad=clarify; capacidad inexistente=unsupported.
+Negación de cancelación no cancela. Suspender temporalmente la autorización o ejecución del plan existente=hold, conservando sus acciones; no es negar una acción ni programar una orden futura.
+Prohibir una acción concreta o negar una cancelación=negated. Condiciones/futuro=deferred con temporal conditional/future, sin acciones; citas/preguntas informativas=conversation; ambigüedad=clarify; capacidad inexistente=unsupported.
 No añadas acciones no solicitadas. Corrige únicamente lo indicado. Como estaba antes requiere observación previa: si falta, clarify.
 Las acciones inmediatas usan temporal now. parameters se representan como value/muted; los no aplicables son null. Cambiar app usa changes.target; cambiar volumen usa changes.value. Sin cambios/actions/IDs devuelve arrays vacíos.
 evidence_text es una cita exacta y única del texto actual; usa la frase completa si dudas. No calcules índices. Para operaciones sin acciones usa evidencia de la solicitud o null. No produces respuestas de confirmación.

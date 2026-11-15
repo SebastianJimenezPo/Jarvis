@@ -26,6 +26,58 @@ def confirm(engine, result):
     return engine.confirm(result.review.review_id)
 
 
+@pytest.mark.parametrize('text,reason', [
+    ('Esta tarde deja el audio en silencio.', 'deferred_time'),
+    ('Cuando termine la partida, inicia Steam.', 'deferred_time'),
+    ('En cuanto termine, inicia Steam.', 'deferred_time'),
+    ('Inicia Steam en 20 minutos.', 'deferred_time'),
+    ('El ejemplo es «Pausa la música».', 'quoted_command'),
+    ('Te leo "Abre Chrome".', 'quoted_command'),
+    ("La etiqueta dice 'Silencia el audio'.", 'quoted_command'),
+])
+def test_review_refuses_explicit_future_and_quoted_commands_even_if_provider_claims_now(text, reason):
+    e, _ = make(lambda req: decision(req, actions=(app(req),)))
+    try:
+        before = e.manager.snapshot()
+        result = e.interpret(text)
+        assert result.policy_reason == reason
+        assert result.review is None and not result.results
+        assert e.manager.snapshot() == before
+    finally:
+        e.close()
+
+
+@pytest.mark.parametrize('text', [
+    'Te agradecería que iniciaras Steam, porfa.',
+    'Abre la aplicación "Steam" para mi lista.',
+    'Abre Steam que utilicé ayer.',
+    'Abre Steam que uso cuando estudio.',
+])
+def test_scope_guards_do_not_become_global_vocabulary_allowlist(text):
+    e, _ = make(lambda req: decision(req, actions=(app(req),)))
+    try:
+        result = e.interpret(text)
+        assert result.review is not None and not result.results
+        assert not e.manager.snapshot().items
+    finally:
+        e.close()
+
+
+def test_context_bound_hold_can_omit_top_level_quote_without_losing_local_review():
+    e, _ = make(lambda req: Decision(operation='hold', plan_id=req.context.plan_id,
+        expected_revision=req.context.revision))
+    try:
+        before = e.interpret('Abre Discord').plan
+        result = e.interpret('Deja pendiente la autorización del plan actual')
+        assert result.review is not None and result.review.source_text == 'Deja pendiente la autorización del plan actual'
+        assert e.manager.snapshot() == before
+        after = confirm(e, result)
+        assert after.plan.status == 'withheld' and after.plan.items == before.items
+        assert after.plan.plan_id == before.plan_id and not after.results
+    finally:
+        e.close()
+
+
 def test_complex_create_requires_exact_local_review_and_never_executes():
     e, p = make(lambda req: decision(req, actions=(app(req),)))
     try:

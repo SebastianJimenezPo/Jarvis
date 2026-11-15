@@ -6,6 +6,7 @@ import uuid
 from dataclasses import dataclass, field
 from .contracts import ContextView, Decision, PlanItem, PlanReview, PolicyReason
 from .direct import direct_decision
+from .scope import blocked_scope
 
 
 class StaleDecision(Exception):
@@ -176,7 +177,11 @@ class ActionManager:
                      'cancel_subset', 'cancel_all', 'hold', 'query_state')
         if decision.operation not in supported:
             return
-        if not decision.evidence and not decision.actions:
+        if reason := blocked_scope(ticket.text, self._context):
+            raise PolicyError(reason)
+        context_bound = (decision.operation in ('hold', 'cancel_all', 'cancel_subset', 'remove_actions', 'modify_plan')
+                         and decision.plan_id is not None and decision.plan_id == self._context.plan_id)
+        if not decision.evidence and not decision.actions and not context_bound:
             raise PolicyError('scope')
         if decision.operation not in ('cancel_all', 'hold') and decision.temporal != 'now':
             raise PolicyError('temporal')
