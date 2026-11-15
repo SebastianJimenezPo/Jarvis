@@ -1,0 +1,7 @@
+{
+  "status": "retired_as_development",
+  "date": "2026-11-14",
+  "baseline": "4ca6910572fb3673b9cab9d9a837bd5620236d77",
+  "reason": "Completed first exposures; failures will now inform scope guards and provider instructions.",
+  "original_results": "docs/reports/next-reserved-v1-combined.json"
+}

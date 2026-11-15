@@ -87,6 +87,11 @@ def test_seal_rejects_tampered_data_without_any_provider_call(tmp_path):
         verify(copy)
 
 
+def test_retired_corpus_cannot_be_presented_as_reserved_again():
+    with pytest.raises(ValueError, match='retired'):
+        verify(Path('docs/evaluation/next_reserved_v1.json'))
+
+
 def test_seal_also_checks_module_set_not_only_known_file_hashes(tmp_path):
     import hashlib
     manifest = data()

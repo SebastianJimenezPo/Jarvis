@@ -14,6 +14,9 @@ def verify(dataset):
     if digest != dataset.with_suffix('.sha256').read_text(encoding='ascii').strip():
         raise ValueError('Dataset seal mismatch')
     data = json.loads(raw)
+    status_path = dataset.with_suffix('.status.json')
+    if status_path.exists() and json.loads(status_path.read_text(encoding='utf-8')).get('status') != 'reserved':
+        raise ValueError('Dataset retired; use only as development regression')
     if {p.as_posix() for p in Path('jarvis/next').glob('*.py')} != set(data['engine_sha256']):
         raise ValueError('Frozen engine module set changed')
     for name, expected in data['engine_sha256'].items():
