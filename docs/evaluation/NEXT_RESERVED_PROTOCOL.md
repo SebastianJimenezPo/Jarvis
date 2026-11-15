@@ -21,3 +21,11 @@ El control fixture usa las expectativas para generar respuestas: solo verifica i
 Solo texto, estados propuestos, respuestas estructuradas y métricas locales. No se guarda audio, se captura pantalla ni se cambia la voz. Los errores publicados son categorías y booleanos, nunca cuerpos HTTP, claves o valores de herramientas desconocidas. La observación está en el evaluador, no añade almacenamiento conversacional al runtime.
 
 Una primera pasada conserva todos los fallos y no ajusta el motor durante la ejecución. Si después se usan para corregir prompt, política, contrato o código, el conjunto se retira como reservado y pasa a regresión. No puede presentarse un segundo intento sobre esos datos como otra validación independiente. La integración de voz y la autorización automática siguen fuera de este bloque.
+
+## Interrupción y continuación manual
+
+La ejecución se detuvo tras 18 turnos por `invalid_response`. No se repitió ese caso. Se añadió al ejecutor (no al motor) una continuación manual que exige el mismo sello, proveedor, configuración y prefijo de casos ya intentados. Solo permite empezar otra sesión aún no observada; rechaza reanudar a mitad de una secuencia. Se registran offset y hash canónico del informe anterior.
+
+La continuación procesa los 15 casos intactos restantes con el mismo motor `4ca6910`. La consolidación verifica orden, ausencia de duplicados y enlaces de procedencia. No es una segunda evaluación y conserva el fallo original en el denominador. La conexión TLS se inicia de nuevo; las latencias son observaciones de dos procesos, no un experimento continuo controlado.
+
+`setup_succeeded` es un indicador conservador de que todas las comprobaciones anteriores de la secuencia pasaron. Un fallo previo de clasificación puede activar esa marca aun si el plan real no cambió; no demuestra por sí solo que el estado operativo esté equivocado. Las medidas de referencias e identidad/no mutación se informan aparte y también incluyen casos sin elementos activos.

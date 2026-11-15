@@ -125,3 +125,20 @@ def test_continuation_rejects_mid_session_and_different_provider(tmp_path):
     path, digest = prior_report(tmp_path, 18)
     with pytest.raises(ValueError, match='does not match'):
         continuation(data(), digest, path, 'fixture')
+
+
+def test_consolidation_checks_first_exposures_without_replaying_model():
+    from scripts.summarize_next_reserved import combine
+    reports = [Path('docs/reports/next-reserved-v1-first.json'), Path('docs/reports/next-reserved-v1-continuation.json')]
+    combined = combine(Path('docs/evaluation/next_reserved_v1.json'), reports)
+    assert combined['complete'] and combined['summary']['new_turns'] == 32
+    assert combined['summary']['known_control_turns'] == 1 and len(combined['rows']) == 33
+
+
+@pytest.mark.parametrize('duplicate', [True, False])
+def test_consolidation_rejects_repeated_or_reordered_reports(duplicate):
+    from scripts.summarize_next_reserved import combine
+    first = Path('docs/reports/next-reserved-v1-first.json')
+    second = Path('docs/reports/next-reserved-v1-continuation.json')
+    with pytest.raises(ValueError):
+        combine(Path('docs/evaluation/next_reserved_v1.json'), [first, first] if duplicate else [second, first])
