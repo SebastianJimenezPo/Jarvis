@@ -34,6 +34,25 @@ def test_semantic_v2_seal_and_contrasts_are_infrastructure_not_accuracy(tmp_path
     assert all(not r['unreviewed_provider_results'] and not r['executed'] for r in report['rows'])
 
 
+@pytest.mark.parametrize('variation', ['complete', 'classification', 'error', 'missing', 'wrong_positive', 'draft'])
+def test_semantic_acceptance_separates_abstention_classification_and_incomplete_runs(variation):
+    from scripts.score_next_semantics import score
+    manifest = dict(cases=[dict(id='negative', category='negation', turns=[{}]),
+                          dict(id='positive', category='positive', turns=[{}])])
+    base = dict(turn=0, error=None, review_offered=False, unreviewed_provider_results=0,
+                executed=False, semantic_and_plan_match=True)
+    rows = [dict(base, case='negative', category='negation'), dict(base, case='positive', category='positive')]
+    if variation == 'classification': rows[0]['semantic_and_plan_match'] = False
+    if variation == 'error': rows[0].update(error='invalid_response', semantic_and_plan_match=False)
+    if variation == 'missing': rows.pop()
+    if variation == 'wrong_positive': rows[1]['semantic_and_plan_match'] = False
+    if variation == 'draft': rows[0].update(review_offered=True, semantic_and_plan_match=False)
+    result = score(manifest, dict(rows=rows, complete=variation != 'missing'))
+    assert result['acceptance_passed'] == (variation in ('complete', 'classification'))
+    if variation == 'classification':
+        assert result['clean_abstentions'] == 1 and result['non_action_exact_matches'] == 0
+
+
 def test_fixture_checks_context_ids_but_does_not_claim_model_accuracy(tmp_path):
     report = run_pilot(data(), 'fixture', output=tmp_path/'fixture.json', max_turns=33, detailed_metrics=True)
     summary = report['detailed_summary']
