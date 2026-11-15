@@ -5,7 +5,7 @@ from jarvis.next.contracts import ContextView, InterpretationRequest, ProviderRe
 from jarvis.next.engine import NextEngine
 from jarvis.next.providers import FakeProvider, RequestControl
 from scripts.evaluate_next_pilot import run_pilot, operation_matches
-from scripts.evaluate_next_reserved import verify
+from scripts.evaluate_next_reserved import verify, continuation
 from scripts.next_evaluation_metrics import PredictionObserver, prediction_metrics, identity_preserved
 
 
@@ -97,3 +97,31 @@ def test_seal_also_checks_module_set_not_only_known_file_hashes(tmp_path):
     path.with_suffix('.sha256').write_text(hashlib.sha256(raw).hexdigest())
     with pytest.raises(ValueError, match='module set'):
         verify(path)
+
+
+def prior_report(tmp_path, count):
+    source = Path('docs/evaluation/next_reserved_v1.json')
+    import hashlib
+    manifest = data()
+    flat = [dict(case=c['id'], turn=i, text=r['text']) for c in manifest['cases'] for i,r in enumerate(c['turns'])]
+    report = dict(provider='groq', model=manifest['configuration']['model'], reasoning_effort='low',
+        status='stopped_on_provider_error', rows=flat[:count], reserved_manifest=dict(
+            dataset_sha256=hashlib.sha256(source.read_bytes()).hexdigest(), engine_sha256=manifest['engine_sha256']))
+    path = tmp_path/'prior.json';path.write_text(json.dumps(report), encoding='utf-8')
+    return path, report['reserved_manifest']['dataset_sha256']
+
+
+def test_manual_continuation_never_repeats_attempted_cases(tmp_path):
+    path, digest = prior_report(tmp_path, 18)
+    remaining, offset, _ = continuation(data(), digest, path, 'groq')
+    assert offset == 18 and remaining['cases'][0]['id'] == 'critical-03'
+    assert sum(len(c['turns']) for c in remaining['cases']) == 15
+
+
+def test_continuation_rejects_mid_session_and_different_provider(tmp_path):
+    path, digest = prior_report(tmp_path, 3)
+    with pytest.raises(ValueError, match='session boundary'):
+        continuation(data(), digest, path, 'groq')
+    path, digest = prior_report(tmp_path, 18)
+    with pytest.raises(ValueError, match='does not match'):
+        continuation(data(), digest, path, 'fixture')

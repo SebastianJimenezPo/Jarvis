@@ -1,0 +1,870 @@
+{
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "reasoning_effort": "low",
+  "method": "INTERNAL reserved v1 after stage-2 engine freeze; same author as code, not human-independent or a generalization guarantee. Exact development duplicates excluded; one labelled known control. Gold expectations never sent to Groq. Future tuning retires this set.",
+  "commit": "5792464a9239b104539e4453545e2e4683f6f0ac",
+  "status": "stopped_on_provider_error",
+  "rows": [
+    {
+      "case": "new-app-plan",
+      "turn": 0,
+      "text": "Necesito Spotify abierto para poner música",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "spotify",
+          "parameters": {}
+        }
+      ],
+      "seconds": 1.1663398000018788,
+      "usage": {
+        "input_tokens": 1793,
+        "output_tokens": 194
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43257856,
+      "client_cpu_seconds_delta": 0.03125,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-app-plan",
+      "turn": 1,
+      "text": "Además, abre Chrome sin quitar Spotify",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "append_plan",
+      "actual_operation": "append_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "spotify",
+          "parameters": {}
+        },
+        {
+          "tool": "applications.open",
+          "target": "chrome",
+          "parameters": {}
+        }
+      ],
+      "seconds": 1.3126160999963759,
+      "usage": {
+        "input_tokens": 1862,
+        "output_tokens": 239
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43343872,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-app-plan",
+      "turn": 2,
+      "text": "Cambia únicamente Chrome por Steam",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "modify_plan",
+      "actual_operation": "modify_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "spotify",
+          "parameters": {}
+        },
+        {
+          "tool": "applications.open",
+          "target": "steam",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.9216471000036108,
+      "usage": {
+        "input_tokens": 1914,
+        "output_tokens": 237
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43442176,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-app-plan",
+      "turn": 3,
+      "text": "Retira Spotify del plan; mantén Steam",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "cancel_subset",
+      "actual_operation": "cancel_subset",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "steam",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.8922053999995114,
+      "usage": {
+        "input_tokens": 1917,
+        "output_tokens": 208
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43409408,
+      "client_cpu_seconds_delta": 0.015625,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": null,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-app-plan",
+      "turn": 4,
+      "text": "Reemplaza la lista completa por Discord",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "replace_plan",
+      "actual_operation": "replace_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "discord",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.7581724999981816,
+      "usage": {
+        "input_tokens": 1866,
+        "output_tokens": 240
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43442176,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-app-plan",
+      "turn": 5,
+      "text": "No borres lo que queda",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "negated",
+      "actual_operation": "negated",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "discord",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.5311149999979534,
+      "usage": {
+        "input_tokens": 1862,
+        "output_tokens": 144
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43548672,
+      "client_cpu_seconds_delta": 0.015625,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": null,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-app-plan",
+      "turn": 6,
+      "text": "Aún no autorices este plan",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "hold",
+      "actual_operation": "negated",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": false,
+      "plan_match": true,
+      "identity_preserved": null,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "discord",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.7559852000049432,
+      "usage": {
+        "input_tokens": 1863,
+        "output_tokens": 163
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43560960,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": false,
+      "provider_catalog_valid": null,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-app-plan",
+      "turn": 7,
+      "text": "Borra todas las propuestas pendientes",
+      "setup_succeeded": false,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "cancel_all",
+      "actual_operation": "cancel_all",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [],
+      "seconds": 0.8023428000014974,
+      "usage": {
+        "input_tokens": 1862,
+        "output_tokens": 152
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43622400,
+      "client_cpu_seconds_delta": 0.015625,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": null,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-audio-plan",
+      "turn": 0,
+      "text": "Deja el sonido del sistema en 46 por ciento",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_volume",
+          "target": "system_audio",
+          "parameters": {
+            "value": 46
+          }
+        }
+      ],
+      "seconds": 0.9551273999968544,
+      "usage": {
+        "input_tokens": 1797,
+        "output_tokens": 231
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43675648,
+      "client_cpu_seconds_delta": 0.015625,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-audio-plan",
+      "turn": 1,
+      "text": "Corrige ese ajuste: que sea 18, no 46",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "modify_plan",
+      "actual_operation": "modify_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_volume",
+          "target": "system_audio",
+          "parameters": {
+            "value": 18
+          }
+        }
+      ],
+      "seconds": 0.9340932999984943,
+      "usage": {
+        "input_tokens": 1878,
+        "output_tokens": 227
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43696128,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-audio-plan",
+      "turn": 2,
+      "text": "Agrega poner el audio en silencio",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "append_plan",
+      "actual_operation": "append_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_volume",
+          "target": "system_audio",
+          "parameters": {
+            "value": 18
+          }
+        },
+        {
+          "tool": "system_audio.set_mute",
+          "target": "system_audio",
+          "parameters": {
+            "muted": true
+          }
+        }
+      ],
+      "seconds": 0.7513039999976172,
+      "usage": {
+        "input_tokens": 1872,
+        "output_tokens": 219
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43741184,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-audio-plan",
+      "turn": 3,
+      "text": "Conserva el silencio y quita solamente el cambio de volumen",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "cancel_subset",
+      "actual_operation": "cancel_subset",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_mute",
+          "target": "system_audio",
+          "parameters": {
+            "muted": true
+          }
+        }
+      ],
+      "seconds": 0.9041861000005156,
+      "usage": {
+        "input_tokens": 1940,
+        "output_tokens": 211
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43782144,
+      "client_cpu_seconds_delta": 0.015625,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": null,
+      "provider_references_valid": true
+    },
+    {
+      "case": "new-audio-plan",
+      "turn": 4,
+      "text": "¿Cuál es el porcentaje real que tiene ahora el audio?",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "query_state",
+      "actual_operation": "query_state",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "system_audio.set_mute",
+          "target": "system_audio",
+          "parameters": {
+            "muted": true
+          }
+        }
+      ],
+      "seconds": 0.9168800999977975,
+      "usage": {
+        "input_tokens": 1879,
+        "output_tokens": 197
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43814912,
+      "client_cpu_seconds_delta": 0.015625,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "mixed-edit",
+      "turn": 0,
+      "text": "Abre Chrome.",
+      "setup_succeeded": true,
+      "role": "control_setup",
+      "category": "context",
+      "expected_operation": "create_plan",
+      "actual_operation": "create_plan",
+      "route": "direct",
+      "disposition": "simulated",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "chrome",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.004199499999231193,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43835392,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": false,
+      "provider_contract_valid": null,
+      "provider_operation_match": null,
+      "provider_catalog_valid": null,
+      "provider_references_valid": null
+    },
+    {
+      "case": "mixed-edit",
+      "turn": 1,
+      "text": "Mejor Discord en lugar de Chrome, y aparte pausa la música",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "modify_plan",
+      "actual_operation": "modify_plan",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "discord",
+          "parameters": {}
+        },
+        {
+          "tool": "media.pause",
+          "target": "music_player",
+          "parameters": {}
+        }
+      ],
+      "seconds": 1.6070620999962557,
+      "usage": {
+        "input_tokens": 1872,
+        "output_tokens": 259
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43851776,
+      "client_cpu_seconds_delta": 0.015625,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": true,
+      "provider_references_valid": true
+    },
+    {
+      "case": "mixed-edit",
+      "turn": 2,
+      "text": "Elimina solo lo de pausar; no toques Discord",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "context",
+      "expected_operation": "cancel_subset",
+      "actual_operation": "cancel_subset",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": true,
+      "review_applied": true,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [
+        {
+          "tool": "applications.open",
+          "target": "discord",
+          "parameters": {}
+        }
+      ],
+      "seconds": 0.7295750999983284,
+      "usage": {
+        "input_tokens": 1917,
+        "output_tokens": 167
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 43896832,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": null,
+      "provider_references_valid": true
+    },
+    {
+      "case": "critical-01",
+      "turn": 0,
+      "text": "De momento evita lanzar Chrome.",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "critical",
+      "expected_operation": "negated",
+      "actual_operation": "negated",
+      "route": "provider",
+      "disposition": "withheld",
+      "semantic_and_plan_match": true,
+      "review_offered": false,
+      "review_applied": false,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": true,
+      "plan_match": true,
+      "identity_preserved": true,
+      "unexpected_action_draft": false,
+      "error": null,
+      "policy_reason": null,
+      "candidate_plan": [],
+      "seconds": 1.1416288999971584,
+      "usage": {
+        "input_tokens": 1791,
+        "output_tokens": 137
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 44019712,
+      "client_cpu_seconds_delta": 0,
+      "provider_reply_received": true,
+      "provider_contract_valid": true,
+      "provider_operation_match": true,
+      "provider_catalog_valid": null,
+      "provider_references_valid": true
+    },
+    {
+      "case": "critical-02",
+      "turn": 0,
+      "text": "En cuanto acabe esta partida, inicia Spotify.",
+      "setup_succeeded": true,
+      "role": "evaluation",
+      "category": "critical",
+      "expected_operation": "deferred",
+      "actual_operation": null,
+      "route": "provider",
+      "disposition": "unavailable",
+      "semantic_and_plan_match": false,
+      "review_offered": false,
+      "review_applied": false,
+      "unreviewed_provider_results": 0,
+      "operation_equivalence_used": false,
+      "operation_match": false,
+      "plan_match": true,
+      "identity_preserved": null,
+      "unexpected_action_draft": false,
+      "error": "invalid_response",
+      "policy_reason": null,
+      "candidate_plan": [],
+      "seconds": 1.2491396000041277,
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "executed": false,
+      "client_rss_after_turn_bytes": 44089344,
+      "client_cpu_seconds_delta": 0.015625,
+      "provider_reply_received": false,
+      "provider_contract_valid": null,
+      "provider_operation_match": null,
+      "provider_catalog_valid": null,
+      "provider_references_valid": null
+    }
+  ],
+  "max_turns": 33,
+  "available_turns": 33,
+  "limits": "Dataset method/manifest defines development versus internal-reserved status. Fixture scores check infrastructure, not model quality. Joint pipeline matches do not isolate model/router/policy accuracy. Rate-limit sleeps are outside interpretation latency. No generalization, physical, voice or FPS claims.",
+  "client_rss_start_bytes": 36577280,
+  "client_resources": {
+    "rss_final_bytes": 44113920,
+    "rss_max_turn_boundary_bytes": 44089344,
+    "cpu_seconds_during_interpretation_and_review": 0.15625,
+    "cpu_peak": null,
+    "gpu": null,
+    "limits": "Text pilot process only; snapshots at turn boundaries, not sampled peaks. No resident, STT, TTS, gaming or remote-server memory measurement."
+  },
+  "summary": {
+    "turns": 18,
+    "checks_passed": 16,
+    "setup_failed_turns": 1,
+    "unexpected_action_drafts": 0,
+    "remote_requests_attempted": 17,
+    "real_model_accuracy": null,
+    "live_pipeline_match_rate": 0.8888888888888888
+  },
+  "route_latency": {
+    "direct": {
+      "count": 1,
+      "median": 0.004199499999231193,
+      "p95": 0.004199499999231193
+    },
+    "provider": {
+      "count": 17,
+      "median": 0.9168800999977975,
+      "p95": 1.6070620999962557
+    },
+    "offline": {
+      "count": 0,
+      "median": null,
+      "p95": null
+    }
+  },
+  "detailed_summary": {
+    "evaluation_turns": 17,
+    "known_control_turns": 1,
+    "pipeline_matches": 15,
+    "provider_turns": 17,
+    "observable_provider_decisions": 16,
+    "provider_operation_matches_observed": 15,
+    "catalog_proposals_observed": 9,
+    "provider_catalog_valid_observed": 9,
+    "provider_references_valid_observed": 16,
+    "policy_rejections": 0,
+    "identity_checks": 15,
+    "identity_checks_passed": 15,
+    "setup_failed_turns": 1,
+    "limits": "Operation/catalog/reference scores cover observable parsed provider decisions only. Unobservable transport/wire failures remain separate. Plan score includes policy/projection; no isolated general model-accuracy claim."
+  },
+  "reserved_manifest": {
+    "dataset_sha256": "cf4f1e0e3864c4b3f86d57ee5081f788d23b971f744ceeaac802991779f2394c",
+    "frozen_engine_commit": "4ca6910572fb3673b9cab9d9a837bd5620236d77",
+    "engine_sha256": {
+      "jarvis/next/__init__.py": "6549a33a94263f45af543fcbcd3caefada136a0a50cdd74acc72672f63803383",
+      "jarvis/next/__main__.py": "9b88876714ea952af645a184da2d3a6cc82cfec8611b0b4d75c23058e41aca1b",
+      "jarvis/next/contracts.py": "2f6860943cbd67de5ae87cd2815c79a8f082071dc1f14f6466525973fac60790",
+      "jarvis/next/credentials.py": "8e8ed2e56e276e6440114b61ffc67f8943ee01a430f8bb48474714c1c23a1613",
+      "jarvis/next/direct.py": "250244df64617caf3d9e0dfa5581fe2fc53e4f6b83be604170c598af18e9af7c",
+      "jarvis/next/engine.py": "3f85c6e82c2a64261a9501ab342bfeb466b129acedd4ca83a7411bf696266499",
+      "jarvis/next/groq.py": "5499c9636917d0223b72ab3a713bc69d8ad6f20d1a9c9b08149f72343e5a3502",
+      "jarvis/next/manager.py": "71f0fc68fcff44416d8d0dffb1d813d9c76ed308748ed44c5a79e0347da0e8d5",
+      "jarvis/next/providers.py": "a24ba680117b48f9e5ba941eb9be2a083be0a27f6eed3b12657f39a165232174",
+      "jarvis/next/tools.py": "7e5f2c5f3b28478fbbe08ffa380f1956a96cf6ba98b5fe422dab7ca4877e94ff"
+    },
+    "limits": "Internally authored by same agent after freeze. Exact duplicate check only; semantic near-duplicates and author bias remain possible. Fixture run checks infrastructure only."
+  },
+  "evaluation_kind": "internal_reserved_first_pass"
+}
