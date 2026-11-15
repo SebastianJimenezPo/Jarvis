@@ -50,3 +50,5 @@ jobs:
           python -c "import importlib.util; assert all(importlib.util.find_spec(x) is None for x in ('onnxruntime', 'tokenizers', 'moonshine_voice', 'torch'))"
       - name: Offline Next contracts, policies, deadlines and CLI
         run: python -m pytest -q --strict-markers tests/test_next_foundation.py tests/test_next_groq.py tests/test_next_review.py tests/test_next_pilot.py tests/test_next_evaluation.py
+      - name: Forced provider responses cannot emit tools without review
+        run: python scripts/check_next_policy_boundaries.py --output "$env:RUNNER_TEMP/next-policy-boundaries.json"
